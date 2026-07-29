@@ -318,6 +318,29 @@ def save_payload(
     expected_reader_calls: int,
 ) -> None:
     unique_reader_successes = sum(bool(row.get("reader_ok")) for row in rows)
+    expected_judge_calls = (
+        unique_reader_successes * len(protocol["judge_models"])
+    )
+    judge_attempts = sum(
+        len(
+            {
+                judge["model"]
+                for judge in row.get("judges", [])
+                if judge.get("model") in protocol["judge_models"]
+            }
+        )
+        for row in rows
+        if row.get("reader_ok")
+    )
+    judge_successes = sum(
+        bool(judge.get("ok"))
+        for row in rows
+        if row.get("reader_ok")
+        for judge in row.get("judges", [])
+        if judge.get("model") in protocol["judge_models"]
+    )
+    reader_schedule_complete = len(rows) == expected_reader_calls
+    judge_schedule_complete = judge_attempts == expected_judge_calls
     write_result(
         output,
         {
@@ -327,7 +350,16 @@ def save_payload(
                 "expected_reader_calls": expected_reader_calls,
                 "reader_rows": len(rows),
                 "successful_reader_calls": unique_reader_successes,
-                "complete": len(rows) == expected_reader_calls,
+                "failed_reader_calls": len(rows) - unique_reader_successes,
+                "expected_judge_calls": expected_judge_calls,
+                "attempted_judge_calls": judge_attempts,
+                "successful_judge_calls": judge_successes,
+                "failed_judge_calls": judge_attempts - judge_successes,
+                "reader_schedule_complete": reader_schedule_complete,
+                "judge_schedule_complete": judge_schedule_complete,
+                "complete": (
+                    reader_schedule_complete and judge_schedule_complete
+                ),
                 "scope": (
                     "Public MemGym-DR instances, official BM25 chunking and "
                     "judge prompt, isolated Codex subscription readers"

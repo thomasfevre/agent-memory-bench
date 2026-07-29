@@ -18,6 +18,9 @@ LONGMEMEVAL = RESULTS / "P2-LONGMEMEVAL-ROLE-ABLATION-29PAIRS-20260729.json"
 MAB_CONFLICT = (
     RESULTS / "P2-MEMORYAGENTBENCH-CONFLICT-ALL-VARIANTS-20260729.json"
 )
+MAB_SCALE = (
+    RESULTS / "P2-MEMORYAGENTBENCH-CODEX-SCALE-15Q-20260729.json"
+)
 
 
 def rounded(value: float, digits: int = 3) -> float:
@@ -158,13 +161,94 @@ def mab_conflict_record(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def mab_scale_record(payload: dict[str, Any]) -> dict[str, Any]:
+    manifest = payload["manifest"]
+    series = []
+    for row in payload["summaries"]:
+        series.append(
+            {
+                "variant": row["source"].replace("factconsolidation_", ""),
+                "architecture": row["architecture"],
+                "attempted_calls": row["attempted_calls"],
+                "provider_success_rate": rounded(
+                    row["provider_success_rate"]
+                ),
+                "substring_accuracy": (
+                    rounded(row["substring_exact_match"])
+                    if "substring_exact_match" in row
+                    else None
+                ),
+                "strict_exact_accuracy": (
+                    rounded(row["exact_match"])
+                    if "exact_match" in row
+                    else None
+                ),
+                "token_f1": (
+                    rounded(row["token_f1"])
+                    if "token_f1" in row
+                    else None
+                ),
+                "context_words": (
+                    round(row["mean_context_words"])
+                    if "mean_context_words" in row
+                    else None
+                ),
+                "tokens_per_call": (
+                    round(row["mean_tokens_used"])
+                    if row.get("mean_tokens_used") is not None
+                    else None
+                ),
+                "latency_s": (
+                    rounded(row["mean_reader_latency_seconds"], 2)
+                    if "mean_reader_latency_seconds" in row
+                    else None
+                ),
+            }
+        )
+    return {
+        "id": "memoryagentbench-conflict-scale-generation-20260729",
+        "date": datetime.fromisoformat(manifest["created_at"]).date().isoformat(),
+        "phase": "generation",
+        "dataset": "MemoryAgentBench Conflict Resolution",
+        "task": "Read contradictory memory from 32k through 262k scale",
+        "method": "Full context, BM25 top-20 and hybrid top-20",
+        "reader": "gpt-5.6-sol",
+        "evidence_level": "official-data",
+        "sample": (
+            "15 fixed questions across six multi-hop and single-hop variants"
+        ),
+        "repetitions": manifest["repetitions"],
+        "metrics": {"series": series},
+        "budget": {
+            "expected_calls": manifest["expected_calls"],
+            "attempted_calls": manifest["attempted_unique_calls"],
+            "successful_calls": manifest["successful_unique_calls"],
+            "failed_calls": manifest["failed_unique_calls"],
+            "top_k": manifest["top_k"],
+        },
+        "conclusion": (
+            "Single-hop retrieval remained useful as memory grew, while "
+            "multi-hop reading stayed weak; raw 262k contexts exceeded the "
+            "Codex input-character ceiling but compressed retrieval paths ran."
+        ),
+        "limitation": (
+            "Only 15 fixed questions per variant were evaluated, and the "
+            "official substring metric can reward overbroad contradictory "
+            "answers."
+        ),
+        "evidence_files": [
+            "results/P2-MEMORYAGENTBENCH-CODEX-SCALE-15Q-20260729.json"
+        ],
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--base-registry", type=Path, default=REGISTRY)
     parser.add_argument("--base-from-head", action="store_true")
     args = parser.parse_args()
 
-    required = [LONGMEMEVAL, MAB_CONFLICT]
+    required = [LONGMEMEVAL, MAB_CONFLICT, MAB_SCALE]
     if not args.base_from_head:
         required.append(args.base_registry)
     missing = [str(path) for path in required if not path.is_file()]
@@ -186,16 +270,21 @@ def main() -> int:
     )
     longmemeval = json.loads(LONGMEMEVAL.read_text(encoding="utf-8"))
     mab_conflict = json.loads(MAB_CONFLICT.read_text(encoding="utf-8"))
+    mab_scale = json.loads(MAB_SCALE.read_text(encoding="utf-8"))
     if not longmemeval["manifest"].get("complete"):
         raise RuntimeError("LongMemEval campaign is incomplete")
+    if not mab_scale["manifest"].get("complete"):
+        raise RuntimeError("MemoryAgentBench scale campaign is incomplete")
 
     upsert(registry, longmemeval_record(longmemeval))
     upsert(registry, mab_conflict_record(mab_conflict))
+    upsert(registry, mab_scale_record(mab_scale))
     registry["updated_at"] = "2026-07-29"
     findings = registry["findings"]
     for finding in (
         "Chunk boundaries can change final reading quality even when evidence-session recall is unchanged.",
         "Multi-hop evidence retrieval degrades with memory scale even when single-hop retrieval remains saturated.",
+        "At 262k scale, compressed retrieval remained executable while raw full contexts exceeded the reader input ceiling.",
     ):
         if finding not in findings:
             findings.append(finding)

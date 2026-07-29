@@ -769,11 +769,12 @@ def build_payload(
     retrieval_build_seconds: float,
     seed_results: list[Path],
 ) -> dict[str, Any]:
+    attempted = len({row["run_key"] for row in rows})
     successful = len({row["run_key"] for row in rows if row.get("ok")})
     return {
         "manifest": {
             "created_at": datetime.now(timezone.utc).isoformat(),
-            "complete": successful == expected_calls,
+            "complete": attempted == expected_calls,
             "stopped_reason": stopped_reason,
             "dataset": "ai-hyz/MemoryAgentBench",
             "split": "Conflict_Resolution",
@@ -782,7 +783,9 @@ def build_payload(
             **protocol,
             "expected_calls": expected_calls,
             "attempted_new_calls": attempted_new_calls,
+            "attempted_unique_calls": attempted,
             "successful_unique_calls": successful,
+            "failed_unique_calls": attempted - successful,
             "retrieval_build_seconds": retrieval_build_seconds,
             "seed_results": [str(path.resolve()) for path in seed_results],
             "official_primary_metric": "substring_exact_match",
@@ -794,7 +797,11 @@ def build_payload(
             ),
             "limitations": [
                 "Codex subscription agents include orchestration overhead and are not a pinned raw API endpoint.",
-                "Only the two 6k Conflict Resolution variants are selected.",
+                (
+                    f"Only {len(protocol['sources'])} selected Conflict "
+                    "Resolution variants are evaluated; this is not the full "
+                    "MemoryAgentBench suite."
+                ),
                 "This evaluates retrieval and reading over a final static context, not incremental ingestion, updating, maintenance, or forgetting.",
                 "The hybrid weight and retrieval depth are fixed rather than tuned on the test questions.",
                 "Formal citation validity only checks that cited ids exist in the supplied context; it does not verify entailment or provenance.",

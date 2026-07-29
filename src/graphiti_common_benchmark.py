@@ -46,6 +46,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--top-k", type=int, default=5)
     parser.add_argument("--limit-docs", type=int, default=0)
     parser.add_argument("--limit-questions", type=int, default=0)
+    parser.add_argument("--ingestion-timeout", type=float, default=600.0)
     parser.add_argument("--document-timeout", type=float, default=180.0)
     parser.add_argument("--query-timeout", type=float, default=60.0)
     return parser.parse_args()
@@ -128,7 +129,20 @@ async def run(args: argparse.Namespace) -> None:
         await graphiti.build_indices_and_constraints()
         previous_episode_uuids: list[str] = []
         ingestion_errors: list[dict[str, str]] = []
-        for document in corpus:
+        for document_index, document in enumerate(corpus):
+            remaining_budget = args.ingestion_timeout - (time.perf_counter() - started)
+            if remaining_budget <= 0:
+                ingestion_errors.extend(
+                    {
+                        "source_id": pending["id"],
+                        "error": (
+                            "not attempted: total ingestion budget "
+                            f"{args.ingestion_timeout:.1f}s exhausted"
+                        ),
+                    }
+                    for pending in corpus[document_index:]
+                )
+                break
             try:
                 result = await asyncio.wait_for(
                     graphiti.add_episode(
@@ -140,7 +154,7 @@ async def run(args: argparse.Namespace) -> None:
                         group_id=group_id,
                         previous_episode_uuids=previous_episode_uuids[-3:],
                     ),
-                    timeout=args.document_timeout,
+                    timeout=min(args.document_timeout, remaining_budget),
                 )
                 episode_to_source[result.episode.uuid] = document["id"]
                 previous_episode_uuids.append(result.episode.uuid)
@@ -245,6 +259,11 @@ async def run(args: argparse.Namespace) -> None:
             "backend": "FalkorDB Lite",
             "top_k": args.top_k,
             "documents": len(corpus),
+            "budget": {
+                "ingestion_timeout_seconds": args.ingestion_timeout,
+                "document_timeout_seconds": args.document_timeout,
+                "query_timeout_seconds": args.query_timeout,
+            },
             "ingestion_seconds": round(ingestion_seconds, 3),
             "ingestion_errors": ingestion_errors,
             "llm_tokens": {

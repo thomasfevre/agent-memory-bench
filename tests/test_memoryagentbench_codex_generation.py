@@ -8,6 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from memoryagentbench_codex_generation import (
     architecture_comparisons,
+    build_payload,
     load_seed_rows,
     inherited_legacy_execution_sources,
     rank_facts,
@@ -20,6 +21,45 @@ from memoryagentbench_codex_generation import (
 
 
 class MemoryAgentBenchCodexGenerationTests(unittest.TestCase):
+    def test_completed_schedule_keeps_provider_failures_as_results(self):
+        payload = build_payload(
+            protocol={"sources": ["s"], "execution_order": "interleaved"},
+            rows=[
+                {
+                    "run_key": "one",
+                    "ok": False,
+                    "source": "s",
+                    "model": "m",
+                    "architecture": "bm25",
+                    "repetition": 0,
+                    "question_index": 0,
+                },
+                {
+                    "run_key": "two",
+                    "ok": False,
+                    "source": "s",
+                    "model": "m",
+                    "architecture": "bm25",
+                    "repetition": 0,
+                    "question_index": 1,
+                },
+            ],
+            output=Path("result.json"),
+            parquet=Path("dataset.parquet"),
+            schema=Path("schema.json"),
+            codex_version="codex-test",
+            expected_calls=2,
+            attempted_new_calls=2,
+            stopped_reason=None,
+            retrieval_build_seconds=0.0,
+            seed_results=[],
+        )
+
+        self.assertTrue(payload["manifest"]["complete"])
+        self.assertEqual(2, payload["manifest"]["attempted_unique_calls"])
+        self.assertEqual(0, payload["manifest"]["successful_unique_calls"])
+        self.assertEqual(2, payload["manifest"]["failed_unique_calls"])
+
     def test_long_context_preserves_all_facts(self):
         facts = [
             {"id": "fact-1", "text": "Alpha is linked to Beta."},

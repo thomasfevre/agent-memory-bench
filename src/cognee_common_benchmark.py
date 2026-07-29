@@ -8,7 +8,14 @@ import time
 from pathlib import Path
 from uuid import NAMESPACE_URL, uuid5
 
-_DATA_DIR = tempfile.mkdtemp(prefix="cognee_common_")
+_DATA_DIR = Path(tempfile.mkdtemp(prefix="cognee_common_"))
+os.environ["DATA_ROOT_DIRECTORY"] = str(_DATA_DIR / "data")
+os.environ["SYSTEM_ROOT_DIRECTORY"] = str(_DATA_DIR / "system")
+os.environ["CACHE_ROOT_DIRECTORY"] = str(_DATA_DIR / "cache")
+os.environ["COGNEE_LOGS_DIR"] = str(_DATA_DIR / "logs")
+os.environ["COGNEE_LOG_FILE"] = "false"
+os.environ["COGNEE_CLI_MODE"] = "true"
+os.environ["COGNEE_TRACING_ENABLED"] = "false"
 os.environ["ENABLE_BACKEND_ACCESS_CONTROL"] = "false"
 os.environ["CACHING"] = "false"
 os.environ["TELEMETRY_DISABLED"] = "1"
@@ -38,8 +45,8 @@ from graph_benchmark_common import (
 
 cognee.config.set_graph_database_provider("kuzu")
 cognee.config.set_vector_db_provider("lancedb")
-cognee.config.data_root_directory(str(Path(_DATA_DIR) / "data"))
-cognee.config.system_root_directory(str(Path(_DATA_DIR) / "system"))
+cognee.config.data_root_directory(str(_DATA_DIR / "data"))
+cognee.config.system_root_directory(str(_DATA_DIR / "system"))
 
 
 def parse_args() -> argparse.Namespace:
@@ -84,24 +91,28 @@ async def run(args: argparse.Namespace) -> None:
         )
         for document in corpus
     ]
-    await cognee.prune.prune_data()
-    await cognee.prune.prune_system(metadata=True)
     started = time.perf_counter()
     ingestion_error = None
-    try:
+
+    async def ingest() -> None:
+        await cognee.prune.prune_data()
+        await cognee.prune.prune_system(metadata=True)
         await cognee.add(
             items,
             dataset_name=dataset,
             run_in_background=False,
             data_cache=False,
         )
+        await cognee.cognify(
+            datasets=[dataset],
+            temporal_cognify=True,
+            run_in_background=False,
+            data_cache=False,
+        )
+
+    try:
         await asyncio.wait_for(
-            cognee.cognify(
-                datasets=[dataset],
-                temporal_cognify=True,
-                run_in_background=False,
-                data_cache=False,
-            ),
+            ingest(),
             timeout=args.ingestion_timeout,
         )
     except TimeoutError:
@@ -164,6 +175,10 @@ async def run(args: argparse.Namespace) -> None:
         "backend": "Kuzu and LanceDB embedded",
         "top_k": args.top_k,
         "documents": len(corpus),
+        "budget": {
+            "ingestion_timeout_seconds": args.ingestion_timeout,
+            "query_timeout_seconds": args.query_timeout,
+        },
         "ingestion_seconds": round(ingestion_seconds, 3),
         "ingestion_error": ingestion_error,
         "metrics": score_retrieval(questions, rows) if rows else None,
