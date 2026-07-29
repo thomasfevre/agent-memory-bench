@@ -32,6 +32,20 @@ start commit. Each task begins from a fresh worktree at that exact commit.
 Using this repository keeps installation reproducible on macOS ARM and makes
 the complete task and evaluator publishable.
 
+The frozen fixture commit is
+`cf0dfa68b028f8dab5b39d0a5dddd9e14f2298ea`. The task specification SHA-256
+is `65f6b58fadc7354dbc1baddec6ff1e0704290b6ff8d3e283ab3abeb7982ea471`.
+Hidden evaluator hashes, in task order, are:
+
+1. resume runner:
+   `877b723b0444dbfff51bd5456e759d0f81a545e90cf5e933362a155df22a83cb`;
+2. provenance:
+   `740c623d71fd0d501eb3442e9f0d294323300a8928a1b8c7078eb133e02aa113`;
+3. process resume:
+   `278e5152cd7ded401c6305dbd4c9726265afd00e293a8b3076dc02becf04fc6c`;
+4. requirement change:
+   `e628023b34868ab5ed803b0fcfaae321045304d4dafe32067293a71aa7703d21`.
+
 ### Harnesses
 
 1. jcode;
