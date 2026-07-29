@@ -42,7 +42,7 @@ Hidden evaluator hashes, in task order, are:
 2. provenance:
    `740c623d71fd0d501eb3442e9f0d294323300a8928a1b8c7078eb133e02aa113`;
 3. process resume:
-   `278e5152cd7ded401c6305dbd4c9726265afd00e293a8b3076dc02becf04fc6c`;
+   `accbb557c1b0404300f9cbd2b88302ed2a4ace59e54f97a87c112581de63ed8b`;
 4. requirement change:
    `e628023b34868ab5ed803b0fcfaae321045304d4dafe32067293a71aa7703d21`.
 
