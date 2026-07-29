@@ -28,6 +28,9 @@
 
 ## Priority 3: realistic and adversarial
 
+The shared invariants, budgets, crash matrix and completion gates are fixed in
+[`priority-3-protocols.md`](priority-3-protocols.md) before implementation.
+
 - [ ] Long-running tasks on a realistic public repository.
 - [ ] Same tasks, tools and model across jcode, Letta Code, Codex and Claude Code.
 - [ ] Late, out-of-order, expired and retracted memories under model extraction.
