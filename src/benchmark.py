@@ -115,7 +115,16 @@ class MiniLm:
         )
         self.input_names = {entry.name for entry in self.session.get_inputs()}
 
-    def encode(self, texts: list[str]) -> np.ndarray:
+    def encode(self, texts: list[str], batch_size: int = 64) -> np.ndarray:
+        if not texts:
+            return np.empty((0, 384), dtype=np.float32)
+        batches = [
+            self._encode_batch(texts[start : start + batch_size])
+            for start in range(0, len(texts), batch_size)
+        ]
+        return np.concatenate(batches, axis=0)
+
+    def _encode_batch(self, texts: list[str]) -> np.ndarray:
         encoded = self.tokenizer.encode_batch(texts)
         input_ids = np.asarray([item.ids for item in encoded], dtype=np.int64)
         attention = np.asarray([item.attention_mask for item in encoded], dtype=np.int64)

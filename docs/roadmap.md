@@ -15,8 +15,9 @@
 
 ## Priority 2: stronger evidence
 
-- [ ] Extend LongMemEval generation from the diagnostic pairs to a calibrated
-  full protocol.
+- [x] Extend LongMemEval generation from the diagnostic pairs to all 29 matched
+  answerable/near-miss pairs. The semantic judge remains deliberately separate
+  from the deterministic lower-bound score.
 - [ ] Extend MemoryAgentBench generation beyond the two complete 6k variants.
 - [ ] Complete MemGym-DR with a reader and calibrated judge.
 - [ ] Finish at least two real GraphRAG engines under one aligned budget.

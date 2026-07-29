@@ -12,6 +12,7 @@ dependencies = [
   "numpy==2.2.6",
   "onnxruntime==1.22.1",
   "pyarrow==21.0.0",
+  "rank-bm25==0.2.2",
   "tokenizers==0.21.4",
 ]
 
@@ -24,4 +25,3 @@ pythonpath = ["src"]
 
 [tool.setuptools]
 py-modules = []
-

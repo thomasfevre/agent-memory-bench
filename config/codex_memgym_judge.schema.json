@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "explanation": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "score",
+    "explanation"
+  ]
+}

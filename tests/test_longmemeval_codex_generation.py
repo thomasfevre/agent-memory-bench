@@ -6,9 +6,13 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import numpy as np
+
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
+from benchmark import MiniLm
 from longmemeval_codex_generation import (
+    ChunkRetriever,
     answer_matches_spec,
     context_cache_fingerprint,
     deterministic_answer_match,
@@ -25,7 +29,69 @@ from longmemeval_codex_generation import (
 )
 
 
+class FakeEncoder:
+    def encode(self, texts):
+        vectors = []
+        for text in texts:
+            lowered = text.lower()
+            vector = np.asarray(
+                [
+                    lowered.count("train"),
+                    lowered.count("cake"),
+                    lowered.count("dollar"),
+                ],
+                dtype=np.float32,
+            )
+            norm = np.linalg.norm(vector)
+            vectors.append(vector / norm if norm else vector)
+        return np.asarray(vectors, dtype=np.float32)
+
+
 class LongMemEvalCodexGenerationTests(unittest.TestCase):
+    def test_minilm_encode_batches_without_changing_order(self):
+        encoder = MiniLm.__new__(MiniLm)
+        calls = []
+
+        def fake_batch(texts):
+            calls.append(list(texts))
+            return np.asarray(
+                [[float(int(text.removeprefix("t")))] for text in texts],
+                dtype=np.float32,
+            )
+
+        encoder._encode_batch = fake_batch
+        result = encoder.encode(["t0", "t1", "t2", "t3", "t4"], batch_size=2)
+        self.assertEqual([["t0", "t1"], ["t2", "t3"], ["t4"]], calls)
+        self.assertEqual([0.0, 1.0, 2.0, 3.0, 4.0], result[:, 0].tolist())
+
+    def test_chunk_retriever_matches_one_shot_ranking(self):
+        chunks = [
+            {"id": "u1", "text": "train dollar", "role": "user"},
+            {"id": "a1", "text": "cake", "role": "assistant"},
+            {"id": "u2", "text": "train cake", "role": "user"},
+        ]
+        encoder = FakeEncoder()
+        retriever = ChunkRetriever(chunks, encoder)
+        for architecture in ("hybrid_chunks", "hybrid_user_chunks"):
+            expected = rank_chunks(
+                chunks,
+                "train dollar",
+                architecture,
+                encoder,
+                3,
+                0.5,
+            )
+            actual = retriever.rank(
+                "train dollar",
+                architecture,
+                3,
+                0.5,
+            )
+            self.assertEqual(
+                [row["id"] for row in expected],
+                [row["id"] for row in actual],
+            )
+
     def test_select_context_never_exceeds_budget(self):
         ranking = [
             {

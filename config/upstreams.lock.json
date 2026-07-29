@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-07-29",
+  "repositories": [
+    {
+      "name": "LongMemEval",
+      "repository": "https://github.com/xiaowu0162/LongMemEval.git",
+      "commit": "9e0b455f4ef0e2ab8f2e582289761153549043fc",
+      "license": "mit"
+    },
+    {
+      "name": "MemGym",
+      "repository": "https://github.com/WujiangXu/MemGym.git",
+      "commit": "50b404e6ae4e1fcd453d3e07963eb3e6312cbded",
+      "license": "apache-2.0"
+    },
+    {
+      "name": "MemoryData",
+      "repository": "https://github.com/OpenDataBox/MemoryData.git",
+      "commit": "bdbe698f776d921ac791d1b07c0a7fc65a8bb4bb",
+      "license": "not-declared-by-github-api"
+    },
+    {
+      "name": "GraphRAG-Benchmark",
+      "repository": "https://github.com/GraphRAG-Bench/GraphRAG-Benchmark.git",
+      "commit": "fdbab5959b18c96532580877ffe27d112bccc0ec",
+      "license": "mit"
+    },
+    {
+      "name": "Cognee",
+      "repository": "https://github.com/topoteretes/cognee.git",
+      "commit": "88aa09b4e3289e3dbf12c0c090080920816e2fb7",
+      "license": "apache-2.0"
+    },
+    {
+      "name": "Graphiti",
+      "repository": "https://github.com/getzep/graphiti.git",
+      "commit": "71a719be482294dd4bbfc5cef557a3a6a500c134",
+      "license": "apache-2.0"
+    }
+  ],
+  "datasets": [
+    {
+      "name": "LongMemEval-S cleaned",
+      "url": "https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/main/longmemeval_s_cleaned.json",
+      "destination": "longmemeval/longmemeval_s_cleaned.json",
+      "bytes": 277383467,
+      "sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442"
+    },
+    {
+      "name": "MemoryAgentBench Accurate Retrieval",
+      "url": "https://huggingface.co/datasets/ai-hyz/MemoryAgentBench/resolve/7ea066982b140a19337e17e60d45d4076e042faf/data/Accurate_Retrieval-00000-of-00001.parquet",
+      "destination": "memoryagentbench/Accurate_Retrieval-00000-of-00001.parquet",
+      "bytes": 20024386,
+      "sha256": "56c3cd80fb6731a3e53cd1a6be3148f54df60ff2d290ee50e28f8acebf9655c1"
+    },
+    {
+      "name": "MemoryAgentBench Conflict Resolution",
+      "url": "https://huggingface.co/datasets/ai-hyz/MemoryAgentBench/resolve/7ea066982b140a19337e17e60d45d4076e042faf/data/Conflict_Resolution-00000-of-00001.parquet",
+      "destination": "memoryagentbench/Conflict_Resolution-00000-of-00001.parquet",
+      "bytes": 1491588,
+      "sha256": "24d5c3f09ce0ce15625cb9f8a98f44f0d864ca6c94d7b4ad04eb697ca3a5ff45"
+    },
+    {
+      "name": "MemoryAgentBench Long Range Understanding",
+      "url": "https://huggingface.co/datasets/ai-hyz/MemoryAgentBench/resolve/7ea066982b140a19337e17e60d45d4076e042faf/data/Long_Range_Understanding-00000-of-00001.parquet",
+      "destination": "memoryagentbench/Long_Range_Understanding-00000-of-00001.parquet",
+      "bytes": 49342452,
+      "sha256": "5ab175461954db67770d4a4cb69e569b513ebb96aceb9ee79b57f67488bcd539"
+    },
+    {
+      "name": "MemoryAgentBench Test Time Learning",
+      "url": "https://huggingface.co/datasets/ai-hyz/MemoryAgentBench/resolve/7ea066982b140a19337e17e60d45d4076e042faf/data/Test_Time_Learning-00000-of-00001.parquet",
+      "destination": "memoryagentbench/Test_Time_Learning-00000-of-00001.parquet",
+      "bytes": 3947476,
+      "sha256": "5338753be48f925d03318eed66117286e3489025fabe050a547bd086cd7d79c0"
+    },
+    {
+      "name": "MemGym-DR 3-hop",
+      "url": "https://huggingface.co/datasets/MemGym/memgym-dr-instances/resolve/02f8da42a1a771d1d58552274db1cbf46f0fc7b4/3hop_verified.jsonl",
+      "destination": "memgym-dr/3hop_verified.jsonl",
+      "bytes": 119330319,
+      "sha256": "88be2c475fa80f754fac50e6d982a421684463777e3633a3ccb0e24fe6740939"
+    },
+    {
+      "name": "MemGym-DR 4-hop",
+      "url": "https://huggingface.co/datasets/MemGym/memgym-dr-instances/resolve/02f8da42a1a771d1d58552274db1cbf46f0fc7b4/4hop_paper_run.jsonl",
+      "destination": "memgym-dr/4hop_paper_run.jsonl",
+      "bytes": 909471804,
+      "sha256": "e99eebf4c1c8cdb75428905b13409b02cfe610801599b48c9712d7fcc9091352"
+    },
+    {
+      "name": "MemGym-DR 5-6-hop",
+      "url": "https://huggingface.co/datasets/MemGym/memgym-dr-instances/resolve/02f8da42a1a771d1d58552274db1cbf46f0fc7b4/56hop_clean.jsonl",
+      "destination": "memgym-dr/56hop_clean.jsonl",
+      "bytes": 123518977,
+      "sha256": "b740b88fa1044d11483a68220d0d8b68d27242fcd8518911080d9e28924fc781"
+    }
+  ]
+}

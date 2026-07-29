@@ -20,6 +20,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+import numpy as np
+
 from benchmark import Bm25, DenseIndex, MiniLm, MODEL_DIR
 from execution_order import interleaved_product
 from graph_benchmark_common import write_result
@@ -46,6 +48,7 @@ SUPPORTED_ARCHITECTURES = [
 ABSTENTION_ANSWER = "INSUFFICIENT_EVIDENCE"
 TOKEN_USE_PATTERN = re.compile(r"tokens used\s+([0-9\u00a0\u202f, ]+)", re.I)
 READER_PROMPT_VERSION = "longmemeval-reader-v1"
+CONTEXT_BUILDER_VERSION = 2
 
 
 def parse_args() -> argparse.Namespace:
@@ -295,6 +298,68 @@ def rank_chunks(
         alpha=alpha_bm25,
         limit=depth,
     )
+
+
+class ChunkRetriever:
+    """Reuse one bounded embedding matrix across queries and architecture views."""
+
+    def __init__(self, chunks: list[dict[str, Any]], encoder: MiniLm) -> None:
+        self.encoder = encoder
+        self.chunks = chunks
+        self.user_positions = [
+            index for index, row in enumerate(chunks) if row["role"] == "user"
+        ]
+        self.user_chunks = [chunks[index] for index in self.user_positions]
+        self.bm25 = Bm25(chunks)
+        self.user_bm25 = Bm25(self.user_chunks)
+        self.embeddings = encoder.encode([row["text"] for row in chunks])
+        self.user_embeddings = self.embeddings[self.user_positions]
+
+    def _dense_search(
+        self,
+        candidates: list[dict[str, Any]],
+        embeddings: np.ndarray,
+        query: str,
+        limit: int,
+    ) -> list[dict[str, Any]]:
+        query_embedding = self.encoder.encode([query])[0]
+        scores = embeddings @ query_embedding
+        order = np.argsort(-scores, kind="stable")[:limit]
+        return [
+            {
+                **candidates[int(index)],
+                "_score": float(scores[int(index)]),
+                "_retriever": "dense",
+            }
+            for index in order
+        ]
+
+    def rank(
+        self,
+        query: str,
+        architecture: str,
+        ranking_depth: int,
+        alpha_bm25: float,
+    ) -> list[dict[str, Any]]:
+        if architecture == "no_context":
+            return []
+        user_only = "_user_" in architecture
+        candidates = self.user_chunks if user_only else self.chunks
+        bm25_index = self.user_bm25 if user_only else self.bm25
+        embeddings = self.user_embeddings if user_only else self.embeddings
+        depth = min(ranking_depth, len(candidates))
+        lexical = bm25_index.search(query, depth)
+        if architecture in {"bm25_chunks", "bm25_user_chunks"}:
+            return lexical
+        if architecture not in {"hybrid_chunks", "hybrid_user_chunks"}:
+            raise ValueError(f"Unsupported architecture: {architecture}")
+        dense = self._dense_search(candidates, embeddings, query, depth)
+        return weighted_rrf(
+            lexical,
+            dense,
+            alpha=alpha_bm25,
+            limit=depth,
+        )
 
 
 def context_header(row: dict[str, Any]) -> str:
@@ -915,6 +980,7 @@ def context_cache_fingerprint(
         "alpha_bm25": alpha_bm25,
         "embedding_model_sha256": embedding_model_sha256,
         "tokenizer_sha256": tokenizer_sha256,
+        "context_builder_version": CONTEXT_BUILDER_VERSION,
     }
     canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(canonical.encode()).hexdigest()
@@ -967,18 +1033,33 @@ def main() -> None:
             contexts = {}
     if not context_cache_hit:
         encoder = MiniLm(args.model_dir)
+        active_history_key = ""
+        active_retriever: ChunkRetriever | None = None
         for item in items:
-            chunks = build_chunks(
-                item,
-                encoder.tokenizer,
-                args.chunk_tokens,
-            )
+            history_key = hashlib.sha256(
+                json.dumps(
+                    {
+                        "session_ids": item["haystack_session_ids"],
+                        "dates": item["haystack_dates"],
+                        "sessions": item["haystack_sessions"],
+                    },
+                    sort_keys=True,
+                    separators=(",", ":"),
+                ).encode()
+            ).hexdigest()
+            if history_key != active_history_key:
+                chunks = build_chunks(
+                    item,
+                    encoder.tokenizer,
+                    args.chunk_tokens,
+                )
+                active_retriever = ChunkRetriever(chunks, encoder)
+                active_history_key = history_key
+            assert active_retriever is not None
             for architecture in args.architectures:
-                ranking = rank_chunks(
-                    chunks,
+                ranking = active_retriever.rank(
                     item["question"],
                     architecture,
-                    encoder,
                     args.ranking_depth,
                     args.alpha_bm25,
                 )
@@ -1267,6 +1348,8 @@ def main() -> None:
             "sample_rule": (
                 "Two SHA-256 ordered pairs per represented question type "
                 "with salt lme-codex-pilot-v1"
+                if args.pair_ids == DEFAULT_PAIR_IDS
+                else "Explicit pair id list supplied on the command line"
             ),
             "questions": len(items),
             "repetitions": args.repetitions,
@@ -1306,10 +1389,18 @@ def main() -> None:
             ),
             "limitations": [
                 "Codex subscription agents include orchestration overhead and are not a pinned raw API endpoint.",
-                "The eight selected pairs are a stratified diagnostic slice, not the full LongMemEval benchmark.",
+                (
+                    f"The {len(args.pair_ids)} selected pairs are a bounded "
+                    "slice, not the full LongMemEval benchmark."
+                ),
                 "Deterministic answer matching is stricter and less semantic than the official LLM judge.",
                 "The fixed 50/50 hybrid weight is preregistered rather than tuned on this slice.",
-                "LongMemEval is public, so the no-context control is required to expose possible benchmark memorization.",
+                (
+                    "No no-context control was included in this run, so "
+                    "possible public-benchmark memorization was not measured."
+                    if "no_context" not in args.architectures
+                    else "The no-context control measures possible public-benchmark memorization."
+                ),
             ],
         },
         "rows": rows,

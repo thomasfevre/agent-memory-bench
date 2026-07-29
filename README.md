@@ -2,6 +2,7 @@
 
 [Dashboard](https://thomasfevre.github.io/agent-memory-bench/) ·
 [Methodology](docs/methodology.md) ·
+[Priority 2 protocols](docs/priority-2-protocols.md) ·
 [Roadmap](docs/roadmap.md) ·
 [Contributing](CONTRIBUTING.md)
 
@@ -23,6 +24,23 @@ facts and graphs, Context Shards, jcode, Mem0, Cognee, Graphiti, Letta Code,
 MemGym, MemoryData, LoCoMo, LongMemEval, MemoryAgentBench and GraphRAG-Bench.
 There is deliberately no aggregate leaderboard because many runs evaluate
 different layers and budgets.
+
+Public upstreams are pinned in `config/upstreams.lock.json`. Materialize one or
+more isolated checkouts without mutating them:
+
+```bash
+.venv/bin/python tools/checkout_upstreams.py \
+  --only MemGym GraphRAG-Benchmark Cognee Graphiti
+```
+
+Pinned public datasets can be downloaded and checksum-verified in the same
+ignored cache:
+
+```bash
+.venv/bin/python tools/download_datasets.py \
+  --only "LongMemEval-S cleaned" \
+  "MemoryAgentBench Accurate Retrieval"
+```
 
 ## One-command run
 
