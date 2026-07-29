@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import argparse
 import asyncio
 import os
 import tempfile
@@ -42,6 +41,7 @@ from graph_benchmark_common import (
     source_ids_from_text,
     write_result,
 )
+from graph_engine_cli import parse_cognee_args
 
 cognee.config.set_graph_database_provider("kuzu")
 cognee.config.set_vector_db_provider("lancedb")
@@ -49,21 +49,7 @@ cognee.config.data_root_directory(str(_DATA_DIR / "data"))
 cognee.config.system_root_directory(str(_DATA_DIR / "system"))
 
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--corpus", type=Path, required=True)
-    parser.add_argument("--questions", type=Path, required=True)
-    parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--model", default="qwen2.5:14b")
-    parser.add_argument("--top-k", type=int, default=5)
-    parser.add_argument("--limit-docs", type=int, default=0)
-    parser.add_argument("--limit-questions", type=int, default=0)
-    parser.add_argument("--ingestion-timeout", type=float, default=600.0)
-    parser.add_argument("--query-timeout", type=float, default=60.0)
-    return parser.parse_args()
-
-
-async def run(args: argparse.Namespace) -> None:
+async def run(args) -> None:
     os.environ["LLM_MODEL"] = args.model
     corpus = load_jsonl(args.corpus)
     questions = load_jsonl(args.questions)
@@ -108,6 +94,8 @@ async def run(args: argparse.Namespace) -> None:
             temporal_cognify=True,
             run_in_background=False,
             data_cache=False,
+            chunks_per_batch=args.chunks_per_batch,
+            data_per_batch=args.data_per_batch,
         )
 
     try:
@@ -179,6 +167,10 @@ async def run(args: argparse.Namespace) -> None:
             "ingestion_timeout_seconds": args.ingestion_timeout,
             "query_timeout_seconds": args.query_timeout,
         },
+        "engine_configuration": {
+            "chunks_per_batch": args.chunks_per_batch,
+            "data_per_batch": args.data_per_batch,
+        },
         "ingestion_seconds": round(ingestion_seconds, 3),
         "ingestion_error": ingestion_error,
         "metrics": score_retrieval(questions, rows) if rows else None,
@@ -188,4 +180,4 @@ async def run(args: argparse.Namespace) -> None:
 
 
 if __name__ == "__main__":
-    asyncio.run(run(parse_args()))
+    asyncio.run(run(parse_cognee_args()))
