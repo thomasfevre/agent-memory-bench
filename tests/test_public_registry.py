@@ -142,3 +142,50 @@ def test_graph_engine_record_marks_partial_index_metrics() -> None:
     assert record["metrics"]["documents_completed"] == 13
     assert record["metrics"]["retrieval"]["mean_recall"] == 0.083
     assert record["metrics"]["llm_tokens"] == 124735
+
+
+def test_memgym_record_keeps_semantic_judge_provisional() -> None:
+    tool = load_tool("update_p2_registry")
+    record = tool.memgym_record(
+        {
+            "manifest": {
+                "created_at": "2026-07-29T20:00:00+00:00",
+                "per_stratum": 10,
+                "repetitions": 1,
+                "expected_reader_calls": 120,
+                "successful_reader_calls": 120,
+                "expected_judge_calls": 120,
+                "successful_judge_calls": 120,
+            },
+            "summaries": [
+                {
+                    "stratum": "3hop",
+                    "architecture": "visible_only",
+                    "attempted_calls": 10,
+                    "successful_reader_calls": 10,
+                    "mean_token_f1": 0.2,
+                    "mean_judge_score": 0.5,
+                    "judged_calls": 10,
+                    "mean_context_words": 18000,
+                    "mean_reader_latency_seconds": 12,
+                    "mean_reader_tokens": 35000,
+                },
+                {
+                    "stratum": "3hop",
+                    "architecture": "bm25_k5",
+                    "attempted_calls": 10,
+                    "successful_reader_calls": 10,
+                    "mean_token_f1": 0.3,
+                    "mean_judge_score": 0.7,
+                    "judged_calls": 10,
+                    "mean_context_words": 20000,
+                    "mean_reader_latency_seconds": 15,
+                    "mean_reader_tokens": 39000,
+                },
+            ],
+        }
+    )
+
+    assert record["metrics"]["architecture_macro_judge"]["bm25_k5"] == 0.7
+    assert record["metrics"]["architecture_macro_judge"]["visible_only"] == 0.5
+    assert "not human-calibrated" in record["limitation"]

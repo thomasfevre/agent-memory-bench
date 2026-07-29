@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import subprocess
+from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -335,6 +336,94 @@ def graph_engine_record(
             "the engine can never achieve good retrieval quality."
         ),
         "evidence_files": [evidence_file],
+    }
+
+
+def memgym_record(payload: dict[str, Any]) -> dict[str, Any]:
+    manifest = payload["manifest"]
+    series = []
+    judge_scores: dict[str, list[float]] = defaultdict(list)
+    for row in payload["summaries"]:
+        score = row.get("mean_judge_score")
+        if score is not None:
+            judge_scores[row["architecture"]].append(float(score))
+        series.append(
+            {
+                "stratum": row["stratum"],
+                "architecture": row["architecture"],
+                "attempted_calls": row["attempted_calls"],
+                "successful_reader_calls": row["successful_reader_calls"],
+                "judged_calls": row["judged_calls"],
+                "exact_match": rounded(row.get("exact_match", 0.0)),
+                "substring_match": rounded(
+                    row.get("substring_match", 0.0)
+                ),
+                "token_f1": rounded(row["mean_token_f1"]),
+                "provisional_judge_score": (
+                    rounded(score) if score is not None else None
+                ),
+                "context_words": round(row["mean_context_words"]),
+                "reader_latency_s": rounded(
+                    row["mean_reader_latency_seconds"], 2
+                ),
+                "reader_tokens": round(row["mean_reader_tokens"]),
+            }
+        )
+    macro = {
+        architecture: rounded(sum(values) / len(values))
+        for architecture, values in sorted(judge_scores.items())
+        if values
+    }
+    best_architecture = (
+        max(macro, key=macro.get) if macro else "unavailable"
+    )
+    best_score = macro.get(best_architecture)
+    conclusion = (
+        f"The provisional semantic judge favored {best_architecture}"
+        + (
+            f" with a macro score of {best_score:.3f}."
+            if best_score is not None
+            else ", but no complete judged score was available."
+        )
+    )
+    return {
+        "id": "memgym-dr-reader-judge-30x4-20260729",
+        "date": datetime.fromisoformat(manifest["created_at"]).date().isoformat(),
+        "phase": "generation",
+        "dataset": "MemGym-DR",
+        "task": "Answer multi-hop deep-research questions from bounded memory",
+        "method": "Visible documents versus BM25 chunk retrieval at top-1, top-2 and top-5",
+        "reader": "gpt-5.6-sol",
+        "evidence_level": "official-data-provisional-judge",
+        "sample": (
+            f"{manifest['per_stratum']} fixed questions in each of the "
+            "3-hop, 4-hop and 5-6-hop strata"
+        ),
+        "repetitions": manifest["repetitions"],
+        "metrics": {
+            "series": series,
+            "architecture_macro_judge": macro,
+        },
+        "budget": {
+            "expected_reader_calls": manifest["expected_reader_calls"],
+            "successful_reader_calls": manifest[
+                "successful_reader_calls"
+            ],
+            "expected_judge_calls": manifest["expected_judge_calls"],
+            "successful_judge_calls": manifest[
+                "successful_judge_calls"
+            ],
+        },
+        "conclusion": conclusion,
+        "limitation": (
+            "The semantic score is not human-calibrated. It remains "
+            "provisional until two blinded annotators complete the fixed "
+            "calibration pack; exact and substring match are overly strict "
+            "for these long-form answers."
+        ),
+        "evidence_files": [
+            "results/P2-MEMGYM-DR-CODEX-30X4-20260729.json"
+        ],
     }
 
 
