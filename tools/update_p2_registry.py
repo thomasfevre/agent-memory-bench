@@ -246,6 +246,98 @@ def mab_scale_record(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def graph_engine_record(
+    payload: dict[str, Any],
+    *,
+    run_id: str,
+    evidence_file: str,
+    variant: str,
+) -> dict[str, Any]:
+    ingestion_error = payload.get("ingestion_error")
+    ingestion_errors = payload.get("ingestion_errors", [])
+    documents_requested = payload["documents"]
+    documents_completed = (
+        None
+        if ingestion_error
+        else max(0, documents_requested - len(ingestion_errors))
+    )
+    if ingestion_error:
+        operational_status = "ingestion_timeout"
+    elif ingestion_errors:
+        operational_status = "partial_index"
+    else:
+        operational_status = "complete"
+
+    retrieval = payload.get("metrics")
+    if retrieval is not None:
+        retrieval = {
+            key: rounded(value)
+            if isinstance(value, float)
+            else value
+            for key, value in retrieval.items()
+        }
+    rows = payload.get("rows", [])
+    queries_completed = sum(1 for row in rows if not row.get("error"))
+    llm_tokens = payload.get("llm_tokens", {}).get("total")
+
+    if operational_status == "ingestion_timeout":
+        conclusion = (
+            f"{payload['system']} did not finish ingestion inside the shared "
+            "30-minute ceiling, so retrieval quality was not scored."
+        )
+    elif operational_status == "partial_index":
+        conclusion = (
+            f"{payload['system']} built {documents_completed} of "
+            f"{documents_requested} documents inside the shared ingestion "
+            "budget; retrieval metrics therefore describe a partial index."
+        )
+    else:
+        conclusion = (
+            f"{payload['system']} completed ingestion and retrieval inside "
+            "the aligned local-engine protocol."
+        )
+
+    return {
+        "id": run_id,
+        "date": "2026-07-29",
+        "phase": "retrieval",
+        "dataset": "GraphRAG-Benchmark Novel-30752 aligned slice",
+        "task": "Retrieve evidence for complex reasoning and fact questions",
+        "method": (
+            f"{payload['system']} {variant}, {payload['backend']}, "
+            f"top-{payload['top_k']}"
+        ),
+        "reader": payload["model"],
+        "evidence_level": "official-data-local-engine",
+        "sample": "20 source chunks and 10 questions",
+        "repetitions": 1,
+        "metrics": {
+            "operational_status": operational_status,
+            "documents_requested": documents_requested,
+            "documents_completed": documents_completed,
+            "ingestion_seconds": rounded(payload["ingestion_seconds"]),
+            "ingestion_error": ingestion_error,
+            "ingestion_error_count": len(ingestion_errors),
+            "queries_completed": queries_completed,
+            "retrieval": retrieval,
+            "llm_tokens": llm_tokens,
+        },
+        "budget": {
+            **payload["budget"],
+            "top_k": payload["top_k"],
+            "model": payload["model"],
+            "embedding_model": payload["embedding_model"],
+        },
+        "conclusion": conclusion,
+        "limitation": (
+            "This is one local model, one 20-document slice and one repetition. "
+            "A timeout is an operational-capacity result, not evidence that "
+            "the engine can never achieve good retrieval quality."
+        ),
+        "evidence_files": [evidence_file],
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--base-registry", type=Path, default=REGISTRY)

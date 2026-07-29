@@ -73,3 +73,72 @@ def test_interleaved_product_is_complete_and_reproducible() -> None:
     assert len(first) == 8
     assert len(set(first)) == 8
     assert first != sorted(first)
+
+
+def test_graph_engine_record_preserves_ingestion_timeout_without_fake_quality_score() -> None:
+    tool = load_tool("update_p2_registry")
+    record = tool.graph_engine_record(
+        {
+            "system": "Cognee",
+            "model": "qwen2.5:14b",
+            "embedding_model": "nomic-embed-text",
+            "backend": "Kuzu and LanceDB embedded",
+            "top_k": 5,
+            "documents": 20,
+            "budget": {
+                "ingestion_timeout_seconds": 1800.0,
+                "query_timeout_seconds": 60.0,
+            },
+            "ingestion_seconds": 1800.015,
+            "ingestion_error": "timeout after 1800.0s",
+            "metrics": None,
+            "rows": [],
+        },
+        run_id="cognee-primary",
+        evidence_file="results/cognee.json",
+        variant="default concurrency",
+    )
+
+    assert record["metrics"]["operational_status"] == "ingestion_timeout"
+    assert record["metrics"]["retrieval"] is None
+    assert record["metrics"]["queries_completed"] == 0
+
+
+def test_graph_engine_record_marks_partial_index_metrics() -> None:
+    tool = load_tool("update_p2_registry")
+    record = tool.graph_engine_record(
+        {
+            "system": "Graphiti",
+            "model": "qwen2.5:14b",
+            "embedding_model": "nomic-embed-text",
+            "backend": "FalkorDB Lite",
+            "top_k": 5,
+            "documents": 20,
+            "budget": {
+                "ingestion_timeout_seconds": 1800.0,
+                "document_timeout_seconds": 180.0,
+                "query_timeout_seconds": 60.0,
+            },
+            "ingestion_seconds": 1800.007,
+            "ingestion_errors": [
+                {"source_id": f"d{index}", "error": "timeout"}
+                for index in range(7)
+            ],
+            "metrics": {
+                "questions": 10,
+                "mean_recall": 0.0833333,
+                "mean_context_precision": 0.0333333,
+                "temporal_correctness": 0.0,
+            },
+            "llm_tokens": {"total": 124735},
+            "rows": [{"question_id": f"q{index}"} for index in range(10)],
+        },
+        run_id="graphiti-primary",
+        evidence_file="results/graphiti.json",
+        variant="primary",
+    )
+
+    assert record["metrics"]["operational_status"] == "partial_index"
+    assert record["metrics"]["documents_completed"] == 13
+    assert record["metrics"]["retrieval"]["mean_recall"] == 0.083
+    assert record["metrics"]["llm_tokens"] == 124735
