@@ -1,0 +1,1615 @@
+{
+  "chronological": {
+    "deliveries": [
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-001:attempt-1",
+        "event_id": "p3-event-001"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-004:attempt-1",
+        "event_id": "p3-event-004"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-007:attempt-1",
+        "event_id": "p3-event-007"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-010:attempt-1",
+        "event_id": "p3-event-010"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-013:attempt-1",
+        "event_id": "p3-event-013"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-016:attempt-1",
+        "event_id": "p3-event-016"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-019:attempt-1",
+        "event_id": "p3-event-019"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-022:attempt-1",
+        "event_id": "p3-event-022"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-025:attempt-1",
+        "event_id": "p3-event-025"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-028:attempt-1",
+        "event_id": "p3-event-028"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-031:attempt-1",
+        "event_id": "p3-event-031"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-034:attempt-1",
+        "event_id": "p3-event-034"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-037:attempt-1",
+        "event_id": "p3-event-037"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-040:attempt-1",
+        "event_id": "p3-event-040"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-043:attempt-1",
+        "event_id": "p3-event-043"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-046:attempt-1",
+        "event_id": "p3-event-046"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-049:attempt-1",
+        "event_id": "p3-event-049"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-052:attempt-1",
+        "event_id": "p3-event-052"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-055:attempt-1",
+        "event_id": "p3-event-055"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-058:attempt-1",
+        "event_id": "p3-event-058"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-002:attempt-1",
+        "event_id": "p3-event-002"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-003:attempt-1",
+        "event_id": "p3-event-003"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-005:attempt-1",
+        "event_id": "p3-event-005"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-006:attempt-1",
+        "event_id": "p3-event-006"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-008:attempt-1",
+        "event_id": "p3-event-008"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-009:attempt-1",
+        "event_id": "p3-event-009"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-011:attempt-1",
+        "event_id": "p3-event-011"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-012:attempt-1",
+        "event_id": "p3-event-012"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-014:attempt-1",
+        "event_id": "p3-event-014"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-015:attempt-1",
+        "event_id": "p3-event-015"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-017:attempt-1",
+        "event_id": "p3-event-017"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-018:attempt-1",
+        "event_id": "p3-event-018"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-020:attempt-1",
+        "event_id": "p3-event-020"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-021:attempt-1",
+        "event_id": "p3-event-021"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-023:attempt-1",
+        "event_id": "p3-event-023"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-024:attempt-1",
+        "event_id": "p3-event-024"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-026:attempt-1",
+        "event_id": "p3-event-026"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-027:attempt-1",
+        "event_id": "p3-event-027"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-029:attempt-1",
+        "event_id": "p3-event-029"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-030:attempt-1",
+        "event_id": "p3-event-030"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-032:attempt-1",
+        "event_id": "p3-event-032"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-033:attempt-1",
+        "event_id": "p3-event-033"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-035:attempt-1",
+        "event_id": "p3-event-035"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-036:attempt-1",
+        "event_id": "p3-event-036"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-038:attempt-1",
+        "event_id": "p3-event-038"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-039:attempt-1",
+        "event_id": "p3-event-039"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-041:attempt-1",
+        "event_id": "p3-event-041"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-042:attempt-1",
+        "event_id": "p3-event-042"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-044:attempt-1",
+        "event_id": "p3-event-044"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-045:attempt-1",
+        "event_id": "p3-event-045"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-047:attempt-1",
+        "event_id": "p3-event-047"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-048:attempt-1",
+        "event_id": "p3-event-048"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-050:attempt-1",
+        "event_id": "p3-event-050"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-051:attempt-1",
+        "event_id": "p3-event-051"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-053:attempt-1",
+        "event_id": "p3-event-053"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-054:attempt-1",
+        "event_id": "p3-event-054"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-056:attempt-1",
+        "event_id": "p3-event-056"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-057:attempt-1",
+        "event_id": "p3-event-057"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-059:attempt-1",
+        "event_id": "p3-event-059"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-060:attempt-1",
+        "event_id": "p3-event-060"
+      }
+    ],
+    "description": "Ascending asserted timestamp.",
+    "late_event_ids": []
+  },
+  "duplicate_retry": {
+    "deliveries": [
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-001:attempt-1",
+        "event_id": "p3-event-001"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-004:attempt-1",
+        "event_id": "p3-event-004"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-007:attempt-1",
+        "event_id": "p3-event-007"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-010:attempt-1",
+        "event_id": "p3-event-010"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-013:attempt-1",
+        "event_id": "p3-event-013"
+      },
+      {
+        "attempt": 2,
+        "delivery_id": "p3-event-013:attempt-2",
+        "event_id": "p3-event-013"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-016:attempt-1",
+        "event_id": "p3-event-016"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-019:attempt-1",
+        "event_id": "p3-event-019"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-022:attempt-1",
+        "event_id": "p3-event-022"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-025:attempt-1",
+        "event_id": "p3-event-025"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-028:attempt-1",
+        "event_id": "p3-event-028"
+      },
+      {
+        "attempt": 2,
+        "delivery_id": "p3-event-028:attempt-2",
+        "event_id": "p3-event-028"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-031:attempt-1",
+        "event_id": "p3-event-031"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-034:attempt-1",
+        "event_id": "p3-event-034"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-037:attempt-1",
+        "event_id": "p3-event-037"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-040:attempt-1",
+        "event_id": "p3-event-040"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-043:attempt-1",
+        "event_id": "p3-event-043"
+      },
+      {
+        "attempt": 2,
+        "delivery_id": "p3-event-043:attempt-2",
+        "event_id": "p3-event-043"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-046:attempt-1",
+        "event_id": "p3-event-046"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-049:attempt-1",
+        "event_id": "p3-event-049"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-052:attempt-1",
+        "event_id": "p3-event-052"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-055:attempt-1",
+        "event_id": "p3-event-055"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-058:attempt-1",
+        "event_id": "p3-event-058"
+      },
+      {
+        "attempt": 2,
+        "delivery_id": "p3-event-058:attempt-2",
+        "event_id": "p3-event-058"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-002:attempt-1",
+        "event_id": "p3-event-002"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-003:attempt-1",
+        "event_id": "p3-event-003"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-005:attempt-1",
+        "event_id": "p3-event-005"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-006:attempt-1",
+        "event_id": "p3-event-006"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-008:attempt-1",
+        "event_id": "p3-event-008"
+      },
+      {
+        "attempt": 2,
+        "delivery_id": "p3-event-008:attempt-2",
+        "event_id": "p3-event-008"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-009:attempt-1",
+        "event_id": "p3-event-009"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-011:attempt-1",
+        "event_id": "p3-event-011"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-012:attempt-1",
+        "event_id": "p3-event-012"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-014:attempt-1",
+        "event_id": "p3-event-014"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-015:attempt-1",
+        "event_id": "p3-event-015"
+      },
+      {
+        "attempt": 2,
+        "delivery_id": "p3-event-015:attempt-2",
+        "event_id": "p3-event-015"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-017:attempt-1",
+        "event_id": "p3-event-017"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-018:attempt-1",
+        "event_id": "p3-event-018"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-020:attempt-1",
+        "event_id": "p3-event-020"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-021:attempt-1",
+        "event_id": "p3-event-021"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-023:attempt-1",
+        "event_id": "p3-event-023"
+      },
+      {
+        "attempt": 2,
+        "delivery_id": "p3-event-023:attempt-2",
+        "event_id": "p3-event-023"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-024:attempt-1",
+        "event_id": "p3-event-024"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-026:attempt-1",
+        "event_id": "p3-event-026"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-027:attempt-1",
+        "event_id": "p3-event-027"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-029:attempt-1",
+        "event_id": "p3-event-029"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-030:attempt-1",
+        "event_id": "p3-event-030"
+      },
+      {
+        "attempt": 2,
+        "delivery_id": "p3-event-030:attempt-2",
+        "event_id": "p3-event-030"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-032:attempt-1",
+        "event_id": "p3-event-032"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-033:attempt-1",
+        "event_id": "p3-event-033"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-035:attempt-1",
+        "event_id": "p3-event-035"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-036:attempt-1",
+        "event_id": "p3-event-036"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-038:attempt-1",
+        "event_id": "p3-event-038"
+      },
+      {
+        "attempt": 2,
+        "delivery_id": "p3-event-038:attempt-2",
+        "event_id": "p3-event-038"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-039:attempt-1",
+        "event_id": "p3-event-039"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-041:attempt-1",
+        "event_id": "p3-event-041"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-042:attempt-1",
+        "event_id": "p3-event-042"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-044:attempt-1",
+        "event_id": "p3-event-044"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-045:attempt-1",
+        "event_id": "p3-event-045"
+      },
+      {
+        "attempt": 2,
+        "delivery_id": "p3-event-045:attempt-2",
+        "event_id": "p3-event-045"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-047:attempt-1",
+        "event_id": "p3-event-047"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-048:attempt-1",
+        "event_id": "p3-event-048"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-050:attempt-1",
+        "event_id": "p3-event-050"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-051:attempt-1",
+        "event_id": "p3-event-051"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-053:attempt-1",
+        "event_id": "p3-event-053"
+      },
+      {
+        "attempt": 2,
+        "delivery_id": "p3-event-053:attempt-2",
+        "event_id": "p3-event-053"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-054:attempt-1",
+        "event_id": "p3-event-054"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-056:attempt-1",
+        "event_id": "p3-event-056"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-057:attempt-1",
+        "event_id": "p3-event-057"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-059:attempt-1",
+        "event_id": "p3-event-059"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-060:attempt-1",
+        "event_id": "p3-event-060"
+      },
+      {
+        "attempt": 2,
+        "delivery_id": "p3-event-060:attempt-2",
+        "event_id": "p3-event-060"
+      }
+    ],
+    "description": "Every fifth delivery is immediately retried once.",
+    "late_event_ids": []
+  },
+  "late_10pct": {
+    "deliveries": [
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-004:attempt-1",
+        "event_id": "p3-event-004"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-007:attempt-1",
+        "event_id": "p3-event-007"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-010:attempt-1",
+        "event_id": "p3-event-010"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-013:attempt-1",
+        "event_id": "p3-event-013"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-016:attempt-1",
+        "event_id": "p3-event-016"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-019:attempt-1",
+        "event_id": "p3-event-019"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-022:attempt-1",
+        "event_id": "p3-event-022"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-025:attempt-1",
+        "event_id": "p3-event-025"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-031:attempt-1",
+        "event_id": "p3-event-031"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-034:attempt-1",
+        "event_id": "p3-event-034"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-037:attempt-1",
+        "event_id": "p3-event-037"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-040:attempt-1",
+        "event_id": "p3-event-040"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-043:attempt-1",
+        "event_id": "p3-event-043"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-046:attempt-1",
+        "event_id": "p3-event-046"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-049:attempt-1",
+        "event_id": "p3-event-049"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-052:attempt-1",
+        "event_id": "p3-event-052"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-058:attempt-1",
+        "event_id": "p3-event-058"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-002:attempt-1",
+        "event_id": "p3-event-002"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-003:attempt-1",
+        "event_id": "p3-event-003"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-005:attempt-1",
+        "event_id": "p3-event-005"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-006:attempt-1",
+        "event_id": "p3-event-006"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-008:attempt-1",
+        "event_id": "p3-event-008"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-009:attempt-1",
+        "event_id": "p3-event-009"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-011:attempt-1",
+        "event_id": "p3-event-011"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-014:attempt-1",
+        "event_id": "p3-event-014"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-015:attempt-1",
+        "event_id": "p3-event-015"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-017:attempt-1",
+        "event_id": "p3-event-017"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-018:attempt-1",
+        "event_id": "p3-event-018"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-020:attempt-1",
+        "event_id": "p3-event-020"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-021:attempt-1",
+        "event_id": "p3-event-021"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-023:attempt-1",
+        "event_id": "p3-event-023"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-024:attempt-1",
+        "event_id": "p3-event-024"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-027:attempt-1",
+        "event_id": "p3-event-027"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-029:attempt-1",
+        "event_id": "p3-event-029"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-030:attempt-1",
+        "event_id": "p3-event-030"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-032:attempt-1",
+        "event_id": "p3-event-032"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-033:attempt-1",
+        "event_id": "p3-event-033"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-035:attempt-1",
+        "event_id": "p3-event-035"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-036:attempt-1",
+        "event_id": "p3-event-036"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-038:attempt-1",
+        "event_id": "p3-event-038"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-041:attempt-1",
+        "event_id": "p3-event-041"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-042:attempt-1",
+        "event_id": "p3-event-042"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-044:attempt-1",
+        "event_id": "p3-event-044"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-045:attempt-1",
+        "event_id": "p3-event-045"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-047:attempt-1",
+        "event_id": "p3-event-047"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-048:attempt-1",
+        "event_id": "p3-event-048"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-050:attempt-1",
+        "event_id": "p3-event-050"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-051:attempt-1",
+        "event_id": "p3-event-051"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-053:attempt-1",
+        "event_id": "p3-event-053"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-054:attempt-1",
+        "event_id": "p3-event-054"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-056:attempt-1",
+        "event_id": "p3-event-056"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-057:attempt-1",
+        "event_id": "p3-event-057"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-059:attempt-1",
+        "event_id": "p3-event-059"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-060:attempt-1",
+        "event_id": "p3-event-060"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-001:attempt-1",
+        "event_id": "p3-event-001"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-028:attempt-1",
+        "event_id": "p3-event-028"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-055:attempt-1",
+        "event_id": "p3-event-055"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-012:attempt-1",
+        "event_id": "p3-event-012"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-026:attempt-1",
+        "event_id": "p3-event-026"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-039:attempt-1",
+        "event_id": "p3-event-039"
+      }
+    ],
+    "description": "Six deterministic observations delivered at the end.",
+    "late_event_ids": [
+      "p3-event-001",
+      "p3-event-028",
+      "p3-event-055",
+      "p3-event-012",
+      "p3-event-026",
+      "p3-event-039"
+    ]
+  },
+  "late_25pct": {
+    "deliveries": [
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-004:attempt-1",
+        "event_id": "p3-event-004"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-007:attempt-1",
+        "event_id": "p3-event-007"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-013:attempt-1",
+        "event_id": "p3-event-013"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-016:attempt-1",
+        "event_id": "p3-event-016"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-022:attempt-1",
+        "event_id": "p3-event-022"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-025:attempt-1",
+        "event_id": "p3-event-025"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-031:attempt-1",
+        "event_id": "p3-event-031"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-034:attempt-1",
+        "event_id": "p3-event-034"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-040:attempt-1",
+        "event_id": "p3-event-040"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-043:attempt-1",
+        "event_id": "p3-event-043"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-049:attempt-1",
+        "event_id": "p3-event-049"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-052:attempt-1",
+        "event_id": "p3-event-052"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-058:attempt-1",
+        "event_id": "p3-event-058"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-002:attempt-1",
+        "event_id": "p3-event-002"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-005:attempt-1",
+        "event_id": "p3-event-005"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-006:attempt-1",
+        "event_id": "p3-event-006"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-009:attempt-1",
+        "event_id": "p3-event-009"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-011:attempt-1",
+        "event_id": "p3-event-011"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-014:attempt-1",
+        "event_id": "p3-event-014"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-015:attempt-1",
+        "event_id": "p3-event-015"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-018:attempt-1",
+        "event_id": "p3-event-018"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-020:attempt-1",
+        "event_id": "p3-event-020"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-023:attempt-1",
+        "event_id": "p3-event-023"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-024:attempt-1",
+        "event_id": "p3-event-024"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-027:attempt-1",
+        "event_id": "p3-event-027"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-029:attempt-1",
+        "event_id": "p3-event-029"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-032:attempt-1",
+        "event_id": "p3-event-032"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-033:attempt-1",
+        "event_id": "p3-event-033"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-036:attempt-1",
+        "event_id": "p3-event-036"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-038:attempt-1",
+        "event_id": "p3-event-038"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-039:attempt-1",
+        "event_id": "p3-event-039"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-041:attempt-1",
+        "event_id": "p3-event-041"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-042:attempt-1",
+        "event_id": "p3-event-042"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-044:attempt-1",
+        "event_id": "p3-event-044"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-045:attempt-1",
+        "event_id": "p3-event-045"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-047:attempt-1",
+        "event_id": "p3-event-047"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-048:attempt-1",
+        "event_id": "p3-event-048"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-050:attempt-1",
+        "event_id": "p3-event-050"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-051:attempt-1",
+        "event_id": "p3-event-051"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-053:attempt-1",
+        "event_id": "p3-event-053"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-054:attempt-1",
+        "event_id": "p3-event-054"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-056:attempt-1",
+        "event_id": "p3-event-056"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-057:attempt-1",
+        "event_id": "p3-event-057"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-059:attempt-1",
+        "event_id": "p3-event-059"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-060:attempt-1",
+        "event_id": "p3-event-060"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-001:attempt-1",
+        "event_id": "p3-event-001"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-010:attempt-1",
+        "event_id": "p3-event-010"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-019:attempt-1",
+        "event_id": "p3-event-019"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-028:attempt-1",
+        "event_id": "p3-event-028"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-037:attempt-1",
+        "event_id": "p3-event-037"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-046:attempt-1",
+        "event_id": "p3-event-046"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-055:attempt-1",
+        "event_id": "p3-event-055"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-003:attempt-1",
+        "event_id": "p3-event-003"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-008:attempt-1",
+        "event_id": "p3-event-008"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-012:attempt-1",
+        "event_id": "p3-event-012"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-017:attempt-1",
+        "event_id": "p3-event-017"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-021:attempt-1",
+        "event_id": "p3-event-021"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-026:attempt-1",
+        "event_id": "p3-event-026"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-030:attempt-1",
+        "event_id": "p3-event-030"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-035:attempt-1",
+        "event_id": "p3-event-035"
+      }
+    ],
+    "description": "Fifteen deterministic observations delivered at the end.",
+    "late_event_ids": [
+      "p3-event-001",
+      "p3-event-010",
+      "p3-event-019",
+      "p3-event-028",
+      "p3-event-037",
+      "p3-event-046",
+      "p3-event-055",
+      "p3-event-003",
+      "p3-event-008",
+      "p3-event-012",
+      "p3-event-017",
+      "p3-event-021",
+      "p3-event-026",
+      "p3-event-030",
+      "p3-event-035"
+    ]
+  },
+  "reverse_windows_5": {
+    "deliveries": [
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-013:attempt-1",
+        "event_id": "p3-event-013"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-010:attempt-1",
+        "event_id": "p3-event-010"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-007:attempt-1",
+        "event_id": "p3-event-007"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-004:attempt-1",
+        "event_id": "p3-event-004"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-001:attempt-1",
+        "event_id": "p3-event-001"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-028:attempt-1",
+        "event_id": "p3-event-028"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-025:attempt-1",
+        "event_id": "p3-event-025"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-022:attempt-1",
+        "event_id": "p3-event-022"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-019:attempt-1",
+        "event_id": "p3-event-019"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-016:attempt-1",
+        "event_id": "p3-event-016"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-043:attempt-1",
+        "event_id": "p3-event-043"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-040:attempt-1",
+        "event_id": "p3-event-040"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-037:attempt-1",
+        "event_id": "p3-event-037"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-034:attempt-1",
+        "event_id": "p3-event-034"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-031:attempt-1",
+        "event_id": "p3-event-031"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-058:attempt-1",
+        "event_id": "p3-event-058"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-055:attempt-1",
+        "event_id": "p3-event-055"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-052:attempt-1",
+        "event_id": "p3-event-052"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-049:attempt-1",
+        "event_id": "p3-event-049"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-046:attempt-1",
+        "event_id": "p3-event-046"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-008:attempt-1",
+        "event_id": "p3-event-008"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-006:attempt-1",
+        "event_id": "p3-event-006"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-005:attempt-1",
+        "event_id": "p3-event-005"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-003:attempt-1",
+        "event_id": "p3-event-003"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-002:attempt-1",
+        "event_id": "p3-event-002"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-015:attempt-1",
+        "event_id": "p3-event-015"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-014:attempt-1",
+        "event_id": "p3-event-014"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-012:attempt-1",
+        "event_id": "p3-event-012"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-011:attempt-1",
+        "event_id": "p3-event-011"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-009:attempt-1",
+        "event_id": "p3-event-009"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-023:attempt-1",
+        "event_id": "p3-event-023"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-021:attempt-1",
+        "event_id": "p3-event-021"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-020:attempt-1",
+        "event_id": "p3-event-020"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-018:attempt-1",
+        "event_id": "p3-event-018"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-017:attempt-1",
+        "event_id": "p3-event-017"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-030:attempt-1",
+        "event_id": "p3-event-030"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-029:attempt-1",
+        "event_id": "p3-event-029"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-027:attempt-1",
+        "event_id": "p3-event-027"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-026:attempt-1",
+        "event_id": "p3-event-026"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-024:attempt-1",
+        "event_id": "p3-event-024"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-038:attempt-1",
+        "event_id": "p3-event-038"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-036:attempt-1",
+        "event_id": "p3-event-036"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-035:attempt-1",
+        "event_id": "p3-event-035"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-033:attempt-1",
+        "event_id": "p3-event-033"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-032:attempt-1",
+        "event_id": "p3-event-032"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-045:attempt-1",
+        "event_id": "p3-event-045"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-044:attempt-1",
+        "event_id": "p3-event-044"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-042:attempt-1",
+        "event_id": "p3-event-042"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-041:attempt-1",
+        "event_id": "p3-event-041"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-039:attempt-1",
+        "event_id": "p3-event-039"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-053:attempt-1",
+        "event_id": "p3-event-053"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-051:attempt-1",
+        "event_id": "p3-event-051"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-050:attempt-1",
+        "event_id": "p3-event-050"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-048:attempt-1",
+        "event_id": "p3-event-048"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-047:attempt-1",
+        "event_id": "p3-event-047"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-060:attempt-1",
+        "event_id": "p3-event-060"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-059:attempt-1",
+        "event_id": "p3-event-059"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-057:attempt-1",
+        "event_id": "p3-event-057"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-056:attempt-1",
+        "event_id": "p3-event-056"
+      },
+      {
+        "attempt": 1,
+        "delivery_id": "p3-event-054:attempt-1",
+        "event_id": "p3-event-054"
+      }
+    ],
+    "description": "Arrival order reversed inside fixed windows of five.",
+    "late_event_ids": []
+  }
+}

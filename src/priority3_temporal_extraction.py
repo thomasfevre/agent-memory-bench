@@ -189,23 +189,143 @@ def generate_observations() -> list[dict[str, Any]]:
     return observations
 
 
+def _delivery(event_id: str, attempt: int = 1) -> dict[str, Any]:
+    return {
+        "delivery_id": f"{event_id}:attempt-{attempt}",
+        "event_id": event_id,
+        "attempt": attempt,
+    }
+
+
+def _chronological_ids(observations: list[dict[str, Any]]) -> list[str]:
+    return [
+        row["id"]
+        for row in sorted(
+            observations,
+            key=lambda row: (
+                row["expected"]["asserted_at"],
+                row["canonical_sequence"],
+            ),
+        )
+    ]
+
+
+def _late_schedule(
+    chronological_ids: list[str],
+    *,
+    count: int,
+    eligible_count: int,
+) -> tuple[list[str], list[str]]:
+    selected_indexes = [
+        (position * eligible_count) // count for position in range(count)
+    ]
+    selected = [chronological_ids[index] for index in selected_indexes]
+    selected_set = set(selected)
+    on_time = [
+        event_id
+        for event_id in chronological_ids
+        if event_id not in selected_set
+    ]
+    return on_time + selected, selected
+
+
+def build_arrival_schedules(
+    observations: list[dict[str, Any]],
+) -> dict[str, dict[str, Any]]:
+    """Build the five preregistered deterministic delivery schedules.
+
+    Extraction is keyed by ``event_id`` and can therefore be reused across
+    schedules. ``delivery_id`` distinguishes a transport retry from the
+    underlying canonical event.
+    """
+
+    chronological_ids = _chronological_ids(observations)
+    late_10, late_10_ids = _late_schedule(
+        chronological_ids,
+        count=6,
+        eligible_count=54,
+    )
+    late_25, late_25_ids = _late_schedule(
+        chronological_ids,
+        count=15,
+        eligible_count=45,
+    )
+
+    reverse_windows = []
+    for start in range(0, len(chronological_ids), 5):
+        reverse_windows.extend(
+            reversed(chronological_ids[start : start + 5])
+        )
+
+    duplicate_retry = []
+    for position, event_id in enumerate(chronological_ids, start=1):
+        duplicate_retry.append(_delivery(event_id))
+        if position % 5 == 0:
+            duplicate_retry.append(_delivery(event_id, attempt=2))
+
+    return {
+        "chronological": {
+            "description": "Ascending asserted timestamp.",
+            "late_event_ids": [],
+            "deliveries": [_delivery(event_id) for event_id in chronological_ids],
+        },
+        "late_10pct": {
+            "description": "Six deterministic observations delivered at the end.",
+            "late_event_ids": late_10_ids,
+            "deliveries": [_delivery(event_id) for event_id in late_10],
+        },
+        "late_25pct": {
+            "description": "Fifteen deterministic observations delivered at the end.",
+            "late_event_ids": late_25_ids,
+            "deliveries": [_delivery(event_id) for event_id in late_25],
+        },
+        "reverse_windows_5": {
+            "description": "Arrival order reversed inside fixed windows of five.",
+            "late_event_ids": [],
+            "deliveries": [
+                _delivery(event_id) for event_id in reverse_windows
+            ],
+        },
+        "duplicate_retry": {
+            "description": "Every fifth delivery is immediately retried once.",
+            "late_event_ids": [],
+            "deliveries": duplicate_retry,
+        },
+    }
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--schedules-output", type=Path)
     return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
+    observations = generate_observations()
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(
         "".join(
             json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n"
-            for row in generate_observations()
+            for row in observations
         ),
         encoding="utf-8",
     )
     print(args.output)
+    if args.schedules_output:
+        args.schedules_output.parent.mkdir(parents=True, exist_ok=True)
+        args.schedules_output.write_text(
+            json.dumps(
+                build_arrival_schedules(observations),
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            )
+            + "\n",
+            encoding="utf-8",
+        )
+        print(args.schedules_output)
     return 0
 
 
