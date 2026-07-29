@@ -519,6 +519,7 @@ def run_ollama(
     indexes: IndexSet,
     questions: list[dict[str, Any]],
     models: list[str],
+    execution_seed: int,
 ) -> dict[str, Any]:
     strategies = ["long_context", "hybrid", "routed", "parallel_merge"]
     selected_ids = {
@@ -537,28 +538,31 @@ def run_ollama(
         question for question in questions if question["id"] in selected_ids
     ]
     rows: list[dict[str, Any]] = []
-    schedule = interleaved_product(
-        models,
-        list(enumerate(REPEATS, start=1)),
-        strategies,
-        selected_questions,
-        seed=20260729,
-    )
-    for model, repeat_seed, strategy, question in schedule:
-        repeat, seed = repeat_seed
-        candidates = retrieve(strategy, question, indexes)
-        answer = ollama_answer(model, question, candidates, seed)
-        rows.append(
-            {
-                "model": model,
-                "repeat": repeat,
-                "seed": seed,
-                "strategy": strategy,
-                "question_id": question["id"],
-                "category": question["category"],
-                **answer,
-            }
+    model_order = [
+        item[0] for item in interleaved_product(models, seed=execution_seed)
+    ]
+    for model_index, model in enumerate(model_order):
+        schedule = interleaved_product(
+            list(enumerate(REPEATS, start=1)),
+            strategies,
+            selected_questions,
+            seed=execution_seed + model_index + 1,
         )
+        for repeat_seed, strategy, question in schedule:
+            repeat, seed = repeat_seed
+            candidates = retrieve(strategy, question, indexes)
+            answer = ollama_answer(model, question, candidates, seed)
+            rows.append(
+                {
+                    "model": model,
+                    "repeat": repeat,
+                    "seed": seed,
+                    "strategy": strategy,
+                    "question_id": question["id"],
+                    "category": question["category"],
+                    **answer,
+                }
+            )
     summaries = []
     for model in models:
         for strategy in strategies:
@@ -625,6 +629,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--with-ollama", nargs="+", default=[])
     parser.add_argument("--minilm-dir", type=Path, default=MODEL_DIR)
+    parser.add_argument("--execution-seed", type=int, default=20260729)
     args = parser.parse_args()
 
     questions = load_jsonl(DATA / "questions.jsonl")
@@ -640,12 +645,19 @@ def main() -> None:
             "repetitions": len(REPEATS),
             "embedding_model": "all-MiniLM-L6-v2 local ONNX",
             "reader_models": args.with_ollama,
+            "execution_seed": args.execution_seed,
+            "model_execution": "grouped to avoid local model reload confounding",
             "raw_data_immutable": True,
         },
         "retrieval": run_retrieval(indexes, questions),
     }
     if args.with_ollama:
-        payload["ollama"] = run_ollama(indexes, questions, args.with_ollama)
+        payload["ollama"] = run_ollama(
+            indexes,
+            questions,
+            args.with_ollama,
+            args.execution_seed,
+        )
     path = write_results(payload)
     print_summary(payload, path)
 

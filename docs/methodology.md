@@ -18,6 +18,12 @@ source data
 A result is meaningful only when the dataset, unit of retrieval, context budget,
 reader, prompt, judge and repetition count are recorded.
 
+Model-backed campaigns execute a deterministic, seeded interleaving of
+architectures, repetitions and questions. Subscription-backed models can be
+mixed in one schedule. Local Ollama models remain grouped by model to avoid
+turning reload and memory-pressure costs into task latency; their task order is
+interleaved inside each model block. Both choices are recorded in the manifest.
+
 ## Canonical data and rebuildable views
 
 Raw records are append-only and immutable. Chunks, facts, embeddings, graphs,
@@ -110,4 +116,3 @@ The dashboard distinguishes:
 
 No aggregate leaderboard is published because the protocols currently cover
 different layers and budgets.
-

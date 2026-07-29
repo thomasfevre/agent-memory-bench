@@ -21,6 +21,7 @@ from typing import Any
 import pyarrow.parquet as pq
 
 from benchmark import Bm25, DenseIndex, MiniLm, MODEL_DIR
+from execution_order import interleaved_product
 from graph_benchmark_common import write_result
 from locomo_hybrid_fusion import weighted_rrf
 from longmemeval_codex_generation import run_codex, sha256_file
@@ -49,6 +50,7 @@ COMPATIBILITY_FIELDS = (
     "reader_prompt_version",
     "embedding_model_sha256",
     "codex_version",
+    "execution_seed",
 )
 
 
@@ -83,6 +85,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--reasoning-effort", default="low")
     parser.add_argument("--timeout-seconds", type=int, default=240)
     parser.add_argument("--provider-retries", type=int, default=2)
+    parser.add_argument("--execution-seed", type=int, default=20260729)
     parser.add_argument("--max-calls", type=int)
     parser.add_argument("--retry-errors", action="store_true")
     parser.add_argument(
@@ -668,6 +671,7 @@ def protocol_manifest(
     reader_prompt_version: str,
     embedding_model_sha256: str,
     codex_version: str,
+    execution_seed: int,
 ) -> dict[str, Any]:
     return {
         "dataset_sha256": dataset_sha256,
@@ -685,6 +689,7 @@ def protocol_manifest(
         "reader_prompt_version": reader_prompt_version,
         "embedding_model_sha256": embedding_model_sha256,
         "codex_version": codex_version,
+        "execution_seed": execution_seed,
     }
 
 
@@ -733,6 +738,23 @@ def load_seed_rows(
     return rows
 
 
+def inherited_legacy_execution_sources(
+    path: Path,
+    payload: dict[str, Any],
+) -> list[str]:
+    manifest = payload.get("manifest", {})
+    inherited = manifest.get("legacy_execution_order_sources")
+    if manifest.get("execution_order") == "mixed-legacy-and-interleaved":
+        return (
+            [str(item) for item in inherited]
+            if isinstance(inherited, list) and inherited
+            else [str(path.resolve())]
+        )
+    if manifest.get("execution_seed") is None:
+        return [str(path.resolve())]
+    return []
+
+
 def build_payload(
     *,
     protocol: dict[str, Any],
@@ -778,7 +800,12 @@ def build_payload(
                 "Formal citation validity only checks that cited ids exist in the supplied context; it does not verify entailment or provenance.",
                 "Every selected question has a gold answer, so abstention_rate is a refusal rate rather than abstention accuracy.",
                 "Reader latency excludes retrieval, indexing, and orchestration setup time.",
-                "The completed campaigns used blocked architecture order, which may be confounded by provider drift.",
+                (
+                    "Configuration order includes explicitly labeled legacy rows."
+                    if protocol.get("execution_order")
+                    == "mixed-legacy-and-interleaved"
+                    else "Configuration order is deterministically interleaved to reduce provider-drift confounding."
+                ),
                 "Official answer substring matching can reward an overbroad answer, so strict exact and token F1 are reported separately.",
                 "Repeated Codex calls are stochastic even though retrieval is deterministic.",
             ],
@@ -867,6 +894,7 @@ def main() -> None:
         reader_prompt_version=READER_PROMPT_VERSION,
         embedding_model_sha256=embedding_model_sha256,
         codex_version=codex_version,
+        execution_seed=args.execution_seed,
     )
 
     allowed_run_keys = {
@@ -890,6 +918,15 @@ def main() -> None:
         for path in args.seed_results
         if path.exists()
     ]
+    legacy_execution_order_sources = [
+        source
+        for path, payload in zip(
+            [path for path in args.seed_results if path.exists()],
+            seed_payloads,
+            strict=True,
+        )
+        for source in inherited_legacy_execution_sources(path, payload)
+    ]
     for seed_payload in seed_payloads:
         validate_compatible_manifest(
             seed_payload.get("manifest", {}),
@@ -901,6 +938,9 @@ def main() -> None:
     if args.output.exists():
         previous = json.loads(args.output.read_text())
         previous_manifest = previous.get("manifest", {})
+        legacy_execution_order_sources.extend(
+            inherited_legacy_execution_sources(args.output, previous)
+        )
         validate_compatible_manifest(
             previous_manifest,
             protocol,
@@ -920,6 +960,15 @@ def main() -> None:
             load_seed_rows([previous], allowed_run_keys)
         )
         rows = list(existing.values())
+
+    protocol["execution_order"] = (
+        "mixed-legacy-and-interleaved"
+        if legacy_execution_order_sources
+        else "interleaved"
+    )
+    protocol["legacy_execution_order_sources"] = sorted(
+        set(legacy_execution_order_sources)
+    )
 
     encoder = (
         MiniLm(args.model_dir)
@@ -945,16 +994,26 @@ def main() -> None:
         * args.repetitions
     )
     attempted_new_calls = 0
-    consecutive_failures = 0
+    consecutive_failures_by_model: defaultdict[str, int] = defaultdict(int)
     stopped_reason = None
 
-    for repetition in range(args.repetitions):
-        for model in args.models:
-            for source in args.sources:
+    schedule = interleaved_product(
+        range(args.repetitions),
+        args.models,
+        args.sources,
+        args.architectures,
+        question_indices,
+        seed=args.execution_seed,
+    )
+    for repetition, model, source, architecture, question_index in schedule:
+        # Preserve the existing stop cascade around one globally interleaved
+        # task order.
+        for _campaign_scope in (None,):
+            for _model_scope in (None,):
                 sample = samples[source]
                 state = source_state[source]
-                for architecture in args.architectures:
-                    for question_index in question_indices:
+                for _source_scope in (None,):
+                    for _architecture_scope in (None,):
                         run_key = "|".join(
                             [
                                 source,
@@ -1044,8 +1103,10 @@ def main() -> None:
                         existing[run_key] = row
                         rows = list(existing.values())
                         attempted_new_calls += 1
-                        consecutive_failures = (
-                            0 if row["ok"] else consecutive_failures + 1
+                        consecutive_failures_by_model[model] = (
+                            0
+                            if row["ok"]
+                            else consecutive_failures_by_model[model] + 1
                         )
                         payload = build_payload(
                             protocol=protocol,
@@ -1074,8 +1135,10 @@ def main() -> None:
                             f"answer={str(answer)[:60]!r}",
                             flush=True,
                         )
-                        if consecutive_failures >= 3:
-                            stopped_reason = "three_consecutive_failures"
+                        if consecutive_failures_by_model[model] >= 3:
+                            stopped_reason = (
+                                f"three_consecutive_failures:{model}"
+                            )
                             break
                     if stopped_reason:
                         break

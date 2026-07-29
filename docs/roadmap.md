@@ -9,7 +9,9 @@
 - [x] Compact public result registry with raw-artifact hashes.
 - [x] Static dashboard generated from the registry.
 - [x] CI validation and GitHub Pages deployment workflow.
-- [ ] Interleave configuration order in every model-backed campaign.
+- [x] Deterministically interleave configuration order in every model-backed
+  runner. Historical results retain their original order as a documented
+  limitation.
 
 ## Priority 2: stronger evidence
 
@@ -32,4 +34,3 @@
 
 Every item needs a preregistered protocol, raw evidence, a compact public result
 and an explicit statement of what remains unproven.
-

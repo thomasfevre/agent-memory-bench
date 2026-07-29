@@ -9,6 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from memoryagentbench_codex_generation import (
     architecture_comparisons,
     load_seed_rows,
+    inherited_legacy_execution_sources,
     rank_facts,
     score_response,
     stability_summary,
@@ -258,6 +259,7 @@ class MemoryAgentBenchCodexGenerationTests(unittest.TestCase):
             "reader_prompt_version": "v1",
             "embedding_model_sha256": "embedding",
             "codex_version": "codex 1",
+            "execution_seed": 17,
         }
         existing = dict(expected)
         existing["embedding_model_sha256"] = "other"
@@ -273,6 +275,22 @@ class MemoryAgentBenchCodexGenerationTests(unittest.TestCase):
                     "reader_prompt_version": "v1",
                 },
             )
+
+    def test_mixed_legacy_provenance_survives_a_second_resume(self):
+        payload = {
+            "manifest": {
+                "execution_seed": 17,
+                "execution_order": "mixed-legacy-and-interleaved",
+                "legacy_execution_order_sources": ["original.json"],
+            }
+        }
+        self.assertEqual(
+            ["original.json"],
+            inherited_legacy_execution_sources(
+                Path("migrated.json"),
+                payload,
+            ),
+        )
 
 
 if __name__ == "__main__":

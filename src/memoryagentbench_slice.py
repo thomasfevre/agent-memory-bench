@@ -17,6 +17,7 @@ from typing import Any
 import pyarrow.parquet as pq
 
 from benchmark import Bm25
+from execution_order import interleaved_product
 
 
 def normalize_answer(text: str) -> str:
@@ -171,6 +172,7 @@ def build_payload(
             "facts": len(facts),
             "top_k": args.top_k,
             "seed": args.seed,
+            "execution_seed": getattr(args, "execution_seed", 20260729),
             "strategies": args.strategies,
             "official_primary_metric": "substring_exact_match",
             "completed_rows": len(rows),
@@ -195,6 +197,7 @@ def validate_resume_manifest(
         "question_offset": args.offset,
         "top_k": args.top_k,
         "seed": args.seed,
+        "execution_seed": getattr(args, "execution_seed", 20260729),
         "strategies": args.strategies,
     }
     mismatches = {
@@ -215,6 +218,7 @@ def main() -> None:
     parser.add_argument("--questions", type=int, default=10)
     parser.add_argument("--top-k", type=int, default=20)
     parser.add_argument("--seed", type=int, default=11)
+    parser.add_argument("--execution-seed", type=int, default=20260729)
     parser.add_argument(
         "--strategies",
         nargs="+",
@@ -240,9 +244,16 @@ def main() -> None:
         for row in rows
     }
 
-    for index, (question, answers) in enumerate(
-        selected_questions, start=args.offset
-    ):
+    indexed_questions = list(
+        enumerate(selected_questions, start=args.offset)
+    )
+    schedule = interleaved_product(
+        indexed_questions,
+        args.strategies,
+        seed=args.execution_seed,
+    )
+    for question_item, strategy in schedule:
+        index, (question, answers) = question_item
         evidence_by_strategy = {
             "long_context": sample["context"],
             "bm25": "\n".join(
@@ -250,47 +261,46 @@ def main() -> None:
                 for item in bm25.search(question, args.top_k)
             ),
         }
-        for strategy in args.strategies:
-            evidence = evidence_by_strategy[strategy]
-            if (index, strategy) in completed:
-                print(f"{index:02d} {strategy:<12} resumed", flush=True)
-                continue
-            result = ollama_answer(
-                args.model,
-                question,
-                evidence,
-                args.seed,
-                num_ctx=32768 if strategy == "long_context" else 8192,
-            )
-            answer = result["answer"]
-            row = {
-                "question_index": index,
-                "question": question,
-                "gold_answers": answers,
-                "strategy": strategy,
-                "exact_match": exact_match(answer, answers),
-                "substring_exact_match": substring_match(answer, answers),
-                "token_f1": token_f1(answer, answers),
-                **result,
-            }
-            rows.append(row)
-            completed.add((index, strategy))
-            payload = build_payload(
-                args=args,
-                facts=facts,
-                selected_questions=selected_questions,
-                rows=rows,
-            )
-            args.output.parent.mkdir(parents=True, exist_ok=True)
-            args.output.write_text(
-                json.dumps(payload, indent=2, sort_keys=True) + "\n"
-            )
-            print(
-                f"{index:02d} {strategy:<12} "
-                f"substring={int(row['substring_exact_match'])} "
-                f"answer={answer[:80]!r}",
-                flush=True,
-            )
+        evidence = evidence_by_strategy[strategy]
+        if (index, strategy) in completed:
+            print(f"{index:02d} {strategy:<12} resumed", flush=True)
+            continue
+        result = ollama_answer(
+            args.model,
+            question,
+            evidence,
+            args.seed,
+            num_ctx=32768 if strategy == "long_context" else 8192,
+        )
+        answer = result["answer"]
+        row = {
+            "question_index": index,
+            "question": question,
+            "gold_answers": answers,
+            "strategy": strategy,
+            "exact_match": exact_match(answer, answers),
+            "substring_exact_match": substring_match(answer, answers),
+            "token_f1": token_f1(answer, answers),
+            **result,
+        }
+        rows.append(row)
+        completed.add((index, strategy))
+        payload = build_payload(
+            args=args,
+            facts=facts,
+            selected_questions=selected_questions,
+            rows=rows,
+        )
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(
+            json.dumps(payload, indent=2, sort_keys=True) + "\n"
+        )
+        print(
+            f"{index:02d} {strategy:<12} "
+            f"substring={int(row['substring_exact_match'])} "
+            f"answer={answer[:80]!r}",
+            flush=True,
+        )
 
     payload = build_payload(
         args=args,

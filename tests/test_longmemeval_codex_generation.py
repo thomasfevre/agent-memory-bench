@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import sys
+import json
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -11,6 +13,7 @@ from longmemeval_codex_generation import (
     context_cache_fingerprint,
     deterministic_answer_match,
     exact_mcnemar_p,
+    load_existing_rows,
     model_comparisons,
     pair_consistency,
     parse_tokens_used,
@@ -18,6 +21,7 @@ from longmemeval_codex_generation import (
     score_response,
     select_context,
     token_f1,
+    upsert_run_row,
 )
 
 
@@ -219,6 +223,146 @@ class LongMemEvalCodexGenerationTests(unittest.TestCase):
         result = model_comparisons(rows, resamples=100, seed=1)[0]
         self.assertEqual(1, result["pair_repetitions"])
         self.assertEqual(-0.5, result["observed_accuracy_difference_left_minus_right"])
+
+    def test_existing_rows_survive_partial_resume_loading(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "seed.json"
+            path.write_text(
+                json.dumps(
+                    {
+                        "manifest": {"execution_seed": 17},
+                        "rows": [
+                            {"run_key": "first", "ok": True},
+                            {"run_key": "later", "ok": True},
+                        ],
+                    }
+                )
+            )
+            rows, legacy, unverified = load_existing_rows(
+                [path],
+                {"first", "later"},
+                {"execution_seed": 17},
+            )
+        self.assertEqual({"first", "later"}, set(rows))
+        self.assertEqual([], legacy)
+        self.assertEqual([], unverified)
+
+    def test_existing_rows_reject_execution_seed_drift(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "seed.json"
+            path.write_text(
+                json.dumps(
+                    {
+                        "manifest": {"execution_seed": 11},
+                        "rows": [{"run_key": "first", "ok": True}],
+                    }
+                )
+            )
+            with self.assertRaisesRegex(
+                ValueError,
+                "protocol mismatch for execution_seed",
+            ):
+                load_existing_rows(
+                    [path],
+                    {"first"},
+                    {"execution_seed": 17},
+                )
+
+    def test_legacy_existing_rows_are_explicitly_labeled(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "seed.json"
+            path.write_text(
+                json.dumps(
+                    {
+                        "manifest": {},
+                        "rows": [{"run_key": "first", "ok": True}],
+                    }
+                )
+            )
+            rows, legacy, unverified = load_existing_rows(
+                [path],
+                {"first"},
+                {"execution_seed": 17},
+                allow_legacy=True,
+            )
+        self.assertEqual({"first"}, set(rows))
+        self.assertEqual([str(path)], legacy)
+        self.assertEqual([str(path)], unverified)
+
+    def test_retry_replaces_existing_row_instead_of_duplicating_it(self):
+        existing = {"same": {"run_key": "same", "ok": False}}
+        rows = upsert_run_row(
+            existing,
+            {"run_key": "same", "ok": True},
+        )
+        self.assertEqual(1, len(rows))
+        self.assertTrue(rows[0]["ok"])
+
+    def test_mixed_legacy_provenance_survives_a_second_resume(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "migrated.json"
+            path.write_text(
+                json.dumps(
+                    {
+                        "manifest": {
+                            "execution_seed": 17,
+                            "execution_order": "mixed-legacy-and-interleaved",
+                            "legacy_execution_order_sources": ["original.json"],
+                        },
+                        "rows": [{"run_key": "first", "ok": True}],
+                    }
+                )
+            )
+            _, legacy, unverified = load_existing_rows(
+                [path],
+                {"first"},
+                {"execution_seed": 17},
+            )
+        self.assertEqual(["original.json"], legacy)
+        self.assertEqual([], unverified)
+
+    def test_legacy_missing_protocol_is_rejected_without_opt_in(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "legacy.json"
+            path.write_text(
+                json.dumps(
+                    {
+                        "manifest": {},
+                        "rows": [{"run_key": "first", "ok": True}],
+                    }
+                )
+            )
+            with self.assertRaisesRegex(ValueError, "missing protocol field"):
+                load_existing_rows(
+                    [path],
+                    {"first"},
+                    {"reader_prompt_version": "v1"},
+                )
+
+    def test_context_cache_fingerprint_changes_with_embedding(self):
+        first = context_cache_fingerprint(
+            "dataset",
+            ["pair"],
+            ["hybrid"],
+            4000,
+            224,
+            100,
+            0.5,
+            "embedding-a",
+            "tokenizer-a",
+        )
+        second = context_cache_fingerprint(
+            "dataset",
+            ["pair"],
+            ["hybrid"],
+            4000,
+            224,
+            100,
+            0.5,
+            "embedding-b",
+            "tokenizer-a",
+        )
+        self.assertNotEqual(first, second)
 
 
 if __name__ == "__main__":

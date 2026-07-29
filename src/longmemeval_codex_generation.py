@@ -21,6 +21,7 @@ from pathlib import Path
 from typing import Any
 
 from benchmark import Bm25, DenseIndex, MiniLm, MODEL_DIR
+from execution_order import interleaved_product
 from graph_benchmark_common import write_result
 from locomo_hybrid_fusion import weighted_rrf
 
@@ -44,6 +45,7 @@ SUPPORTED_ARCHITECTURES = [
 ]
 ABSTENTION_ANSWER = "INSUFFICIENT_EVIDENCE"
 TOKEN_USE_PATTERN = re.compile(r"tokens used\s+([0-9\u00a0\u202f, ]+)", re.I)
+READER_PROMPT_VERSION = "longmemeval-reader-v1"
 
 
 def parse_args() -> argparse.Namespace:
@@ -81,14 +83,86 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--reasoning-effort", default="low")
     parser.add_argument("--timeout-seconds", type=int, default=240)
     parser.add_argument("--provider-retries", type=int, default=2)
+    parser.add_argument("--execution-seed", type=int, default=20260729)
     parser.add_argument("--max-calls", type=int)
     parser.add_argument("--retry-errors", action="store_true")
+    parser.add_argument("--allow-legacy-results", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
 
 def sha256_file(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def load_existing_rows(
+    result_sources: list[Path],
+    allowed_run_keys: set[str],
+    expected_protocol: dict[str, Any],
+    *,
+    allow_legacy: bool = False,
+) -> tuple[dict[str, Any], list[str], list[str]]:
+    existing: dict[str, Any] = {}
+    legacy_order_sources: list[str] = []
+    unverified_protocol_sources: list[str] = []
+    for result_source in result_sources:
+        if not result_source.exists():
+            continue
+        try:
+            previous = json.loads(result_source.read_text())
+        except (json.JSONDecodeError, KeyError):
+            continue
+        manifest = previous.get("manifest", {})
+        legacy_provenance = (
+            manifest.get("execution_seed") is None
+            or manifest.get("execution_order") == "mixed-legacy-and-interleaved"
+        )
+        if legacy_provenance:
+            inherited_sources = manifest.get("legacy_execution_order_sources")
+            legacy_order_sources.extend(
+                inherited_sources
+                if isinstance(inherited_sources, list) and inherited_sources
+                else [str(result_source)]
+            )
+        inherited_protocol_sources = manifest.get(
+            "unverified_legacy_protocol_sources"
+        )
+        if manifest.get("protocol_verification") == "mixed-legacy-unverified":
+            unverified_protocol_sources.extend(
+                inherited_protocol_sources
+                if isinstance(inherited_protocol_sources, list)
+                and inherited_protocol_sources
+                else [str(result_source)]
+            )
+        for key, expected in expected_protocol.items():
+            if key not in manifest:
+                if legacy_provenance and allow_legacy:
+                    unverified_protocol_sources.append(str(result_source))
+                    continue
+                raise ValueError(
+                    f"missing protocol field {key} in {result_source}"
+                )
+            if manifest[key] != expected:
+                raise ValueError(
+                    f"protocol mismatch for {key} in {result_source}: "
+                    f"{manifest[key]!r} != {expected!r}"
+                )
+        for row in previous.get("rows", []):
+            if row.get("run_key") in allowed_run_keys:
+                existing[row["run_key"]] = row
+    return (
+        existing,
+        sorted(set(legacy_order_sources)),
+        sorted(set(unverified_protocol_sources)),
+    )
+
+
+def upsert_run_row(
+    existing: dict[str, Any],
+    row: dict[str, Any],
+) -> list[dict[str, Any]]:
+    existing[row["run_key"]] = row
+    return list(existing.values())
 
 
 def normalize_text(value: Any) -> str:
@@ -828,6 +902,8 @@ def context_cache_fingerprint(
     chunk_tokens: int,
     ranking_depth: int,
     alpha_bm25: float,
+    embedding_model_sha256: str = "",
+    tokenizer_sha256: str = "",
 ) -> str:
     payload = {
         "dataset_sha256": dataset_sha256,
@@ -837,6 +913,8 @@ def context_cache_fingerprint(
         "chunk_tokens": chunk_tokens,
         "ranking_depth": ranking_depth,
         "alpha_bm25": alpha_bm25,
+        "embedding_model_sha256": embedding_model_sha256,
+        "tokenizer_sha256": tokenizer_sha256,
     }
     canonical = json.dumps(payload, sort_keys=True, separators=(",", ":"))
     return hashlib.sha256(canonical.encode()).hexdigest()
@@ -855,6 +933,8 @@ def main() -> None:
     dataset = args.dataset.resolve()
     items = load_items(dataset, args.pair_ids)
     dataset_sha256 = sha256_file(dataset)
+    embedding_model_sha256 = sha256_file(args.model_dir / "model.onnx")
+    tokenizer_sha256 = sha256_file(args.model_dir / "tokenizer.json")
     cache_fingerprint = context_cache_fingerprint(
         dataset_sha256,
         args.pair_ids,
@@ -863,6 +943,8 @@ def main() -> None:
         args.chunk_tokens,
         args.ranking_depth,
         args.alpha_bm25,
+        embedding_model_sha256,
+        tokenizer_sha256,
     )
     context_cache_path = (
         args.context_cache.resolve()
@@ -934,22 +1016,6 @@ def main() -> None:
         for architecture in args.architectures
         for item in items
     }
-    existing: dict[str, Any] = {}
-    result_sources = [
-        *(path.resolve() for path in args.seed_results),
-        args.output.resolve(),
-    ]
-    for result_source in result_sources:
-        if not result_source.exists():
-            continue
-        try:
-            previous = json.loads(result_source.read_text())
-            for row in previous.get("rows", []):
-                if row.get("run_key") in allowed_run_keys:
-                    existing[row["run_key"]] = row
-        except (json.JSONDecodeError, KeyError):
-            continue
-
     try:
         codex_version = subprocess.run(
             [args.codex_bin, "--version"],
@@ -960,15 +1026,65 @@ def main() -> None:
         ).stdout.strip()
     except (OSError, subprocess.TimeoutExpired):
         codex_version = "unavailable"
+    expected_protocol = {
+        "dataset_sha256": dataset_sha256,
+        "schema_sha256": sha256_file(schema),
+        "answer_aliases_sha256": sha256_file(answer_aliases_path),
+        "codex_version": codex_version,
+        "word_budget": args.word_budget,
+        "chunk_tokens": args.chunk_tokens,
+        "ranking_depth": args.ranking_depth,
+        "alpha_bm25": args.alpha_bm25,
+        "reasoning_effort": args.reasoning_effort,
+        "provider_retries": args.provider_retries,
+        "timeout_seconds": args.timeout_seconds,
+        "dry_run": args.dry_run,
+        "reader_prompt_version": READER_PROMPT_VERSION,
+        "embedding_model_sha256": embedding_model_sha256,
+        "tokenizer_sha256": tokenizer_sha256,
+        "execution_seed": args.execution_seed,
+    }
+    run_protocol = {
+        **expected_protocol,
+        "models": args.models,
+        "architectures": args.architectures,
+        "pair_ids": args.pair_ids,
+        "repetitions": args.repetitions,
+        "context_cache_fingerprint": cache_fingerprint,
+        "execution_seed": args.execution_seed,
+    }
+    result_sources = [
+        *(path.resolve() for path in args.seed_results),
+        args.output.resolve(),
+    ]
+    (
+        existing,
+        legacy_execution_order_sources,
+        unverified_legacy_protocol_sources,
+    ) = load_existing_rows(
+        result_sources,
+        allowed_run_keys,
+        expected_protocol,
+        allow_legacy=args.allow_legacy_results,
+    )
 
-    rows = []
+    rows = list(existing.values())
     pending_calls = 0
-    consecutive_failures = 0
+    consecutive_failures_by_model: defaultdict[str, int] = defaultdict(int)
     stopped_reason = None
-    for repetition in range(args.repetitions):
-        for model in args.models:
-            for architecture in args.architectures:
-                for item in items:
+    schedule = interleaved_product(
+        range(args.repetitions),
+        args.models,
+        args.architectures,
+        items,
+        seed=args.execution_seed,
+    )
+    for repetition, model, architecture, item in schedule:
+        # Keep the staged stop propagation explicit while executing one
+        # globally interleaved schedule.
+        for _campaign_scope in (None,):
+            for _model_scope in (None,):
+                for _architecture_scope in (None,):
                     run_key = "|".join(
                         [
                             item["question_id"],
@@ -979,7 +1095,6 @@ def main() -> None:
                     )
                     previous = existing.get(run_key)
                     if previous and (previous.get("ok") or not args.retry_errors):
-                        rows.append(previous)
                         continue
                     if args.max_calls is not None and pending_calls >= args.max_calls:
                         stopped_reason = "max_calls"
@@ -1036,15 +1151,17 @@ def main() -> None:
                         **result,
                         **score,
                     }
-                    rows.append(row)
-                    existing[run_key] = row
+                    rows = upsert_run_row(existing, row)
                     pending_calls += 1
-                    consecutive_failures = (
-                        0 if row["ok"] else consecutive_failures + 1
+                    consecutive_failures_by_model[model] = (
+                        0
+                        if row["ok"]
+                        else consecutive_failures_by_model[model] + 1
                     )
                     payload = {
                         "manifest": {
                             "created_at": datetime.now(timezone.utc).isoformat(),
+                            **run_protocol,
                             "complete": False,
                             "stopped_reason": None,
                             "dataset": str(dataset),
@@ -1073,6 +1190,23 @@ def main() -> None:
                             "context_cache": str(context_cache_path),
                             "context_cache_hit": context_cache_hit,
                             "provider_retries": args.provider_retries,
+                            "execution_seed": args.execution_seed,
+                            "execution_order": (
+                                "mixed-legacy-and-interleaved"
+                                if legacy_execution_order_sources
+                                else "interleaved"
+                            ),
+                            "legacy_execution_order_sources": (
+                                legacy_execution_order_sources
+                            ),
+                            "protocol_verification": (
+                                "mixed-legacy-unverified"
+                                if unverified_legacy_protocol_sources
+                                else "verified"
+                            ),
+                            "unverified_legacy_protocol_sources": (
+                                unverified_legacy_protocol_sources
+                            ),
                             "scope": (
                                 "Public LongMemEval-S paired near-misses, Codex "
                                 "subscription execution, deterministic scoring, "
@@ -1092,8 +1226,10 @@ def main() -> None:
                         "pair_consistency": pair_consistency(rows),
                     }
                     write_result(args.output, payload)
-                    if consecutive_failures >= 3:
-                        stopped_reason = "three_consecutive_failures"
+                    if consecutive_failures_by_model[model] >= 3:
+                        stopped_reason = (
+                            f"three_consecutive_failures:{model}"
+                        )
                         break
                 if stopped_reason:
                     break
@@ -1111,6 +1247,7 @@ def main() -> None:
     final_payload = {
         "manifest": {
             "created_at": datetime.now(timezone.utc).isoformat(),
+            **run_protocol,
             "complete": len({row["run_key"] for row in rows if row.get("ok")})
             == expected,
             "stopped_reason": stopped_reason,
@@ -1148,6 +1285,21 @@ def main() -> None:
             "context_cache_fingerprint": cache_fingerprint,
             "context_cache_hit": context_cache_hit,
             "provider_retries": args.provider_retries,
+            "execution_seed": args.execution_seed,
+            "execution_order": (
+                "mixed-legacy-and-interleaved"
+                if legacy_execution_order_sources
+                else "interleaved"
+            ),
+            "legacy_execution_order_sources": legacy_execution_order_sources,
+            "protocol_verification": (
+                "mixed-legacy-unverified"
+                if unverified_legacy_protocol_sources
+                else "verified"
+            ),
+            "unverified_legacy_protocol_sources": (
+                unverified_legacy_protocol_sources
+            ),
             "scope": (
                 "Public LongMemEval-S paired near-misses, Codex subscription "
                 "execution, deterministic scoring, no API key and no private data"

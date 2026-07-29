@@ -303,6 +303,7 @@ retrievers:
   --architectures bm25_chunks hybrid_chunks \
     bm25_user_chunks hybrid_user_chunks \
   --repetitions 3 \
+  --allow-legacy-results \
   --retry-errors
 ```
 
@@ -322,6 +323,7 @@ Confirm the role-policy decision on all 29 matched pairs with one frozen reader:
   --architectures hybrid_chunks hybrid_user_chunks \
   --pair-ids <all-29-matched-base-ids> \
   --repetitions 1 \
+  --allow-legacy-results \
   --retry-errors
 ```
 
@@ -410,8 +412,11 @@ parameters, and reasoning effort before accepting prior rows.
 This is a static final-context test. It evaluates retrieval and reading after
 the memory has already been assembled. It does not evaluate incremental
 ingestion, consolidation, updating, maintenance, forgetting, or human review.
-The completed runs also used a blocked architecture order, so future campaigns
-should interleave the configurations to reduce sensitivity to provider drift.
+The completed historical runs used a blocked architecture order. Current
+runners now deterministically interleave architecture, repetition and question
+configurations to reduce sensitivity to provider drift. Local Ollama models stay
+grouped to avoid reload confounding; subscription models can be interleaved. The
+historical result keeps its original limitation.
 
 The complete 600-call run reports:
 

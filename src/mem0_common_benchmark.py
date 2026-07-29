@@ -19,6 +19,7 @@ from graph_benchmark_common import (
     source_ids_from_text,
     write_result,
 )
+from execution_order import interleaved_product
 
 
 def parse_args() -> argparse.Namespace:
@@ -29,6 +30,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model", default="qwen3:1.7b")
     parser.add_argument("--top-k", type=int, default=5)
     parser.add_argument("--repetitions", type=int, default=3)
+    parser.add_argument("--execution-seed", type=int, default=20260729)
     parser.add_argument("--work-root", type=Path, default=Path("/tmp/mem0-common-benchmark"))
     return parser.parse_args()
 
@@ -225,47 +227,54 @@ def run(args: argparse.Namespace) -> None:
     corpus = load_jsonl(args.corpus)
     questions = load_jsonl(args.questions)
     args.work_root.mkdir(parents=True, exist_ok=True)
-    repeats = []
-    for repeat_index in range(1, args.repetitions + 1):
-        repeat_root = Path(
+    repeat_roots = {
+        repeat_index: Path(
             tempfile.mkdtemp(prefix=f"repeat-{repeat_index}-", dir=args.work_root)
         )
-        raw = run_mode(
+        for repeat_index in range(1, args.repetitions + 1)
+    }
+    repeats_by_index: dict[int, dict[str, Any]] = {
+        repeat_index: {
+            "repeat": repeat_index,
+            "run_root": str(repeat_root),
+        }
+        for repeat_index, repeat_root in repeat_roots.items()
+    }
+    schedule = interleaved_product(
+        range(1, args.repetitions + 1),
+        ["raw", "infer"],
+        seed=args.execution_seed,
+    )
+    for completed_runs, (repeat_index, mode) in enumerate(schedule, start=1):
+        repeat_root = repeat_roots[repeat_index]
+        result = run_mode(
             corpus=corpus,
             questions=questions,
-            root=repeat_root / "raw",
+            root=repeat_root / mode,
             model=args.model,
             top_k=args.top_k,
-            infer=False,
-            user_id=f"common-raw-{repeat_index}",
+            infer=mode == "infer",
+            user_id=f"common-{mode}-{repeat_index}",
         )
-        inferred = run_mode(
-            corpus=corpus,
-            questions=questions,
-            root=repeat_root / "infer",
-            model=args.model,
-            top_k=args.top_k,
-            infer=True,
-            user_id=f"common-infer-{repeat_index}",
-        )
-        repeats.append(
-            {
-                "repeat": repeat_index,
-                "run_root": str(repeat_root),
-                "raw": raw,
-                "infer": inferred,
-            }
-        )
+        repeats_by_index[repeat_index][mode] = result
         write_result(
             args.output.with_suffix(args.output.suffix + ".checkpoint.json"),
             {
                 "status": "running",
-                "completed_repetitions": repeat_index,
-                "expected_repetitions": args.repetitions,
-                "repeats": repeats,
+                "completed_runs": completed_runs,
+                "expected_runs": args.repetitions * 2,
+                "execution_seed": args.execution_seed,
+                "repeats": [
+                    repeats_by_index[index]
+                    for index in sorted(repeats_by_index)
+                ],
             },
         )
 
+    repeats = [
+        repeats_by_index[index]
+        for index in sorted(repeats_by_index)
+    ]
     write_result(
         args.output,
         {
@@ -276,6 +285,8 @@ def run(args: argparse.Namespace) -> None:
                 "questions": len(questions),
                 "top_k": args.top_k,
                 "repetitions": args.repetitions,
+                "execution_seed": args.execution_seed,
+                "execution_order": "interleaved raw/infer modes and repetitions",
                 "model": args.model,
                 "embedder": "nomic-embed-text:latest",
                 "vector_store": "embedded Qdrant",
