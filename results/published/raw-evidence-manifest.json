@@ -36,15 +36,15 @@
       "path": "results/COMMON-RETRIEVAL-COMPARISON-20260729.json",
       "bytes": 28746,
       "sha256": "923ecc4924c163180dc9be421f995034df2317f6c8d8e365eb84e9f3fb1eab6d",
-      "published": false,
-      "reason": "raw dataset or provider output requires a separate license and privacy review"
+      "published": true,
+      "published_path": "results/published/raw/COMMON-RETRIEVAL-COMPARISON-20260729.json"
     },
     {
       "path": "results/CONTEXT-SHARD-POLICIES-20260729.json",
       "bytes": 6016,
       "sha256": "87c2593e2b8c853d89464e60e175d6f34e1e38364445c737cce277f86fef967c",
-      "published": false,
-      "reason": "raw dataset or provider output requires a separate license and privacy review"
+      "published": true,
+      "published_path": "results/published/raw/CONTEXT-SHARD-POLICIES-20260729.json"
     },
     {
       "path": "results/COVERAGE-MANIFEST-20260729.json",
@@ -71,15 +71,15 @@
       "path": "results/GRAPH-MODEL-SENSITIVITY-20260729.json",
       "bytes": 1891,
       "sha256": "4562562582e367d3607e2dab5653be30d28a1d6dd37f137acf6db84ae69b9c52",
-      "published": false,
-      "reason": "raw dataset or provider output requires a separate license and privacy review"
+      "published": true,
+      "published_path": "results/published/raw/GRAPH-MODEL-SENSITIVITY-20260729.json"
     },
     {
       "path": "results/GRAPH-REPETITIONS-QWEN25-20260729.json",
       "bytes": 5796,
       "sha256": "28cf47487ba88d4af2008b68bb806b7bf9f738a2c218e736990f8b2c31c8daaa",
-      "published": false,
-      "reason": "raw dataset or provider output requires a separate license and privacy review"
+      "published": true,
+      "published_path": "results/published/raw/GRAPH-REPETITIONS-QWEN25-20260729.json"
     },
     {
       "path": "results/GRAPHITI-COMBINED-8DOCS-20260729.json",
@@ -204,15 +204,15 @@
       "path": "results/INCREMENTAL-MEMORY-LIFECYCLE-20260729.json",
       "bytes": 97054,
       "sha256": "a591fb6ce35b7389b163031890abb2751800aabc6c8bd192a92d759fb44024fc",
-      "published": false,
-      "reason": "raw dataset or provider output requires a separate license and privacy review"
+      "published": true,
+      "published_path": "results/published/raw/INCREMENTAL-MEMORY-LIFECYCLE-20260729.json"
     },
     {
       "path": "results/INCREMENTAL-MEMORY-PERSISTENCE-20260729.json",
       "bytes": 8562,
       "sha256": "5bdcd872e39ab01fc51d717adfc1ddb3dd1924d615a8dd3c8e0548b02d3ef959",
-      "published": false,
-      "reason": "raw dataset or provider output requires a separate license and privacy review"
+      "published": true,
+      "published_path": "results/published/raw/INCREMENTAL-MEMORY-PERSISTENCE-20260729.json"
     },
     {
       "path": "results/INGESTION-20260728T221412Z.json",
@@ -225,15 +225,15 @@
       "path": "results/INGESTION-latest.json",
       "bytes": 74827,
       "sha256": "2132de716e8217b039367bb7640dc497dff59b1abe42fdd099ce9be773fad41b",
-      "published": false,
-      "reason": "raw dataset or provider output requires a separate license and privacy review"
+      "published": true,
+      "published_path": "results/published/raw/INGESTION-latest.json"
     },
     {
       "path": "results/JCODE-COMMON-3X-20260729.json",
       "bytes": 246050,
       "sha256": "1bd8ea40b952f4919af7b44791c935782981a5800956a48bb4d9ab2ffd851960",
-      "published": false,
-      "reason": "raw dataset or provider output requires a separate license and privacy review"
+      "published": true,
+      "published_path": "results/published/raw/JCODE-COMMON-3X-20260729.json"
     },
     {
       "path": "results/JCODE-COMMON-3X-20260729.json.checkpoint.json",
@@ -386,8 +386,8 @@
       "path": "results/MEM0-COMMON-3X-20260729.json",
       "bytes": 771301,
       "sha256": "157bbe977ea47dc83ab35333dadba2f2cf7e64ecdadd32cb04f035552d9df49c",
-      "published": false,
-      "reason": "raw dataset or provider output requires a separate license and privacy review"
+      "published": true,
+      "published_path": "results/published/raw/MEM0-COMMON-3X-20260729.json"
     },
     {
       "path": "results/MEM0-COMMON-3X-20260729.json.checkpoint.json",
@@ -764,8 +764,8 @@
       "path": "results/PROTOTYPE-latest.json",
       "bytes": 418886,
       "sha256": "bec5ff910dec496e87e5154f63ae05070d422488c21ad4aeedd067b2e8e55d49",
-      "published": false,
-      "reason": "raw dataset or provider output requires a separate license and privacy review"
+      "published": true,
+      "published_path": "results/published/raw/PROTOTYPE-latest.json"
     },
     {
       "path": "results/SYSTEM-SMOKES-20260729.json",
@@ -785,8 +785,8 @@
       "path": "results/TOPOLOGY-latest.json",
       "bytes": 71637,
       "sha256": "c89a1d604b3e2920fba65228f36b603842834394afb1c040f2ced92939955564",
-      "published": false,
-      "reason": "raw dataset or provider output requires a separate license and privacy review"
+      "published": true,
+      "published_path": "results/published/raw/TOPOLOGY-latest.json"
     }
   ]
 }

@@ -1,0 +1,1208 @@
+{
+  "protocol": {
+    "questions": 20,
+    "top_k": 5,
+    "repetitions": 3,
+    "metric_contract": "graph_benchmark_common.score_retrieval",
+    "latency_warning": "Implementations and process boundaries differ; compare quality directly, but treat latency as descriptive rather than a fair leaderboard."
+  },
+  "ingestion": {
+    "jcode_default_import_memory_count": 17,
+    "jcode_preserved_upsert_memory_count": 28,
+    "jcode_default_retention": 0.6071428571428571,
+    "lost_stable_ids": [
+      "d02",
+      "d03",
+      "d06",
+      "d08",
+      "d10",
+      "d12",
+      "d14",
+      "d18",
+      "d20",
+      "d25",
+      "d27"
+    ],
+    "reinforcement_count": 11,
+    "mem0_raw_memory_count": 28,
+    "mem0_infer_memory_count": 41,
+    "mem0_infer_extra_records_over_sources": 13,
+    "mem0_raw_retained_sources": 28,
+    "mem0_infer_retained_sources": 26
+  },
+  "comparison": {
+    "bm25": {
+      "system": "prototype",
+      "summary": {
+        "abstention_accuracy": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "mean_context_precision": {
+          "mean": 0.23859649122807022,
+          "sample_stddev": 0.0,
+          "values": [
+            0.23859649122807022,
+            0.23859649122807022,
+            0.23859649122807022
+          ]
+        },
+        "mean_latency_ms": {
+          "mean": 0.04807497995595137,
+          "sample_stddev": 0.0014567578908816622,
+          "values": [
+            0.049631111323833466,
+            0.04785007331520319,
+            0.04674375522881746
+          ]
+        },
+        "mean_recall": {
+          "mean": 0.9210526315789473,
+          "sample_stddev": 0.0,
+          "values": [
+            0.9210526315789473,
+            0.9210526315789473,
+            0.9210526315789473
+          ]
+        },
+        "p95_latency_ms": {
+          "mean": 0.0653335979829232,
+          "sample_stddev": 0.001013520813326279,
+          "values": [
+            0.06649992428719997,
+            0.06466684862971306,
+            0.06483402103185654
+          ]
+        },
+        "temporal_context_precision": {
+          "mean": 0.20000000000000004,
+          "sample_stddev": 0.0,
+          "values": [
+            0.2,
+            0.2,
+            0.2
+          ]
+        },
+        "temporal_correctness": {
+          "mean": 0.8000000000000002,
+          "sample_stddev": 0.0,
+          "values": [
+            0.8,
+            0.8,
+            0.8
+          ]
+        },
+        "temporal_exact_source_set": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "context_shards": {
+      "system": "prototype",
+      "summary": {
+        "abstention_accuracy": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "mean_context_precision": {
+          "mean": 0.05263157894736842,
+          "sample_stddev": 0.0,
+          "values": [
+            0.05263157894736842,
+            0.05263157894736842,
+            0.05263157894736842
+          ]
+        },
+        "mean_latency_ms": {
+          "mean": 2.2521888449167213,
+          "sample_stddev": 0.1057197761297313,
+          "values": [
+            2.3710894864052534,
+            2.1687875501811504,
+            2.2166894981637597
+          ]
+        },
+        "mean_recall": {
+          "mean": 0.10526315789473684,
+          "sample_stddev": 0.0,
+          "values": [
+            0.10526315789473684,
+            0.10526315789473684,
+            0.10526315789473684
+          ]
+        },
+        "p95_latency_ms": {
+          "mean": 2.8343607361117997,
+          "sample_stddev": 0.2441737998704466,
+          "values": [
+            3.114708000794053,
+            2.66820820979774,
+            2.7201659977436066
+          ]
+        },
+        "temporal_context_precision": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "temporal_correctness": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "temporal_exact_source_set": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "dense": {
+      "system": "prototype",
+      "summary": {
+        "abstention_accuracy": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "mean_context_precision": {
+          "mean": 0.24210526315789482,
+          "sample_stddev": 0.0,
+          "values": [
+            0.24210526315789482,
+            0.24210526315789482,
+            0.24210526315789482
+          ]
+        },
+        "mean_latency_ms": {
+          "mean": 2.177723532076925,
+          "sample_stddev": 0.026072162213724142,
+          "values": [
+            2.203091513365507,
+            2.151000068988651,
+            2.179079013876617
+          ]
+        },
+        "mean_recall": {
+          "mean": 0.9736842105263158,
+          "sample_stddev": 0.0,
+          "values": [
+            0.9736842105263158,
+            0.9736842105263158,
+            0.9736842105263158
+          ]
+        },
+        "p95_latency_ms": {
+          "mean": 2.747513741875688,
+          "sample_stddev": 0.10917759276997172,
+          "values": [
+            2.6705001946538687,
+            2.8724579606205225,
+            2.6995830703526735
+          ]
+        },
+        "temporal_context_precision": {
+          "mean": 0.20000000000000004,
+          "sample_stddev": 0.0,
+          "values": [
+            0.2,
+            0.2,
+            0.2
+          ]
+        },
+        "temporal_correctness": {
+          "mean": 0.8000000000000002,
+          "sample_stddev": 0.0,
+          "values": [
+            0.8,
+            0.8,
+            0.8
+          ]
+        },
+        "temporal_exact_source_set": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "facts": {
+      "system": "prototype",
+      "summary": {
+        "abstention_accuracy": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "mean_context_precision": {
+          "mean": 0.20175438596491235,
+          "sample_stddev": 0.0,
+          "values": [
+            0.20175438596491235,
+            0.20175438596491235,
+            0.20175438596491235
+          ]
+        },
+        "mean_latency_ms": {
+          "mean": 3.769104826884965,
+          "sample_stddev": 2.7342672923802605,
+          "values": [
+            6.9263603538274765,
+            2.19503550324589,
+            2.1859186235815287
+          ]
+        },
+        "mean_recall": {
+          "mean": 0.8947368421052632,
+          "sample_stddev": 0.0,
+          "values": [
+            0.8947368421052632,
+            0.8947368421052632,
+            0.8947368421052632
+          ]
+        },
+        "p95_latency_ms": {
+          "mean": 10.486361027384797,
+          "sample_stddev": 13.418683816002662,
+          "values": [
+            25.9807500988245,
+            2.6758748572319746,
+            2.8024581260979176
+          ]
+        },
+        "temporal_context_precision": {
+          "mean": 0.18666666666666668,
+          "sample_stddev": 0.0,
+          "values": [
+            0.18666666666666668,
+            0.18666666666666668,
+            0.18666666666666668
+          ]
+        },
+        "temporal_correctness": {
+          "mean": 0.8000000000000002,
+          "sample_stddev": 0.0,
+          "values": [
+            0.8,
+            0.8,
+            0.8
+          ]
+        },
+        "temporal_exact_source_set": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "graph": {
+      "system": "prototype",
+      "summary": {
+        "abstention_accuracy": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "mean_context_precision": {
+          "mean": 0.24385964912280703,
+          "sample_stddev": 0.0,
+          "values": [
+            0.24385964912280703,
+            0.24385964912280703,
+            0.24385964912280703
+          ]
+        },
+        "mean_latency_ms": {
+          "mean": 2.5058645638637245,
+          "sample_stddev": 0.4766833357125211,
+          "values": [
+            2.2289250046014786,
+            3.0562874511815608,
+            2.232381235808134
+          ]
+        },
+        "mean_recall": {
+          "mean": 0.9210526315789473,
+          "sample_stddev": 0.0,
+          "values": [
+            0.9210526315789473,
+            0.9210526315789473,
+            0.9210526315789473
+          ]
+        },
+        "p95_latency_ms": {
+          "mean": 3.5897500347346067,
+          "sample_stddev": 1.5486507150681013,
+          "values": [
+            2.6759998872876167,
+            5.377833032980561,
+            2.7154171839356422
+          ]
+        },
+        "temporal_context_precision": {
+          "mean": 0.24,
+          "sample_stddev": 0.0,
+          "values": [
+            0.24,
+            0.24,
+            0.24
+          ]
+        },
+        "temporal_correctness": {
+          "mean": 1.0,
+          "sample_stddev": 0.0,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "temporal_exact_source_set": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "hybrid": {
+      "system": "prototype",
+      "summary": {
+        "abstention_accuracy": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "mean_context_precision": {
+          "mean": 0.24210526315789482,
+          "sample_stddev": 0.0,
+          "values": [
+            0.24210526315789482,
+            0.24210526315789482,
+            0.24210526315789482
+          ]
+        },
+        "mean_latency_ms": {
+          "mean": 2.258404177458336,
+          "sample_stddev": 0.03285421770459223,
+          "values": [
+            2.245629276148975,
+            2.295727061573416,
+            2.233856194652617
+          ]
+        },
+        "mean_recall": {
+          "mean": 0.9736842105263158,
+          "sample_stddev": 0.0,
+          "values": [
+            0.9736842105263158,
+            0.9736842105263158,
+            0.9736842105263158
+          ]
+        },
+        "p95_latency_ms": {
+          "mean": 2.7124863117933273,
+          "sample_stddev": 0.06739278864979743,
+          "values": [
+            2.638542093336582,
+            2.7704578824341297,
+            2.72845895960927
+          ]
+        },
+        "temporal_context_precision": {
+          "mean": 0.20000000000000004,
+          "sample_stddev": 0.0,
+          "values": [
+            0.2,
+            0.2,
+            0.2
+          ]
+        },
+        "temporal_correctness": {
+          "mean": 0.8000000000000002,
+          "sample_stddev": 0.0,
+          "values": [
+            0.8,
+            0.8,
+            0.8
+          ]
+        },
+        "temporal_exact_source_set": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "long_context": {
+      "system": "prototype",
+      "summary": {
+        "abstention_accuracy": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "mean_context_precision": {
+          "mean": 0.045112781954887195,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0451127819548872,
+            0.0451127819548872,
+            0.0451127819548872
+          ]
+        },
+        "mean_latency_ms": {
+          "mean": 0.004255527164787054,
+          "sample_stddev": 0.0004828949390516896,
+          "values": [
+            0.004812609404325485,
+            0.003956200089305639,
+            0.003997772000730038
+          ]
+        },
+        "mean_recall": {
+          "mean": 1.0,
+          "sample_stddev": 0.0,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "p95_latency_ms": {
+          "mean": 0.006166985258460045,
+          "sample_stddev": 0.0031399127717097373,
+          "values": [
+            0.009791925549507141,
+            0.004292000085115433,
+            0.004417030140757561
+          ]
+        },
+        "temporal_context_precision": {
+          "mean": 0.04285714285714285,
+          "sample_stddev": 0.0,
+          "values": [
+            0.04285714285714285,
+            0.04285714285714285,
+            0.04285714285714285
+          ]
+        },
+        "temporal_correctness": {
+          "mean": 1.0,
+          "sample_stddev": 0.0,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "temporal_exact_source_set": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "parallel_merge": {
+      "system": "prototype",
+      "summary": {
+        "abstention_accuracy": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "mean_context_precision": {
+          "mean": 0.35438596491228064,
+          "sample_stddev": 0.0,
+          "values": [
+            0.35438596491228064,
+            0.35438596491228064,
+            0.35438596491228064
+          ]
+        },
+        "mean_latency_ms": {
+          "mean": 8.865350061872354,
+          "sample_stddev": 0.04568551920670231,
+          "values": [
+            8.836402173619717,
+            8.918016694951802,
+            8.84163131704554
+          ]
+        },
+        "mean_recall": {
+          "mean": 0.9736842105263158,
+          "sample_stddev": 0.0,
+          "values": [
+            0.9736842105263158,
+            0.9736842105263158,
+            0.9736842105263158
+          ]
+        },
+        "p95_latency_ms": {
+          "mean": 10.857111308723688,
+          "sample_stddev": 0.17436300781502895,
+          "values": [
+            10.960083920508623,
+            10.955458041280508,
+            10.655791964381933
+          ]
+        },
+        "temporal_context_precision": {
+          "mean": 0.29999999999999993,
+          "sample_stddev": 0.0,
+          "values": [
+            0.29999999999999993,
+            0.29999999999999993,
+            0.29999999999999993
+          ]
+        },
+        "temporal_correctness": {
+          "mean": 0.8000000000000002,
+          "sample_stddev": 0.0,
+          "values": [
+            0.8,
+            0.8,
+            0.8
+          ]
+        },
+        "temporal_exact_source_set": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "routed": {
+      "system": "prototype",
+      "summary": {
+        "abstention_accuracy": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "mean_context_precision": {
+          "mean": 0.25964912280701763,
+          "sample_stddev": 0.0,
+          "values": [
+            0.25964912280701763,
+            0.25964912280701763,
+            0.25964912280701763
+          ]
+        },
+        "mean_latency_ms": {
+          "mean": 1.3977027614600956,
+          "sample_stddev": 0.01702486949201099,
+          "values": [
+            1.3828562456183136,
+            1.4162854058668017,
+            1.3939666328951716
+          ]
+        },
+        "mean_recall": {
+          "mean": 0.9473684210526315,
+          "sample_stddev": 0.0,
+          "values": [
+            0.9473684210526315,
+            0.9473684210526315,
+            0.9473684210526315
+          ]
+        },
+        "p95_latency_ms": {
+          "mean": 2.790944262718161,
+          "sample_stddev": 0.29405345339653366,
+          "values": [
+            2.5338749401271343,
+            3.111582947894931,
+            2.7273749001324177
+          ]
+        },
+        "temporal_context_precision": {
+          "mean": 0.18666666666666668,
+          "sample_stddev": 0.0,
+          "values": [
+            0.18666666666666668,
+            0.18666666666666668,
+            0.18666666666666668
+          ]
+        },
+        "temporal_correctness": {
+          "mean": 0.8000000000000002,
+          "sample_stddev": 0.0,
+          "values": [
+            0.8,
+            0.8,
+            0.8
+          ]
+        },
+        "temporal_exact_source_set": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "jcode_cli_keyword": {
+      "system": "jcode",
+      "summary": {
+        "abstention_accuracy": {
+          "mean": 1.0,
+          "sample_stddev": 0.0,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "mean_context_precision": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "mean_latency_ms": {
+          "mean": 9.67565,
+          "sample_stddev": 0.16191739406252817,
+          "values": [
+            9.4887,
+            9.77125,
+            9.767
+          ]
+        },
+        "mean_recall": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "p95_latency_ms": {
+          "mean": 10.334333333333333,
+          "sample_stddev": 0.21523088378142508,
+          "values": [
+            10.095,
+            10.396,
+            10.512
+          ]
+        },
+        "temporal_context_precision": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "temporal_correctness": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "temporal_exact_source_set": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "jcode_cli_semantic": {
+      "system": "jcode",
+      "summary": {
+        "abstention_accuracy": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "mean_context_precision": {
+          "mean": 0.42105263157894735,
+          "sample_stddev": 0.0,
+          "values": [
+            0.42105263157894735,
+            0.42105263157894735,
+            0.42105263157894735
+          ]
+        },
+        "mean_latency_ms": {
+          "mean": 148.41523333333336,
+          "sample_stddev": 2.433469006548744,
+          "values": [
+            146.64855000000003,
+            147.40625000000003,
+            151.19090000000003
+          ]
+        },
+        "mean_recall": {
+          "mean": 0.5263157894736842,
+          "sample_stddev": 0.0,
+          "values": [
+            0.5263157894736842,
+            0.5263157894736842,
+            0.5263157894736842
+          ]
+        },
+        "p95_latency_ms": {
+          "mean": 152.58933333333334,
+          "sample_stddev": 3.645745099884714,
+          "values": [
+            150.666,
+            150.308,
+            156.794
+          ]
+        },
+        "temporal_context_precision": {
+          "mean": 0.4400000000000001,
+          "sample_stddev": 0.0,
+          "values": [
+            0.44000000000000006,
+            0.44000000000000006,
+            0.44000000000000006
+          ]
+        },
+        "temporal_correctness": {
+          "mean": 0.4000000000000001,
+          "sample_stddev": 0.0,
+          "values": [
+            0.4,
+            0.4,
+            0.4
+          ]
+        },
+        "temporal_exact_source_set": {
+          "mean": 0.20000000000000004,
+          "sample_stddev": 0.0,
+          "values": [
+            0.2,
+            0.2,
+            0.2
+          ]
+        }
+      }
+    },
+    "jcode_prod_hybrid_default_import": {
+      "system": "jcode",
+      "summary": {
+        "abstention_accuracy": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "mean_context_precision": {
+          "mean": 0.12631578947368421,
+          "sample_stddev": 0.0,
+          "values": [
+            0.12631578947368421,
+            0.12631578947368421,
+            0.12631578947368421
+          ]
+        },
+        "mean_latency_ms": {
+          "mean": 60.096466666666664,
+          "sample_stddev": 0.45482624246335873,
+          "values": [
+            59.63775,
+            60.54730000000001,
+            60.10435000000001
+          ]
+        },
+        "mean_recall": {
+          "mean": 0.5263157894736842,
+          "sample_stddev": 0.0,
+          "values": [
+            0.5263157894736842,
+            0.5263157894736842,
+            0.5263157894736842
+          ]
+        },
+        "p95_latency_ms": {
+          "mean": 58.42466666666667,
+          "sample_stddev": 5.00524288454949,
+          "values": [
+            55.579,
+            55.491,
+            64.204
+          ]
+        },
+        "temporal_context_precision": {
+          "mean": 0.12000000000000004,
+          "sample_stddev": 0.0,
+          "values": [
+            0.12000000000000002,
+            0.12000000000000002,
+            0.12000000000000002
+          ]
+        },
+        "temporal_correctness": {
+          "mean": 0.4000000000000001,
+          "sample_stddev": 0.0,
+          "values": [
+            0.4,
+            0.4,
+            0.4
+          ]
+        },
+        "temporal_exact_source_set": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "jcode_prod_hybrid_preserved_upsert": {
+      "system": "jcode",
+      "summary": {
+        "abstention_accuracy": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "mean_context_precision": {
+          "mean": 0.22105263157894742,
+          "sample_stddev": 0.0,
+          "values": [
+            0.22105263157894742,
+            0.22105263157894742,
+            0.22105263157894742
+          ]
+        },
+        "mean_latency_ms": {
+          "mean": 54.166083333333326,
+          "sample_stddev": 0.20174829821669385,
+          "values": [
+            54.241949999999996,
+            53.937400000000004,
+            54.3189
+          ]
+        },
+        "mean_recall": {
+          "mean": 0.8947368421052632,
+          "sample_stddev": 0.0,
+          "values": [
+            0.8947368421052632,
+            0.8947368421052632,
+            0.8947368421052632
+          ]
+        },
+        "p95_latency_ms": {
+          "mean": 55.23066666666667,
+          "sample_stddev": 0.45453529382583013,
+          "values": [
+            55.296,
+            55.649,
+            54.747
+          ]
+        },
+        "temporal_context_precision": {
+          "mean": 0.20000000000000004,
+          "sample_stddev": 0.0,
+          "values": [
+            0.2,
+            0.2,
+            0.2
+          ]
+        },
+        "temporal_correctness": {
+          "mean": 0.8000000000000002,
+          "sample_stddev": 0.0,
+          "values": [
+            0.8,
+            0.8,
+            0.8
+          ]
+        },
+        "temporal_exact_source_set": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "mem0_raw": {
+      "system": "Mem0 OSS",
+      "summary": {
+        "abstention_accuracy": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "mean_context_precision": {
+          "mean": 0.2526315789473685,
+          "sample_stddev": 0.0,
+          "values": [
+            0.2526315789473685,
+            0.2526315789473685,
+            0.2526315789473685
+          ]
+        },
+        "mean_latency_ms": {
+          "mean": 28.144116666666665,
+          "sample_stddev": 0.8026792951318328,
+          "values": [
+            27.751299999999997,
+            29.06755,
+            27.6135
+          ]
+        },
+        "mean_recall": {
+          "mean": 1.0,
+          "sample_stddev": 0.0,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "p95_latency_ms": {
+          "mean": 32.09433333333333,
+          "sample_stddev": 1.636756650615276,
+          "values": [
+            31.019,
+            33.978,
+            31.286
+          ]
+        },
+        "questions": {
+          "mean": 20.0,
+          "sample_stddev": 0.0,
+          "values": [
+            20.0,
+            20.0,
+            20.0
+          ]
+        },
+        "temporal_context_precision": {
+          "mean": 0.24000000000000007,
+          "sample_stddev": 0.0,
+          "values": [
+            0.24000000000000005,
+            0.24000000000000005,
+            0.24000000000000005
+          ]
+        },
+        "temporal_correctness": {
+          "mean": 1.0,
+          "sample_stddev": 0.0,
+          "values": [
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        "temporal_exact_source_set": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    },
+    "mem0_infer": {
+      "system": "Mem0 OSS",
+      "summary": {
+        "abstention_accuracy": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        },
+        "mean_context_precision": {
+          "mean": 0.24649122807017546,
+          "sample_stddev": 0.0,
+          "values": [
+            0.24649122807017546,
+            0.24649122807017546,
+            0.24649122807017546
+          ]
+        },
+        "mean_latency_ms": {
+          "mean": 27.634283333333332,
+          "sample_stddev": 0.26941395812640045,
+          "values": [
+            27.3633,
+            27.63745,
+            27.9021
+          ]
+        },
+        "mean_recall": {
+          "mean": 0.9210526315789473,
+          "sample_stddev": 0.0,
+          "values": [
+            0.9210526315789473,
+            0.9210526315789473,
+            0.9210526315789473
+          ]
+        },
+        "p95_latency_ms": {
+          "mean": 31.655666666666665,
+          "sample_stddev": 0.534342898645929,
+          "values": [
+            31.194,
+            31.532,
+            32.241
+          ]
+        },
+        "questions": {
+          "mean": 20.0,
+          "sample_stddev": 0.0,
+          "values": [
+            20.0,
+            20.0,
+            20.0
+          ]
+        },
+        "temporal_context_precision": {
+          "mean": 0.21000000000000005,
+          "sample_stddev": 0.0,
+          "values": [
+            0.21000000000000002,
+            0.21000000000000002,
+            0.21000000000000002
+          ]
+        },
+        "temporal_correctness": {
+          "mean": 0.8000000000000002,
+          "sample_stddev": 0.0,
+          "values": [
+            0.8,
+            0.8,
+            0.8
+          ]
+        },
+        "temporal_exact_source_set": {
+          "mean": 0.0,
+          "sample_stddev": 0.0,
+          "values": [
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      }
+    }
+  }
+}

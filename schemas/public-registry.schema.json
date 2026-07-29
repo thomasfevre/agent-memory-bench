@@ -37,7 +37,7 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "date", "phase", "dataset", "task", "method", "evidence_level", "sample", "repetitions", "metrics", "conclusion", "limitation", "evidence_files"],
+        "required": ["id", "date", "phase", "dataset", "task", "method", "reader", "evidence_level", "sample", "repetitions", "metrics", "budget", "conclusion", "limitation", "evidence_files"],
         "properties": {
           "id": {"type": "string"},
           "date": {"type": "string", "format": "date"},
@@ -50,7 +50,7 @@
           "sample": {"type": "string"},
           "repetitions": {"type": "integer", "minimum": 0},
           "metrics": {"type": "object", "minProperties": 1},
-          "budget": {"type": "object"},
+          "budget": {"type": "object", "minProperties": 1},
           "conclusion": {"type": "string"},
           "limitation": {"type": "string"},
           "evidence_files": {"type": "array", "items": {"type": "string"}}
@@ -64,4 +64,3 @@
   },
   "additionalProperties": false
 }
-

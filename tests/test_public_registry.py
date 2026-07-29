@@ -33,6 +33,18 @@ def test_registry_has_unique_runs_and_declared_evidence() -> None:
     for run in registry["runs"]:
         assert run["metrics"]
         assert set(run["evidence_files"]) <= evidence
+        assert run["budget"]
+
+    for artifact in manifest["artifacts"]:
+        if artifact["published"]:
+            published_path = ROOT / artifact["published_path"]
+            assert published_path.is_file()
+            assert tool_sha256(published_path) == artifact["sha256"]
+
+
+def tool_sha256(path: Path) -> str:
+    tool = load_tool("build_evidence_manifest")
+    return tool.sha256(path)
 
 
 def test_dashboard_registry_matches_canonical_registry() -> None:
@@ -47,3 +59,17 @@ def test_dashboard_registry_matches_canonical_registry() -> None:
 def test_public_registry_validator_passes() -> None:
     tool = load_tool("validate_public_registry")
     assert tool.main() == 0
+
+
+def test_interleaved_product_is_complete_and_reproducible() -> None:
+    import sys
+
+    sys.path.insert(0, str(ROOT / "src"))
+    from execution_order import interleaved_product
+
+    first = interleaved_product(["a", "b"], [1, 2], ["x", "y"], seed=17)
+    second = interleaved_product(["a", "b"], [1, 2], ["x", "y"], seed=17)
+    assert first == second
+    assert len(first) == 8
+    assert len(set(first)) == 8
+    assert first != sorted(first)

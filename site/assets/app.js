@@ -46,12 +46,12 @@ function renderMetricStrip() {
     const official = state.registry.runs.filter(
       (item) => item.evidence_level === "official-data",
     ).length;
-    const artifacts = manifest?.artifact_count ?? 112;
+    const artifacts = manifest?.artifact_count ?? 0;
     const metrics = [
       ["Public run records", state.registry.runs.length, "bounded configurations"],
       ["Controlled runs", controlled, "aligned local protocols"],
       ["Official-data runs", official, "public benchmark slices"],
-      ["Raw evidence hashes", artifacts, "payloads kept local"],
+      ["Raw evidence artifacts", artifacts, "hashes plus reviewed public copies"],
     ];
     byId("metric-strip").innerHTML = metrics
       .map(
@@ -305,11 +305,26 @@ function renderResultCharts() {
 
   const jcode = run("jcode-common-20260729").metrics.series;
   const mem0 = run("mem0-common-20260729").metrics.series;
+  const jcodeInputCount = Math.max(
+    ...jcode.map((item) => item.memories_after_ingestion),
+  );
   const rows = [
-    ["jcode", jcode[0].mode, "17 / 28", percent(jcode[0].recall), percent(jcode[0].temporal_correctness), "Distinct updates merged during import"],
-    ["jcode", jcode[1].mode, "28 / 28", percent(jcode[1].recall), percent(jcode[1].temporal_correctness), "Same retriever, stable source IDs"],
-    ["Mem0", mem0[0].mode, "28 / 28", percent(mem0[0].recall), percent(mem0[0].temporal_correctness), "Raw dense storage"],
-    ["Mem0", mem0[1].mode, "41 memories", percent(mem0[1].recall), percent(mem0[1].temporal_correctness), "Duplication and false provenance"],
+    ...jcode.map((item) => [
+      "jcode",
+      item.mode,
+      `${item.memories_after_ingestion} / ${jcodeInputCount}`,
+      percent(item.recall),
+      percent(item.temporal_correctness),
+      item.diagnostic,
+    ]),
+    ...mem0.map((item) => [
+      "Mem0",
+      item.mode,
+      `${item.memories} memories`,
+      percent(item.recall),
+      percent(item.temporal_correctness),
+      item.diagnostic,
+    ]),
   ];
   byId("ingestion-table").innerHTML = `
     <table>
@@ -455,4 +470,3 @@ initialize().catch((error) => {
   byId("headline").textContent =
     "The public result registry could not be loaded. Open the repository for the versioned evidence.";
 });
-

@@ -1,0 +1,3204 @@
+{
+  "manifest": {
+    "created_at": "2026-07-28T22:00:00.348148+00:00",
+    "model": "qwen3:1.7b",
+    "prototype": true,
+    "questions": 8,
+    "repetitions": 3,
+    "topologies": [
+      "single_hybrid",
+      "pipeline",
+      "conditional_route",
+      "adversarial_gate",
+      "verify_retry_loop",
+      "supervisor_swarm"
+    ]
+  },
+  "rows": [
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "temporal",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "ember branch",
+        "evidence_ids": [
+          "d02"
+        ]
+      },
+      "latency_ms": 2717.046834062785,
+      "model": "qwen3:1.7b",
+      "output_tokens": 30,
+      "prompt_tokens": 265,
+      "question_id": "q01",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "multi_hop_temporal",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi",
+        "evidence_ids": [
+          "d18"
+        ]
+      },
+      "latency_ms": 1043.9508331473917,
+      "model": "qwen3:1.7b",
+      "output_tokens": 30,
+      "prompt_tokens": 263,
+      "question_id": "q03",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "rare_exception",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "365 days",
+        "evidence_ids": [
+          "d08"
+        ]
+      },
+      "latency_ms": 972.7536251302809,
+      "model": "qwen3:1.7b",
+      "output_tokens": 32,
+      "prompt_tokens": 207,
+      "question_id": "q05",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "abstention",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "180 days",
+        "evidence_ids": [
+          "d27"
+        ]
+      },
+      "latency_ms": 970.3794580418617,
+      "model": "qwen3:1.7b",
+      "output_tokens": 32,
+      "prompt_tokens": 204,
+      "question_id": "q06",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "context_shard",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "UTC",
+        "evidence_ids": [
+          "d10",
+          "d09",
+          "d25"
+        ]
+      },
+      "latency_ms": 1108.7362088728696,
+      "model": "qwen3:1.7b",
+      "output_tokens": 39,
+      "prompt_tokens": 205,
+      "question_id": "q09",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": true,
+      "calls": 1,
+      "category": "rejected_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": "abstain",
+        "evidence_ids": [
+          "d11",
+          "d12",
+          "d14",
+          "d15"
+        ]
+      },
+      "latency_ms": 1169.2340408917516,
+      "model": "qwen3:1.7b",
+      "output_tokens": 41,
+      "prompt_tokens": 200,
+      "question_id": "q10",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "multi_hop",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi is on call for the Aurora team in July 2026.",
+        "evidence_ids": [
+          "d18"
+        ]
+      },
+      "latency_ms": 1263.3231249637902,
+      "model": "qwen3:1.7b",
+      "output_tokens": 44,
+      "prompt_tokens": 234,
+      "question_id": "q13",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "conflict",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "no",
+        "evidence_ids": [
+          "d20",
+          "d01",
+          "d02"
+        ]
+      },
+      "latency_ms": 1160.9188748989254,
+      "model": "qwen3:1.7b",
+      "output_tokens": 39,
+      "prompt_tokens": 248,
+      "question_id": "q18",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "temporal",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "ember branch",
+        "evidence_ids": [
+          "d02"
+        ]
+      },
+      "latency_ms": 952.8463750611991,
+      "model": "qwen3:1.7b",
+      "output_tokens": 30,
+      "prompt_tokens": 258,
+      "question_id": "q01",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "multi_hop_temporal",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi",
+        "evidence_ids": [
+          "d18"
+        ]
+      },
+      "latency_ms": 800.4418751224875,
+      "model": "qwen3:1.7b",
+      "output_tokens": 30,
+      "prompt_tokens": 272,
+      "question_id": "q03",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "rare_exception",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "365 days",
+        "evidence_ids": [
+          "d08"
+        ]
+      },
+      "latency_ms": 830.9534159488976,
+      "model": "qwen3:1.7b",
+      "output_tokens": 32,
+      "prompt_tokens": 205,
+      "question_id": "q05",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "abstention",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "180 days",
+        "evidence_ids": [
+          "d27"
+        ]
+      },
+      "latency_ms": 751.464458880946,
+      "model": "qwen3:1.7b",
+      "output_tokens": 32,
+      "prompt_tokens": 204,
+      "question_id": "q06",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "context_shard",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "UTC",
+        "evidence_ids": [
+          "d10",
+          "d09"
+        ]
+      },
+      "latency_ms": 882.9100830480456,
+      "model": "qwen3:1.7b",
+      "output_tokens": 34,
+      "prompt_tokens": 206,
+      "question_id": "q09",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": true,
+      "calls": 1,
+      "category": "rejected_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": [
+          "d11",
+          "d12",
+          "d25",
+          "d03",
+          "d17"
+        ]
+      },
+      "latency_ms": 1292.4250829964876,
+      "model": "qwen3:1.7b",
+      "output_tokens": 48,
+      "prompt_tokens": 199,
+      "question_id": "q10",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "multi_hop",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi is on call for the Aurora team in July 2026.",
+        "evidence_ids": [
+          "d18"
+        ]
+      },
+      "latency_ms": 1165.5346669722348,
+      "model": "qwen3:1.7b",
+      "output_tokens": 44,
+      "prompt_tokens": 259,
+      "question_id": "q13",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "conflict",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "no",
+        "evidence_ids": [
+          "d20",
+          "d01",
+          "d02"
+        ]
+      },
+      "latency_ms": 894.224707968533,
+      "model": "qwen3:1.7b",
+      "output_tokens": 39,
+      "prompt_tokens": 248,
+      "question_id": "q18",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "temporal",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "ember",
+        "evidence_ids": [
+          "f02"
+        ]
+      },
+      "latency_ms": 884.306666906923,
+      "model": "qwen3:1.7b",
+      "output_tokens": 29,
+      "prompt_tokens": 196,
+      "question_id": "q01",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "multi_hop_temporal",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi",
+        "evidence_ids": [
+          "f15"
+        ]
+      },
+      "latency_ms": 898.7270419020206,
+      "model": "qwen3:1.7b",
+      "output_tokens": 30,
+      "prompt_tokens": 216,
+      "question_id": "q03",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "rare_exception",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "365 days",
+        "evidence_ids": [
+          "d08"
+        ]
+      },
+      "latency_ms": 840.112374862656,
+      "model": "qwen3:1.7b",
+      "output_tokens": 32,
+      "prompt_tokens": 207,
+      "question_id": "q05",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "abstention",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "180 days",
+        "evidence_ids": [
+          "d27"
+        ]
+      },
+      "latency_ms": 762.9501251503825,
+      "model": "qwen3:1.7b",
+      "output_tokens": 32,
+      "prompt_tokens": 204,
+      "question_id": "q06",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "context_shard",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "UTC timestamps",
+        "evidence_ids": [
+          "s01"
+        ]
+      },
+      "latency_ms": 899.7339578345418,
+      "model": "qwen3:1.7b",
+      "output_tokens": 30,
+      "prompt_tokens": 147,
+      "question_id": "q09",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": true,
+      "calls": 1,
+      "category": "rejected_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": "no",
+        "evidence_ids": [
+          "s01",
+          "s02"
+        ]
+      },
+      "latency_ms": 987.3978339601308,
+      "model": "qwen3:1.7b",
+      "output_tokens": 34,
+      "prompt_tokens": 147,
+      "question_id": "q10",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "multi_hop",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Aurora",
+        "evidence_ids": [
+          "f14",
+          "f15"
+        ]
+      },
+      "latency_ms": 1082.3908750899136,
+      "model": "qwen3:1.7b",
+      "output_tokens": 36,
+      "prompt_tokens": 161,
+      "question_id": "q13",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "conflict",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "no",
+        "evidence_ids": [
+          "d20",
+          "d01",
+          "d02"
+        ]
+      },
+      "latency_ms": 954.5145421288908,
+      "model": "qwen3:1.7b",
+      "output_tokens": 39,
+      "prompt_tokens": 248,
+      "question_id": "q18",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "temporal",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 7623.8967082463205,
+      "model": "qwen3:1.7b",
+      "output_tokens": 314,
+      "prompt_tokens": 787,
+      "question_id": "q01",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "multi_hop_temporal",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 14444.40537597984,
+      "model": "qwen3:1.7b",
+      "output_tokens": 649,
+      "prompt_tokens": 781,
+      "question_id": "q03",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "rare_exception",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 4214.660418219864,
+      "model": "qwen3:1.7b",
+      "output_tokens": 163,
+      "prompt_tokens": 617,
+      "question_id": "q05",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "abstention",
+      "correct": true,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 5772.820541867986,
+      "model": "qwen3:1.7b",
+      "output_tokens": 241,
+      "prompt_tokens": 608,
+      "question_id": "q06",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "context_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 5556.843290803954,
+      "model": "qwen3:1.7b",
+      "output_tokens": 216,
+      "prompt_tokens": 625,
+      "question_id": "q09",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "rejected_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 5455.505250021815,
+      "model": "qwen3:1.7b",
+      "output_tokens": 214,
+      "prompt_tokens": 624,
+      "question_id": "q10",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "multi_hop",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 5797.3448757547885,
+      "model": "qwen3:1.7b",
+      "output_tokens": 232,
+      "prompt_tokens": 722,
+      "question_id": "q13",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "conflict",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 5497.829790692776,
+      "model": "qwen3:1.7b",
+      "output_tokens": 220,
+      "prompt_tokens": 754,
+      "question_id": "q18",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": false,
+      "calls": 3,
+      "category": "temporal",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "canary",
+        "evidence_ids": [
+          "d01"
+        ]
+      },
+      "latency_ms": 5797.692250227556,
+      "model": "qwen3:1.7b",
+      "output_tokens": 244,
+      "prompt_tokens": 852,
+      "question_id": "q01",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": false,
+      "calls": 3,
+      "category": "multi_hop_temporal",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi",
+        "evidence_ids": [
+          "d18",
+          "f15"
+        ]
+      },
+      "latency_ms": 5017.6041659433395,
+      "model": "qwen3:1.7b",
+      "output_tokens": 198,
+      "prompt_tokens": 798,
+      "question_id": "q03",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": false,
+      "calls": 3,
+      "category": "rare_exception",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "365 days",
+        "evidence_ids": [
+          "d08",
+          "f08"
+        ]
+      },
+      "latency_ms": 3788.832791848108,
+      "model": "qwen3:1.7b",
+      "output_tokens": 144,
+      "prompt_tokens": 711,
+      "question_id": "q05",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": false,
+      "calls": 3,
+      "category": "abstention",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "365 days",
+        "evidence_ids": [
+          "d08"
+        ]
+      },
+      "latency_ms": 3466.4348748046905,
+      "model": "qwen3:1.7b",
+      "output_tokens": 145,
+      "prompt_tokens": 670,
+      "question_id": "q06",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": false,
+      "calls": 3,
+      "category": "context_shard",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "UTC",
+        "evidence_ids": [
+          "d10",
+          "d09",
+          "f09"
+        ]
+      },
+      "latency_ms": 4597.087416099384,
+      "model": "qwen3:1.7b",
+      "output_tokens": 170,
+      "prompt_tokens": 671,
+      "question_id": "q09",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "rejected_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 4305.577168008313,
+      "model": "qwen3:1.7b",
+      "output_tokens": 159,
+      "prompt_tokens": 681,
+      "question_id": "q10",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": false,
+      "calls": 3,
+      "category": "multi_hop",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Aurora team",
+        "evidence_ids": [
+          "f14",
+          "d17",
+          "d18"
+        ]
+      },
+      "latency_ms": 4723.734457977116,
+      "model": "qwen3:1.7b",
+      "output_tokens": 178,
+      "prompt_tokens": 764,
+      "question_id": "q13",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "conflict",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": "no",
+        "evidence_ids": [
+          "d01",
+          "d02",
+          "d03",
+          "f02",
+          "f03",
+          "f07",
+          "d03",
+          "d02"
+        ]
+      },
+      "latency_ms": 5237.818415975198,
+      "model": "qwen3:1.7b",
+      "output_tokens": 198,
+      "prompt_tokens": 793,
+      "question_id": "q18",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "temporal",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "ember branch",
+        "evidence_ids": [
+          "d02",
+          "f02"
+        ]
+      },
+      "latency_ms": 4006.3834579195827,
+      "model": "qwen3:1.7b",
+      "output_tokens": 124,
+      "prompt_tokens": 1186,
+      "question_id": "q01",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "multi_hop_temporal",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi",
+        "evidence_ids": [
+          "d18",
+          "f15"
+        ]
+      },
+      "latency_ms": 4053.7327078636736,
+      "model": "qwen3:1.7b",
+      "output_tokens": 125,
+      "prompt_tokens": 1217,
+      "question_id": "q03",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "rare_exception",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "365 days",
+        "evidence_ids": [
+          "d08",
+          "f08"
+        ]
+      },
+      "latency_ms": 4085.67616622895,
+      "model": "qwen3:1.7b",
+      "output_tokens": 133,
+      "prompt_tokens": 1079,
+      "question_id": "q05",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "abstention",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "180 days",
+        "evidence_ids": [
+          "d27",
+          "f17"
+        ]
+      },
+      "latency_ms": 4008.6230421438813,
+      "model": "qwen3:1.7b",
+      "output_tokens": 133,
+      "prompt_tokens": 1035,
+      "question_id": "q06",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "context_shard",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "UTC",
+        "evidence_ids": [
+          "d09",
+          "d10",
+          "d25"
+        ]
+      },
+      "latency_ms": 4100.209999131039,
+      "model": "qwen3:1.7b",
+      "output_tokens": 141,
+      "prompt_tokens": 1065,
+      "question_id": "q09",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": true,
+      "calls": 4,
+      "category": "rejected_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": "no",
+        "evidence_ids": [
+          "d12",
+          "d11",
+          "d14",
+          "d05",
+          "d17",
+          "d15",
+          "d04",
+          "d24",
+          "f06",
+          "f07",
+          "f08",
+          "f17",
+          "f04"
+        ]
+      },
+      "latency_ms": 5728.138834005222,
+      "model": "qwen3:1.7b",
+      "output_tokens": 208,
+      "prompt_tokens": 1107,
+      "question_id": "q10",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "multi_hop",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Aurora",
+        "evidence_ids": [
+          "d17",
+          "f14",
+          "f15"
+        ]
+      },
+      "latency_ms": 4707.719333702698,
+      "model": "qwen3:1.7b",
+      "output_tokens": 158,
+      "prompt_tokens": 1195,
+      "question_id": "q13",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "conflict",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "no",
+        "evidence_ids": [
+          "d02",
+          "d01",
+          "d02"
+        ]
+      },
+      "latency_ms": 5275.760957971215,
+      "model": "qwen3:1.7b",
+      "output_tokens": 174,
+      "prompt_tokens": 1176,
+      "question_id": "q18",
+      "repeat": 1,
+      "seed": 11,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "temporal",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "ember branch",
+        "evidence_ids": [
+          "d02"
+        ]
+      },
+      "latency_ms": 853.3534999005497,
+      "model": "qwen3:1.7b",
+      "output_tokens": 30,
+      "prompt_tokens": 265,
+      "question_id": "q01",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "multi_hop_temporal",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi",
+        "evidence_ids": [
+          "d18"
+        ]
+      },
+      "latency_ms": 797.6402919739485,
+      "model": "qwen3:1.7b",
+      "output_tokens": 30,
+      "prompt_tokens": 263,
+      "question_id": "q03",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "rare_exception",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "365 days",
+        "evidence_ids": [
+          "d08"
+        ]
+      },
+      "latency_ms": 846.9902498181909,
+      "model": "qwen3:1.7b",
+      "output_tokens": 32,
+      "prompt_tokens": 207,
+      "question_id": "q05",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "abstention",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "180 days",
+        "evidence_ids": [
+          "d27"
+        ]
+      },
+      "latency_ms": 836.972292046994,
+      "model": "qwen3:1.7b",
+      "output_tokens": 32,
+      "prompt_tokens": 204,
+      "question_id": "q06",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "context_shard",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "UTC",
+        "evidence_ids": [
+          "d10",
+          "d09",
+          "d25"
+        ]
+      },
+      "latency_ms": 1040.7228330150247,
+      "model": "qwen3:1.7b",
+      "output_tokens": 39,
+      "prompt_tokens": 205,
+      "question_id": "q09",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": true,
+      "calls": 1,
+      "category": "rejected_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": [
+          "d11",
+          "d12",
+          "d14",
+          "d15"
+        ]
+      },
+      "latency_ms": 1166.7828750796616,
+      "model": "qwen3:1.7b",
+      "output_tokens": 43,
+      "prompt_tokens": 200,
+      "question_id": "q10",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "multi_hop",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi is on call for the Aurora team in July 2026.",
+        "evidence_ids": [
+          "d18"
+        ]
+      },
+      "latency_ms": 1211.553666042164,
+      "model": "qwen3:1.7b",
+      "output_tokens": 44,
+      "prompt_tokens": 234,
+      "question_id": "q13",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "conflict",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "no",
+        "evidence_ids": [
+          "d20",
+          "d01",
+          "d02"
+        ]
+      },
+      "latency_ms": 921.8978330027312,
+      "model": "qwen3:1.7b",
+      "output_tokens": 39,
+      "prompt_tokens": 248,
+      "question_id": "q18",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "temporal",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "ember branch",
+        "evidence_ids": [
+          "d02"
+        ]
+      },
+      "latency_ms": 733.3204580936581,
+      "model": "qwen3:1.7b",
+      "output_tokens": 30,
+      "prompt_tokens": 258,
+      "question_id": "q01",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "multi_hop_temporal",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi",
+        "evidence_ids": [
+          "d18"
+        ]
+      },
+      "latency_ms": 838.5621251072735,
+      "model": "qwen3:1.7b",
+      "output_tokens": 30,
+      "prompt_tokens": 272,
+      "question_id": "q03",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "rare_exception",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "365 days",
+        "evidence_ids": [
+          "d08"
+        ]
+      },
+      "latency_ms": 856.676833005622,
+      "model": "qwen3:1.7b",
+      "output_tokens": 32,
+      "prompt_tokens": 205,
+      "question_id": "q05",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "abstention",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "180 days",
+        "evidence_ids": [
+          "d27"
+        ]
+      },
+      "latency_ms": 757.6628339011222,
+      "model": "qwen3:1.7b",
+      "output_tokens": 32,
+      "prompt_tokens": 204,
+      "question_id": "q06",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "context_shard",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "UTC",
+        "evidence_ids": [
+          "d10",
+          "d09"
+        ]
+      },
+      "latency_ms": 886.9776248466223,
+      "model": "qwen3:1.7b",
+      "output_tokens": 34,
+      "prompt_tokens": 206,
+      "question_id": "q09",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": true,
+      "calls": 1,
+      "category": "rejected_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": [
+          "d11",
+          "d12",
+          "d25",
+          "d03",
+          "d17"
+        ]
+      },
+      "latency_ms": 1246.3877499103546,
+      "model": "qwen3:1.7b",
+      "output_tokens": 48,
+      "prompt_tokens": 199,
+      "question_id": "q10",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "multi_hop",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi is on call for the Aurora team in July 2026.",
+        "evidence_ids": [
+          "d18"
+        ]
+      },
+      "latency_ms": 1187.1325420215726,
+      "model": "qwen3:1.7b",
+      "output_tokens": 44,
+      "prompt_tokens": 259,
+      "question_id": "q13",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "conflict",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "no",
+        "evidence_ids": [
+          "d20",
+          "d01",
+          "d02"
+        ]
+      },
+      "latency_ms": 907.8606669791043,
+      "model": "qwen3:1.7b",
+      "output_tokens": 39,
+      "prompt_tokens": 248,
+      "question_id": "q18",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "temporal",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "ember",
+        "evidence_ids": [
+          "f02"
+        ]
+      },
+      "latency_ms": 694.4674169644713,
+      "model": "qwen3:1.7b",
+      "output_tokens": 29,
+      "prompt_tokens": 196,
+      "question_id": "q01",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "multi_hop_temporal",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi",
+        "evidence_ids": [
+          "f15"
+        ]
+      },
+      "latency_ms": 715.7143750227988,
+      "model": "qwen3:1.7b",
+      "output_tokens": 30,
+      "prompt_tokens": 216,
+      "question_id": "q03",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "rare_exception",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "365 days",
+        "evidence_ids": [
+          "d08"
+        ]
+      },
+      "latency_ms": 856.6864999011159,
+      "model": "qwen3:1.7b",
+      "output_tokens": 32,
+      "prompt_tokens": 207,
+      "question_id": "q05",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "abstention",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "180 days",
+        "evidence_ids": [
+          "d27"
+        ]
+      },
+      "latency_ms": 759.1398749500513,
+      "model": "qwen3:1.7b",
+      "output_tokens": 32,
+      "prompt_tokens": 204,
+      "question_id": "q06",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "context_shard",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "UTC timestamps",
+        "evidence_ids": [
+          "s01"
+        ]
+      },
+      "latency_ms": 840.5122091062367,
+      "model": "qwen3:1.7b",
+      "output_tokens": 30,
+      "prompt_tokens": 147,
+      "question_id": "q09",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": true,
+      "calls": 1,
+      "category": "rejected_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": "no",
+        "evidence_ids": [
+          "s01",
+          "s02"
+        ]
+      },
+      "latency_ms": 922.2551251295954,
+      "model": "qwen3:1.7b",
+      "output_tokens": 34,
+      "prompt_tokens": 147,
+      "question_id": "q10",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "multi_hop",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Aurora",
+        "evidence_ids": [
+          "f14",
+          "f15"
+        ]
+      },
+      "latency_ms": 895.0643329881132,
+      "model": "qwen3:1.7b",
+      "output_tokens": 36,
+      "prompt_tokens": 161,
+      "question_id": "q13",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "conflict",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "no",
+        "evidence_ids": [
+          "d20",
+          "d01",
+          "d02"
+        ]
+      },
+      "latency_ms": 910.1568339392543,
+      "model": "qwen3:1.7b",
+      "output_tokens": 39,
+      "prompt_tokens": 248,
+      "question_id": "q18",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "temporal",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 6825.883749872446,
+      "model": "qwen3:1.7b",
+      "output_tokens": 315,
+      "prompt_tokens": 787,
+      "question_id": "q01",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "multi_hop_temporal",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 12311.462000012398,
+      "model": "qwen3:1.7b",
+      "output_tokens": 593,
+      "prompt_tokens": 781,
+      "question_id": "q03",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "rare_exception",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 3947.8582898154855,
+      "model": "qwen3:1.7b",
+      "output_tokens": 174,
+      "prompt_tokens": 617,
+      "question_id": "q05",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "abstention",
+      "correct": true,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 4919.751123990864,
+      "model": "qwen3:1.7b",
+      "output_tokens": 229,
+      "prompt_tokens": 608,
+      "question_id": "q06",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "context_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 4722.557540750131,
+      "model": "qwen3:1.7b",
+      "output_tokens": 217,
+      "prompt_tokens": 625,
+      "question_id": "q09",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "rejected_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 5556.966584175825,
+      "model": "qwen3:1.7b",
+      "output_tokens": 223,
+      "prompt_tokens": 618,
+      "question_id": "q10",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "multi_hop",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 5398.496666923165,
+      "model": "qwen3:1.7b",
+      "output_tokens": 246,
+      "prompt_tokens": 722,
+      "question_id": "q13",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "conflict",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 4703.713541850448,
+      "model": "qwen3:1.7b",
+      "output_tokens": 218,
+      "prompt_tokens": 754,
+      "question_id": "q18",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": false,
+      "calls": 3,
+      "category": "temporal",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "canary",
+        "evidence_ids": [
+          "d01"
+        ]
+      },
+      "latency_ms": 4807.066874112934,
+      "model": "qwen3:1.7b",
+      "output_tokens": 194,
+      "prompt_tokens": 852,
+      "question_id": "q01",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": false,
+      "calls": 3,
+      "category": "multi_hop_temporal",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi",
+        "evidence_ids": [
+          "d18",
+          "f15"
+        ]
+      },
+      "latency_ms": 4718.106624903157,
+      "model": "qwen3:1.7b",
+      "output_tokens": 198,
+      "prompt_tokens": 798,
+      "question_id": "q03",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": false,
+      "calls": 3,
+      "category": "rare_exception",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "365 days",
+        "evidence_ids": [
+          "d08",
+          "f08"
+        ]
+      },
+      "latency_ms": 3943.201541202143,
+      "model": "qwen3:1.7b",
+      "output_tokens": 157,
+      "prompt_tokens": 711,
+      "question_id": "q05",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": false,
+      "calls": 3,
+      "category": "abstention",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "365 days",
+        "evidence_ids": [
+          "d08"
+        ]
+      },
+      "latency_ms": 3496.595709817484,
+      "model": "qwen3:1.7b",
+      "output_tokens": 148,
+      "prompt_tokens": 670,
+      "question_id": "q06",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": false,
+      "calls": 3,
+      "category": "context_shard",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "UTC",
+        "evidence_ids": [
+          "d10",
+          "d09",
+          "f09"
+        ]
+      },
+      "latency_ms": 4062.7114167436957,
+      "model": "qwen3:1.7b",
+      "output_tokens": 165,
+      "prompt_tokens": 671,
+      "question_id": "q09",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "rejected_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 3777.3470408283174,
+      "model": "qwen3:1.7b",
+      "output_tokens": 159,
+      "prompt_tokens": 681,
+      "question_id": "q10",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": false,
+      "calls": 3,
+      "category": "multi_hop",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Aurora team",
+        "evidence_ids": [
+          "f14",
+          "d17",
+          "d18"
+        ]
+      },
+      "latency_ms": 3875.885084271431,
+      "model": "qwen3:1.7b",
+      "output_tokens": 178,
+      "prompt_tokens": 764,
+      "question_id": "q13",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "conflict",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": "no",
+        "evidence_ids": [
+          "d01",
+          "d02",
+          "d03",
+          "f02",
+          "f03",
+          "f07",
+          "d03",
+          "d02"
+        ]
+      },
+      "latency_ms": 4198.554707923904,
+      "model": "qwen3:1.7b",
+      "output_tokens": 194,
+      "prompt_tokens": 793,
+      "question_id": "q18",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "temporal",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "ember branch",
+        "evidence_ids": [
+          "d02",
+          "f02"
+        ]
+      },
+      "latency_ms": 2990.363457938656,
+      "model": "qwen3:1.7b",
+      "output_tokens": 124,
+      "prompt_tokens": 1186,
+      "question_id": "q01",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "multi_hop_temporal",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi",
+        "evidence_ids": [
+          "d18",
+          "f15"
+        ]
+      },
+      "latency_ms": 3283.729416085407,
+      "model": "qwen3:1.7b",
+      "output_tokens": 125,
+      "prompt_tokens": 1217,
+      "question_id": "q03",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "rare_exception",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "365 days",
+        "evidence_ids": [
+          "d08",
+          "f08"
+        ]
+      },
+      "latency_ms": 3426.470458973199,
+      "model": "qwen3:1.7b",
+      "output_tokens": 133,
+      "prompt_tokens": 1079,
+      "question_id": "q05",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "abstention",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "180 days",
+        "evidence_ids": [
+          "d27",
+          "f17"
+        ]
+      },
+      "latency_ms": 3240.6118761282414,
+      "model": "qwen3:1.7b",
+      "output_tokens": 133,
+      "prompt_tokens": 1035,
+      "question_id": "q06",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "context_shard",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "UTC",
+        "evidence_ids": [
+          "d09",
+          "d10",
+          "d25"
+        ]
+      },
+      "latency_ms": 3356.4195837825537,
+      "model": "qwen3:1.7b",
+      "output_tokens": 141,
+      "prompt_tokens": 1065,
+      "question_id": "q09",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": true,
+      "calls": 4,
+      "category": "rejected_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": "no",
+        "evidence_ids": [
+          "f04"
+        ]
+      },
+      "latency_ms": 4293.873583897948,
+      "model": "qwen3:1.7b",
+      "output_tokens": 147,
+      "prompt_tokens": 1106,
+      "question_id": "q10",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "multi_hop",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Aurora",
+        "evidence_ids": [
+          "d17",
+          "f14",
+          "f15"
+        ]
+      },
+      "latency_ms": 3780.7983339298517,
+      "model": "qwen3:1.7b",
+      "output_tokens": 158,
+      "prompt_tokens": 1195,
+      "question_id": "q13",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "conflict",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "no",
+        "evidence_ids": [
+          "d02",
+          "d01",
+          "d02"
+        ]
+      },
+      "latency_ms": 3783.815083093941,
+      "model": "qwen3:1.7b",
+      "output_tokens": 174,
+      "prompt_tokens": 1176,
+      "question_id": "q18",
+      "repeat": 2,
+      "seed": 23,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "temporal",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "ember branch",
+        "evidence_ids": [
+          "d02"
+        ]
+      },
+      "latency_ms": 933.4098328836262,
+      "model": "qwen3:1.7b",
+      "output_tokens": 30,
+      "prompt_tokens": 265,
+      "question_id": "q01",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "multi_hop_temporal",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi",
+        "evidence_ids": [
+          "d18"
+        ]
+      },
+      "latency_ms": 792.5223750062287,
+      "model": "qwen3:1.7b",
+      "output_tokens": 30,
+      "prompt_tokens": 263,
+      "question_id": "q03",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "rare_exception",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "365 days",
+        "evidence_ids": [
+          "d08"
+        ]
+      },
+      "latency_ms": 830.9168331325054,
+      "model": "qwen3:1.7b",
+      "output_tokens": 32,
+      "prompt_tokens": 207,
+      "question_id": "q05",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "abstention",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "180 days",
+        "evidence_ids": [
+          "d27"
+        ]
+      },
+      "latency_ms": 839.7888329345733,
+      "model": "qwen3:1.7b",
+      "output_tokens": 32,
+      "prompt_tokens": 204,
+      "question_id": "q06",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "context_shard",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "UTC",
+        "evidence_ids": [
+          "d10",
+          "d09",
+          "d25"
+        ]
+      },
+      "latency_ms": 1022.3482081200927,
+      "model": "qwen3:1.7b",
+      "output_tokens": 39,
+      "prompt_tokens": 205,
+      "question_id": "q09",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": true,
+      "calls": 1,
+      "category": "rejected_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": "abstain",
+        "evidence_ids": [
+          "d11",
+          "d12",
+          "d14",
+          "d15"
+        ]
+      },
+      "latency_ms": 1072.3375831730664,
+      "model": "qwen3:1.7b",
+      "output_tokens": 41,
+      "prompt_tokens": 200,
+      "question_id": "q10",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "multi_hop",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi is on call for the Aurora team in July 2026.",
+        "evidence_ids": [
+          "d18"
+        ]
+      },
+      "latency_ms": 1170.7197080831975,
+      "model": "qwen3:1.7b",
+      "output_tokens": 44,
+      "prompt_tokens": 234,
+      "question_id": "q13",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "conflict",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "no",
+        "evidence_ids": [
+          "d20",
+          "d01",
+          "d02"
+        ]
+      },
+      "latency_ms": 904.3715831357986,
+      "model": "qwen3:1.7b",
+      "output_tokens": 39,
+      "prompt_tokens": 248,
+      "question_id": "q18",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "temporal",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "ember branch",
+        "evidence_ids": [
+          "d02"
+        ]
+      },
+      "latency_ms": 934.5583338290453,
+      "model": "qwen3:1.7b",
+      "output_tokens": 30,
+      "prompt_tokens": 258,
+      "question_id": "q01",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "multi_hop_temporal",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi",
+        "evidence_ids": [
+          "d18"
+        ]
+      },
+      "latency_ms": 850.3556670621037,
+      "model": "qwen3:1.7b",
+      "output_tokens": 30,
+      "prompt_tokens": 272,
+      "question_id": "q03",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "rare_exception",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "365 days",
+        "evidence_ids": [
+          "d08"
+        ]
+      },
+      "latency_ms": 844.8579590767622,
+      "model": "qwen3:1.7b",
+      "output_tokens": 32,
+      "prompt_tokens": 205,
+      "question_id": "q05",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "abstention",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "180 days",
+        "evidence_ids": [
+          "d27"
+        ]
+      },
+      "latency_ms": 746.5945000294596,
+      "model": "qwen3:1.7b",
+      "output_tokens": 32,
+      "prompt_tokens": 204,
+      "question_id": "q06",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "context_shard",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "UTC",
+        "evidence_ids": [
+          "d10",
+          "d09"
+        ]
+      },
+      "latency_ms": 887.8981249872595,
+      "model": "qwen3:1.7b",
+      "output_tokens": 34,
+      "prompt_tokens": 206,
+      "question_id": "q09",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": true,
+      "calls": 1,
+      "category": "rejected_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": [
+          "d11",
+          "d12",
+          "d25",
+          "d03",
+          "d17"
+        ]
+      },
+      "latency_ms": 1144.5050418842584,
+      "model": "qwen3:1.7b",
+      "output_tokens": 48,
+      "prompt_tokens": 199,
+      "question_id": "q10",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "multi_hop",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi is on call for the Aurora team in July 2026.",
+        "evidence_ids": [
+          "d18"
+        ]
+      },
+      "latency_ms": 1167.9000828880817,
+      "model": "qwen3:1.7b",
+      "output_tokens": 44,
+      "prompt_tokens": 259,
+      "question_id": "q13",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "conflict",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "no",
+        "evidence_ids": [
+          "d20",
+          "d01",
+          "d02"
+        ]
+      },
+      "latency_ms": 901.039500022307,
+      "model": "qwen3:1.7b",
+      "output_tokens": 39,
+      "prompt_tokens": 248,
+      "question_id": "q18",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "pipeline"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "temporal",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "ember",
+        "evidence_ids": [
+          "f02"
+        ]
+      },
+      "latency_ms": 697.5649169180542,
+      "model": "qwen3:1.7b",
+      "output_tokens": 29,
+      "prompt_tokens": 196,
+      "question_id": "q01",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "multi_hop_temporal",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi",
+        "evidence_ids": [
+          "f15"
+        ]
+      },
+      "latency_ms": 713.2936248090118,
+      "model": "qwen3:1.7b",
+      "output_tokens": 30,
+      "prompt_tokens": 216,
+      "question_id": "q03",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "rare_exception",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "365 days",
+        "evidence_ids": [
+          "d08"
+        ]
+      },
+      "latency_ms": 837.2490839101374,
+      "model": "qwen3:1.7b",
+      "output_tokens": 32,
+      "prompt_tokens": 207,
+      "question_id": "q05",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "abstention",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "180 days",
+        "evidence_ids": [
+          "d27"
+        ]
+      },
+      "latency_ms": 746.4517089538276,
+      "model": "qwen3:1.7b",
+      "output_tokens": 32,
+      "prompt_tokens": 204,
+      "question_id": "q06",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "context_shard",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "UTC timestamps",
+        "evidence_ids": [
+          "s01"
+        ]
+      },
+      "latency_ms": 832.6267499942333,
+      "model": "qwen3:1.7b",
+      "output_tokens": 30,
+      "prompt_tokens": 147,
+      "question_id": "q09",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": true,
+      "calls": 1,
+      "category": "rejected_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": "no",
+        "evidence_ids": [
+          "s01",
+          "s02"
+        ]
+      },
+      "latency_ms": 924.7251248452812,
+      "model": "qwen3:1.7b",
+      "output_tokens": 34,
+      "prompt_tokens": 147,
+      "question_id": "q10",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "multi_hop",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Aurora",
+        "evidence_ids": [
+          "f14",
+          "f15"
+        ]
+      },
+      "latency_ms": 870.225332910195,
+      "model": "qwen3:1.7b",
+      "output_tokens": 36,
+      "prompt_tokens": 161,
+      "question_id": "q13",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": false,
+      "calls": 1,
+      "category": "conflict",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "no",
+        "evidence_ids": [
+          "d20",
+          "d01",
+          "d02"
+        ]
+      },
+      "latency_ms": 916.4346251636744,
+      "model": "qwen3:1.7b",
+      "output_tokens": 39,
+      "prompt_tokens": 248,
+      "question_id": "q18",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "conditional_route"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "temporal",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 7321.007876191288,
+      "model": "qwen3:1.7b",
+      "output_tokens": 315,
+      "prompt_tokens": 787,
+      "question_id": "q01",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "multi_hop_temporal",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 11717.84337493591,
+      "model": "qwen3:1.7b",
+      "output_tokens": 558,
+      "prompt_tokens": 781,
+      "question_id": "q03",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "rare_exception",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 3507.9715840984136,
+      "model": "qwen3:1.7b",
+      "output_tokens": 154,
+      "prompt_tokens": 617,
+      "question_id": "q05",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "abstention",
+      "correct": true,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 5137.724749976769,
+      "model": "qwen3:1.7b",
+      "output_tokens": 241,
+      "prompt_tokens": 608,
+      "question_id": "q06",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "context_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 4714.305957080796,
+      "model": "qwen3:1.7b",
+      "output_tokens": 217,
+      "prompt_tokens": 625,
+      "question_id": "q09",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "rejected_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 4786.34420898743,
+      "model": "qwen3:1.7b",
+      "output_tokens": 217,
+      "prompt_tokens": 624,
+      "question_id": "q10",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "multi_hop",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 5172.1408339217305,
+      "model": "qwen3:1.7b",
+      "output_tokens": 236,
+      "prompt_tokens": 722,
+      "question_id": "q13",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "conflict",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 4674.85162592493,
+      "model": "qwen3:1.7b",
+      "output_tokens": 217,
+      "prompt_tokens": 754,
+      "question_id": "q18",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstained": false,
+      "calls": 3,
+      "category": "temporal",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "canary",
+        "evidence_ids": [
+          "d01"
+        ]
+      },
+      "latency_ms": 4739.5738328341395,
+      "model": "qwen3:1.7b",
+      "output_tokens": 205,
+      "prompt_tokens": 852,
+      "question_id": "q01",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": false,
+      "calls": 3,
+      "category": "multi_hop_temporal",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi",
+        "evidence_ids": [
+          "d18",
+          "f15"
+        ]
+      },
+      "latency_ms": 4360.330916708335,
+      "model": "qwen3:1.7b",
+      "output_tokens": 198,
+      "prompt_tokens": 798,
+      "question_id": "q03",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": false,
+      "calls": 3,
+      "category": "rare_exception",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "365 days",
+        "evidence_ids": [
+          "d08",
+          "f08"
+        ]
+      },
+      "latency_ms": 3440.9430420491844,
+      "model": "qwen3:1.7b",
+      "output_tokens": 143,
+      "prompt_tokens": 711,
+      "question_id": "q05",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": false,
+      "calls": 3,
+      "category": "abstention",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "365 days",
+        "evidence_ids": [
+          "d08"
+        ]
+      },
+      "latency_ms": 3511.2364592496306,
+      "model": "qwen3:1.7b",
+      "output_tokens": 148,
+      "prompt_tokens": 670,
+      "question_id": "q06",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": false,
+      "calls": 3,
+      "category": "context_shard",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "UTC",
+        "evidence_ids": [
+          "d10",
+          "d09",
+          "f09"
+        ]
+      },
+      "latency_ms": 3781.579416943714,
+      "model": "qwen3:1.7b",
+      "output_tokens": 151,
+      "prompt_tokens": 671,
+      "question_id": "q09",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "rejected_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": null,
+        "evidence_ids": []
+      },
+      "latency_ms": 3763.877833960578,
+      "model": "qwen3:1.7b",
+      "output_tokens": 159,
+      "prompt_tokens": 681,
+      "question_id": "q10",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": false,
+      "calls": 3,
+      "category": "multi_hop",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Aurora team",
+        "evidence_ids": [
+          "f14",
+          "d17",
+          "d18"
+        ]
+      },
+      "latency_ms": 3862.4847505707294,
+      "model": "qwen3:1.7b",
+      "output_tokens": 178,
+      "prompt_tokens": 764,
+      "question_id": "q13",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": true,
+      "calls": 3,
+      "category": "conflict",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": "no",
+        "evidence_ids": [
+          "d01",
+          "d02",
+          "d03",
+          "f02",
+          "f03",
+          "f07",
+          "d03",
+          "d02"
+        ]
+      },
+      "latency_ms": 4461.674334015697,
+      "model": "qwen3:1.7b",
+      "output_tokens": 208,
+      "prompt_tokens": 793,
+      "question_id": "q18",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "temporal",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "ember branch",
+        "evidence_ids": [
+          "d02",
+          "f02"
+        ]
+      },
+      "latency_ms": 2982.963333139196,
+      "model": "qwen3:1.7b",
+      "output_tokens": 124,
+      "prompt_tokens": 1186,
+      "question_id": "q01",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "multi_hop_temporal",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Ravi",
+        "evidence_ids": [
+          "d18",
+          "f15"
+        ]
+      },
+      "latency_ms": 2939.2353750299662,
+      "model": "qwen3:1.7b",
+      "output_tokens": 125,
+      "prompt_tokens": 1217,
+      "question_id": "q03",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "rare_exception",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "365 days",
+        "evidence_ids": [
+          "d08",
+          "f08"
+        ]
+      },
+      "latency_ms": 3018.8928751740605,
+      "model": "qwen3:1.7b",
+      "output_tokens": 133,
+      "prompt_tokens": 1079,
+      "question_id": "q05",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "abstention",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "180 days",
+        "evidence_ids": [
+          "d27",
+          "f17"
+        ]
+      },
+      "latency_ms": 3135.678125079721,
+      "model": "qwen3:1.7b",
+      "output_tokens": 133,
+      "prompt_tokens": 1035,
+      "question_id": "q06",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "context_shard",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "UTC",
+        "evidence_ids": [
+          "d09",
+          "d10",
+          "d25"
+        ]
+      },
+      "latency_ms": 3153.6455841269344,
+      "model": "qwen3:1.7b",
+      "output_tokens": 131,
+      "prompt_tokens": 1065,
+      "question_id": "q09",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": true,
+      "calls": 4,
+      "category": "rejected_shard",
+      "correct": false,
+      "final": {
+        "abstain": true,
+        "answer": "no",
+        "evidence_ids": [
+          "d12",
+          "d11",
+          "d14",
+          "d05",
+          "d17",
+          "d15",
+          "d04",
+          "d24",
+          "f06",
+          "f07",
+          "f08",
+          "f17",
+          "f04"
+        ]
+      },
+      "latency_ms": 5351.3337089680135,
+      "model": "qwen3:1.7b",
+      "output_tokens": 213,
+      "prompt_tokens": 1112,
+      "question_id": "q10",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "multi_hop",
+      "correct": false,
+      "final": {
+        "abstain": false,
+        "answer": "Aurora",
+        "evidence_ids": [
+          "d17",
+          "f14",
+          "f15"
+        ]
+      },
+      "latency_ms": 3700.402167160064,
+      "model": "qwen3:1.7b",
+      "output_tokens": 158,
+      "prompt_tokens": 1195,
+      "question_id": "q13",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "supervisor_swarm"
+    },
+    {
+      "abstained": false,
+      "calls": 4,
+      "category": "conflict",
+      "correct": true,
+      "final": {
+        "abstain": false,
+        "answer": "no",
+        "evidence_ids": [
+          "d02",
+          "d01",
+          "d02"
+        ]
+      },
+      "latency_ms": 3767.9703747853637,
+      "model": "qwen3:1.7b",
+      "output_tokens": 174,
+      "prompt_tokens": 1176,
+      "question_id": "q18",
+      "repeat": 3,
+      "seed": 37,
+      "topology": "supervisor_swarm"
+    }
+  ],
+  "summaries": [
+    {
+      "abstention_rate": 0.125,
+      "accuracy": 0.625,
+      "calls": 24,
+      "latency_ms": 1068.6946457232505,
+      "model": "qwen3:1.7b",
+      "output_tokens": 863,
+      "prompt_tokens": 5478,
+      "runs": 24,
+      "topology": "single_hybrid"
+    },
+    {
+      "abstention_rate": 0.125,
+      "accuracy": 0.625,
+      "calls": 24,
+      "latency_ms": 935.96211290181,
+      "model": "qwen3:1.7b",
+      "output_tokens": 867,
+      "prompt_tokens": 5553,
+      "runs": 24,
+      "topology": "pipeline"
+    },
+    {
+      "abstention_rate": 0.125,
+      "accuracy": 0.5,
+      "calls": 24,
+      "latency_ms": 851.7792188892296,
+      "model": "qwen3:1.7b",
+      "output_tokens": 786,
+      "prompt_tokens": 4578,
+      "runs": 24,
+      "topology": "conditional_route"
+    },
+    {
+      "abstention_rate": 1.0,
+      "accuracy": 0.125,
+      "calls": 72,
+      "latency_ms": 6240.924415003974,
+      "model": "qwen3:1.7b",
+      "output_tokens": 6619,
+      "prompt_tokens": 16548,
+      "runs": 24,
+      "topology": "adversarial_gate"
+    },
+    {
+      "abstention_rate": 0.25,
+      "accuracy": 0.25,
+      "calls": 72,
+      "latency_ms": 4238.997963625782,
+      "model": "qwen3:1.7b",
+      "output_tokens": 4219,
+      "prompt_tokens": 17820,
+      "runs": 24,
+      "topology": "verify_retry_loop"
+    },
+    {
+      "abstention_rate": 0.125,
+      "accuracy": 0.5,
+      "calls": 96,
+      "latency_ms": 3840.518659844141,
+      "model": "qwen3:1.7b",
+      "output_tokens": 3522,
+      "prompt_tokens": 27184,
+      "runs": 24,
+      "topology": "supervisor_swarm"
+    }
+  ]
+}

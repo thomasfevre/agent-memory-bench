@@ -1,0 +1,189 @@
+{
+  "protocol": "common-temporal-graph",
+  "repetitions_per_system": {
+    "cognee": 3,
+    "graphiti": 3
+  },
+  "systems": {
+    "cognee": {
+      "runs": [
+        {
+          "file": "COGNEE-COMMON-8DOCS-20260729.json",
+          "documents_completed": 8,
+          "documents_requested": 8,
+          "ingestion_seconds": 182.222,
+          "mean_recall": 0.9285714285714286,
+          "mean_context_precision": 0.5714285714285714,
+          "temporal_correctness": 0.8,
+          "temporal_context_precision": 0.5,
+          "temporal_exact_source_set": 0.0,
+          "mean_latency_ms": 3776.9121250000003
+        },
+        {
+          "file": "COGNEE-QWEN25-14B-8DOCS-REPEAT2-20260729.json",
+          "documents_completed": 8,
+          "documents_requested": 8,
+          "ingestion_seconds": 203.745,
+          "mean_recall": 0.7142857142857143,
+          "mean_context_precision": 0.42857142857142855,
+          "temporal_correctness": 0.6,
+          "temporal_context_precision": 0.4,
+          "temporal_exact_source_set": 0.2,
+          "mean_latency_ms": 4501.80775
+        },
+        {
+          "file": "COGNEE-QWEN25-14B-8DOCS-REPEAT3-20260729.json",
+          "documents_completed": 8,
+          "documents_requested": 8,
+          "ingestion_seconds": 207.523,
+          "mean_recall": 0.5714285714285714,
+          "mean_context_precision": 0.2857142857142857,
+          "temporal_correctness": 0.4,
+          "temporal_context_precision": 0.2,
+          "temporal_exact_source_set": 0.0,
+          "mean_latency_ms": 3494.44125
+        }
+      ],
+      "summary": {
+        "documents_completed": {
+          "mean": 8.0,
+          "population_stddev": 0.0,
+          "min": 8.0,
+          "max": 8.0
+        },
+        "ingestion_seconds": {
+          "mean": 197.83,
+          "population_stddev": 11.143774614854097,
+          "min": 182.222,
+          "max": 207.523
+        },
+        "mean_recall": {
+          "mean": 0.7380952380952381,
+          "population_stddev": 0.14677176197545186,
+          "min": 0.5714285714285714,
+          "max": 0.9285714285714286
+        },
+        "mean_context_precision": {
+          "mean": 0.42857142857142855,
+          "population_stddev": 0.11664236870396086,
+          "min": 0.2857142857142857,
+          "max": 0.5714285714285714
+        },
+        "temporal_correctness": {
+          "mean": 0.6,
+          "population_stddev": 0.16329931618554522,
+          "min": 0.4,
+          "max": 0.8
+        },
+        "temporal_context_precision": {
+          "mean": 0.3666666666666667,
+          "population_stddev": 0.1247219128924647,
+          "min": 0.2,
+          "max": 0.5
+        },
+        "temporal_exact_source_set": {
+          "mean": 0.06666666666666667,
+          "population_stddev": 0.09428090415820634,
+          "min": 0.0,
+          "max": 0.2
+        },
+        "mean_latency_ms": {
+          "mean": 3924.387041666667,
+          "population_stddev": 424.27071123277153,
+          "min": 3494.44125,
+          "max": 4501.80775
+        }
+      }
+    },
+    "graphiti": {
+      "runs": [
+        {
+          "file": "GRAPHITI-COMBINED-8DOCS-20260729.json",
+          "documents_completed": 7,
+          "documents_requested": 8,
+          "ingestion_seconds": 249.837,
+          "mean_recall": 0.5,
+          "mean_context_precision": 0.35714285714285715,
+          "temporal_correctness": 0.6,
+          "temporal_context_precision": 0.5,
+          "temporal_exact_source_set": 0.2,
+          "mean_latency_ms": 38.38825
+        },
+        {
+          "file": "GRAPHITI-QWEN25-14B-8DOCS-REPEAT2-20260729.json",
+          "documents_completed": 7,
+          "documents_requested": 8,
+          "ingestion_seconds": 390.968,
+          "mean_recall": 0.5,
+          "mean_context_precision": 0.35714285714285715,
+          "temporal_correctness": 0.6,
+          "temporal_context_precision": 0.5,
+          "temporal_exact_source_set": 0.2,
+          "mean_latency_ms": 40.705375000000004
+        },
+        {
+          "file": "GRAPHITI-QWEN25-14B-8DOCS-REPEAT3-20260729.json",
+          "documents_completed": 7,
+          "documents_requested": 8,
+          "ingestion_seconds": 256.296,
+          "mean_recall": 0.5,
+          "mean_context_precision": 0.35714285714285715,
+          "temporal_correctness": 0.6,
+          "temporal_context_precision": 0.5,
+          "temporal_exact_source_set": 0.2,
+          "mean_latency_ms": 41.113749999999996
+        }
+      ],
+      "summary": {
+        "documents_completed": {
+          "mean": 7.0,
+          "population_stddev": 0.0,
+          "min": 7.0,
+          "max": 7.0
+        },
+        "ingestion_seconds": {
+          "mean": 299.03366666666665,
+          "population_stddev": 65.06084795191516,
+          "min": 249.837,
+          "max": 390.968
+        },
+        "mean_recall": {
+          "mean": 0.5,
+          "population_stddev": 0.0,
+          "min": 0.5,
+          "max": 0.5
+        },
+        "mean_context_precision": {
+          "mean": 0.35714285714285715,
+          "population_stddev": 0.0,
+          "min": 0.35714285714285715,
+          "max": 0.35714285714285715
+        },
+        "temporal_correctness": {
+          "mean": 0.6,
+          "population_stddev": 0.0,
+          "min": 0.6,
+          "max": 0.6
+        },
+        "temporal_context_precision": {
+          "mean": 0.5,
+          "population_stddev": 0.0,
+          "min": 0.5,
+          "max": 0.5
+        },
+        "temporal_exact_source_set": {
+          "mean": 0.2,
+          "population_stddev": 0.0,
+          "min": 0.2,
+          "max": 0.2
+        },
+        "mean_latency_ms": {
+          "mean": 40.069125,
+          "population_stddev": 1.2001939036047464,
+          "min": 38.38825,
+          "max": 41.113749999999996
+        }
+      }
+    }
+  }
+}

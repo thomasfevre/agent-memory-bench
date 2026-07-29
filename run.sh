@@ -14,4 +14,13 @@ if [ ! -x "$VENV_DIR/bin/python" ]; then
   fi
 fi
 
-exec "$VENV_DIR/bin/python" "$ROOT_DIR/src/benchmark.py" "$@"
+MODEL_DIR=${AMB_MINILM_DIR:-"$ROOT_DIR/.cache/models/all-MiniLM-L6-v2"}
+if [ ! -f "$MODEL_DIR/model.onnx" ] || [ ! -f "$MODEL_DIR/tokenizer.json" ]; then
+  "$VENV_DIR/bin/python" "$ROOT_DIR/tools/download_minilm.py" --destination "$MODEL_DIR"
+fi
+
+"$VENV_DIR/bin/python" "$ROOT_DIR/src/benchmark.py" --minilm-dir "$MODEL_DIR" "$@"
+"$VENV_DIR/bin/python" "$ROOT_DIR/tools/update_common_registry.py"
+"$VENV_DIR/bin/python" "$ROOT_DIR/tools/publish_safe_results.py"
+"$VENV_DIR/bin/python" "$ROOT_DIR/tools/build_evidence_manifest.py"
+"$VENV_DIR/bin/python" "$ROOT_DIR/tools/build_dashboard_data.py"

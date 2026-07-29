@@ -1,0 +1,2686 @@
+{
+  "manifest": {
+    "created_at": "2026-07-28T22:10:49.117951+00:00",
+    "gold_facts": 18,
+    "models": [
+      "qwen3:1.7b",
+      "qwen3:8b"
+    ],
+    "repetitions": 3,
+    "source_documents": 28
+  },
+  "models": {
+    "qwen3:1.7b": {
+      "rows": [
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Runbook v1: Project Atlas deploys from the canary branch through 2026-07-14.",
+              "valid_from": "2026-01-05",
+              "valid_to": "2026-07-14"
+            }
+          ],
+          "fact_f1": 0.39999999999999997,
+          "gold_fact_ids": [
+            "f01"
+          ],
+          "latency_ms": 3155.7860421016812,
+          "model": "qwen3:1.7b",
+          "output_tokens": 80,
+          "prompt_tokens": 121,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d01",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Runbook v2: effective 2026-07-15, Project Atlas deploys from the ember branch.",
+              "valid_from": "2026-07-15",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.39999999999999997,
+          "gold_fact_ids": [
+            "f02"
+          ],
+          "latency_ms": 970.0188329443336,
+          "model": "qwen3:1.7b",
+          "output_tokens": 70,
+          "prompt_tokens": 131,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d02",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "A dry run is required before every Project Atlas deployment.",
+              "valid_from": "2026-01-05",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.7142857142857143,
+          "gold_fact_ids": [
+            "f03"
+          ],
+          "latency_ms": 776.6145830973983,
+          "model": "qwen3:1.7b",
+          "output_tokens": 54,
+          "prompt_tokens": 105,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d03",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "SEV-1 hotfixes may skip the dry run only with approval from the incident commander.",
+              "valid_from": "2026-02-10"
+            }
+          ],
+          "fact_f1": 0.9,
+          "gold_fact_ids": [
+            "f04"
+          ],
+          "latency_ms": 794.6197919081897,
+          "model": "qwen3:1.7b",
+          "output_tokens": 56,
+          "prompt_tokens": 114,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d04",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Dana is the incident commander through 2026-07-20.",
+              "valid_from": "2026-01-05",
+              "valid_to": "2026-07-20"
+            }
+          ],
+          "fact_f1": 0.6,
+          "gold_fact_ids": [
+            "f05"
+          ],
+          "latency_ms": 968.2700410485268,
+          "model": "qwen3:1.7b",
+          "output_tokens": 72,
+          "prompt_tokens": 112,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d05",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Mina is the incident commander",
+              "valid_from": "2026-07-21"
+            },
+            {
+              "text": "Mina supersedes Dana",
+              "valid_from": "2026-07-21"
+            }
+          ],
+          "fact_f1": 1.0,
+          "gold_fact_ids": [
+            "f06"
+          ],
+          "latency_ms": 1007.9152921680361,
+          "model": "qwen3:1.7b",
+          "output_tokens": 76,
+          "prompt_tokens": 119,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d06",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Normal exports are retained for 30 days.",
+              "valid_from": "2026-03-01",
+              "valid_to": "2026-06-01"
+            }
+          ],
+          "fact_f1": 0.6,
+          "gold_fact_ids": [
+            "f07"
+          ],
+          "latency_ms": 872.8269999846816,
+          "model": "qwen3:1.7b",
+          "output_tokens": 63,
+          "prompt_tokens": 104,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d07",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Rare blue-seal exports are retained for 365 days instead of the normal period.",
+              "valid_from": "2026-03-01",
+              "valid_to": "2026-03-01"
+            }
+          ],
+          "fact_f1": 0.5,
+          "gold_fact_ids": [
+            "f08"
+          ],
+          "latency_ms": 976.419708924368,
+          "model": "qwen3:1.7b",
+          "output_tokens": 72,
+          "prompt_tokens": 113,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d08",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Team feedback: incident reports should use UTC timestamps.",
+              "valid_from": "2026-04-02"
+            }
+          ],
+          "fact_f1": 0.7692307692307693,
+          "gold_fact_ids": [
+            "f09"
+          ],
+          "latency_ms": 688.4695829357952,
+          "model": "qwen3:1.7b",
+          "output_tokens": 46,
+          "prompt_tokens": 104,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d09",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Repeated team feedback: always record incident timestamps in UTC.",
+              "valid_from": "2026-04-18",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.4615384615384615,
+          "gold_fact_ids": [
+            "f09"
+          ],
+          "latency_ms": 769.999457988888,
+          "model": "qwen3:1.7b",
+          "output_tokens": 54,
+          "prompt_tokens": 106,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d10",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "The Search API retries failed upstream requests at most three times.",
+              "valid_from": "2026-02-01"
+            }
+          ],
+          "fact_f1": 0.4,
+          "gold_fact_ids": [
+            "f10"
+          ],
+          "latency_ms": 709.5218750182539,
+          "model": "qwen3:1.7b",
+          "output_tokens": 48,
+          "prompt_tokens": 106,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d13",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "The Search API request timeout is five seconds.",
+              "valid_from": "2026-02-01"
+            }
+          ],
+          "fact_f1": 0.9090909090909091,
+          "gold_fact_ids": [
+            "f11"
+          ],
+          "latency_ms": 668.7311669811606,
+          "model": "qwen3:1.7b",
+          "output_tokens": 45,
+          "prompt_tokens": 103,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d14",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Files in raw-sources are immutable and must never be edited.",
+              "valid_from": "2026-01-10",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.7272727272727273,
+          "gold_fact_ids": [
+            "f12"
+          ],
+          "latency_ms": 780.6603750213981,
+          "model": "qwen3:1.7b",
+          "output_tokens": 56,
+          "prompt_tokens": 107,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d15",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Summaries, embeddings, indexes, and graphs are derived artifacts and must be rebuildable from raw sources.",
+              "valid_from": "2026-01-10"
+            }
+          ],
+          "fact_f1": 0.8235294117647058,
+          "gold_fact_ids": [
+            "f13"
+          ],
+          "latency_ms": 801.7143341712654,
+          "model": "qwen3:1.7b",
+          "output_tokens": 57,
+          "prompt_tokens": 115,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d16",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "The Orion service is owned by the Aurora team.",
+              "valid_from": "2026-05-05",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.888888888888889,
+          "gold_fact_ids": [
+            "f14"
+          ],
+          "latency_ms": 755.5686249397695,
+          "model": "qwen3:1.7b",
+          "output_tokens": 53,
+          "prompt_tokens": 104,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d17",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Ravi is the Aurora team on-call engineer for July 2026.",
+              "valid_from": "2026-07-01",
+              "valid_to": "2026-07-31"
+            }
+          ],
+          "fact_f1": 0.8333333333333333,
+          "gold_fact_ids": [
+            "f15"
+          ],
+          "latency_ms": 939.4494579173625,
+          "model": "qwen3:1.7b",
+          "output_tokens": 70,
+          "prompt_tokens": 111,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d18",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Cross-tenant deduplication keys must include tenant_id.",
+              "valid_from": "2026-03-11"
+            }
+          ],
+          "fact_f1": 0.923076923076923,
+          "gold_fact_ids": [
+            "f16"
+          ],
+          "latency_ms": 702.593042049557,
+          "model": "qwen3:1.7b",
+          "output_tokens": 48,
+          "prompt_tokens": 106,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d19",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Amber-seal exports are retained for 180 days.",
+              "valid_from": "2026-04-06",
+              "valid_to": "2026-08-05"
+            }
+          ],
+          "fact_f1": 0.6666666666666666,
+          "gold_fact_ids": [
+            "f17"
+          ],
+          "latency_ms": 911.6680000443012,
+          "model": "qwen3:1.7b",
+          "output_tokens": 67,
+          "prompt_tokens": 107,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d27",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Production database migrations require a rollback script.",
+              "valid_from": "2026-01-22"
+            }
+          ],
+          "fact_f1": 1.0,
+          "gold_fact_ids": [
+            "f18"
+          ],
+          "latency_ms": 654.207875020802,
+          "model": "qwen3:1.7b",
+          "output_tokens": 44,
+          "prompt_tokens": 102,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d28",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Runbook v1: Project Atlas deploys from the canary branch through 2026-07-14.",
+              "valid_from": "2026-01-05",
+              "valid_to": "2026-07-14"
+            }
+          ],
+          "fact_f1": 0.39999999999999997,
+          "gold_fact_ids": [
+            "f01"
+          ],
+          "latency_ms": 997.9651658795774,
+          "model": "qwen3:1.7b",
+          "output_tokens": 80,
+          "prompt_tokens": 121,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d01",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Runbook v2: effective 2026-07-15, Project Atlas deploys from the ember branch.",
+              "valid_from": "2026-07-15",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.39999999999999997,
+          "gold_fact_ids": [
+            "f02"
+          ],
+          "latency_ms": 896.7704160604626,
+          "model": "qwen3:1.7b",
+          "output_tokens": 70,
+          "prompt_tokens": 131,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d02",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "A dry run is required before every Project Atlas deployment.",
+              "valid_from": "2026-01-05",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.7142857142857143,
+          "gold_fact_ids": [
+            "f03"
+          ],
+          "latency_ms": 716.6544578503817,
+          "model": "qwen3:1.7b",
+          "output_tokens": 54,
+          "prompt_tokens": 105,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d03",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "SEV-1 hotfixes may skip the dry run only with approval from the incident commander.",
+              "valid_from": "2026-02-10"
+            }
+          ],
+          "fact_f1": 0.9,
+          "gold_fact_ids": [
+            "f04"
+          ],
+          "latency_ms": 753.9536249823868,
+          "model": "qwen3:1.7b",
+          "output_tokens": 56,
+          "prompt_tokens": 114,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d04",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Dana is the incident commander through 2026-07-20.",
+              "valid_from": "2026-01-05",
+              "valid_to": "2026-07-20"
+            }
+          ],
+          "fact_f1": 0.6,
+          "gold_fact_ids": [
+            "f05"
+          ],
+          "latency_ms": 914.9524159729481,
+          "model": "qwen3:1.7b",
+          "output_tokens": 72,
+          "prompt_tokens": 112,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d05",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Mina is the incident commander and supersedes Dana.",
+              "valid_from": "2026-07-21"
+            }
+          ],
+          "fact_f1": 0.7499999999999999,
+          "gold_fact_ids": [
+            "f06"
+          ],
+          "latency_ms": 645.845124963671,
+          "model": "qwen3:1.7b",
+          "output_tokens": 48,
+          "prompt_tokens": 119,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d06",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Normal exports are retained for 30 days.",
+              "valid_from": "2026-03-01",
+              "valid_to": "2026-06-01"
+            }
+          ],
+          "fact_f1": 0.6,
+          "gold_fact_ids": [
+            "f07"
+          ],
+          "latency_ms": 812.3847499955446,
+          "model": "qwen3:1.7b",
+          "output_tokens": 63,
+          "prompt_tokens": 104,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d07",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Rare blue-seal exports are retained for 365 days instead of the normal period.",
+              "valid_from": "2026-03-01",
+              "valid_to": "2026-03-01"
+            }
+          ],
+          "fact_f1": 0.5,
+          "gold_fact_ids": [
+            "f08"
+          ],
+          "latency_ms": 912.5195001251996,
+          "model": "qwen3:1.7b",
+          "output_tokens": 72,
+          "prompt_tokens": 113,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d08",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Team feedback: incident reports should use UTC timestamps.",
+              "valid_from": "2026-04-02"
+            }
+          ],
+          "fact_f1": 0.7692307692307693,
+          "gold_fact_ids": [
+            "f09"
+          ],
+          "latency_ms": 628.0400000978261,
+          "model": "qwen3:1.7b",
+          "output_tokens": 46,
+          "prompt_tokens": 104,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d09",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Repeated team feedback: always record incident timestamps in UTC.",
+              "valid_from": "2026-04-18",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.4615384615384615,
+          "gold_fact_ids": [
+            "f09"
+          ],
+          "latency_ms": 717.4639999866486,
+          "model": "qwen3:1.7b",
+          "output_tokens": 54,
+          "prompt_tokens": 106,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d10",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "The Search API retries failed upstream requests at most three times.",
+              "valid_from": "2026-02-01"
+            }
+          ],
+          "fact_f1": 0.4,
+          "gold_fact_ids": [
+            "f10"
+          ],
+          "latency_ms": 645.7015827763826,
+          "model": "qwen3:1.7b",
+          "output_tokens": 48,
+          "prompt_tokens": 106,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d13",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "The Search API request timeout is five seconds.",
+              "valid_from": "2026-02-01"
+            }
+          ],
+          "fact_f1": 0.9090909090909091,
+          "gold_fact_ids": [
+            "f11"
+          ],
+          "latency_ms": 617.0197920873761,
+          "model": "qwen3:1.7b",
+          "output_tokens": 45,
+          "prompt_tokens": 103,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d14",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Files in raw-sources are immutable and must never be edited.",
+              "valid_from": "2026-01-10",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.7272727272727273,
+          "gold_fact_ids": [
+            "f12"
+          ],
+          "latency_ms": 735.3517089504749,
+          "model": "qwen3:1.7b",
+          "output_tokens": 56,
+          "prompt_tokens": 107,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d15",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Summaries, embeddings, indexes, and graphs are derived artifacts and must be rebuildable from raw sources.",
+              "valid_from": "2026-01-10"
+            }
+          ],
+          "fact_f1": 0.8235294117647058,
+          "gold_fact_ids": [
+            "f13"
+          ],
+          "latency_ms": 745.3763331286609,
+          "model": "qwen3:1.7b",
+          "output_tokens": 57,
+          "prompt_tokens": 115,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d16",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "The Orion service is owned by the Aurora team.",
+              "valid_from": "2026-05-05",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.888888888888889,
+          "gold_fact_ids": [
+            "f14"
+          ],
+          "latency_ms": 699.5786249171942,
+          "model": "qwen3:1.7b",
+          "output_tokens": 53,
+          "prompt_tokens": 104,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d17",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Ravi is the Aurora team on-call engineer for July 2026.",
+              "valid_from": "2026-07-01",
+              "valid_to": "2026-07-31"
+            }
+          ],
+          "fact_f1": 0.8333333333333333,
+          "gold_fact_ids": [
+            "f15"
+          ],
+          "latency_ms": 886.5348328836262,
+          "model": "qwen3:1.7b",
+          "output_tokens": 70,
+          "prompt_tokens": 111,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d18",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Cross-tenant deduplication keys must include tenant_id.",
+              "valid_from": "2026-03-11"
+            }
+          ],
+          "fact_f1": 0.923076923076923,
+          "gold_fact_ids": [
+            "f16"
+          ],
+          "latency_ms": 650.1813749782741,
+          "model": "qwen3:1.7b",
+          "output_tokens": 48,
+          "prompt_tokens": 106,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d19",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Amber-seal exports are retained for 180 days.",
+              "valid_from": "2026-04-06",
+              "valid_to": "2026-08-05"
+            }
+          ],
+          "fact_f1": 0.6666666666666666,
+          "gold_fact_ids": [
+            "f17"
+          ],
+          "latency_ms": 856.6822919528931,
+          "model": "qwen3:1.7b",
+          "output_tokens": 67,
+          "prompt_tokens": 107,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d27",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Production database migrations require a rollback script.",
+              "valid_from": "2026-01-22"
+            }
+          ],
+          "fact_f1": 1.0,
+          "gold_fact_ids": [
+            "f18"
+          ],
+          "latency_ms": 607.9388749785721,
+          "model": "qwen3:1.7b",
+          "output_tokens": 44,
+          "prompt_tokens": 102,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d28",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Runbook v1: Project Atlas deploys from the canary branch through 2026-07-14.",
+              "valid_from": "2026-01-05",
+              "valid_to": "2026-07-14"
+            }
+          ],
+          "fact_f1": 0.39999999999999997,
+          "gold_fact_ids": [
+            "f01"
+          ],
+          "latency_ms": 998.2986249960959,
+          "model": "qwen3:1.7b",
+          "output_tokens": 80,
+          "prompt_tokens": 121,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d01",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Runbook v2: effective 2026-07-15, Project Atlas deploys from the ember branch.",
+              "valid_from": "2026-07-15",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.39999999999999997,
+          "gold_fact_ids": [
+            "f02"
+          ],
+          "latency_ms": 885.9989999327809,
+          "model": "qwen3:1.7b",
+          "output_tokens": 70,
+          "prompt_tokens": 131,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d02",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "A dry run is required before every Project Atlas deployment.",
+              "valid_from": "2026-01-05",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.7142857142857143,
+          "gold_fact_ids": [
+            "f03"
+          ],
+          "latency_ms": 714.4462079741061,
+          "model": "qwen3:1.7b",
+          "output_tokens": 54,
+          "prompt_tokens": 105,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d03",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "SEV-1 hotfixes may skip the dry run only with approval from the incident commander.",
+              "valid_from": "2026-02-10"
+            }
+          ],
+          "fact_f1": 0.9,
+          "gold_fact_ids": [
+            "f04"
+          ],
+          "latency_ms": 730.204707942903,
+          "model": "qwen3:1.7b",
+          "output_tokens": 56,
+          "prompt_tokens": 114,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d04",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Dana is the incident commander through 2026-07-20.",
+              "valid_from": "2026-01-05",
+              "valid_to": "2026-07-20"
+            }
+          ],
+          "fact_f1": 0.6,
+          "gold_fact_ids": [
+            "f05"
+          ],
+          "latency_ms": 907.1744589600712,
+          "model": "qwen3:1.7b",
+          "output_tokens": 72,
+          "prompt_tokens": 112,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d05",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Mina is the incident commander and supersedes Dana.",
+              "valid_from": "2026-07-21"
+            }
+          ],
+          "fact_f1": 0.7499999999999999,
+          "gold_fact_ids": [
+            "f06"
+          ],
+          "latency_ms": 643.5216250829399,
+          "model": "qwen3:1.7b",
+          "output_tokens": 48,
+          "prompt_tokens": 119,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d06",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Normal exports are retained for 30 days.",
+              "valid_from": "2026-03-01",
+              "valid_to": "2026-06-01"
+            }
+          ],
+          "fact_f1": 0.6,
+          "gold_fact_ids": [
+            "f07"
+          ],
+          "latency_ms": 808.7622078601271,
+          "model": "qwen3:1.7b",
+          "output_tokens": 63,
+          "prompt_tokens": 104,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d07",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Rare blue-seal exports are retained for 365 days instead of the normal period.",
+              "valid_from": "2026-03-01",
+              "valid_to": "2026-03-01"
+            }
+          ],
+          "fact_f1": 0.5,
+          "gold_fact_ids": [
+            "f08"
+          ],
+          "latency_ms": 916.4089160040021,
+          "model": "qwen3:1.7b",
+          "output_tokens": 72,
+          "prompt_tokens": 113,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d08",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Team feedback: incident reports should use UTC timestamps.",
+              "valid_from": "2026-04-02"
+            }
+          ],
+          "fact_f1": 0.7692307692307693,
+          "gold_fact_ids": [
+            "f09"
+          ],
+          "latency_ms": 620.6010838504881,
+          "model": "qwen3:1.7b",
+          "output_tokens": 46,
+          "prompt_tokens": 104,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d09",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Repeated team feedback: always record incident timestamps in UTC.",
+              "valid_from": "2026-04-18",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.4615384615384615,
+          "gold_fact_ids": [
+            "f09"
+          ],
+          "latency_ms": 712.4843751080334,
+          "model": "qwen3:1.7b",
+          "output_tokens": 54,
+          "prompt_tokens": 106,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d10",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "The Search API retries failed upstream requests at most three times.",
+              "valid_from": "2026-02-01"
+            }
+          ],
+          "fact_f1": 0.4,
+          "gold_fact_ids": [
+            "f10"
+          ],
+          "latency_ms": 646.5890828985721,
+          "model": "qwen3:1.7b",
+          "output_tokens": 48,
+          "prompt_tokens": 106,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d13",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "The Search API request timeout is five seconds.",
+              "valid_from": "2026-02-01"
+            }
+          ],
+          "fact_f1": 0.9090909090909091,
+          "gold_fact_ids": [
+            "f11"
+          ],
+          "latency_ms": 624.789958121255,
+          "model": "qwen3:1.7b",
+          "output_tokens": 45,
+          "prompt_tokens": 103,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d14",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Files in raw-sources are immutable and must never be edited.",
+              "valid_from": "2026-01-10",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.7272727272727273,
+          "gold_fact_ids": [
+            "f12"
+          ],
+          "latency_ms": 731.8213330581784,
+          "model": "qwen3:1.7b",
+          "output_tokens": 56,
+          "prompt_tokens": 107,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d15",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Summaries, embeddings, indexes, and graphs are derived artifacts and must be rebuildable from raw sources.",
+              "valid_from": "2026-01-10"
+            }
+          ],
+          "fact_f1": 0.8235294117647058,
+          "gold_fact_ids": [
+            "f13"
+          ],
+          "latency_ms": 742.8470829036087,
+          "model": "qwen3:1.7b",
+          "output_tokens": 57,
+          "prompt_tokens": 115,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d16",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "The Orion service is owned by the Aurora team.",
+              "valid_from": "2026-05-05",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.888888888888889,
+          "gold_fact_ids": [
+            "f14"
+          ],
+          "latency_ms": 701.3772078789771,
+          "model": "qwen3:1.7b",
+          "output_tokens": 53,
+          "prompt_tokens": 104,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d17",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Ravi is the Aurora team on-call engineer for July 2026.",
+              "valid_from": "2026-07-01",
+              "valid_to": "2026-07-31"
+            }
+          ],
+          "fact_f1": 0.8333333333333333,
+          "gold_fact_ids": [
+            "f15"
+          ],
+          "latency_ms": 890.7736670225859,
+          "model": "qwen3:1.7b",
+          "output_tokens": 70,
+          "prompt_tokens": 111,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d18",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Cross-tenant deduplication keys must include tenant_id.",
+              "valid_from": "2026-03-11"
+            }
+          ],
+          "fact_f1": 0.923076923076923,
+          "gold_fact_ids": [
+            "f16"
+          ],
+          "latency_ms": 651.7075840383768,
+          "model": "qwen3:1.7b",
+          "output_tokens": 48,
+          "prompt_tokens": 106,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d19",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Amber-seal exports are retained for 180 days.",
+              "valid_from": "2026-04-06",
+              "valid_to": "2026-08-05"
+            }
+          ],
+          "fact_f1": 0.6666666666666666,
+          "gold_fact_ids": [
+            "f17"
+          ],
+          "latency_ms": 855.7763339485973,
+          "model": "qwen3:1.7b",
+          "output_tokens": 67,
+          "prompt_tokens": 107,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d27",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Production database migrations require a rollback script.",
+              "valid_from": "2026-01-22"
+            }
+          ],
+          "fact_f1": 1.0,
+          "gold_fact_ids": [
+            "f18"
+          ],
+          "latency_ms": 613.613624824211,
+          "model": "qwen3:1.7b",
+          "output_tokens": 44,
+          "prompt_tokens": 102,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d28",
+          "temporal_exact": 1.0
+        }
+      ],
+      "shard_rows": [
+        {
+          "candidates": [
+            {
+              "occurrences": 2,
+              "source_ids": [
+                "d10",
+                "d12"
+              ],
+              "text": "always record incident timestamps in UTC"
+            }
+          ],
+          "dark_mode_detected": false,
+          "latency_ms": 821.2007079273462,
+          "model": "qwen3:1.7b",
+          "output_tokens": 49,
+          "prompt_tokens": 176,
+          "repeat": 1,
+          "review_status_invented": false,
+          "seed": 11,
+          "utc_detected": true
+        },
+        {
+          "candidates": [
+            {
+              "occurrences": 2,
+              "source_ids": [
+                "d10",
+                "d12"
+              ],
+              "text": "always record incident timestamps in UTC"
+            }
+          ],
+          "dark_mode_detected": false,
+          "latency_ms": 659.3212499283254,
+          "model": "qwen3:1.7b",
+          "output_tokens": 49,
+          "prompt_tokens": 176,
+          "repeat": 2,
+          "review_status_invented": false,
+          "seed": 23,
+          "utc_detected": true
+        },
+        {
+          "candidates": [
+            {
+              "occurrences": 2,
+              "source_ids": [
+                "d10",
+                "d12"
+              ],
+              "text": "always record incident timestamps in UTC"
+            }
+          ],
+          "dark_mode_detected": false,
+          "latency_ms": 659.2666669748724,
+          "model": "qwen3:1.7b",
+          "output_tokens": 49,
+          "prompt_tokens": 176,
+          "repeat": 3,
+          "review_status_invented": false,
+          "seed": 37,
+          "utc_detected": true
+        }
+      ],
+      "summary": {
+        "dark_mode_candidate_rate": 0.0,
+        "empty_rate": 0.0,
+        "fact_f1": 0.7026445862359173,
+        "invented_review_rate": 0.0,
+        "latency_ms": 820.0555620919259,
+        "output_tokens": 3337,
+        "prompt_tokens": 6270,
+        "temporal_exact": 0.7894736842105263,
+        "utc_candidate_rate": 1.0
+      }
+    },
+    "qwen3:8b": {
+      "rows": [
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Project Atlas deploys from the canary branch through 2026-07-14.",
+              "valid_from": null,
+              "valid_to": "2026-07-14"
+            }
+          ],
+          "fact_f1": 0.46153846153846156,
+          "gold_fact_ids": [
+            "f01"
+          ],
+          "latency_ms": 3405.1886671222746,
+          "model": "qwen3:8b",
+          "output_tokens": 65,
+          "prompt_tokens": 121,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d01",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Runbook v2: effective 2026-07-15, Project Atlas deploys from the ember branch. This supersedes canary for later deployments.",
+              "valid_from": "2026-07-15",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.3,
+          "gold_fact_ids": [
+            "f02"
+          ],
+          "latency_ms": 3880.0647500902414,
+          "model": "qwen3:8b",
+          "output_tokens": 80,
+          "prompt_tokens": 131,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d02",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "A dry run is required before every Project Atlas deployment.",
+              "valid_from": "2026-01-05",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.7142857142857143,
+          "gold_fact_ids": [
+            "f03"
+          ],
+          "latency_ms": 2654.856374952942,
+          "model": "qwen3:8b",
+          "output_tokens": 54,
+          "prompt_tokens": 105,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d03",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "SEV-1 hotfixes may skip the dry run only with approval from the incident commander.",
+              "valid_from": "2026-02-10",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.9,
+          "gold_fact_ids": [
+            "f04"
+          ],
+          "latency_ms": 3034.788333810866,
+          "model": "qwen3:8b",
+          "output_tokens": 63,
+          "prompt_tokens": 114,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d04",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Dana is the incident commander through 2026-07-20.",
+              "valid_from": "2026-01-05",
+              "valid_to": "2026-07-20"
+            }
+          ],
+          "fact_f1": 0.6,
+          "gold_fact_ids": [
+            "f05"
+          ],
+          "latency_ms": 2655.9591668192297,
+          "model": "qwen3:8b",
+          "output_tokens": 54,
+          "prompt_tokens": 112,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d05",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Mina is the incident commander and supersedes Dana.",
+              "valid_from": "2026-07-21",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.7499999999999999,
+          "gold_fact_ids": [
+            "f06"
+          ],
+          "latency_ms": 2691.3892917800695,
+          "model": "qwen3:8b",
+          "output_tokens": 55,
+          "prompt_tokens": 119,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d06",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Normal exports are retained for 30 days.",
+              "valid_from": "2026-03-01",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.6,
+          "gold_fact_ids": [
+            "f07"
+          ],
+          "latency_ms": 2608.199957991019,
+          "model": "qwen3:8b",
+          "output_tokens": 53,
+          "prompt_tokens": 104,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d07",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Rare blue-seal exports are retained for 365 days instead of the normal period.",
+              "valid_from": "2026-03-01",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.5,
+          "gold_fact_ids": [
+            "f08"
+          ],
+          "latency_ms": 2993.1616249959916,
+          "model": "qwen3:8b",
+          "output_tokens": 62,
+          "prompt_tokens": 113,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d08",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "incident reports should use UTC timestamps",
+              "valid_from": "2026-04-02",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.9090909090909091,
+          "gold_fact_ids": [
+            "f09"
+          ],
+          "latency_ms": 2483.6618748959154,
+          "model": "qwen3:8b",
+          "output_tokens": 50,
+          "prompt_tokens": 104,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d09",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Repeated team feedback: always record incident timestamps in UTC.",
+              "valid_from": "2026-04-18",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.4615384615384615,
+          "gold_fact_ids": [
+            "f09"
+          ],
+          "latency_ms": 2652.0560001954436,
+          "model": "qwen3:8b",
+          "output_tokens": 54,
+          "prompt_tokens": 106,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d10",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "The Search API retries failed upstream requests at most three times.",
+              "valid_from": "2026-02-01",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.4,
+          "gold_fact_ids": [
+            "f10"
+          ],
+          "latency_ms": 2691.0687498748302,
+          "model": "qwen3:8b",
+          "output_tokens": 55,
+          "prompt_tokens": 106,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d13",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "The Search API request timeout is five seconds.",
+              "valid_from": "2026-02-01",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.9090909090909091,
+          "gold_fact_ids": [
+            "f11"
+          ],
+          "latency_ms": 2564.0095418784767,
+          "model": "qwen3:8b",
+          "output_tokens": 52,
+          "prompt_tokens": 103,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d14",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Files in raw-sources are immutable and must never be edited.",
+              "valid_from": "2026-01-10",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.7272727272727273,
+          "gold_fact_ids": [
+            "f12"
+          ],
+          "latency_ms": 2733.7612081319094,
+          "model": "qwen3:8b",
+          "output_tokens": 56,
+          "prompt_tokens": 107,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d15",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Summaries, embeddings, indexes, and graphs are derived artifacts and must be rebuildable from raw sources.",
+              "valid_from": "2026-01-10",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.8235294117647058,
+          "gold_fact_ids": [
+            "f13"
+          ],
+          "latency_ms": 3079.554541967809,
+          "model": "qwen3:8b",
+          "output_tokens": 64,
+          "prompt_tokens": 115,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d16",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "The Orion service is owned by the Aurora team.",
+              "valid_from": "2026-05-05",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.888888888888889,
+          "gold_fact_ids": [
+            "f14"
+          ],
+          "latency_ms": 1885.6838329229504,
+          "model": "qwen3:8b",
+          "output_tokens": 36,
+          "prompt_tokens": 104,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d17",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Ravi is the Aurora team on-call engineer for July 2026.",
+              "valid_from": "2026-07-01",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.8333333333333333,
+          "gold_fact_ids": [
+            "f15"
+          ],
+          "latency_ms": 2902.0187079440802,
+          "model": "qwen3:8b",
+          "output_tokens": 60,
+          "prompt_tokens": 111,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d18",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Cross-tenant deduplication keys must include tenant_id.",
+              "valid_from": "2026-03-11",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.923076923076923,
+          "gold_fact_ids": [
+            "f16"
+          ],
+          "latency_ms": 2691.88362499699,
+          "model": "qwen3:8b",
+          "output_tokens": 55,
+          "prompt_tokens": 106,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d19",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Amber-seal exports are retained for 180 days.",
+              "valid_from": "2026-04-06",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.6666666666666666,
+          "gold_fact_ids": [
+            "f17"
+          ],
+          "latency_ms": 2053.5419590305537,
+          "model": "qwen3:8b",
+          "output_tokens": 40,
+          "prompt_tokens": 107,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d27",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Production database migrations require a rollback script.",
+              "valid_from": "2026-01-22",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 1.0,
+          "gold_fact_ids": [
+            "f18"
+          ],
+          "latency_ms": 2515.5923748388886,
+          "model": "qwen3:8b",
+          "output_tokens": 51,
+          "prompt_tokens": 102,
+          "repeat": 1,
+          "seed": 11,
+          "source_id": "d28",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Project Atlas deploys from the canary branch through 2026-07-14.",
+              "valid_from": null,
+              "valid_to": "2026-07-14"
+            }
+          ],
+          "fact_f1": 0.46153846153846156,
+          "gold_fact_ids": [
+            "f01"
+          ],
+          "latency_ms": 2908.3972920197994,
+          "model": "qwen3:8b",
+          "output_tokens": 65,
+          "prompt_tokens": 121,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d01",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Runbook v2: effective 2026-07-15, Project Atlas deploys from the ember branch. This supersedes canary for later deployments.",
+              "valid_from": "2026-07-15",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.3,
+          "gold_fact_ids": [
+            "f02"
+          ],
+          "latency_ms": 3597.946916008368,
+          "model": "qwen3:8b",
+          "output_tokens": 80,
+          "prompt_tokens": 131,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d02",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "A dry run is required before every Project Atlas deployment.",
+              "valid_from": "2026-01-05",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.7142857142857143,
+          "gold_fact_ids": [
+            "f03"
+          ],
+          "latency_ms": 2425.7121249102056,
+          "model": "qwen3:8b",
+          "output_tokens": 54,
+          "prompt_tokens": 105,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d03",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "SEV-1 hotfixes may skip the dry run only with approval from the incident commander.",
+              "valid_from": "2026-02-10",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.9,
+          "gold_fact_ids": [
+            "f04"
+          ],
+          "latency_ms": 2805.849374970421,
+          "model": "qwen3:8b",
+          "output_tokens": 63,
+          "prompt_tokens": 114,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d04",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Dana is the incident commander through 2026-07-20.",
+              "valid_from": "2026-01-05",
+              "valid_to": "2026-07-20"
+            }
+          ],
+          "fact_f1": 0.6,
+          "gold_fact_ids": [
+            "f05"
+          ],
+          "latency_ms": 2428.288167109713,
+          "model": "qwen3:8b",
+          "output_tokens": 54,
+          "prompt_tokens": 112,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d05",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Mina is the incident commander and supersedes Dana.",
+              "valid_from": "2026-07-21",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.7499999999999999,
+          "gold_fact_ids": [
+            "f06"
+          ],
+          "latency_ms": 2466.665083076805,
+          "model": "qwen3:8b",
+          "output_tokens": 55,
+          "prompt_tokens": 119,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d06",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Normal exports are retained for 30 days.",
+              "valid_from": "2026-03-01",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.6,
+          "gold_fact_ids": [
+            "f07"
+          ],
+          "latency_ms": 2381.7827079910785,
+          "model": "qwen3:8b",
+          "output_tokens": 53,
+          "prompt_tokens": 104,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d07",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Rare blue-seal exports are retained for 365 days instead of the normal period.",
+              "valid_from": "2026-03-01",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.5,
+          "gold_fact_ids": [
+            "f08"
+          ],
+          "latency_ms": 2763.8781669083983,
+          "model": "qwen3:8b",
+          "output_tokens": 62,
+          "prompt_tokens": 113,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d08",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "incident reports should use UTC timestamps",
+              "valid_from": "2026-04-02",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.9090909090909091,
+          "gold_fact_ids": [
+            "f09"
+          ],
+          "latency_ms": 2247.7354160510004,
+          "model": "qwen3:8b",
+          "output_tokens": 50,
+          "prompt_tokens": 104,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d09",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Repeated team feedback: always record incident timestamps in UTC.",
+              "valid_from": "2026-04-18",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.4615384615384615,
+          "gold_fact_ids": [
+            "f09"
+          ],
+          "latency_ms": 2422.3399159964174,
+          "model": "qwen3:8b",
+          "output_tokens": 54,
+          "prompt_tokens": 106,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d10",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "The Search API retries failed upstream requests at most three times.",
+              "valid_from": "2026-02-01",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.4,
+          "gold_fact_ids": [
+            "f10"
+          ],
+          "latency_ms": 2463.6391249950975,
+          "model": "qwen3:8b",
+          "output_tokens": 55,
+          "prompt_tokens": 106,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d13",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "The Search API request timeout is five seconds.",
+              "valid_from": "2026-02-01",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.9090909090909091,
+          "gold_fact_ids": [
+            "f11"
+          ],
+          "latency_ms": 2339.6694578696042,
+          "model": "qwen3:8b",
+          "output_tokens": 52,
+          "prompt_tokens": 103,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d14",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Files in raw-sources are immutable and must never be edited.",
+              "valid_from": "2026-01-10",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.7272727272727273,
+          "gold_fact_ids": [
+            "f12"
+          ],
+          "latency_ms": 1783.5663328878582,
+          "model": "qwen3:8b",
+          "output_tokens": 39,
+          "prompt_tokens": 107,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d15",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Summaries, embeddings, indexes, and graphs are derived artifacts and must be rebuildable from raw sources.",
+              "valid_from": "2026-01-10",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.8235294117647058,
+          "gold_fact_ids": [
+            "f13"
+          ],
+          "latency_ms": 2122.3973331507295,
+          "model": "qwen3:8b",
+          "output_tokens": 47,
+          "prompt_tokens": 115,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d16",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "The Orion service is owned by the Aurora team.",
+              "valid_from": "2026-05-05",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.888888888888889,
+          "gold_fact_ids": [
+            "f14"
+          ],
+          "latency_ms": 1656.2504589091986,
+          "model": "qwen3:8b",
+          "output_tokens": 36,
+          "prompt_tokens": 104,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d17",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Ravi is the Aurora team on-call engineer for July 2026.",
+              "valid_from": "2026-07-01",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.8333333333333333,
+          "gold_fact_ids": [
+            "f15"
+          ],
+          "latency_ms": 1955.7852500583977,
+          "model": "qwen3:8b",
+          "output_tokens": 43,
+          "prompt_tokens": 111,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d18",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Cross-tenant deduplication keys must include tenant_id.",
+              "valid_from": "2026-03-11",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.923076923076923,
+          "gold_fact_ids": [
+            "f16"
+          ],
+          "latency_ms": 2467.967125121504,
+          "model": "qwen3:8b",
+          "output_tokens": 55,
+          "prompt_tokens": 106,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d19",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Amber-seal exports are retained for 180 days.",
+              "valid_from": "2026-04-06",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.6666666666666666,
+          "gold_fact_ids": [
+            "f17"
+          ],
+          "latency_ms": 1828.7275000475347,
+          "model": "qwen3:8b",
+          "output_tokens": 40,
+          "prompt_tokens": 107,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d27",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Production database migrations require a rollback script.",
+              "valid_from": "2026-01-22",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 1.0,
+          "gold_fact_ids": [
+            "f18"
+          ],
+          "latency_ms": 2293.21741592139,
+          "model": "qwen3:8b",
+          "output_tokens": 51,
+          "prompt_tokens": 102,
+          "repeat": 2,
+          "seed": 23,
+          "source_id": "d28",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Project Atlas deploys from the canary branch through 2026-07-14.",
+              "valid_from": null,
+              "valid_to": "2026-07-14"
+            }
+          ],
+          "fact_f1": 0.46153846153846156,
+          "gold_fact_ids": [
+            "f01"
+          ],
+          "latency_ms": 2886.8735420983285,
+          "model": "qwen3:8b",
+          "output_tokens": 65,
+          "prompt_tokens": 121,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d01",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Runbook v2: effective 2026-07-15, Project Atlas deploys from the ember branch. This supersedes canary for later deployments.",
+              "valid_from": "2026-07-15",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.3,
+          "gold_fact_ids": [
+            "f02"
+          ],
+          "latency_ms": 3524.059624876827,
+          "model": "qwen3:8b",
+          "output_tokens": 80,
+          "prompt_tokens": 131,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d02",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "A dry run is required before every Project Atlas deployment.",
+              "valid_from": "2026-01-05",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.7142857142857143,
+          "gold_fact_ids": [
+            "f03"
+          ],
+          "latency_ms": 2414.8506668861955,
+          "model": "qwen3:8b",
+          "output_tokens": 54,
+          "prompt_tokens": 105,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d03",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "SEV-1 hotfixes may skip the dry run only with approval from the incident commander.",
+              "valid_from": "2026-02-10",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.9,
+          "gold_fact_ids": [
+            "f04"
+          ],
+          "latency_ms": 2797.196041094139,
+          "model": "qwen3:8b",
+          "output_tokens": 63,
+          "prompt_tokens": 114,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d04",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Dana is the incident commander through 2026-07-20.",
+              "valid_from": "2026-01-05",
+              "valid_to": "2026-07-20"
+            }
+          ],
+          "fact_f1": 0.6,
+          "gold_fact_ids": [
+            "f05"
+          ],
+          "latency_ms": 2420.784584013745,
+          "model": "qwen3:8b",
+          "output_tokens": 54,
+          "prompt_tokens": 112,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d05",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Mina is the incident commander and supersedes Dana.",
+              "valid_from": "2026-07-21",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.7499999999999999,
+          "gold_fact_ids": [
+            "f06"
+          ],
+          "latency_ms": 2457.900624955073,
+          "model": "qwen3:8b",
+          "output_tokens": 55,
+          "prompt_tokens": 119,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d06",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Normal exports are retained for 30 days.",
+              "valid_from": "2026-03-01",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.6,
+          "gold_fact_ids": [
+            "f07"
+          ],
+          "latency_ms": 2372.664124937728,
+          "model": "qwen3:8b",
+          "output_tokens": 53,
+          "prompt_tokens": 104,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d07",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Rare blue-seal exports are retained for 365 days instead of the normal period.",
+              "valid_from": "2026-03-01",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.5,
+          "gold_fact_ids": [
+            "f08"
+          ],
+          "latency_ms": 2037.2888329438865,
+          "model": "qwen3:8b",
+          "output_tokens": 45,
+          "prompt_tokens": 113,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d08",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "incident reports should use UTC timestamps",
+              "valid_from": "2026-04-02",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.9090909090909091,
+          "gold_fact_ids": [
+            "f09"
+          ],
+          "latency_ms": 2250.855832826346,
+          "model": "qwen3:8b",
+          "output_tokens": 50,
+          "prompt_tokens": 104,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d09",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Repeated team feedback: always record incident timestamps in UTC.",
+              "valid_from": "2026-04-18",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.4615384615384615,
+          "gold_fact_ids": [
+            "f09"
+          ],
+          "latency_ms": 2420.88520899415,
+          "model": "qwen3:8b",
+          "output_tokens": 54,
+          "prompt_tokens": 106,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d10",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "The Search API retries failed upstream requests at most three times.",
+              "valid_from": "2026-02-01",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.4,
+          "gold_fact_ids": [
+            "f10"
+          ],
+          "latency_ms": 2461.970750009641,
+          "model": "qwen3:8b",
+          "output_tokens": 55,
+          "prompt_tokens": 106,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d13",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "The Search API request timeout is five seconds.",
+              "valid_from": "2026-02-01",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.9090909090909091,
+          "gold_fact_ids": [
+            "f11"
+          ],
+          "latency_ms": 2336.5227500908077,
+          "model": "qwen3:8b",
+          "output_tokens": 52,
+          "prompt_tokens": 103,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d14",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Files in raw-sources are immutable and must never be edited.",
+              "valid_from": "2026-01-10",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.7272727272727273,
+          "gold_fact_ids": [
+            "f12"
+          ],
+          "latency_ms": 1782.304208027199,
+          "model": "qwen3:8b",
+          "output_tokens": 39,
+          "prompt_tokens": 107,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d15",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Summaries, embeddings, indexes, and graphs are derived artifacts and must be rebuildable from raw sources.",
+              "valid_from": "2026-01-10",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.8235294117647058,
+          "gold_fact_ids": [
+            "f13"
+          ],
+          "latency_ms": 2123.5653338953853,
+          "model": "qwen3:8b",
+          "output_tokens": 47,
+          "prompt_tokens": 115,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d16",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "The Orion service is owned by the Aurora team.",
+              "valid_from": "2026-05-05",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.888888888888889,
+          "gold_fact_ids": [
+            "f14"
+          ],
+          "latency_ms": 1655.4239171091467,
+          "model": "qwen3:8b",
+          "output_tokens": 36,
+          "prompt_tokens": 104,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d17",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Ravi is the Aurora team on-call engineer for July 2026.",
+              "valid_from": "2026-07-01",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.8333333333333333,
+          "gold_fact_ids": [
+            "f15"
+          ],
+          "latency_ms": 1957.8732498921454,
+          "model": "qwen3:8b",
+          "output_tokens": 43,
+          "prompt_tokens": 111,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d18",
+          "temporal_exact": 0.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Cross-tenant deduplication keys must include tenant_id.",
+              "valid_from": "2026-03-11",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.923076923076923,
+          "gold_fact_ids": [
+            "f16"
+          ],
+          "latency_ms": 2459.6821658778936,
+          "model": "qwen3:8b",
+          "output_tokens": 55,
+          "prompt_tokens": 106,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d19",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Amber-seal exports are retained for 180 days.",
+              "valid_from": "2026-04-06",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 0.6666666666666666,
+          "gold_fact_ids": [
+            "f17"
+          ],
+          "latency_ms": 1820.06191695109,
+          "model": "qwen3:8b",
+          "output_tokens": 40,
+          "prompt_tokens": 107,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d27",
+          "temporal_exact": 1.0
+        },
+        {
+          "empty": false,
+          "extracted": [
+            {
+              "text": "Production database migrations require a rollback script.",
+              "valid_from": "2026-01-22",
+              "valid_to": null
+            }
+          ],
+          "fact_f1": 1.0,
+          "gold_fact_ids": [
+            "f18"
+          ],
+          "latency_ms": 2291.559458943084,
+          "model": "qwen3:8b",
+          "output_tokens": 51,
+          "prompt_tokens": 102,
+          "repeat": 3,
+          "seed": 37,
+          "source_id": "d28",
+          "temporal_exact": 1.0
+        }
+      ],
+      "shard_rows": [
+        {
+          "candidates": [
+            {
+              "occurrences": 2,
+              "source_ids": [
+                "d09",
+                "d10"
+              ],
+              "text": "record incident timestamps in UTC"
+            },
+            {
+              "occurrences": 2,
+              "source_ids": [
+                "d11",
+                "d12"
+              ],
+              "text": "use dark-mode screenshots in release reports"
+            }
+          ],
+          "dark_mode_detected": true,
+          "latency_ms": 4612.21924982965,
+          "model": "qwen3:8b",
+          "output_tokens": 88,
+          "prompt_tokens": 176,
+          "repeat": 1,
+          "review_status_invented": false,
+          "seed": 11,
+          "utc_detected": true
+        },
+        {
+          "candidates": [
+            {
+              "occurrences": 2,
+              "source_ids": [
+                "d09",
+                "d10"
+              ],
+              "text": "record incident timestamps in UTC"
+            },
+            {
+              "occurrences": 2,
+              "source_ids": [
+                "d11",
+                "d12"
+              ],
+              "text": "use dark-mode screenshots in release reports"
+            }
+          ],
+          "dark_mode_detected": true,
+          "latency_ms": 3892.964458093047,
+          "model": "qwen3:8b",
+          "output_tokens": 88,
+          "prompt_tokens": 176,
+          "repeat": 2,
+          "review_status_invented": false,
+          "seed": 23,
+          "utc_detected": true
+        },
+        {
+          "candidates": [
+            {
+              "occurrences": 2,
+              "source_ids": [
+                "d09",
+                "d10"
+              ],
+              "text": "record incident timestamps in UTC"
+            },
+            {
+              "occurrences": 2,
+              "source_ids": [
+                "d11",
+                "d12"
+              ],
+              "text": "use dark-mode screenshots in release reports"
+            }
+          ],
+          "dark_mode_detected": true,
+          "latency_ms": 3876.7986248712987,
+          "model": "qwen3:8b",
+          "output_tokens": 88,
+          "prompt_tokens": 176,
+          "repeat": 3,
+          "review_status_invented": false,
+          "seed": 37,
+          "utc_detected": true
+        }
+      ],
+      "summary": {
+        "dark_mode_candidate_rate": 1.0,
+        "empty_rate": 0.0,
+        "fact_f1": 0.7035953898182998,
+        "invented_review_rate": 0.0,
+        "latency_ms": 2491.3785716257335,
+        "output_tokens": 3058,
+        "prompt_tokens": 6270,
+        "temporal_exact": 0.8421052631578947,
+        "utc_candidate_rate": 1.0
+      }
+    }
+  }
+}

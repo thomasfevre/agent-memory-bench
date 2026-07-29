@@ -1,0 +1,58 @@
+{
+  "protocol": "same 8-document corpus, same 8 questions, top-k 5, local nomic embeddings",
+  "systems": [
+    {
+      "system": "Cognee",
+      "runs": [
+        {
+          "model": "qwen2.5:14b",
+          "documents_completed": 8,
+          "documents_requested": 8,
+          "ingestion_seconds": 182.222,
+          "mean_recall": 0.928571,
+          "mean_context_precision": 0.571429,
+          "temporal_correctness": 0.8,
+          "mean_latency_ms": 3776.912
+        },
+        {
+          "model": "qwen3:8b",
+          "documents_completed": 8,
+          "documents_requested": 8,
+          "ingestion_seconds": 234.31,
+          "mean_recall": 0.7857142857142857,
+          "mean_context_precision": 0.5,
+          "temporal_correctness": 0.6,
+          "mean_latency_ms": 4635.67575
+        }
+      ]
+    },
+    {
+      "system": "Graphiti",
+      "runs": [
+        {
+          "model": "qwen2.5:14b",
+          "documents_completed": 7,
+          "documents_requested": 8,
+          "ingestion_seconds": 249.837,
+          "llm_tokens": 27401,
+          "mean_recall": 0.5,
+          "mean_context_precision": 0.357143,
+          "temporal_correctness": 0.6,
+          "mean_latency_ms": 38.388
+        },
+        {
+          "model": "qwen3:8b",
+          "documents_completed": 3,
+          "documents_requested": 8,
+          "ingestion_seconds": 650.41,
+          "llm_tokens": 18992,
+          "mean_recall": 0.14285714285714285,
+          "mean_context_precision": 0.14285714285714285,
+          "temporal_correctness": 0.2,
+          "mean_latency_ms": 34.944250000000004
+        }
+      ]
+    }
+  ],
+  "interpretation": "Model choice materially changed ingestion completion, quality, build time and query latency. Architecture comparisons must therefore report the model and test cross-model sensitivity instead of treating the memory system as model-independent."
+}

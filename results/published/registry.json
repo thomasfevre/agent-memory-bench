@@ -94,21 +94,25 @@
       "repetitions": 3,
       "metrics": {
         "series": [
-          {"method": "Long context", "recall": 1.0, "context_precision": 0.043, "temporal_correctness": 0.0, "latency_ms": 0.0},
-          {"method": "BM25", "recall": 0.921, "context_precision": 0.227, "temporal_correctness": 0.0, "latency_ms": 0.05},
-          {"method": "MiniLM dense", "recall": 0.974, "context_precision": 0.23, "temporal_correctness": 0.0, "latency_ms": 2.2},
-          {"method": "Hybrid", "recall": 0.974, "context_precision": 0.23, "temporal_correctness": 0.0, "latency_ms": 2.3},
-          {"method": "Dated facts", "recall": 0.895, "context_precision": 0.19, "temporal_correctness": 0.8, "latency_ms": 3.8},
-          {"method": "Dated graph", "recall": 0.921, "context_precision": 0.225, "temporal_correctness": 1.0, "latency_ms": 2.5},
-          {"method": "Type router", "recall": 0.947, "context_precision": 0.25, "temporal_correctness": 0.8, "latency_ms": 1.4},
-          {"method": "Parallel fusion", "recall": 0.974, "context_precision": 0.4, "temporal_correctness": 0.0, "latency_ms": 8.9}
+          {"method": "Long context", "recall": 1.0, "context_precision": 0.043, "temporal_correctness": 0.0, "latency_ms": 0.0, "mean_context_words": 282.0},
+          {"method": "BM25", "recall": 0.921, "context_precision": 0.227, "temporal_correctness": 0.0, "latency_ms": 0.05, "mean_context_words": 52.1},
+          {"method": "MiniLM dense", "recall": 0.974, "context_precision": 0.23, "temporal_correctness": 0.0, "latency_ms": 2.2, "mean_context_words": 54.2},
+          {"method": "Hybrid", "recall": 0.974, "context_precision": 0.23, "temporal_correctness": 0.0, "latency_ms": 2.3, "mean_context_words": 54.6},
+          {"method": "Dated facts", "recall": 0.895, "context_precision": 0.19, "temporal_correctness": 0.8, "latency_ms": 3.8, "mean_context_words": 35.0},
+          {"method": "Dated graph", "recall": 0.921, "context_precision": 0.225, "temporal_correctness": 1.0, "latency_ms": 2.5, "mean_context_words": 34.8},
+          {"method": "Type router", "recall": 0.947, "context_precision": 0.25, "temporal_correctness": 0.8, "latency_ms": 1.4, "mean_context_words": 39.0},
+          {"method": "Parallel fusion", "recall": 0.974, "context_precision": 0.4, "temporal_correctness": 0.0, "latency_ms": 8.9, "mean_context_words": 44.2}
         ]
       },
       "budget": {
-        "top_k": 5
+        "comparison_type": "diagnostic-not-equal-budget",
+        "comparable": false,
+        "top_k_non_long_context": 5,
+        "long_context_documents": 28,
+        "mean_context_words_reported": true
       },
       "conclusion": "Similarity maximizes broad recall, while explicit temporal filtering is required for current-state correctness.",
-      "limitation": "The corpus is small and synthetic; temporal correction is evaluated on five cases.",
+      "limitation": "The corpus is small and synthetic; temporal correction is evaluated on five cases, and context budgets differ across methods.",
       "evidence_files": [
         "results/COMMON-RETRIEVAL-COMPARISON-20260729.json"
       ]
@@ -293,8 +297,8 @@
       "repetitions": 3,
       "metrics": {
         "series": [
-          {"mode": "Official CLI import", "memories_after_ingestion": 17, "recall": 0.526, "context_precision": 0.126, "temporal_correctness": 0.4},
-          {"mode": "Stable-ID upsert", "memories_after_ingestion": 28, "recall": 0.895, "context_precision": 0.221, "temporal_correctness": 0.8}
+          {"mode": "Official CLI import", "memories_after_ingestion": 17, "recall": 0.526, "context_precision": 0.126, "temporal_correctness": 0.4, "diagnostic": "Distinct updates merged during import"},
+          {"mode": "Stable-ID upsert", "memories_after_ingestion": 28, "recall": 0.895, "context_precision": 0.221, "temporal_correctness": 0.8, "diagnostic": "Same retriever with stable source IDs"}
         ]
       },
       "budget": {
@@ -319,8 +323,8 @@
       "repetitions": 3,
       "metrics": {
         "series": [
-          {"mode": "Raw infer=False", "memories": 28, "identifiable_sources": 28, "recall": 1.0, "context_precision": 0.253, "temporal_correctness": 1.0, "ingestion_s": 0.81},
-          {"mode": "Extraction infer=True", "memories": 41, "identifiable_sources": 26, "recall": 0.921, "context_precision": 0.246, "temporal_correctness": 0.8, "ingestion_s": 326.83}
+          {"mode": "Raw infer=False", "memories": 28, "identifiable_sources": 28, "recall": 1.0, "context_precision": 0.253, "temporal_correctness": 1.0, "ingestion_s": 0.81, "diagnostic": "Raw dense storage preserved every source"},
+          {"mode": "Extraction infer=True", "memories": 41, "identifiable_sources": 26, "recall": 0.921, "context_precision": 0.246, "temporal_correctness": 0.8, "ingestion_s": 326.83, "diagnostic": "Duplication and false provenance appeared"}
         ]
       },
       "budget": {

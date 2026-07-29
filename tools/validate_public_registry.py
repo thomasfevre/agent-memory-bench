@@ -18,10 +18,12 @@ RUN_KEYS = {
     "dataset",
     "task",
     "method",
+    "reader",
     "evidence_level",
     "sample",
     "repetitions",
     "metrics",
+    "budget",
     "conclusion",
     "limitation",
     "evidence_files",
@@ -40,7 +42,8 @@ def main() -> int:
     if len(registry.get("workflow", [])) < 5:
         errors.append("workflow must describe at least five boundaries")
 
-    manifest_paths = {item["path"] for item in manifest.get("artifacts", [])}
+    artifacts = {item["path"]: item for item in manifest.get("artifacts", [])}
+    manifest_paths = set(artifacts)
     ids: set[str] = set()
     for index, run in enumerate(registry.get("runs", [])):
         prefix = f"runs[{index}]"
@@ -59,9 +62,18 @@ def main() -> int:
             errors.append(f"{prefix} repetitions must be a non-negative integer")
         if not run.get("metrics"):
             errors.append(f"{prefix} must expose at least one metric")
+        if not isinstance(run.get("budget"), dict) or not run.get("budget"):
+            errors.append(f"{prefix} must declare a non-empty budget")
         for evidence in run.get("evidence_files", []):
             if evidence not in manifest_paths:
                 errors.append(f"{prefix} references missing evidence {evidence}")
+                continue
+            artifact = artifacts[evidence]
+            published_path = artifact.get("published_path")
+            if artifact.get("published") and not published_path:
+                errors.append(f"{prefix} evidence {evidence} lacks published_path")
+            if published_path and not (ROOT / published_path).is_file():
+                errors.append(f"{prefix} published evidence is missing: {published_path}")
 
     if not registry.get("findings"):
         errors.append("findings must not be empty")
@@ -77,4 +89,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

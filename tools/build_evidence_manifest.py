@@ -12,6 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS = ROOT / "results"
 OUTPUT = RESULTS / "published" / "raw-evidence-manifest.json"
+PUBLISHED_RESULTS = RESULTS / "published" / "raw"
 
 
 def sha256(path: Path) -> str:
@@ -25,13 +26,21 @@ def sha256(path: Path) -> str:
 def main() -> int:
     artifacts = []
     for path in sorted(RESULTS.glob("*.json")):
+        published_copy = PUBLISHED_RESULTS / path.name
+        is_published = published_copy.is_file() and sha256(published_copy) == sha256(path)
         artifacts.append(
             {
                 "path": path.relative_to(ROOT).as_posix(),
                 "bytes": path.stat().st_size,
                 "sha256": sha256(path),
-                "published": False,
-                "reason": "raw dataset or provider output requires a separate license and privacy review",
+                "published": is_published,
+                **(
+                    {"published_path": published_copy.relative_to(ROOT).as_posix()}
+                    if is_published
+                    else {
+                        "reason": "raw dataset or provider output requires a separate license and privacy review"
+                    }
+                ),
             }
         )
     payload = {
@@ -49,4 +58,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

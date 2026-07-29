@@ -26,6 +26,7 @@ from benchmark import (
     retrieve,
     source_ids,
 )
+from execution_order import interleaved_product
 
 
 QUESTION_IDS = {"q01", "q03", "q05", "q06", "q09", "q10", "q13", "q18"}
@@ -258,6 +259,7 @@ Evidence:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", default="qwen3:1.7b")
+    parser.add_argument("--execution-seed", type=int, default=20260729)
     args = parser.parse_args()
 
     indexes = build_indexes()
@@ -275,25 +277,30 @@ def main() -> None:
         "supervisor_swarm",
     ]
     rows = []
-    for repeat, seed in enumerate(REPEATS, start=1):
-        for topology in topologies:
-            for question in questions:
-                result = run_topology(topology, args.model, question, indexes, seed)
-                row = {
-                    "model": args.model,
-                    "repeat": repeat,
-                    "seed": seed,
-                    "topology": topology,
-                    "question_id": question["id"],
-                    "category": question["category"],
-                    **result,
-                }
-                rows.append(row)
-                print(
-                    f"{topology:<20} {question['id']} repeat={repeat} "
-                    f"correct={result['correct']} calls={result['calls']}",
-                    flush=True,
-                )
+    schedule = interleaved_product(
+        list(enumerate(REPEATS, start=1)),
+        topologies,
+        questions,
+        seed=args.execution_seed,
+    )
+    for repeat_seed, topology, question in schedule:
+        repeat, seed = repeat_seed
+        result = run_topology(topology, args.model, question, indexes, seed)
+        row = {
+            "model": args.model,
+            "repeat": repeat,
+            "seed": seed,
+            "topology": topology,
+            "question_id": question["id"],
+            "category": question["category"],
+            **result,
+        }
+        rows.append(row)
+        print(
+            f"{topology:<20} {question['id']} repeat={repeat} "
+            f"correct={result['correct']} calls={result['calls']}",
+            flush=True,
+        )
     summaries = []
     for topology in topologies:
         selected = [row for row in rows if row["topology"] == topology]
@@ -319,6 +326,7 @@ def main() -> None:
             "model": args.model,
             "questions": len(questions),
             "repetitions": len(REPEATS),
+            "execution_seed": args.execution_seed,
             "topologies": topologies,
         },
         "rows": rows,

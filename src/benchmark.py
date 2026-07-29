@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import os
 import re
 import statistics
 import time
@@ -17,12 +18,18 @@ from pathlib import Path
 from typing import Any, Iterable
 
 import numpy as np
+from execution_order import interleaved_product
 
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 RESULTS = ROOT / "results"
-MODEL_DIR = Path("/tmp/jcode-eval.nQjlVj/home/models/all-MiniLM-L6-v2")
+MODEL_DIR = Path(
+    os.environ.get(
+        "AMB_MINILM_DIR",
+        ROOT / ".cache" / "models" / "all-MiniLM-L6-v2",
+    )
+)
 DEFAULT_K = 5
 REPEATS = (11, 23, 37)
 
@@ -178,7 +185,7 @@ class IndexSet:
     reviewed_shard_indexes: tuple[Bm25, DenseIndex, list[dict[str, Any]]] | None = None
 
 
-def build_indexes() -> IndexSet:
+def build_indexes(model_dir: Path = MODEL_DIR) -> IndexSet:
     documents = load_jsonl(DATA / "corpus.jsonl")
     facts = load_jsonl(DATA / "facts.jsonl")
     shards = load_jsonl(DATA / "shards.jsonl")
@@ -189,7 +196,7 @@ def build_indexes() -> IndexSet:
         }
         for item in shards
     ]
-    encoder = MiniLm(MODEL_DIR)
+    encoder = MiniLm(model_dir)
     return IndexSet(
         documents=documents,
         facts=facts,
@@ -478,6 +485,9 @@ def run_retrieval(indexes: IndexSet, questions: list[dict[str, Any]]) -> dict[st
                         "question_id": question["id"],
                         "category": question["category"],
                         "latency_ms": latency_ms,
+                        "context_words": sum(
+                            len(tokenize(candidate["text"])) for candidate in candidates
+                        ),
                         **retrieval_metrics(question, candidates),
                     }
                 )
@@ -527,23 +537,28 @@ def run_ollama(
         question for question in questions if question["id"] in selected_ids
     ]
     rows: list[dict[str, Any]] = []
-    for model in models:
-        for repeat, seed in enumerate(REPEATS, start=1):
-            for strategy in strategies:
-                for question in selected_questions:
-                    candidates = retrieve(strategy, question, indexes)
-                    answer = ollama_answer(model, question, candidates, seed)
-                    rows.append(
-                        {
-                            "model": model,
-                            "repeat": repeat,
-                            "seed": seed,
-                            "strategy": strategy,
-                            "question_id": question["id"],
-                            "category": question["category"],
-                            **answer,
-                        }
-                    )
+    schedule = interleaved_product(
+        models,
+        list(enumerate(REPEATS, start=1)),
+        strategies,
+        selected_questions,
+        seed=20260729,
+    )
+    for model, repeat_seed, strategy, question in schedule:
+        repeat, seed = repeat_seed
+        candidates = retrieve(strategy, question, indexes)
+        answer = ollama_answer(model, question, candidates, seed)
+        rows.append(
+            {
+                "model": model,
+                "repeat": repeat,
+                "seed": seed,
+                "strategy": strategy,
+                "question_id": question["id"],
+                "category": question["category"],
+                **answer,
+            }
+        )
     summaries = []
     for model in models:
         for strategy in strategies:
@@ -609,10 +624,11 @@ def print_summary(payload: dict[str, Any], path: Path) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--with-ollama", nargs="+", default=[])
+    parser.add_argument("--minilm-dir", type=Path, default=MODEL_DIR)
     args = parser.parse_args()
 
     questions = load_jsonl(DATA / "questions.jsonl")
-    indexes = build_indexes()
+    indexes = build_indexes(args.minilm_dir)
     payload: dict[str, Any] = {
         "manifest": {
             "prototype": True,
