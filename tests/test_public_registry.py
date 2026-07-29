@@ -157,6 +157,24 @@ def test_memgym_record_keeps_semantic_judge_provisional() -> None:
                 "expected_judge_calls": 120,
                 "successful_judge_calls": 120,
             },
+            "rows": [
+                {
+                    "instance_id": "i1",
+                    "stratum": "3hop",
+                    "architecture": "visible_only",
+                    "repetition": 0,
+                    "reader_model": "reader",
+                    "judges": [{"ok": True, "response": {"score": 0.5}}],
+                },
+                {
+                    "instance_id": "i1",
+                    "stratum": "3hop",
+                    "architecture": "bm25_k5",
+                    "repetition": 0,
+                    "reader_model": "reader",
+                    "judges": [{"ok": True, "response": {"score": 0.7}}],
+                },
+            ],
             "summaries": [
                 {
                     "stratum": "3hop",
@@ -188,4 +206,11 @@ def test_memgym_record_keeps_semantic_judge_provisional() -> None:
 
     assert record["metrics"]["architecture_macro_judge"]["bm25_k5"] == 0.7
     assert record["metrics"]["architecture_macro_judge"]["visible_only"] == 0.5
+    assert record["metrics"]["paired_vs_visible"]["bm25_k5"]["pairs"] == 1
+    assert (
+        record["metrics"]["paired_vs_visible"]["bm25_k5"][
+            "mean_judge_difference"
+        ]
+        == 0.2
+    )
     assert "not human-calibrated" in record["limitation"]

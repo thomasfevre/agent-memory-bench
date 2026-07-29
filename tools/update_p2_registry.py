@@ -378,6 +378,48 @@ def memgym_record(payload: dict[str, Any]) -> dict[str, Any]:
         max(macro, key=macro.get) if macro else "unavailable"
     )
     best_score = macro.get(best_architecture)
+    paired_scores: defaultdict[
+        tuple[str, str, int, str], dict[str, float]
+    ] = defaultdict(dict)
+    for row in payload.get("rows", []):
+        model_scores = [
+            float(judge["response"]["score"])
+            for judge in row.get("judges", [])
+            if judge.get("ok")
+            and isinstance(judge.get("response"), dict)
+            and isinstance(judge["response"].get("score"), (int, float))
+        ]
+        if not model_scores:
+            continue
+        pair_key = (
+            str(row["instance_id"]),
+            str(row["stratum"]),
+            int(row.get("repetition", 0)),
+            str(row.get("reader_model", "")),
+        )
+        paired_scores[pair_key][row["architecture"]] = (
+            sum(model_scores) / len(model_scores)
+        )
+    paired_vs_visible = {}
+    for architecture in sorted(macro):
+        if architecture == "visible_only":
+            continue
+        differences = [
+            scores[architecture] - scores["visible_only"]
+            for scores in paired_scores.values()
+            if architecture in scores and "visible_only" in scores
+        ]
+        if not differences:
+            continue
+        paired_vs_visible[architecture] = {
+            "pairs": len(differences),
+            "mean_judge_difference": rounded(
+                sum(differences) / len(differences)
+            ),
+            "wins": sum(difference > 0 for difference in differences),
+            "ties": sum(difference == 0 for difference in differences),
+            "losses": sum(difference < 0 for difference in differences),
+        }
     conclusion = (
         f"The provisional semantic judge favored {best_architecture}"
         + (
@@ -403,6 +445,7 @@ def memgym_record(payload: dict[str, Any]) -> dict[str, Any]:
         "metrics": {
             "series": series,
             "architecture_macro_judge": macro,
+            "paired_vs_visible": paired_vs_visible,
         },
         "budget": {
             "expected_reader_calls": manifest["expected_reader_calls"],
