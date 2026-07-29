@@ -243,3 +243,15 @@ Priority 3 is complete only when:
 - deletion verification covers every listed surface;
 - fixed-budget reports can be rebuilt from raw manifests;
 - the public registry and dashboard expose both results and unresolved limits.
+
+## Deviation log
+
+### Post-hoc observable-field diagnostic
+
+After the first 60 temporal extractions completed, an audit found that the
+frozen text does not state the expected confidence for expiration and
+retraction events, and does not state a separate `effective_from` for
+expiration events. The preregistered strict field score remains unchanged and
+primary. A secondary `text_observable_field_accuracy` excludes only those
+three event-field combinations and is explicitly marked post hoc in every
+result. It must not replace the strict score in rankings.

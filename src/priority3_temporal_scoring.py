@@ -21,6 +21,10 @@ CANDIDATE_TYPES = {
     "shard_approval",
 }
 TEMPORAL_FIELDS = ("asserted_at", "effective_from", "effective_until")
+POSTHOC_UNOBSERVABLE_FIELDS = {
+    "expiration": {"confidence", "effective_from"},
+    "retraction": {"confidence"},
+}
 
 
 def parse_time(value: str) -> datetime:
@@ -135,6 +139,8 @@ def score_extraction_rows(
         for observation in observations
     }
     field_matches = 0
+    observable_field_matches = 0
+    observable_field_total = 0
     temporal_matches = 0
     event_type_matches = 0
     provenance_matches = 0
@@ -142,6 +148,11 @@ def score_extraction_rows(
     extractions_by_event: dict[str, list[str]] = defaultdict(list)
     for row in rows:
         expected = expected_by_id[row["event_id"]]
+        observable_fields = EXTRACTION_FIELDS - POSTHOC_UNOBSERVABLE_FIELDS.get(
+            expected["event_type"],
+            set(),
+        )
+        observable_field_total += len(observable_fields)
         if row["status"] != "success":
             extractions_by_event[row["event_id"]].append("<error>")
             continue
@@ -150,6 +161,10 @@ def score_extraction_rows(
         field_matches += sum(
             extracted.get(field) == expected[field]
             for field in EXTRACTION_FIELDS
+        )
+        observable_field_matches += sum(
+            extracted.get(field) == expected[field]
+            for field in observable_fields
         )
         temporal_matches += all(
             extracted.get(field) == expected[field]
@@ -173,6 +188,10 @@ def score_extraction_rows(
         "attempts": attempts,
         "successful_attempts": successful,
         "field_accuracy": field_matches / (attempts * len(EXTRACTION_FIELDS)),
+        "text_observable_field_accuracy": (
+            observable_field_matches / observable_field_total
+        ),
+        "text_observable_score_is_posthoc": True,
         "temporal_window_exact": temporal_matches / attempts,
         "event_type_accuracy": event_type_matches / attempts,
         "provenance_exact": provenance_matches / attempts,

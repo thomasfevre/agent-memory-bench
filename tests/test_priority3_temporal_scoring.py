@@ -51,10 +51,41 @@ def test_extraction_scores_measure_fields_temporality_provenance_and_stability()
     assert scores["attempts"] == 3
     assert scores["successful_attempts"] == 3
     assert scores["field_accuracy"] == 25 / 27
+    assert scores["text_observable_field_accuracy"] == 25 / 27
     assert scores["temporal_window_exact"] == 1.0
     assert scores["event_type_accuracy"] == 2 / 3
     assert scores["provenance_exact"] == 2 / 3
     assert scores["stable_event_fraction"] == 0.0
+
+
+def test_posthoc_observable_score_excludes_unstated_expiration_fields():
+    expiration = {
+        **EXPECTED,
+        "event_type": "expiration",
+        "target_event_id": "event-0",
+        "effective_until": "2026-01-05T09:00:00Z",
+    }
+    extracted = {
+        **expiration,
+        "confidence": 1.0,
+        "effective_from": "2026-01-05T09:00:00Z",
+    }
+
+    scores = score_extraction_rows(
+        [{"id": "event-1", "expected": expiration}],
+        [
+            {
+                "event_id": "event-1",
+                "repetition": 1,
+                "status": "success",
+                "extraction": extracted,
+            }
+        ],
+    )
+
+    assert scores["field_accuracy"] == 7 / 9
+    assert scores["text_observable_field_accuracy"] == 1.0
+    assert scores["text_observable_score_is_posthoc"] is True
 
 
 def test_temporal_memory_is_order_independent_and_deduplicates_retries():
