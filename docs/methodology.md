@@ -26,9 +26,12 @@ interleaved inside each model block. Both choices are recorded in the manifest.
 
 Codex subscription readers run in an ephemeral, read-only directory with user
 configuration, project rules, browser, apps, shell, computer-use, multi-agent
-and workspace tools disabled at the command line. A prompt that merely says
-"do not use tools" is not considered an isolation control. Raw stderr is
-audited for tool traces before a campaign is consolidated.
+and workspace tools disabled at the command line. Native web search is also
+disabled through both the root `web_search` mode and the `tools.web_search`
+configuration. A prompt that merely says "do not use tools" is not considered
+an isolation control. The runner rejects a call as `forbidden_tool_trace` when
+raw stderr contains a web-search or MCP trace, and the complete artifact is
+audited again before consolidation.
 
 ## Canonical data and rebuildable views
 

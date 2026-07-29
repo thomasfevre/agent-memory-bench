@@ -64,17 +64,23 @@ remain specific to this fixed slice.
 - Deterministic checks: exact match, substring match and token F1 remain
   alongside the judge.
 - Tool policy: browser, apps, shell, computer-use, multi-agent and workspace
-  tools are disabled at the Codex command line.
-- Status: the tool-isolated reader and judge smoke passed. The full campaign is
-  running from a fresh artifact.
+  tools are disabled at the Codex command line. Native web search is disabled
+  independently through `web_search="disabled"` and
+  `tools.web_search=false`. Any remaining web-search or MCP trace fails the
+  call closed.
+- Status: the configuration-isolated reader and judge smoke passed with three
+  readers and three judges. The full campaign is running from a fresh artifact.
 
 The semantic judge cannot be called calibrated against humans until two blinded
 annotations exist. The annotation pack and agreement report are a separate
 deliverable and must not be replaced by model self-agreement.
 
-An earlier smoke was quarantined after its raw stderr showed a web search. It
-is excluded from every summary and public result. The incident established that
-prompt-only tool restrictions are insufficient.
+Two earlier artifacts were quarantined after raw stderr showed web search. They
+are excluded from every summary and public result. The first established that
+prompt-only restrictions are insufficient. The second showed that disabling
+feature flags alone is also insufficient in the tested Codex CLI version,
+which is why the runner now applies root tool configuration and a fail-closed
+trace gate.
 
 ## Human review gates
 
