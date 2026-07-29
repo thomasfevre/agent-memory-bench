@@ -46,6 +46,7 @@ def parse_args() -> argparse.Namespace:
 
     judge = commands.add_parser("prepare-judge")
     judge.add_argument("--result", type=Path, required=True)
+    judge.add_argument("--dataset-dir", type=Path)
     judge.add_argument("--output-dir", type=Path, required=True)
     judge.add_argument("--sample-size", type=int, default=40)
     judge.add_argument("--seed", type=int, default=20260729)
@@ -224,8 +225,28 @@ def stratified_judge_sample(
     return selected
 
 
+def load_questions_by_sha256(dataset_dir: Path) -> dict[str, str]:
+    questions: dict[str, str] = {}
+    for path in sorted(dataset_dir.glob("*.jsonl")):
+        for row in read_jsonl(path):
+            question = row.get("question")
+            if not isinstance(question, str) or not question:
+                continue
+            digest = hashlib.sha256(question.encode()).hexdigest()
+            existing = questions.get(digest)
+            if existing is not None and existing != question:
+                raise ValueError(f"question hash collision: {digest}")
+            questions[digest] = question
+    return questions
+
+
 def prepare_judge(args: argparse.Namespace) -> None:
     payload = json.loads(args.result.read_text(encoding="utf-8"))
+    questions_by_sha256 = (
+        load_questions_by_sha256(args.dataset_dir)
+        if args.dataset_dir is not None
+        else {}
+    )
     selected = stratified_judge_sample(
         payload.get("rows", []),
         args.sample_size,
@@ -235,11 +256,20 @@ def prepare_judge(args: argparse.Namespace) -> None:
     mapping_rows = []
     for row in selected:
         item_id = blind_id("judge", row["run_key"], args.seed)
+        question = row.get("question")
+        if not question:
+            question_digest = row.get("question_sha256")
+            question = questions_by_sha256.get(str(question_digest))
+        if not question:
+            raise ValueError(
+                "question text missing from result and unresolved from "
+                f"dataset for run_key={row['run_key']}"
+            )
         public_rows.append(
             {
                 "item_id": item_id,
                 "task_type": "semantic_answer_judge",
-                "question": row["question"],
+                "question": question,
                 "gold_answer": row["gold_answer"],
                 "predicted_answer": row["predicted_answer"],
                 "score_options": list(JUDGE_SCORES),
@@ -279,6 +309,14 @@ def prepare_judge(args: argparse.Namespace) -> None:
             "pack_sha256": sha256_file(pack_path),
             "mapping_sha256": sha256_file(mapping_path),
             "source_result_sha256": sha256_file(args.result),
+            "question_dataset_sha256": (
+                {
+                    path.name: sha256_file(path)
+                    for path in sorted(args.dataset_dir.glob("*.jsonl"))
+                }
+                if args.dataset_dir is not None
+                else {}
+            ),
             "required_annotators": 2,
             "blinded": True,
         },

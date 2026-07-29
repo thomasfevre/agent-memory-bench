@@ -173,6 +173,57 @@ def test_prepare_judge_pack_balances_strata_before_taking_more_from_one(tmp_path
     assert {row["stratum"] for row in mapping} == {"A", "B"}
 
 
+def test_prepare_judge_resolves_hashed_question_from_local_dataset(tmp_path):
+    import hashlib
+
+    result = tmp_path / "memgym.json"
+    dataset_dir = tmp_path / "dataset"
+    dataset_dir.mkdir()
+    output = tmp_path / "pack"
+    question = "Which evidence supports the final answer?"
+    question_sha256 = hashlib.sha256(question.encode()).hexdigest()
+    write_jsonl(
+        dataset_dir / "3hop_verified.jsonl",
+        [{"instance_id": "i1", "question": question}],
+    )
+    result.write_text(
+        json.dumps(
+            {
+                "rows": [
+                    {
+                        "run_key": "secret-run",
+                        "stratum": "3hop",
+                        "architecture": "bm25_k2",
+                        "question_sha256": question_sha256,
+                        "gold_answer": "Gold",
+                        "predicted_answer": "Prediction",
+                        "reader_ok": True,
+                        "judges": [],
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    run_cli(
+        "prepare-judge",
+        "--result",
+        str(result),
+        "--dataset-dir",
+        str(dataset_dir),
+        "--output-dir",
+        str(output),
+        "--sample-size",
+        "1",
+        "--seed",
+        "42",
+    )
+
+    public_row = json.loads((output / "review-pack.jsonl").read_text())
+    assert public_row["question"] == question
+
+
 def test_score_shard_review_reports_agreement_accuracy_and_time(tmp_path):
     pack = tmp_path / "pack.jsonl"
     mapping = tmp_path / "mapping.jsonl"
