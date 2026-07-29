@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "generated_at": "2026-07-29",
-  "artifact_count": 112,
-  "total_bytes": 109002604,
+  "artifact_count": 121,
+  "total_bytes": 135180663,
   "artifacts": [
     {
       "path": "results/COGNEE-COMMON-8DOCS-20260729.json",
@@ -722,6 +722,69 @@
       "path": "results/MEMORYDATA-SMOKE-20260729.json",
       "bytes": 5207,
       "sha256": "63493322672510ff6c149f1a4c75be18b2c66b98e9291db1787d2cb5d9ee6ab4",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/P2-LONGMEMEVAL-ROLE-ABLATION-29PAIRS-20260729.contexts.json",
+      "bytes": 4218160,
+      "sha256": "c2a54368550dbc58ea73400701a569abd4487eaa52edba15448c708128358ef2",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/P2-LONGMEMEVAL-ROLE-ABLATION-29PAIRS-20260729.json",
+      "bytes": 834500,
+      "sha256": "d53f4bdbbbc203657b2a7c2775d38749eea981575218623ceae4ef1d11b0b0b0",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/P2-MEMORYAGENTBENCH-CODEX-SCALE-15Q-20260729.json",
+      "bytes": 17619111,
+      "sha256": "c5c91e5785912035142a522bea7b8c86fc8301daa85233025acabd17af56363e",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/P2-MEMORYAGENTBENCH-CONFLICT-ALL-VARIANTS-20260729.json",
+      "bytes": 411707,
+      "sha256": "ec5f0102d56511c1162db72ed92c09658fd8d3d52c20197debcbca4e732ac888",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/P2-MEMORYAGENTBENCH-DETECTIVEQA-ABLATION-20260729.json",
+      "bytes": 59457,
+      "sha256": "b34e4b2633b9b51b8cd6ce5a4fa7ebee87cd27e33fcbfcaa26248e52793e5997",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/P2-MEMORYAGENTBENCH-EVENTQA-QUERY-ABLATION-20260729.json",
+      "bytes": 2571645,
+      "sha256": "8454e588ce59cdd18db7a2427cf5de5fd72beeb9bde1882ce76751ec4bc9617e",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/P2-MEMORYAGENTBENCH-RULER-20260729.json",
+      "bytes": 73189,
+      "sha256": "fd26b43da6b66b4244bbf0fae734ba5b40cda7b7f8d8184e441db5ba987bab16",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/P2-MEMORYAGENTBENCH-SUMMARIZATION-COVERAGE-20260729.json",
+      "bytes": 157879,
+      "sha256": "cd00805963ed67186a6f0668b5152dfed1f8f8096bba13b138eace80fb7f368c",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/P2-MEMORYAGENTBENCH-TTL-20260729.json",
+      "bytes": 232411,
+      "sha256": "7edb8b89ca0f5d2d62452196c773d037002c02da93793c6df86c04bc81298364",
       "published": false,
       "reason": "raw dataset or provider output requires a separate license and privacy review"
     },

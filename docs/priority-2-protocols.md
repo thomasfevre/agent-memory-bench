@@ -35,10 +35,21 @@ larger set remains a lower bound.
 - Secondary metrics: strict exact match, token F1, provider success, context
   words, latency and tokens.
 - Expected calls: 270.
-- Status: running.
+- Status: complete, 270/270 configurations attempted, 240 successful reader
+  calls and 30 retained capacity failures.
 
-Input-length failures are retained as capacity results. They are not silently
-removed from the provider success denominator.
+All 30 failures are the two raw 262k long-context variants exceeding Codex's
+1,048,576-character input ceiling. BM25 and hybrid remained executable at
+262k. On the 15-question slice, single-hop substring accuracy was 86.7% for
+both BM25 and hybrid at 32k, 80.0% for both at 64k, and 53.3% versus 66.7% at
+262k. Multi-hop accuracy stayed between 0% and 13.3% for every architecture and
+scale. These failures are retained as capacity results and are not silently
+removed from the provider-success denominator.
+
+The paired single-hop difference between compressed retrieval and long context
+was 40 points at 64k (exact McNemar p=0.03125). At 32k the same 33.3-point
+difference had p=0.0625. The sample is intentionally small, so conclusions
+remain specific to this fixed slice.
 
 ## MemGym-DR reader and judge
 

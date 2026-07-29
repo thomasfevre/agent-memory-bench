@@ -94,14 +94,70 @@
       "repetitions": 3,
       "metrics": {
         "series": [
-          {"method": "Long context", "recall": 1.0, "context_precision": 0.043, "temporal_correctness": 0.0, "latency_ms": 0.0, "mean_context_words": 282.0},
-          {"method": "BM25", "recall": 0.921, "context_precision": 0.227, "temporal_correctness": 0.0, "latency_ms": 0.05, "mean_context_words": 52.1},
-          {"method": "MiniLM dense", "recall": 0.974, "context_precision": 0.23, "temporal_correctness": 0.0, "latency_ms": 2.2, "mean_context_words": 54.2},
-          {"method": "Hybrid", "recall": 0.974, "context_precision": 0.23, "temporal_correctness": 0.0, "latency_ms": 2.3, "mean_context_words": 54.6},
-          {"method": "Dated facts", "recall": 0.895, "context_precision": 0.19, "temporal_correctness": 0.8, "latency_ms": 3.8, "mean_context_words": 35.0},
-          {"method": "Dated graph", "recall": 0.921, "context_precision": 0.225, "temporal_correctness": 1.0, "latency_ms": 2.5, "mean_context_words": 34.8},
-          {"method": "Type router", "recall": 0.947, "context_precision": 0.25, "temporal_correctness": 0.8, "latency_ms": 1.4, "mean_context_words": 39.0},
-          {"method": "Parallel fusion", "recall": 0.974, "context_precision": 0.4, "temporal_correctness": 0.0, "latency_ms": 8.9, "mean_context_words": 44.2}
+          {
+            "method": "Long context",
+            "recall": 1.0,
+            "context_precision": 0.043,
+            "temporal_correctness": 0.0,
+            "latency_ms": 0.0,
+            "mean_context_words": 282.0
+          },
+          {
+            "method": "BM25",
+            "recall": 0.921,
+            "context_precision": 0.227,
+            "temporal_correctness": 0.0,
+            "latency_ms": 0.05,
+            "mean_context_words": 52.1
+          },
+          {
+            "method": "MiniLM dense",
+            "recall": 0.974,
+            "context_precision": 0.23,
+            "temporal_correctness": 0.0,
+            "latency_ms": 2.2,
+            "mean_context_words": 54.2
+          },
+          {
+            "method": "Hybrid",
+            "recall": 0.974,
+            "context_precision": 0.23,
+            "temporal_correctness": 0.0,
+            "latency_ms": 2.3,
+            "mean_context_words": 54.6
+          },
+          {
+            "method": "Dated facts",
+            "recall": 0.895,
+            "context_precision": 0.19,
+            "temporal_correctness": 0.8,
+            "latency_ms": 3.8,
+            "mean_context_words": 35.0
+          },
+          {
+            "method": "Dated graph",
+            "recall": 0.921,
+            "context_precision": 0.225,
+            "temporal_correctness": 1.0,
+            "latency_ms": 2.5,
+            "mean_context_words": 34.8
+          },
+          {
+            "method": "Type router",
+            "recall": 0.947,
+            "context_precision": 0.25,
+            "temporal_correctness": 0.8,
+            "latency_ms": 1.4,
+            "mean_context_words": 39.0
+          },
+          {
+            "method": "Parallel fusion",
+            "recall": 0.974,
+            "context_precision": 0.4,
+            "temporal_correctness": 0.0,
+            "latency_ms": 8.9,
+            "mean_context_words": 44.2
+          }
         ]
       },
       "budget": {
@@ -130,10 +186,30 @@
       "repetitions": 3,
       "metrics": {
         "series": [
-          {"method": "Long context", "accuracy": 0.8, "tokens": 24315, "latency_s": 3.9},
-          {"method": "Hybrid", "accuracy": 0.7, "tokens": 7917, "latency_s": 3.29},
-          {"method": "Type router", "accuracy": 0.6, "tokens": 6654, "latency_s": 3.11},
-          {"method": "Parallel fusion", "accuracy": 0.6, "tokens": 7509, "latency_s": 3.23}
+          {
+            "method": "Long context",
+            "accuracy": 0.8,
+            "tokens": 24315,
+            "latency_s": 3.9
+          },
+          {
+            "method": "Hybrid",
+            "accuracy": 0.7,
+            "tokens": 7917,
+            "latency_s": 3.29
+          },
+          {
+            "method": "Type router",
+            "accuracy": 0.6,
+            "tokens": 6654,
+            "latency_s": 3.11
+          },
+          {
+            "method": "Parallel fusion",
+            "accuracy": 0.6,
+            "tokens": 7509,
+            "latency_s": 3.23
+          }
         ]
       },
       "budget": {
@@ -158,12 +234,48 @@
       "repetitions": 3,
       "metrics": {
         "series": [
-          {"method": "Single hybrid agent", "accuracy": 0.625, "calls": 24, "tokens": 6341, "latency_s": 1.07},
-          {"method": "Lexical then dense pipeline", "accuracy": 0.625, "calls": 24, "tokens": 6420, "latency_s": 0.94},
-          {"method": "Conditional router", "accuracy": 0.5, "calls": 24, "tokens": 5364, "latency_s": 0.85},
-          {"method": "Double adversarial verification", "accuracy": 0.125, "calls": 72, "tokens": 23167, "latency_s": 6.24},
-          {"method": "Verify then retry", "accuracy": 0.25, "calls": 72, "tokens": 22039, "latency_s": 4.24},
-          {"method": "Three workers and supervisor", "accuracy": 0.5, "calls": 96, "tokens": 30706, "latency_s": 3.84}
+          {
+            "method": "Single hybrid agent",
+            "accuracy": 0.625,
+            "calls": 24,
+            "tokens": 6341,
+            "latency_s": 1.07
+          },
+          {
+            "method": "Lexical then dense pipeline",
+            "accuracy": 0.625,
+            "calls": 24,
+            "tokens": 6420,
+            "latency_s": 0.94
+          },
+          {
+            "method": "Conditional router",
+            "accuracy": 0.5,
+            "calls": 24,
+            "tokens": 5364,
+            "latency_s": 0.85
+          },
+          {
+            "method": "Double adversarial verification",
+            "accuracy": 0.125,
+            "calls": 72,
+            "tokens": 23167,
+            "latency_s": 6.24
+          },
+          {
+            "method": "Verify then retry",
+            "accuracy": 0.25,
+            "calls": 72,
+            "tokens": 22039,
+            "latency_s": 4.24
+          },
+          {
+            "method": "Three workers and supervisor",
+            "accuracy": 0.5,
+            "calls": 96,
+            "tokens": 30706,
+            "latency_s": 3.84
+          }
         ]
       },
       "budget": {
@@ -188,8 +300,18 @@
       "repetitions": 3,
       "metrics": {
         "series": [
-          {"model": "qwen3:1.7b", "fact_text_f1": 0.703, "temporal_window_exact": 0.789, "latency_s_per_source": 0.82},
-          {"model": "qwen3:8b", "fact_text_f1": 0.704, "temporal_window_exact": 0.842, "latency_s_per_source": 2.49}
+          {
+            "model": "qwen3:1.7b",
+            "fact_text_f1": 0.703,
+            "temporal_window_exact": 0.789,
+            "latency_s_per_source": 0.82
+          },
+          {
+            "model": "qwen3:8b",
+            "fact_text_f1": 0.704,
+            "temporal_window_exact": 0.842,
+            "latency_s_per_source": 2.49
+          }
         ]
       },
       "budget": {
@@ -214,9 +336,24 @@
       "repetitions": 1,
       "metrics": {
         "series": [
-          {"policy": "Auto-promote after two mentions", "strict_accuracy": 0.5, "active_precision": 0.5, "rejected_shard_activation": 1.0},
-          {"policy": "Approved only", "strict_accuracy": 0.5, "active_precision": 1.0, "rejected_shard_activation": 0.0},
-          {"policy": "Active memory plus decision registry", "strict_accuracy": 1.0, "active_precision": 1.0, "rejected_shard_activation": 0.0}
+          {
+            "policy": "Auto-promote after two mentions",
+            "strict_accuracy": 0.5,
+            "active_precision": 0.5,
+            "rejected_shard_activation": 1.0
+          },
+          {
+            "policy": "Approved only",
+            "strict_accuracy": 0.5,
+            "active_precision": 1.0,
+            "rejected_shard_activation": 0.0
+          },
+          {
+            "policy": "Active memory plus decision registry",
+            "strict_accuracy": 1.0,
+            "active_precision": 1.0,
+            "rejected_shard_activation": 0.0
+          }
         ]
       },
       "budget": {
@@ -241,10 +378,38 @@
       "repetitions": 1,
       "metrics": {
         "series": [
-          {"policy": "Latest-write snapshot", "exact_state": 0.52, "source_ids_exact": 0.625, "correct_abstention": 0.333, "unsafe_answer": 0.667, "records_inspected": 0.88},
-          {"policy": "Raw event-log scan", "exact_state": 1.0, "source_ids_exact": 1.0, "correct_abstention": 1.0, "unsafe_answer": 0.0, "records_inspected": 21.32},
-          {"policy": "Reviewed temporal index", "exact_state": 1.0, "source_ids_exact": 1.0, "correct_abstention": 1.0, "unsafe_answer": 0.0, "records_inspected": 6.0},
-          {"policy": "Temporal auto-promotion", "exact_state": 0.76, "source_ids_exact": 1.0, "correct_abstention": 0.333, "unsafe_answer": 0.667, "records_inspected": 6.0}
+          {
+            "policy": "Latest-write snapshot",
+            "exact_state": 0.52,
+            "source_ids_exact": 0.625,
+            "correct_abstention": 0.333,
+            "unsafe_answer": 0.667,
+            "records_inspected": 0.88
+          },
+          {
+            "policy": "Raw event-log scan",
+            "exact_state": 1.0,
+            "source_ids_exact": 1.0,
+            "correct_abstention": 1.0,
+            "unsafe_answer": 0.0,
+            "records_inspected": 21.32
+          },
+          {
+            "policy": "Reviewed temporal index",
+            "exact_state": 1.0,
+            "source_ids_exact": 1.0,
+            "correct_abstention": 1.0,
+            "unsafe_answer": 0.0,
+            "records_inspected": 6.0
+          },
+          {
+            "policy": "Temporal auto-promotion",
+            "exact_state": 0.76,
+            "source_ids_exact": 1.0,
+            "correct_abstention": 0.333,
+            "unsafe_answer": 0.667,
+            "records_inspected": 6.0
+          }
         ]
       },
       "budget": {
@@ -276,7 +441,14 @@
         "semantic_signatures_equal": 6
       },
       "budget": {
-        "crash_points": [0, 5, 10, 15, 19, 20]
+        "crash_points": [
+          0,
+          5,
+          10,
+          15,
+          19,
+          20
+        ]
       },
       "conclusion": "Uncommitted writes roll back, committed writes survive and the same semantic state is rebuilt in a second process.",
       "limitation": "This does not cover arbitrary kernel failure, WAL-checkpoint failure, secure erasure or distributed durability.",
@@ -297,8 +469,22 @@
       "repetitions": 3,
       "metrics": {
         "series": [
-          {"mode": "Official CLI import", "memories_after_ingestion": 17, "recall": 0.526, "context_precision": 0.126, "temporal_correctness": 0.4, "diagnostic": "Distinct updates merged during import"},
-          {"mode": "Stable-ID upsert", "memories_after_ingestion": 28, "recall": 0.895, "context_precision": 0.221, "temporal_correctness": 0.8, "diagnostic": "Same retriever with stable source IDs"}
+          {
+            "mode": "Official CLI import",
+            "memories_after_ingestion": 17,
+            "recall": 0.526,
+            "context_precision": 0.126,
+            "temporal_correctness": 0.4,
+            "diagnostic": "Distinct updates merged during import"
+          },
+          {
+            "mode": "Stable-ID upsert",
+            "memories_after_ingestion": 28,
+            "recall": 0.895,
+            "context_precision": 0.221,
+            "temporal_correctness": 0.8,
+            "diagnostic": "Same retriever with stable source IDs"
+          }
         ]
       },
       "budget": {
@@ -323,8 +509,26 @@
       "repetitions": 3,
       "metrics": {
         "series": [
-          {"mode": "Raw infer=False", "memories": 28, "identifiable_sources": 28, "recall": 1.0, "context_precision": 0.253, "temporal_correctness": 1.0, "ingestion_s": 0.81, "diagnostic": "Raw dense storage preserved every source"},
-          {"mode": "Extraction infer=True", "memories": 41, "identifiable_sources": 26, "recall": 0.921, "context_precision": 0.246, "temporal_correctness": 0.8, "ingestion_s": 326.83, "diagnostic": "Duplication and false provenance appeared"}
+          {
+            "mode": "Raw infer=False",
+            "memories": 28,
+            "identifiable_sources": 28,
+            "recall": 1.0,
+            "context_precision": 0.253,
+            "temporal_correctness": 1.0,
+            "ingestion_s": 0.81,
+            "diagnostic": "Raw dense storage preserved every source"
+          },
+          {
+            "mode": "Extraction infer=True",
+            "memories": 41,
+            "identifiable_sources": 26,
+            "recall": 0.921,
+            "context_precision": 0.246,
+            "temporal_correctness": 0.8,
+            "ingestion_s": 326.83,
+            "diagnostic": "Duplication and false provenance appeared"
+          }
         ]
       },
       "budget": {
@@ -349,9 +553,24 @@
       "repetitions": 1,
       "metrics": {
         "series": [
-          {"method": "BM25", "top5_recall": 0.468, "mrr": 0.363, "latency_ms": 1.7},
-          {"method": "MiniLM dense", "top5_recall": 0.334, "mrr": 0.241, "latency_ms": 2.9},
-          {"method": "Hybrid", "top5_recall": 0.499, "mrr": 0.359, "latency_ms": 4.6}
+          {
+            "method": "BM25",
+            "top5_recall": 0.468,
+            "mrr": 0.363,
+            "latency_ms": 1.7
+          },
+          {
+            "method": "MiniLM dense",
+            "top5_recall": 0.334,
+            "mrr": 0.241,
+            "latency_ms": 2.9
+          },
+          {
+            "method": "Hybrid",
+            "top5_recall": 0.499,
+            "mrr": 0.359,
+            "latency_ms": 4.6
+          }
         ],
         "hybrid_multihop_recall": 0.198,
         "hybrid_temporal_recall": 0.575,
@@ -380,14 +599,44 @@
       "repetitions": 1,
       "metrics": {
         "same_top5": [
-          {"unit": "turn", "bm25_recall": 0.468, "words": 125, "context_precision": 0.106},
-          {"unit": "four-turn window", "bm25_recall": 0.725, "words": 425, "context_precision": 0.053},
-          {"unit": "session", "bm25_recall": 0.829, "words": 2737, "context_precision": 0.009}
+          {
+            "unit": "turn",
+            "bm25_recall": 0.468,
+            "words": 125,
+            "context_precision": 0.106
+          },
+          {
+            "unit": "four-turn window",
+            "bm25_recall": 0.725,
+            "words": 425,
+            "context_precision": 0.053
+          },
+          {
+            "unit": "session",
+            "bm25_recall": 0.829,
+            "words": 2737,
+            "context_precision": 0.009
+          }
         ],
         "same_500_words": [
-          {"unit": "turn", "bm25": 0.595, "dense": 0.512, "hybrid": 0.674},
-          {"unit": "four-turn window", "bm25": 0.738, "dense": 0.597, "hybrid": 0.72},
-          {"unit": "session", "bm25": 0.529, "dense": 0.255, "hybrid": 0.381}
+          {
+            "unit": "turn",
+            "bm25": 0.595,
+            "dense": 0.512,
+            "hybrid": 0.674
+          },
+          {
+            "unit": "four-turn window",
+            "bm25": 0.738,
+            "dense": 0.597,
+            "hybrid": 0.72
+          },
+          {
+            "unit": "session",
+            "bm25": 0.529,
+            "dense": 0.255,
+            "hybrid": 0.381
+          }
         ]
       },
       "budget": {
@@ -414,9 +663,21 @@
       "repetitions": 1,
       "metrics": {
         "series": [
-          {"method": "BM25", "top5_recall": 0.914, "mrr": 0.907},
-          {"method": "MiniLM dense", "top5_recall": 0.859, "mrr": 0.826},
-          {"method": "Hybrid", "top5_recall": 0.922, "mrr": 0.903}
+          {
+            "method": "BM25",
+            "top5_recall": 0.914,
+            "mrr": 0.907
+          },
+          {
+            "method": "MiniLM dense",
+            "top5_recall": 0.859,
+            "mrr": 0.826
+          },
+          {
+            "method": "Hybrid",
+            "top5_recall": 0.922,
+            "mrr": 0.903
+          }
         ],
         "hybrid_knowledge_update_recall": 0.968,
         "hybrid_temporal_recall": 0.871
@@ -444,10 +705,38 @@
       "repetitions": 3,
       "metrics": {
         "series": [
-          {"reader": "Luna", "context": "BM25", "accuracy": 0.792, "answerable_accuracy": 0.667, "trap_detection": 0.917, "tokens_per_call": 10577},
-          {"reader": "Luna", "context": "Hybrid", "accuracy": 0.771, "answerable_accuracy": 0.542, "trap_detection": 1.0, "tokens_per_call": 9198},
-          {"reader": "Sol", "context": "BM25", "accuracy": 0.833, "answerable_accuracy": 0.792, "trap_detection": 0.875, "tokens_per_call": 16985},
-          {"reader": "Sol", "context": "Hybrid", "accuracy": 0.813, "answerable_accuracy": 0.75, "trap_detection": 0.875, "tokens_per_call": 16742}
+          {
+            "reader": "Luna",
+            "context": "BM25",
+            "accuracy": 0.792,
+            "answerable_accuracy": 0.667,
+            "trap_detection": 0.917,
+            "tokens_per_call": 10577
+          },
+          {
+            "reader": "Luna",
+            "context": "Hybrid",
+            "accuracy": 0.771,
+            "answerable_accuracy": 0.542,
+            "trap_detection": 1.0,
+            "tokens_per_call": 9198
+          },
+          {
+            "reader": "Sol",
+            "context": "BM25",
+            "accuracy": 0.833,
+            "answerable_accuracy": 0.792,
+            "trap_detection": 0.875,
+            "tokens_per_call": 16985
+          },
+          {
+            "reader": "Sol",
+            "context": "Hybrid",
+            "accuracy": 0.813,
+            "answerable_accuracy": 0.75,
+            "trap_detection": 0.875,
+            "tokens_per_call": 16742
+          }
         ]
       },
       "budget": {
@@ -473,12 +762,54 @@
       "repetitions": 1,
       "metrics": {
         "series": [
-          {"task": "multi-hop", "method": "Full context", "substring": 0.01, "exact": 0.0, "context_words": 4431, "tokens": 13266},
-          {"task": "multi-hop", "method": "BM25", "substring": 0.13, "exact": 0.02, "context_words": 200, "tokens": 4437},
-          {"task": "multi-hop", "method": "Hybrid", "substring": 0.13, "exact": 0.01, "context_words": 200, "tokens": 3514},
-          {"task": "single-hop", "method": "Full context", "substring": 0.47, "exact": 0.26, "context_words": 4431, "tokens": 10247},
-          {"task": "single-hop", "method": "BM25", "substring": 0.69, "exact": 0.25, "context_words": 189, "tokens": 3525},
-          {"task": "single-hop", "method": "Hybrid", "substring": 0.65, "exact": 0.25, "context_words": 197, "tokens": 3154}
+          {
+            "task": "multi-hop",
+            "method": "Full context",
+            "substring": 0.01,
+            "exact": 0.0,
+            "context_words": 4431,
+            "tokens": 13266
+          },
+          {
+            "task": "multi-hop",
+            "method": "BM25",
+            "substring": 0.13,
+            "exact": 0.02,
+            "context_words": 200,
+            "tokens": 4437
+          },
+          {
+            "task": "multi-hop",
+            "method": "Hybrid",
+            "substring": 0.13,
+            "exact": 0.01,
+            "context_words": 200,
+            "tokens": 3514
+          },
+          {
+            "task": "single-hop",
+            "method": "Full context",
+            "substring": 0.47,
+            "exact": 0.26,
+            "context_words": 4431,
+            "tokens": 10247
+          },
+          {
+            "task": "single-hop",
+            "method": "BM25",
+            "substring": 0.69,
+            "exact": 0.25,
+            "context_words": 189,
+            "tokens": 3525
+          },
+          {
+            "task": "single-hop",
+            "method": "Hybrid",
+            "substring": 0.65,
+            "exact": 0.25,
+            "context_words": 197,
+            "tokens": 3154
+          }
         ]
       },
       "budget": {
@@ -504,14 +835,38 @@
       "repetitions": 1,
       "metrics": {
         "highlights": [
-          {"name": "RULER QA1 hit@5", "value": 0.91},
-          {"name": "RULER QA2 hit@5", "value": 0.67},
-          {"name": "ReDial movie recall@5", "value": 0.31},
-          {"name": "ReDial movie recall@100", "value": 0.715},
-          {"name": "EventQA 65k lexical accuracy", "value": 0.606},
-          {"name": "EventQA full-book lexical accuracy", "value": 0.484},
-          {"name": "Book keypoint lexical recall, BM25 budget", "value": 0.652},
-          {"name": "Book keypoint lexical recall, full context", "value": 0.84}
+          {
+            "name": "RULER QA1 hit@5",
+            "value": 0.91
+          },
+          {
+            "name": "RULER QA2 hit@5",
+            "value": 0.67
+          },
+          {
+            "name": "ReDial movie recall@5",
+            "value": 0.31
+          },
+          {
+            "name": "ReDial movie recall@100",
+            "value": 0.715
+          },
+          {
+            "name": "EventQA 65k lexical accuracy",
+            "value": 0.606
+          },
+          {
+            "name": "EventQA full-book lexical accuracy",
+            "value": 0.484
+          },
+          {
+            "name": "Book keypoint lexical recall, BM25 budget",
+            "value": 0.652
+          },
+          {
+            "name": "Book keypoint lexical recall, full context",
+            "value": 0.84
+          }
         ]
       },
       "budget": {
@@ -541,16 +896,33 @@
       "repetitions": 1,
       "metrics": {
         "bm25_proxy_recall": [
-          {"top_k": 1, "value": 0.689},
-          {"top_k": 2, "value": 0.918},
-          {"top_k": 5, "value": 0.997},
-          {"top_k": 10, "value": 1.0}
+          {
+            "top_k": 1,
+            "value": 0.689
+          },
+          {
+            "top_k": 2,
+            "value": 0.918
+          },
+          {
+            "top_k": 5,
+            "value": 0.997
+          },
+          {
+            "top_k": 10,
+            "value": 1.0
+          }
         ],
         "top10_context_words": 3800,
         "dense_minus_bm25_top2": -0.0502
       },
       "budget": {
-        "top_k": [1, 2, 5, 10]
+        "top_k": [
+          1,
+          2,
+          5,
+          10
+        ]
       },
       "conclusion": "BM25 is strong on the official lexical proxy and beats MiniLM at top-2 on the paired sample.",
       "limitation": "The proxy saturates at generous context and does not evaluate final multi-hop answers.",
@@ -599,8 +971,28 @@
       "repetitions": 3,
       "metrics": {
         "series": [
-          {"system": "Cognee", "documents_ingested": 8, "ingestion_s_mean": 197.8, "ingestion_s_sd": 11.1, "recall": 0.738, "recall_sd": 0.147, "context_precision": 0.429, "temporal_correctness": 0.6, "retrieval_ms": 3924.4},
-          {"system": "Graphiti", "documents_ingested": 7, "ingestion_s_mean": 299.0, "ingestion_s_sd": 65.1, "recall": 0.5, "recall_sd": 0.0, "context_precision": 0.357, "temporal_correctness": 0.6, "retrieval_ms": 40.1}
+          {
+            "system": "Cognee",
+            "documents_ingested": 8,
+            "ingestion_s_mean": 197.8,
+            "ingestion_s_sd": 11.1,
+            "recall": 0.738,
+            "recall_sd": 0.147,
+            "context_precision": 0.429,
+            "temporal_correctness": 0.6,
+            "retrieval_ms": 3924.4
+          },
+          {
+            "system": "Graphiti",
+            "documents_ingested": 7,
+            "ingestion_s_mean": 299.0,
+            "ingestion_s_sd": 65.1,
+            "recall": 0.5,
+            "recall_sd": 0.0,
+            "context_precision": 0.357,
+            "temporal_correctness": 0.6,
+            "retrieval_ms": 40.1
+          }
         ]
       },
       "budget": {
@@ -627,11 +1019,41 @@
         "representable_evidence": 0.209,
         "fully_representable_questions": 0.141,
         "series": [
-          {"method": "BM25", "mean_question_recall": 0.163, "conditional_recall": 0.643, "complete_coverage": 0.722, "latency_ms": 1.18},
-          {"method": "MiniLM", "mean_question_recall": 0.149, "conditional_recall": 0.586, "complete_coverage": 0.648, "latency_ms": 2.99},
-          {"method": "Hybrid", "mean_question_recall": 0.171, "conditional_recall": 0.681, "complete_coverage": 0.754, "latency_ms": 4.19},
-          {"method": "BM25 plus neighbors", "mean_question_recall": 0.149, "conditional_recall": 0.589, "complete_coverage": 0.658, "latency_ms": 1.19},
-          {"method": "Hybrid plus neighbors", "mean_question_recall": 0.16, "conditional_recall": 0.635, "complete_coverage": 0.704, "latency_ms": 4.2}
+          {
+            "method": "BM25",
+            "mean_question_recall": 0.163,
+            "conditional_recall": 0.643,
+            "complete_coverage": 0.722,
+            "latency_ms": 1.18
+          },
+          {
+            "method": "MiniLM",
+            "mean_question_recall": 0.149,
+            "conditional_recall": 0.586,
+            "complete_coverage": 0.648,
+            "latency_ms": 2.99
+          },
+          {
+            "method": "Hybrid",
+            "mean_question_recall": 0.171,
+            "conditional_recall": 0.681,
+            "complete_coverage": 0.754,
+            "latency_ms": 4.19
+          },
+          {
+            "method": "BM25 plus neighbors",
+            "mean_question_recall": 0.149,
+            "conditional_recall": 0.589,
+            "complete_coverage": 0.658,
+            "latency_ms": 1.19
+          },
+          {
+            "method": "Hybrid plus neighbors",
+            "mean_question_recall": 0.16,
+            "conditional_recall": 0.635,
+            "complete_coverage": 0.704,
+            "latency_ms": 4.2
+          }
         ]
       },
       "budget": {
@@ -728,6 +1150,390 @@
       "evidence_files": [
         "results/SYSTEM-SMOKES-20260729.json"
       ]
+    },
+    {
+      "id": "longmemeval-role-chunking-29pairs-20260729",
+      "date": "2026-07-29",
+      "phase": "generation",
+      "dataset": "LongMemEval-S",
+      "task": "Answer or abstain on matched answerable and near-miss pairs",
+      "method": "Hybrid retrieval over turn chunks versus user-turn chunks",
+      "reader": "gpt-5.6-sol",
+      "evidence_level": "official-data",
+      "sample": "29 matched pairs, 58 questions per architecture",
+      "repetitions": 1,
+      "metrics": {
+        "series": [
+          {
+            "context": "Turn chunks",
+            "overall_accuracy": 0.759,
+            "answer_accuracy_lower_bound": 0.552,
+            "decision_accuracy": 0.914,
+            "trap_detection": 0.966,
+            "false_abstention_rate": 0.138,
+            "tokens_per_call": 16644,
+            "latency_s": 7.2
+          },
+          {
+            "context": "User-turn chunks",
+            "overall_accuracy": 0.845,
+            "answer_accuracy_lower_bound": 0.69,
+            "decision_accuracy": 0.948,
+            "trap_detection": 1.0,
+            "false_abstention_rate": 0.103,
+            "tokens_per_call": 17370,
+            "latency_s": 7.43
+          }
+        ],
+        "overall_accuracy_difference_user_minus_turn": 0.086,
+        "overall_mcnemar_p": 0.0625,
+        "decision_accuracy_difference_user_minus_turn": 0.034,
+        "decision_mcnemar_p": 0.625
+      },
+      "budget": {
+        "word_budget": 4000,
+        "expected_calls": 116,
+        "successful_calls": 116
+      },
+      "conclusion": "User-turn chunking improved deterministic overall accuracy by 8.6 points, but the paired decision difference was not statistically distinguishable on 29 pairs.",
+      "limitation": "Answer matching outside the original alias set is a strict lower bound, and this run has no no-context memorization control.",
+      "evidence_files": [
+        "results/P2-LONGMEMEVAL-ROLE-ABLATION-29PAIRS-20260729.json"
+      ]
+    },
+    {
+      "id": "memoryagentbench-conflict-scale-retrieval-20260729",
+      "date": "2026-07-29",
+      "phase": "retrieval",
+      "dataset": "MemoryAgentBench Conflict Resolution",
+      "task": "Retrieve answer evidence as contradictory memory grows",
+      "method": "BM25 top-20 and iterative lexical expansion",
+      "reader": null,
+      "evidence_level": "official-data",
+      "sample": "Eight 100-question variants from 6k to 262k tokens",
+      "repetitions": 1,
+      "metrics": {
+        "series": [
+          {
+            "variant": "mh_6k",
+            "bm25_hit_at_20": 0.41,
+            "iterative_hit_at_20": 0.44,
+            "bm25_latency_ms": 0.73,
+            "iterative_latency_ms": 18.51,
+            "context_fraction_at_20": 0.04068
+          },
+          {
+            "variant": "mh_32k",
+            "bm25_hit_at_20": 0.17,
+            "iterative_hit_at_20": 0.31,
+            "bm25_latency_ms": 4.07,
+            "iterative_latency_ms": 99.56,
+            "context_fraction_at_20": 0.00802
+          },
+          {
+            "variant": "mh_64k",
+            "bm25_hit_at_20": 0.19,
+            "iterative_hit_at_20": 0.29,
+            "bm25_latency_ms": 8.13,
+            "iterative_latency_ms": 211.77,
+            "context_fraction_at_20": 0.00403
+          },
+          {
+            "variant": "mh_262k",
+            "bm25_hit_at_20": 0.13,
+            "iterative_hit_at_20": 0.2,
+            "bm25_latency_ms": 41.05,
+            "iterative_latency_ms": 979.33,
+            "context_fraction_at_20": 0.001
+          },
+          {
+            "variant": "sh_6k",
+            "bm25_hit_at_20": 1.0,
+            "iterative_hit_at_20": 1.0,
+            "bm25_latency_ms": 0.47,
+            "iterative_latency_ms": 14.06,
+            "context_fraction_at_20": 0.03826
+          },
+          {
+            "variant": "sh_32k",
+            "bm25_hit_at_20": 1.0,
+            "iterative_hit_at_20": 0.99,
+            "bm25_latency_ms": 3.56,
+            "iterative_latency_ms": 83.91,
+            "context_fraction_at_20": 0.00749
+          },
+          {
+            "variant": "sh_64k",
+            "bm25_hit_at_20": 1.0,
+            "iterative_hit_at_20": 1.0,
+            "bm25_latency_ms": 7.72,
+            "iterative_latency_ms": 185.41,
+            "context_fraction_at_20": 0.00373
+          },
+          {
+            "variant": "sh_262k",
+            "bm25_hit_at_20": 1.0,
+            "iterative_hit_at_20": 0.97,
+            "bm25_latency_ms": 30.0,
+            "iterative_latency_ms": 807.25,
+            "context_fraction_at_20": 0.00095
+          }
+        ]
+      },
+      "budget": {
+        "top_k": 20,
+        "questions": 800,
+        "max_context_scale": "262k"
+      },
+      "conclusion": "Single-hop evidence stayed nearly saturated at every scale, while multi-hop BM25 hit@20 fell from 41% at 6k to 13% at 262k; iterative expansion recovered some evidence at much higher latency.",
+      "limitation": "This isolates answer-string evidence coverage before generation and is not the official end-to-end benchmark score.",
+      "evidence_files": [
+        "results/P2-MEMORYAGENTBENCH-CONFLICT-ALL-VARIANTS-20260729.json"
+      ]
+    },
+    {
+      "id": "memoryagentbench-conflict-scale-generation-20260729",
+      "date": "2026-07-29",
+      "phase": "generation",
+      "dataset": "MemoryAgentBench Conflict Resolution",
+      "task": "Read contradictory memory from 32k through 262k scale",
+      "method": "Full context, BM25 top-20 and hybrid top-20",
+      "reader": "gpt-5.6-sol",
+      "evidence_level": "official-data",
+      "sample": "15 fixed questions across six multi-hop and single-hop variants",
+      "repetitions": 1,
+      "metrics": {
+        "series": [
+          {
+            "variant": "mh_262k",
+            "architecture": "bm25",
+            "attempted_calls": 15,
+            "provider_success_rate": 1.0,
+            "substring_accuracy": 0.067,
+            "strict_exact_accuracy": 0.0,
+            "token_f1": 0.027,
+            "context_words": 210,
+            "tokens_per_call": 3568,
+            "latency_s": 9.1
+          },
+          {
+            "variant": "mh_262k",
+            "architecture": "hybrid",
+            "attempted_calls": 15,
+            "provider_success_rate": 1.0,
+            "substring_accuracy": 0.133,
+            "strict_exact_accuracy": 0.067,
+            "token_f1": 0.093,
+            "context_words": 208,
+            "tokens_per_call": 5773,
+            "latency_s": 9.27
+          },
+          {
+            "variant": "mh_262k",
+            "architecture": "long_context",
+            "attempted_calls": 15,
+            "provider_success_rate": 0.0,
+            "substring_accuracy": null,
+            "strict_exact_accuracy": null,
+            "token_f1": null,
+            "context_words": null,
+            "tokens_per_call": null,
+            "latency_s": null
+          },
+          {
+            "variant": "mh_32k",
+            "architecture": "bm25",
+            "attempted_calls": 15,
+            "provider_success_rate": 1.0,
+            "substring_accuracy": 0.067,
+            "strict_exact_accuracy": 0.0,
+            "token_f1": 0.027,
+            "context_words": 198,
+            "tokens_per_call": 4345,
+            "latency_s": 8.1
+          },
+          {
+            "variant": "mh_32k",
+            "architecture": "hybrid",
+            "attempted_calls": 15,
+            "provider_success_rate": 1.0,
+            "substring_accuracy": 0.067,
+            "strict_exact_accuracy": 0.0,
+            "token_f1": 0.04,
+            "context_words": 199,
+            "tokens_per_call": 3575,
+            "latency_s": 6.86
+          },
+          {
+            "variant": "mh_32k",
+            "architecture": "long_context",
+            "attempted_calls": 15,
+            "provider_success_rate": 1.0,
+            "substring_accuracy": 0.133,
+            "strict_exact_accuracy": 0.0,
+            "token_f1": 0.087,
+            "context_words": 22766,
+            "tokens_per_call": 43181,
+            "latency_s": 9.67
+          },
+          {
+            "variant": "mh_64k",
+            "architecture": "bm25",
+            "attempted_calls": 15,
+            "provider_success_rate": 1.0,
+            "substring_accuracy": 0.0,
+            "strict_exact_accuracy": 0.0,
+            "token_f1": 0.0,
+            "context_words": 197,
+            "tokens_per_call": 3812,
+            "latency_s": 7.42
+          },
+          {
+            "variant": "mh_64k",
+            "architecture": "hybrid",
+            "attempted_calls": 15,
+            "provider_success_rate": 1.0,
+            "substring_accuracy": 0.067,
+            "strict_exact_accuracy": 0.0,
+            "token_f1": 0.076,
+            "context_words": 196,
+            "tokens_per_call": 4431,
+            "latency_s": 8.19
+          },
+          {
+            "variant": "mh_64k",
+            "architecture": "long_context",
+            "attempted_calls": 15,
+            "provider_success_rate": 1.0,
+            "substring_accuracy": 0.0,
+            "strict_exact_accuracy": 0.0,
+            "token_f1": 0.049,
+            "context_words": 45370,
+            "tokens_per_call": 82431,
+            "latency_s": 9.83
+          },
+          {
+            "variant": "sh_262k",
+            "architecture": "bm25",
+            "attempted_calls": 15,
+            "provider_success_rate": 1.0,
+            "substring_accuracy": 0.533,
+            "strict_exact_accuracy": 0.2,
+            "token_f1": 0.363,
+            "context_words": 188,
+            "tokens_per_call": 7775,
+            "latency_s": 7.28
+          },
+          {
+            "variant": "sh_262k",
+            "architecture": "hybrid",
+            "attempted_calls": 15,
+            "provider_success_rate": 1.0,
+            "substring_accuracy": 0.667,
+            "strict_exact_accuracy": 0.2,
+            "token_f1": 0.405,
+            "context_words": 181,
+            "tokens_per_call": 3435,
+            "latency_s": 8.43
+          },
+          {
+            "variant": "sh_262k",
+            "architecture": "long_context",
+            "attempted_calls": 15,
+            "provider_success_rate": 0.0,
+            "substring_accuracy": null,
+            "strict_exact_accuracy": null,
+            "token_f1": null,
+            "context_words": null,
+            "tokens_per_call": null,
+            "latency_s": null
+          },
+          {
+            "variant": "sh_32k",
+            "architecture": "bm25",
+            "attempted_calls": 15,
+            "provider_success_rate": 1.0,
+            "substring_accuracy": 0.867,
+            "strict_exact_accuracy": 0.333,
+            "token_f1": 0.575,
+            "context_words": 187,
+            "tokens_per_call": 3203,
+            "latency_s": 8.22
+          },
+          {
+            "variant": "sh_32k",
+            "architecture": "hybrid",
+            "attempted_calls": 15,
+            "provider_success_rate": 1.0,
+            "substring_accuracy": 0.867,
+            "strict_exact_accuracy": 0.267,
+            "token_f1": 0.56,
+            "context_words": 189,
+            "tokens_per_call": 4009,
+            "latency_s": 7.11
+          },
+          {
+            "variant": "sh_32k",
+            "architecture": "long_context",
+            "attempted_calls": 15,
+            "provider_success_rate": 1.0,
+            "substring_accuracy": 0.533,
+            "strict_exact_accuracy": 0.333,
+            "token_f1": 0.438,
+            "context_words": 22766,
+            "tokens_per_call": 41160,
+            "latency_s": 7.87
+          },
+          {
+            "variant": "sh_64k",
+            "architecture": "bm25",
+            "attempted_calls": 15,
+            "provider_success_rate": 1.0,
+            "substring_accuracy": 0.8,
+            "strict_exact_accuracy": 0.267,
+            "token_f1": 0.542,
+            "context_words": 182,
+            "tokens_per_call": 6045,
+            "latency_s": 8.26
+          },
+          {
+            "variant": "sh_64k",
+            "architecture": "hybrid",
+            "attempted_calls": 15,
+            "provider_success_rate": 1.0,
+            "substring_accuracy": 0.8,
+            "strict_exact_accuracy": 0.2,
+            "token_f1": 0.509,
+            "context_words": 181,
+            "tokens_per_call": 3745,
+            "latency_s": 7.01
+          },
+          {
+            "variant": "sh_64k",
+            "architecture": "long_context",
+            "attempted_calls": 15,
+            "provider_success_rate": 1.0,
+            "substring_accuracy": 0.4,
+            "strict_exact_accuracy": 0.267,
+            "token_f1": 0.356,
+            "context_words": 45370,
+            "tokens_per_call": 82849,
+            "latency_s": 9.54
+          }
+        ]
+      },
+      "budget": {
+        "expected_calls": 270,
+        "attempted_calls": 270,
+        "successful_calls": 240,
+        "failed_calls": 30,
+        "top_k": 20
+      },
+      "conclusion": "Single-hop retrieval remained useful as memory grew, while multi-hop reading stayed weak; raw 262k contexts exceeded the Codex input-character ceiling but compressed retrieval paths ran.",
+      "limitation": "Only 15 fixed questions per variant were evaluated, and the official substring metric can reward overbroad contradictory answers.",
+      "evidence_files": [
+        "results/P2-MEMORYAGENTBENCH-CODEX-SCALE-15Q-20260729.json"
+      ]
     }
   ],
   "systems": [
@@ -764,7 +1570,7 @@
     {
       "name": "MemGym",
       "status": "multiple-paths-reproduced",
-      "tested": "Tests, τ²-bench tasks, MemGym-DR retrieval and MemRM",
+      "tested": "Tests, \u03c4\u00b2-bench tasks, MemGym-DR retrieval and MemRM",
       "headline": "Useful harness for separating memory and environment, with proxy and hardware caveats."
     },
     {
@@ -796,7 +1602,10 @@
     "A full context can beat RAG on a tiny corpus and lose badly on a distractor-heavy one.",
     "A strong retrieval score does not guarantee that the reader resolves multi-hop contradictions.",
     "Temperature zero does not make structured LLM ingestion deterministic.",
-    "Aggregate reproduction can hide poor agreement on individual events."
+    "Aggregate reproduction can hide poor agreement on individual events.",
+    "Chunk boundaries can change final reading quality even when evidence-session recall is unchanged.",
+    "Multi-hop evidence retrieval degrades with memory scale even when single-hop retrieval remains saturated.",
+    "At 262k scale, compressed retrieval remained executable while raw full contexts exceeded the reader input ceiling."
   ],
   "limitations": [
     "The synthetic common corpus is small and intentionally adversarial.",
