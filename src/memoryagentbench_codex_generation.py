@@ -25,6 +25,7 @@ from execution_order import interleaved_product
 from graph_benchmark_common import write_result
 from locomo_hybrid_fusion import weighted_rrf
 from longmemeval_codex_generation import (
+    CODEX_CONFIG_OVERRIDES,
     CODEX_DISABLED_FEATURES,
     run_codex,
     sha256_file,
@@ -692,6 +693,7 @@ def protocol_manifest(
         "schema_sha256": schema_sha256,
         "reader_prompt_version": reader_prompt_version,
         "codex_disabled_features": list(CODEX_DISABLED_FEATURES),
+        "codex_config_overrides": list(CODEX_CONFIG_OVERRIDES),
         "embedding_model_sha256": embedding_model_sha256,
         "codex_version": codex_version,
         "execution_seed": execution_seed,

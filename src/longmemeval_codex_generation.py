@@ -59,7 +59,18 @@ CODEX_DISABLED_FEATURES = (
     "unified_exec",
     "workspace_dependencies",
 )
+CODEX_CONFIG_OVERRIDES = (
+    'web_search="disabled"',
+    "tools.web_search=false",
+)
 TOKEN_USE_PATTERN = re.compile(r"tokens used\s+([0-9\u00a0\u202f, ]+)", re.I)
+FORBIDDEN_TOOL_TRACE_PATTERNS = (
+    re.compile(r"^web search:\s*", re.I | re.M),
+    re.compile(r"\bmcp__[a-z0-9_]+", re.I),
+    re.compile(r'"type"\s*:\s*"(?:web_search|mcp_tool_call)', re.I),
+    re.compile(r"\bweb_search_call\b", re.I),
+    re.compile(r"\bmcp_tool_call_(?:begin|end)\b", re.I),
+)
 READER_PROMPT_VERSION = "longmemeval-reader-v1"
 CONTEXT_BUILDER_VERSION = 2
 
@@ -457,6 +468,10 @@ def parse_tokens_used(stderr: str) -> int | None:
     return int(digits) if digits else None
 
 
+def has_forbidden_tool_trace(stderr: str) -> bool:
+    return any(pattern.search(stderr) for pattern in FORBIDDEN_TOOL_TRACE_PATTERNS)
+
+
 def run_codex(
     codex_bin: str,
     model: str,
@@ -478,6 +493,11 @@ def run_codex(
             "--ephemeral",
             "--ignore-user-config",
             "--ignore-rules",
+            *[
+                argument
+                for config_value in CODEX_CONFIG_OVERRIDES
+                for argument in ("-c", config_value)
+            ],
             *[
                 argument
                 for feature in CODEX_DISABLED_FEATURES
@@ -532,6 +552,16 @@ def run_codex(
             time.sleep(2 * (attempt + 1))
     assert completed is not None
     stdout = completed.stdout.strip()
+    if has_forbidden_tool_trace(completed.stderr):
+        return {
+            "ok": False,
+            "error": "forbidden_tool_trace",
+            "attempts": attempts,
+            "latency_seconds": time.perf_counter() - started,
+            "stdout": stdout,
+            "stderr_tail": completed.stderr[-4_000:],
+            "tokens_used": parse_tokens_used(completed.stderr),
+        }
     try:
         response = json.loads(stdout)
     except json.JSONDecodeError:
@@ -1140,6 +1170,7 @@ def main() -> None:
         "dry_run": args.dry_run,
         "reader_prompt_version": READER_PROMPT_VERSION,
         "codex_disabled_features": list(CODEX_DISABLED_FEATURES),
+        "codex_config_overrides": list(CODEX_CONFIG_OVERRIDES),
         "embedding_model_sha256": embedding_model_sha256,
         "tokenizer_sha256": tokenizer_sha256,
         "execution_seed": args.execution_seed,

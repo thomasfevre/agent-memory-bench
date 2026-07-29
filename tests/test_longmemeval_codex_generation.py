@@ -265,6 +265,40 @@ class LongMemEvalCodexGenerationTests(unittest.TestCase):
                 "workspace_dependencies",
             }.issubset(disabled)
         )
+        config_values = {
+            arguments[index + 1]
+            for index, argument in enumerate(arguments[:-1])
+            if argument in {"-c", "--config"}
+        }
+        self.assertIn('web_search="disabled"', config_values)
+        self.assertIn("tools.web_search=false", config_values)
+
+    def test_codex_reader_rejects_forbidden_tool_trace(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fake_codex = root / "fake-codex"
+            fake_codex.write_text(
+                "#!/bin/sh\n"
+                "printf '%s\\n' 'web search: forbidden lookup' >&2\n"
+                "printf '%s\\n' '{\"answer\":\"contaminated\"}'\n",
+                encoding="utf-8",
+            )
+            fake_codex.chmod(0o755)
+            schema = root / "schema.json"
+            schema.write_text("{}", encoding="utf-8")
+
+            result = run_codex(
+                str(fake_codex),
+                "reader-model",
+                "low",
+                schema,
+                "Use only supplied context.",
+                10,
+                0,
+            )
+
+        self.assertFalse(result["ok"])
+        self.assertEqual("forbidden_tool_trace", result["error"])
 
     def test_exact_mcnemar_is_one_when_no_disagreement(self):
         self.assertEqual(1.0, exact_mcnemar_p(0, 0))

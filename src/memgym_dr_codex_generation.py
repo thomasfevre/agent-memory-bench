@@ -18,6 +18,7 @@ from rank_bm25 import BM25Okapi
 from execution_order import interleaved_product
 from graph_benchmark_common import write_result
 from longmemeval_codex_generation import (
+    CODEX_CONFIG_OVERRIDES,
     CODEX_DISABLED_FEATURES,
     run_codex,
     sha256_file,
@@ -412,6 +413,7 @@ def main() -> int:
         "reader_prompt_version": READER_PROMPT_VERSION,
         "judge_prompt_version": JUDGE_PROMPT_VERSION,
         "codex_disabled_features": list(CODEX_DISABLED_FEATURES),
+        "codex_config_overrides": list(CODEX_CONFIG_OVERRIDES),
         "reader_models": args.reader_models,
         "judge_models": args.judge_models,
         "architectures": args.architectures,
