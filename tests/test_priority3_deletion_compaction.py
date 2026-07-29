@@ -10,6 +10,7 @@ def test_deletion_compaction_covers_every_preregistered_surface(
 
     assert payload["all_active_surfaces_clean"]
     assert payload["signed_generation_valid"]
+    assert payload["wall_time_seconds"] > 0
     assert payload["operations"] == {
         "source_tombstones": 1,
         "fact_retractions": 1,

@@ -8,6 +8,7 @@ import hashlib
 import json
 import math
 import sqlite3
+import time
 from datetime import date, timedelta
 from pathlib import Path
 from typing import Any
@@ -380,6 +381,7 @@ def contains_any(payload: Any, needles: list[str]) -> bool:
 
 
 def run_deletion_verification(output_dir: Path) -> dict[str, Any]:
+    started = time.perf_counter()
     output_dir.mkdir(parents=True, exist_ok=True)
     events = fixture_journal()
     needles = deleted_needles()
@@ -444,6 +446,7 @@ def run_deletion_verification(output_dir: Path) -> dict[str, Any]:
     }
     return {
         "protocol": "priority3-deletion-compaction-v1",
+        "wall_time_seconds": time.perf_counter() - started,
         "operations": operations,
         "verification": verification,
         "all_active_surfaces_clean": all(verification.values()),

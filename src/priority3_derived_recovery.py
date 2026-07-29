@@ -11,6 +11,7 @@ import sqlite3
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path
 from typing import Any
 
@@ -494,6 +495,7 @@ def run_crash_child(
 
 
 def run_crash_matrix(events: list[dict[str, Any]]) -> dict[str, Any]:
+    started = time.perf_counter()
     with tempfile.TemporaryDirectory(
         prefix="priority3-derived-recovery-"
     ) as temporary:
@@ -563,6 +565,7 @@ def run_crash_matrix(events: list[dict[str, Any]]) -> dict[str, Any]:
             )
         return {
             "protocol": "priority3-derived-recovery-v1",
+            "wall_time_seconds": time.perf_counter() - started,
             "boundaries": list(CRASH_BOUNDARIES),
             "baseline_semantic_signature": baseline_signature,
             "baseline_source_ids": baseline_source_ids,

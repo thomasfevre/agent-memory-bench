@@ -45,6 +45,7 @@ def test_all_eight_crash_boundaries_recover_to_uninterrupted_signature():
     }
     assert len(payload["scenarios"]) == 8
     assert payload["all_scenarios_pass"]
+    assert payload["wall_time_seconds"] > 0
     assert all(row["recovered_generation_valid"] for row in payload["scenarios"])
     assert all(
         row["semantic_signature_matches_uninterrupted"]
