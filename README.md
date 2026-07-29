@@ -805,7 +805,7 @@ Context Shard review uses the same blinded workflow:
 
 ```bash
 PYTHONPATH=src .venv/bin/python src/human_calibration.py prepare-shards \
-  --shards data/shards.jsonl \
+  --shards data/context-shard-review-candidates.jsonl \
   --corpus data/corpus.jsonl \
   --output-dir .cache/human-calibration/context-shards \
   --seed 20260729

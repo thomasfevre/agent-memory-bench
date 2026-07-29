@@ -90,5 +90,7 @@ The `human_calibration.py` CLI now prepares two independent CSV templates,
 keeps source keys and reference labels in a separate mapping, and computes
 coverage, Cohen's kappa, reference agreement, median review time and
 model-to-human judge error. The current Context Shard fixture has only three
-items and synthetic reference statuses, so it is a workflow smoke rather than
-a publishable human-quality estimate.
+items, while the dedicated review pack has 24 balanced candidates with
+synthetic reference statuses. The latter is large enough to exercise the
+workflow, but no human-quality estimate exists until two independent reviewers
+complete it.

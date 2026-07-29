@@ -1,0 +1,24 @@
+{"id":"csr01","text":"Always use UTC timestamps in incident reports.","source_ids":["d09","d10"],"occurrences":2,"review":"approved","scope":"incident-report"}
+{"id":"csr02","text":"Require a dry run before Atlas deployments, except approved SEV-1 hotfixes.","source_ids":["d03","d04"],"occurrences":2,"review":"approved","scope":"atlas-deploy"}
+{"id":"csr03","text":"Retain blue-seal exports for 365 days instead of the normal 30-day period.","source_ids":["d07","d08"],"occurrences":2,"review":"approved","scope":"export-retention"}
+{"id":"csr04","text":"Retry failed Search API upstream requests at most three times.","source_ids":["d13"],"occurrences":1,"review":"approved","scope":"search-api"}
+{"id":"csr05","text":"Use a five-second request timeout for the Search API.","source_ids":["d14"],"occurrences":1,"review":"approved","scope":"search-api"}
+{"id":"csr06","text":"Never edit files stored under raw-sources.","source_ids":["d15"],"occurrences":1,"review":"approved","scope":"vault-maintenance"}
+{"id":"csr07","text":"Keep summaries, embeddings, indexes and graphs rebuildable from raw sources.","source_ids":["d16"],"occurrences":1,"review":"approved","scope":"vault-maintenance"}
+{"id":"csr08","text":"Include tenant_id in cross-tenant deduplication keys.","source_ids":["d19"],"occurrences":1,"review":"approved","scope":"engineering"}
+{"id":"csr09","text":"Always use dark-mode screenshots in release reports.","source_ids":["d11","d12"],"occurrences":2,"review":"rejected","scope":"release-report"}
+{"id":"csr10","text":"Move all Atlas deployments to the sapphire branch.","source_ids":["d20"],"occurrences":1,"review":"rejected","scope":"atlas-deploy"}
+{"id":"csr11","text":"Always deploy Atlas from the canary branch.","source_ids":["d01","d02"],"occurrences":2,"review":"rejected","scope":"atlas-deploy"}
+{"id":"csr12","text":"Always assign Dana as incident commander.","source_ids":["d05","d06"],"occurrences":2,"review":"rejected","scope":"incident-response"}
+{"id":"csr13","text":"Retain every export for exactly 30 days.","source_ids":["d07","d08","d27"],"occurrences":3,"review":"rejected","scope":"export-retention"}
+{"id":"csr14","text":"Production database migrations do not need rollback scripts.","source_ids":["d28"],"occurrences":1,"review":"rejected","scope":"database-migration"}
+{"id":"csr15","text":"Record incident timestamps in local time instead of UTC.","source_ids":["d09","d10"],"occurrences":2,"review":"rejected","scope":"incident-report"}
+{"id":"csr16","text":"Delete billing invoices after 30 days.","source_ids":["d23"],"occurrences":1,"review":"rejected","scope":"billing-retention"}
+{"id":"csr17","text":"Use the ember branch whenever working on Atlas deployments.","source_ids":["d02"],"occurrences":1,"review":"deferred","scope":"atlas-deploy"}
+{"id":"csr18","text":"Treat Mina as the default incident commander in every future incident.","source_ids":["d06"],"occurrences":1,"review":"deferred","scope":"incident-response"}
+{"id":"csr19","text":"Route every Orion-related task to the Aurora team.","source_ids":["d17"],"occurrences":1,"review":"deferred","scope":"orion-ownership"}
+{"id":"csr20","text":"Contact Ravi first for every Aurora incident.","source_ids":["d18"],"occurrences":1,"review":"deferred","scope":"aurora-on-call"}
+{"id":"csr21","text":"Assume port 9080 for all container health checks.","source_ids":["d22"],"occurrences":1,"review":"deferred","scope":"container-operations"}
+{"id":"csr22","text":"Schedule documentation work around the nightly 02:00 UTC regeneration.","source_ids":["d25"],"occurrences":1,"review":"deferred","scope":"documentation"}
+{"id":"csr23","text":"Schedule analytics changes around the Monday cohort refresh.","source_ids":["d26"],"occurrences":1,"review":"deferred","scope":"analytics"}
+{"id":"csr24","text":"Apply the 180-day amber-seal retention rule to all future amber exports.","source_ids":["d27"],"occurrences":1,"review":"deferred","scope":"export-retention"}
