@@ -791,15 +791,25 @@ answer generation or an LLM judge.
 
 The Priority 2 reader and judge campaign uses isolated Codex subscription
 sessions with browser, apps, shell and agent tools disabled at the command
-line. A bounded blinded calibration pack can be prepared after the run:
+line, native web search disabled independently, and a fail-closed trace audit.
+All 120 readers and 120 judges completed. The provisional semantic-judge macro
+score was 0.635 for visible documents, 0.650 for BM25 top-1, 0.743 for top-2
+and 0.713 for top-5. Top-2 improved the paired score over visible-only by
+0.108 across the same 30 questions, but this is not a human-calibrated metric.
+
+A bounded blinded calibration pack can be prepared after the run:
 
 ```bash
 PYTHONPATH=src .venv/bin/python src/human_calibration.py prepare-judge \
   --result results/P2-MEMGYM-DR-CODEX-30X4-20260729.json \
+  --dataset-dir /path/to/memgym-dr-instances-snapshot \
   --output-dir .cache/human-calibration/memgym-judge \
   --sample-size 40 \
   --seed 20260729
 ```
+
+The generated 40-item pack resolves question text locally from the pinned
+dataset hashes. It does not copy questions into the compact public result.
 
 Context Shard review uses the same blinded workflow:
 

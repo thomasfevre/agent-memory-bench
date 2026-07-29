@@ -22,6 +22,17 @@ MAB_CONFLICT = (
 MAB_SCALE = (
     RESULTS / "P2-MEMORYAGENTBENCH-CODEX-SCALE-15Q-20260729.json"
 )
+MEMGYM = RESULTS / "P2-MEMGYM-DR-CODEX-30X4-20260729.json"
+COGNEE_PRIMARY = (
+    RESULTS / "P2-COGNEE-GRAPHRAG-BENCH-SLICE-20260729.json"
+)
+COGNEE_SERIAL = (
+    RESULTS
+    / "P2-COGNEE-GRAPHRAG-BENCH-SLICE-LOCAL-SERIAL-20260729.json"
+)
+GRAPHITI = (
+    RESULTS / "P2-GRAPHITI-GRAPHRAG-BENCH-SLICE-20260729.json"
+)
 
 
 def rounded(value: float, digits: int = 3) -> float:
@@ -309,7 +320,7 @@ def graph_engine_record(
             f"top-{payload['top_k']}"
         ),
         "reader": payload["model"],
-        "evidence_level": "official-data-local-engine",
+        "evidence_level": "official-data",
         "sample": "20 source chunks and 10 questions",
         "repetitions": 1,
         "metrics": {
@@ -436,7 +447,7 @@ def memgym_record(payload: dict[str, Any]) -> dict[str, Any]:
         "task": "Answer multi-hop deep-research questions from bounded memory",
         "method": "Visible documents versus BM25 chunk retrieval at top-1, top-2 and top-5",
         "reader": "gpt-5.6-sol",
-        "evidence_level": "official-data-provisional-judge",
+        "evidence_level": "official-data",
         "sample": (
             f"{manifest['per_stratum']} fixed questions in each of the "
             "3-hop, 4-hop and 5-6-hop strata"
@@ -476,7 +487,15 @@ def main() -> int:
     parser.add_argument("--base-from-head", action="store_true")
     args = parser.parse_args()
 
-    required = [LONGMEMEVAL, MAB_CONFLICT, MAB_SCALE]
+    required = [
+        LONGMEMEVAL,
+        MAB_CONFLICT,
+        MAB_SCALE,
+        MEMGYM,
+        COGNEE_PRIMARY,
+        COGNEE_SERIAL,
+        GRAPHITI,
+    ]
     if not args.base_from_head:
         required.append(args.base_registry)
     missing = [str(path) for path in required if not path.is_file()]
@@ -499,23 +518,76 @@ def main() -> int:
     longmemeval = json.loads(LONGMEMEVAL.read_text(encoding="utf-8"))
     mab_conflict = json.loads(MAB_CONFLICT.read_text(encoding="utf-8"))
     mab_scale = json.loads(MAB_SCALE.read_text(encoding="utf-8"))
+    memgym = json.loads(MEMGYM.read_text(encoding="utf-8"))
+    cognee_primary = json.loads(
+        COGNEE_PRIMARY.read_text(encoding="utf-8")
+    )
+    cognee_serial = json.loads(
+        COGNEE_SERIAL.read_text(encoding="utf-8")
+    )
+    graphiti = json.loads(GRAPHITI.read_text(encoding="utf-8"))
     if not longmemeval["manifest"].get("complete"):
         raise RuntimeError("LongMemEval campaign is incomplete")
     if not mab_scale["manifest"].get("complete"):
         raise RuntimeError("MemoryAgentBench scale campaign is incomplete")
+    if not memgym["manifest"].get("complete"):
+        raise RuntimeError("MemGym campaign is incomplete")
 
     upsert(registry, longmemeval_record(longmemeval))
     upsert(registry, mab_conflict_record(mab_conflict))
     upsert(registry, mab_scale_record(mab_scale))
-    registry["updated_at"] = "2026-07-29"
+    upsert(registry, memgym_record(memgym))
+    upsert(
+        registry,
+        graph_engine_record(
+            cognee_primary,
+            run_id="graphrag-bench-cognee-default-20doc-20260729",
+            evidence_file=(
+                "results/P2-COGNEE-GRAPHRAG-BENCH-SLICE-20260729.json"
+            ),
+            variant="default concurrency",
+        ),
+    )
+    upsert(
+        registry,
+        graph_engine_record(
+            cognee_serial,
+            run_id="graphrag-bench-cognee-serial-20doc-20260729",
+            evidence_file=(
+                "results/P2-COGNEE-GRAPHRAG-BENCH-SLICE-LOCAL-SERIAL-20260729.json"
+            ),
+            variant="single-item local-provider ablation",
+        ),
+    )
+    upsert(
+        registry,
+        graph_engine_record(
+            graphiti,
+            run_id="graphrag-bench-graphiti-20doc-20260729",
+            evidence_file=(
+                "results/P2-GRAPHITI-GRAPHRAG-BENCH-SLICE-20260729.json"
+            ),
+            variant="single-coroutine ingestion",
+        ),
+    )
+    registry["updated_at"] = "2026-07-30"
     findings = registry["findings"]
     for finding in (
         "Chunk boundaries can change final reading quality even when evidence-session recall is unchanged.",
         "Multi-hop evidence retrieval degrades with memory scale even when single-hop retrieval remains saturated.",
         "At 262k scale, compressed retrieval remained executable while raw full contexts exceeded the reader input ceiling.",
+        "On the fixed MemGym-DR slice, BM25 top-2 improved the provisional paired semantic-judge score by 0.108 over visible documents alone; top-5 was not consistently better.",
+        "Under the aligned 30-minute local GraphRAG budget, Graphiti indexed 13 of 20 documents while Cognee completed neither its default nor serial ingestion path.",
     ):
         if finding not in findings:
             findings.append(finding)
+    limitations = registry["limitations"]
+    for limitation in (
+        "MemGym semantic scores remain provisional until two blinded humans complete the fixed 40-item calibration pack.",
+        "The aligned GraphRAG comparison is one 20-document slice, one local model and one repetition; ingestion failures are capacity observations, not universal engine rankings.",
+    ):
+        if limitation not in limitations:
+            limitations.append(limitation)
     REGISTRY.write_text(
         json.dumps(registry, indent=2) + "\n",
         encoding="utf-8",

@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-07-29",
-  "artifact_count": 124,
-  "total_bytes": 135304104,
+  "generated_at": "2026-07-30",
+  "artifact_count": 130,
+  "total_bytes": 137475529,
   "artifacts": [
     {
       "path": "results/COGNEE-COMMON-8DOCS-20260729.json",
@@ -726,6 +726,34 @@
       "reason": "raw dataset or provider output requires a separate license and privacy review"
     },
     {
+      "path": "results/P2-COGNEE-GRAPHRAG-BENCH-SLICE-20260729.json",
+      "bytes": 373,
+      "sha256": "754d6934ef43b1ee32e8cb9e7ae579540e4e415a2d3df1d935d2cac10fa46b18",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/P2-COGNEE-GRAPHRAG-BENCH-SLICE-LOCAL-SERIAL-20260729.json",
+      "bytes": 457,
+      "sha256": "76f4917d247eed0aafca1f6cdc13ba652040a23352ceb8d4bfca7aa87cbbfd96",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/P2-GRAPHITI-GRAPHRAG-BENCH-SLICE-20260729.json",
+      "bytes": 19778,
+      "sha256": "818b358ba6bf2aa2eed18c3af43eea57a8f2870e9a799c3d8b9563c9ad940786",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/P2-GRAPHITI-GRAPHRAG-BENCH-SLICE-20260729.json.checkpoint.json",
+      "bytes": 430,
+      "sha256": "c3a6a78554c8bbba6b43ed7a78c0fd26f4994ac2b2e958e13ed1b6c5ca9ae865",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
       "path": "results/P2-LONGMEMEVAL-ROLE-ABLATION-29PAIRS-20260729.contexts.json",
       "bytes": 4218160,
       "sha256": "c2a54368550dbc58ea73400701a569abd4487eaa52edba15448c708128358ef2",
@@ -741,8 +769,8 @@
     },
     {
       "path": "results/P2-MEMGYM-DR-CODEX-30X4-20260729.json",
-      "bytes": 36374,
-      "sha256": "cbddc80a2751a392db0424bee27f5ebe9272e3e0cc5fabc1ac57b8f215bda6e8",
+      "bytes": 1476547,
+      "sha256": "d5dfe3f86ff26d9c0ed3aa198be1f7d921ac5d9c8352b57423dbdc7e790c6155",
       "published": false,
       "reason": "raw dataset or provider output requires a separate license and privacy review"
     },
@@ -754,9 +782,23 @@
       "reason": "raw dataset or provider output requires a separate license and privacy review"
     },
     {
+      "path": "results/P2-MEMGYM-DR-CODEX-30X4-CONTAMINATED-WEB-FULL-20260729.json",
+      "bytes": 667817,
+      "sha256": "1253e64af9a4cd97d6f25781f93c439a26d3b64575b0f2354f3c7f4c4a0df032",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
       "path": "results/P2-MEMGYM-DR-CODEX-30X4-TOOL-DISABLED-UNRECORDED-20260729.json",
       "bytes": 14411,
       "sha256": "d3cf6587b54385330487b4eda311898047e67cbd3d9e2032fd1745d4006c4f39",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/P2-MEMGYM-DR-CODEX-CONFIG-ISOLATION-SMOKE-20260729.json",
+      "bytes": 42397,
+      "sha256": "308044bb355118cc9ae5e0dca1630df266375c67aaafead4e832a3ae96ba18ea",
       "published": false,
       "reason": "raw dataset or provider output requires a separate license and privacy review"
     },

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-07-29",
+  "updated_at": "2026-07-30",
   "campaign": {
     "title": "Agent Memory Bench",
     "repository": "https://github.com/thomasfevre/agent-memory-bench",
@@ -1534,6 +1534,346 @@
       "evidence_files": [
         "results/P2-MEMORYAGENTBENCH-CODEX-SCALE-15Q-20260729.json"
       ]
+    },
+    {
+      "id": "memgym-dr-reader-judge-30x4-20260729",
+      "date": "2026-07-29",
+      "phase": "generation",
+      "dataset": "MemGym-DR",
+      "task": "Answer multi-hop deep-research questions from bounded memory",
+      "method": "Visible documents versus BM25 chunk retrieval at top-1, top-2 and top-5",
+      "reader": "gpt-5.6-sol",
+      "evidence_level": "official-data",
+      "sample": "10 fixed questions in each of the 3-hop, 4-hop and 5-6-hop strata",
+      "repetitions": 1,
+      "metrics": {
+        "series": [
+          {
+            "stratum": "3hop",
+            "architecture": "bm25_k1",
+            "attempted_calls": 10,
+            "successful_reader_calls": 10,
+            "judged_calls": 10,
+            "exact_match": 0.0,
+            "substring_match": 0.0,
+            "token_f1": 0.315,
+            "provisional_judge_score": 0.79,
+            "context_words": 19236,
+            "reader_latency_s": 10.88,
+            "reader_tokens": 39568
+          },
+          {
+            "stratum": "3hop",
+            "architecture": "bm25_k2",
+            "attempted_calls": 10,
+            "successful_reader_calls": 10,
+            "judged_calls": 10,
+            "exact_match": 0.0,
+            "substring_match": 0.0,
+            "token_f1": 0.322,
+            "provisional_judge_score": 0.88,
+            "context_words": 19621,
+            "reader_latency_s": 11.18,
+            "reader_tokens": 34532
+          },
+          {
+            "stratum": "3hop",
+            "architecture": "bm25_k5",
+            "attempted_calls": 10,
+            "successful_reader_calls": 10,
+            "judged_calls": 10,
+            "exact_match": 0.0,
+            "substring_match": 0.0,
+            "token_f1": 0.339,
+            "provisional_judge_score": 0.87,
+            "context_words": 20776,
+            "reader_latency_s": 11.54,
+            "reader_tokens": 36020
+          },
+          {
+            "stratum": "3hop",
+            "architecture": "visible_only",
+            "attempted_calls": 10,
+            "successful_reader_calls": 10,
+            "judged_calls": 10,
+            "exact_match": 0.0,
+            "substring_match": 0.0,
+            "token_f1": 0.311,
+            "provisional_judge_score": 0.78,
+            "context_words": 18852,
+            "reader_latency_s": 12.98,
+            "reader_tokens": 36464
+          },
+          {
+            "stratum": "4hop",
+            "architecture": "bm25_k1",
+            "attempted_calls": 10,
+            "successful_reader_calls": 10,
+            "judged_calls": 10,
+            "exact_match": 0.0,
+            "substring_match": 0.0,
+            "token_f1": 0.175,
+            "provisional_judge_score": 0.59,
+            "context_words": 20048,
+            "reader_latency_s": 15.75,
+            "reader_tokens": 34601
+          },
+          {
+            "stratum": "4hop",
+            "architecture": "bm25_k2",
+            "attempted_calls": 10,
+            "successful_reader_calls": 10,
+            "judged_calls": 10,
+            "exact_match": 0.0,
+            "substring_match": 0.0,
+            "token_f1": 0.199,
+            "provisional_judge_score": 0.67,
+            "context_words": 20433,
+            "reader_latency_s": 21.24,
+            "reader_tokens": 36173
+          },
+          {
+            "stratum": "4hop",
+            "architecture": "bm25_k5",
+            "attempted_calls": 10,
+            "successful_reader_calls": 10,
+            "judged_calls": 10,
+            "exact_match": 0.0,
+            "substring_match": 0.0,
+            "token_f1": 0.181,
+            "provisional_judge_score": 0.71,
+            "context_words": 21588,
+            "reader_latency_s": 17.2,
+            "reader_tokens": 42011
+          },
+          {
+            "stratum": "4hop",
+            "architecture": "visible_only",
+            "attempted_calls": 10,
+            "successful_reader_calls": 10,
+            "judged_calls": 10,
+            "exact_match": 0.0,
+            "substring_match": 0.0,
+            "token_f1": 0.178,
+            "provisional_judge_score": 0.585,
+            "context_words": 19664,
+            "reader_latency_s": 15.89,
+            "reader_tokens": 34377
+          },
+          {
+            "stratum": "56hop",
+            "architecture": "bm25_k1",
+            "attempted_calls": 10,
+            "successful_reader_calls": 10,
+            "judged_calls": 10,
+            "exact_match": 0.0,
+            "substring_match": 0.0,
+            "token_f1": 0.168,
+            "provisional_judge_score": 0.57,
+            "context_words": 14723,
+            "reader_latency_s": 24.52,
+            "reader_tokens": 26408
+          },
+          {
+            "stratum": "56hop",
+            "architecture": "bm25_k2",
+            "attempted_calls": 10,
+            "successful_reader_calls": 10,
+            "judged_calls": 10,
+            "exact_match": 0.0,
+            "substring_match": 0.0,
+            "token_f1": 0.164,
+            "provisional_judge_score": 0.68,
+            "context_words": 15108,
+            "reader_latency_s": 22.25,
+            "reader_tokens": 29101
+          },
+          {
+            "stratum": "56hop",
+            "architecture": "bm25_k5",
+            "attempted_calls": 10,
+            "successful_reader_calls": 10,
+            "judged_calls": 10,
+            "exact_match": 0.0,
+            "substring_match": 0.0,
+            "token_f1": 0.167,
+            "provisional_judge_score": 0.56,
+            "context_words": 16263,
+            "reader_latency_s": 21.84,
+            "reader_tokens": 31326
+          },
+          {
+            "stratum": "56hop",
+            "architecture": "visible_only",
+            "attempted_calls": 10,
+            "successful_reader_calls": 10,
+            "judged_calls": 10,
+            "exact_match": 0.0,
+            "substring_match": 0.0,
+            "token_f1": 0.149,
+            "provisional_judge_score": 0.54,
+            "context_words": 14339,
+            "reader_latency_s": 23.81,
+            "reader_tokens": 28808
+          }
+        ],
+        "architecture_macro_judge": {
+          "bm25_k1": 0.65,
+          "bm25_k2": 0.743,
+          "bm25_k5": 0.713,
+          "visible_only": 0.635
+        },
+        "paired_vs_visible": {
+          "bm25_k1": {
+            "pairs": 30,
+            "mean_judge_difference": 0.015,
+            "wins": 9,
+            "ties": 11,
+            "losses": 10
+          },
+          "bm25_k2": {
+            "pairs": 30,
+            "mean_judge_difference": 0.108,
+            "wins": 15,
+            "ties": 9,
+            "losses": 6
+          },
+          "bm25_k5": {
+            "pairs": 30,
+            "mean_judge_difference": 0.078,
+            "wins": 13,
+            "ties": 5,
+            "losses": 12
+          }
+        }
+      },
+      "budget": {
+        "expected_reader_calls": 120,
+        "successful_reader_calls": 120,
+        "expected_judge_calls": 120,
+        "successful_judge_calls": 120
+      },
+      "conclusion": "The provisional semantic judge favored bm25_k2 with a macro score of 0.743.",
+      "limitation": "The semantic score is not human-calibrated. It remains provisional until two blinded annotators complete the fixed calibration pack; exact and substring match are overly strict for these long-form answers.",
+      "evidence_files": [
+        "results/P2-MEMGYM-DR-CODEX-30X4-20260729.json"
+      ]
+    },
+    {
+      "id": "graphrag-bench-cognee-default-20doc-20260729",
+      "date": "2026-07-29",
+      "phase": "retrieval",
+      "dataset": "GraphRAG-Benchmark Novel-30752 aligned slice",
+      "task": "Retrieve evidence for complex reasoning and fact questions",
+      "method": "Cognee default concurrency, Kuzu and LanceDB embedded, top-5",
+      "reader": "qwen2.5:14b",
+      "evidence_level": "official-data",
+      "sample": "20 source chunks and 10 questions",
+      "repetitions": 1,
+      "metrics": {
+        "operational_status": "ingestion_timeout",
+        "documents_requested": 20,
+        "documents_completed": null,
+        "ingestion_seconds": 1800.015,
+        "ingestion_error": "timeout after 1800.0s",
+        "ingestion_error_count": 0,
+        "queries_completed": 0,
+        "retrieval": null,
+        "llm_tokens": null
+      },
+      "budget": {
+        "ingestion_timeout_seconds": 1800.0,
+        "query_timeout_seconds": 60.0,
+        "top_k": 5,
+        "model": "qwen2.5:14b",
+        "embedding_model": "nomic-embed-text"
+      },
+      "conclusion": "Cognee did not finish ingestion inside the shared 30-minute ceiling, so retrieval quality was not scored.",
+      "limitation": "This is one local model, one 20-document slice and one repetition. A timeout is an operational-capacity result, not evidence that the engine can never achieve good retrieval quality.",
+      "evidence_files": [
+        "results/P2-COGNEE-GRAPHRAG-BENCH-SLICE-20260729.json"
+      ]
+    },
+    {
+      "id": "graphrag-bench-cognee-serial-20doc-20260729",
+      "date": "2026-07-29",
+      "phase": "retrieval",
+      "dataset": "GraphRAG-Benchmark Novel-30752 aligned slice",
+      "task": "Retrieve evidence for complex reasoning and fact questions",
+      "method": "Cognee single-item local-provider ablation, Kuzu and LanceDB embedded, top-5",
+      "reader": "qwen2.5:14b",
+      "evidence_level": "official-data",
+      "sample": "20 source chunks and 10 questions",
+      "repetitions": 1,
+      "metrics": {
+        "operational_status": "ingestion_timeout",
+        "documents_requested": 20,
+        "documents_completed": null,
+        "ingestion_seconds": 1800.003,
+        "ingestion_error": "timeout after 1800.0s",
+        "ingestion_error_count": 0,
+        "queries_completed": 0,
+        "retrieval": null,
+        "llm_tokens": null
+      },
+      "budget": {
+        "ingestion_timeout_seconds": 1800.0,
+        "query_timeout_seconds": 60.0,
+        "top_k": 5,
+        "model": "qwen2.5:14b",
+        "embedding_model": "nomic-embed-text"
+      },
+      "conclusion": "Cognee did not finish ingestion inside the shared 30-minute ceiling, so retrieval quality was not scored.",
+      "limitation": "This is one local model, one 20-document slice and one repetition. A timeout is an operational-capacity result, not evidence that the engine can never achieve good retrieval quality.",
+      "evidence_files": [
+        "results/P2-COGNEE-GRAPHRAG-BENCH-SLICE-LOCAL-SERIAL-20260729.json"
+      ]
+    },
+    {
+      "id": "graphrag-bench-graphiti-20doc-20260729",
+      "date": "2026-07-29",
+      "phase": "retrieval",
+      "dataset": "GraphRAG-Benchmark Novel-30752 aligned slice",
+      "task": "Retrieve evidence for complex reasoning and fact questions",
+      "method": "Graphiti single-coroutine ingestion, FalkorDB Lite, top-5",
+      "reader": "qwen2.5:14b",
+      "evidence_level": "official-data",
+      "sample": "20 source chunks and 10 questions",
+      "repetitions": 1,
+      "metrics": {
+        "operational_status": "partial_index",
+        "documents_requested": 20,
+        "documents_completed": 13,
+        "ingestion_seconds": 1800.007,
+        "ingestion_error": null,
+        "ingestion_error_count": 7,
+        "queries_completed": 10,
+        "retrieval": {
+          "questions": 10,
+          "mean_recall": 0.083,
+          "mean_context_precision": 0.033,
+          "temporal_correctness": 0.0,
+          "temporal_context_precision": 0.0,
+          "temporal_exact_source_set": 0.0,
+          "abstention_accuracy": 0.0,
+          "mean_latency_ms": 118.998,
+          "p95_latency_ms": 132.445
+        },
+        "llm_tokens": 124735
+      },
+      "budget": {
+        "ingestion_timeout_seconds": 1800.0,
+        "document_timeout_seconds": 180.0,
+        "query_timeout_seconds": 60.0,
+        "top_k": 5,
+        "model": "qwen2.5:14b",
+        "embedding_model": "nomic-embed-text"
+      },
+      "conclusion": "Graphiti built 13 of 20 documents inside the shared ingestion budget; retrieval metrics therefore describe a partial index.",
+      "limitation": "This is one local model, one 20-document slice and one repetition. A timeout is an operational-capacity result, not evidence that the engine can never achieve good retrieval quality.",
+      "evidence_files": [
+        "results/P2-GRAPHITI-GRAPHRAG-BENCH-SLICE-20260729.json"
+      ]
     }
   ],
   "systems": [
@@ -1605,7 +1945,9 @@
     "Aggregate reproduction can hide poor agreement on individual events.",
     "Chunk boundaries can change final reading quality even when evidence-session recall is unchanged.",
     "Multi-hop evidence retrieval degrades with memory scale even when single-hop retrieval remains saturated.",
-    "At 262k scale, compressed retrieval remained executable while raw full contexts exceeded the reader input ceiling."
+    "At 262k scale, compressed retrieval remained executable while raw full contexts exceeded the reader input ceiling.",
+    "On the fixed MemGym-DR slice, BM25 top-2 improved the provisional paired semantic-judge score by 0.108 over visible documents alone; top-5 was not consistently better.",
+    "Under the aligned 30-minute local GraphRAG budget, Graphiti indexed 13 of 20 documents while Cognee completed neither its default nor serial ingestion path."
   ],
   "limitations": [
     "The synthetic common corpus is small and intentionally adversarial.",
@@ -1615,6 +1957,8 @@
     "Raw official-dataset contexts and provider outputs are not published pending license and privacy review.",
     "AGORA and the managed Zep product were not reproduced locally.",
     "The GraphRAG-Bench neighbor ablation is not a complete GraphRAG engine.",
-    "There is no aggregate leaderboard because the current protocols are not all commensurable."
+    "There is no aggregate leaderboard because the current protocols are not all commensurable.",
+    "MemGym semantic scores remain provisional until two blinded humans complete the fixed 40-item calibration pack.",
+    "The aligned GraphRAG comparison is one 20-document slice, one local model and one repetition; ingestion failures are capacity observations, not universal engine rankings."
   ]
 }

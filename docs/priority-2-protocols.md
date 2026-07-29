@@ -68,8 +68,15 @@ remain specific to this fixed slice.
   independently through `web_search="disabled"` and
   `tools.web_search=false`. Any remaining web-search or MCP trace fails the
   call closed.
-- Status: the configuration-isolated reader and judge smoke passed with three
-  readers and three judges. The full campaign is running from a fresh artifact.
+- Status: complete, with 120/120 readers and 120/120 judges successful and no
+  forbidden tool trace in the retained artifact.
+
+The provisional semantic-judge macro scores were 0.635 for visible documents,
+0.650 for BM25 top-1, 0.743 for top-2 and 0.713 for top-5. Paired by the same
+30 questions, top-2 exceeded visible-only by 0.108 on average, with 15 wins,
+9 ties and 6 losses. Top-5 was not monotonically better: it exceeded
+visible-only by 0.078, but had 13 wins and 12 losses. These results support a
+bounded-context trade-off, not a universal top-k optimum.
 
 The semantic judge cannot be called calibrated against humans until two blinded
 annotations exist. The annotation pack and agreement report are a separate
@@ -81,6 +88,30 @@ prompt-only restrictions are insufficient. The second showed that disabling
 feature flags alone is also insufficient in the tested Codex CLI version,
 which is why the runner now applies root tool configuration and a fail-closed
 trace gate.
+
+## Aligned real GraphRAG engines
+
+- Dataset: a fixed 20-document, 10-question slice from the pinned
+  GraphRAG-Benchmark Novel-30752 corpus.
+- Questions: five complex-reasoning and five fact-retrieval questions.
+- Shared settings: `qwen2.5:14b`, `nomic-embed-text`, top-5, 30-minute
+  ingestion ceiling and 60-second query ceiling.
+- Cognee: version 1.4.0 with embedded Kuzu and LanceDB.
+- Graphiti: version 0.29.3 with FalkorDB Lite.
+- Status: complete as a capacity comparison, one repetition.
+
+Cognee did not complete ingestion within 1,800 seconds, so no retrieval score
+was generated. A separately identified single-item concurrency ablation also
+timed out at 1,800 seconds. Graphiti indexed 13 of 20 documents, timed out on
+three, left four unattempted after exhausting the shared budget, and answered all
+10 questions from the partial index. That partial index reached 0.083 mean
+source recall, 0.033 context precision and 0.000 temporal correctness after
+124,735 local model tokens.
+
+The Graphiti quality numbers must not be compared as if both engines had built
+complete indexes. The supported conclusion is operational: neither engine
+completed the 20-document temporal graph workload inside this local budget,
+and Cognee did not reach retrieval at all.
 
 ## Human review gates
 

@@ -21,8 +21,10 @@
 - [x] Extend MemoryAgentBench generation beyond the two complete 6k variants.
   The 32k, 64k and 262k multi-hop and single-hop variants now retain both
   quality outcomes and provider-capacity failures.
-- [ ] Complete MemGym-DR with a reader and calibrated judge.
-- [ ] Finish at least two real GraphRAG engines under one aligned budget.
+- [x] Complete MemGym-DR with an isolated reader and semantic-judge campaign.
+  Human calibration remains a separate open gate below.
+- [x] Run two real GraphRAG engines under one aligned budget, retaining partial
+  indexes and ingestion timeouts instead of dropping failed systems.
 - [ ] Add real human review measurements for Context Shards.
 - [ ] Calibrate semantic judging with blinded double annotation.
 
