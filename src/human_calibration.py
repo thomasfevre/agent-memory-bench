@@ -9,7 +9,7 @@ import hashlib
 import json
 import math
 import statistics
-from collections import Counter
+from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
@@ -191,16 +191,37 @@ def stratified_judge_sample(
         and row.get("predicted_answer") is not None
         and row.get("gold_answer") is not None
     ]
-    return sorted(
-        eligible,
-        key=lambda row: (
-            random_order_key(
-                f"{row.get('stratum')}|{row.get('architecture')}|{row['run_key']}",
-                seed,
-            ),
-            row["run_key"],
-        ),
-    )[:sample_size]
+    groups: defaultdict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
+    for row in eligible:
+        groups[(str(row.get("stratum")), str(row.get("architecture")))].append(
+            row
+        )
+    for group_rows in groups.values():
+        group_rows.sort(
+            key=lambda row: (
+                random_order_key(row["run_key"], seed),
+                row["run_key"],
+            )
+        )
+    group_keys = sorted(
+        groups,
+        key=lambda key: random_order_key("|".join(key), seed),
+    )
+    selected = []
+    round_index = 0
+    while len(selected) < sample_size:
+        added = False
+        for group_key in group_keys:
+            group_rows = groups[group_key]
+            if round_index < len(group_rows):
+                selected.append(group_rows[round_index])
+                added = True
+                if len(selected) == sample_size:
+                    break
+        if not added:
+            break
+        round_index += 1
+    return selected
 
 
 def prepare_judge(args: argparse.Namespace) -> None:

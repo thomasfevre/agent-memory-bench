@@ -133,6 +133,46 @@ def test_prepare_judge_pack_hides_model_judgments(tmp_path):
     assert mapping_row["model_judge_scores"] == [0.7]
 
 
+def test_prepare_judge_pack_balances_strata_before_taking_more_from_one(tmp_path):
+    result = tmp_path / "memgym.json"
+    output = tmp_path / "pack"
+    rows = []
+    for stratum in ("A", "B"):
+        for index in range(1, 5):
+            rows.append(
+                {
+                    "run_key": f"{stratum}{index}",
+                    "stratum": stratum,
+                    "architecture": "bm25_k2",
+                    "reader_model": "reader",
+                    "question": f"Question {stratum}{index}?",
+                    "gold_answer": "Gold",
+                    "predicted_answer": "Prediction",
+                    "reader_ok": True,
+                    "judges": [],
+                }
+            )
+    result.write_text(json.dumps({"rows": rows}), encoding="utf-8")
+
+    run_cli(
+        "prepare-judge",
+        "--result",
+        str(result),
+        "--output-dir",
+        str(output),
+        "--sample-size",
+        "2",
+        "--seed",
+        "42",
+    )
+
+    mapping = [
+        json.loads(line)
+        for line in (output / "private-mapping.jsonl").read_text().splitlines()
+    ]
+    assert {row["stratum"] for row in mapping} == {"A", "B"}
+
+
 def test_score_shard_review_reports_agreement_accuracy_and_time(tmp_path):
     pack = tmp_path / "pack.jsonl"
     mapping = tmp_path / "mapping.jsonl"
