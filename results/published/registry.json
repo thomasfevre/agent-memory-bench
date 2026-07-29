@@ -1196,7 +1196,7 @@
         "successful_calls": 116
       },
       "conclusion": "User-turn chunking improved deterministic overall accuracy by 8.6 points, but the paired decision difference was not statistically distinguishable on 29 pairs.",
-      "limitation": "Answer matching outside the original alias set is a strict lower bound, and this run has no no-context memorization control.",
+      "limitation": "Answer matching outside the original alias set is a strict lower bound, and this run has no no-context memorization control. Tool avoidance was prompt-enforced; no tool traces were found in retained stderr, but command-level disabling was added only afterward.",
       "evidence_files": [
         "results/P2-LONGMEMEVAL-ROLE-ABLATION-29PAIRS-20260729.json"
       ]
@@ -1530,7 +1530,7 @@
         "top_k": 20
       },
       "conclusion": "Single-hop retrieval remained useful as memory grew, while multi-hop reading stayed weak; raw 262k contexts exceeded the Codex input-character ceiling but compressed retrieval paths ran.",
-      "limitation": "Only 15 fixed questions per variant were evaluated, and the official substring metric can reward overbroad contradictory answers.",
+      "limitation": "Only 15 fixed questions per variant were evaluated, and the official substring metric can reward overbroad contradictory answers. Tool avoidance was prompt-enforced; no tool traces were found in retained stderr, but command-level disabling was added only afterward.",
       "evidence_files": [
         "results/P2-MEMORYAGENTBENCH-CODEX-SCALE-15Q-20260729.json"
       ]

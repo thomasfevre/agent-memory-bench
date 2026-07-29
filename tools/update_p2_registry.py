@@ -102,7 +102,9 @@ def longmemeval_record(payload: dict[str, Any]) -> dict[str, Any]:
         ),
         "limitation": (
             "Answer matching outside the original alias set is a strict lower "
-            "bound, and this run has no no-context memorization control."
+            "bound, and this run has no no-context memorization control. Tool "
+            "avoidance was prompt-enforced; no tool traces were found in retained "
+            "stderr, but command-level disabling was added only afterward."
         ),
         "evidence_files": [
             "results/P2-LONGMEMEVAL-ROLE-ABLATION-29PAIRS-20260729.json"
@@ -234,7 +236,9 @@ def mab_scale_record(payload: dict[str, Any]) -> dict[str, Any]:
         "limitation": (
             "Only 15 fixed questions per variant were evaluated, and the "
             "official substring metric can reward overbroad contradictory "
-            "answers."
+            "answers. Tool avoidance was prompt-enforced; no tool traces were "
+            "found in retained stderr, but command-level disabling was added "
+            "only afterward."
         ),
         "evidence_files": [
             "results/P2-MEMORYAGENTBENCH-CODEX-SCALE-15Q-20260729.json"

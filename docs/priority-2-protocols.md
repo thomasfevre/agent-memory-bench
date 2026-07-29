@@ -63,12 +63,18 @@ remain specific to this fixed slice.
   `gpt-5.6-luna` session.
 - Deterministic checks: exact match, substring match and token F1 remain
   alongside the judge.
-- Status: runner implemented and tested; model campaign waits for the
-  MemoryAgentBench scale sweep to finish.
+- Tool policy: browser, apps, shell, computer-use, multi-agent and workspace
+  tools are disabled at the Codex command line.
+- Status: the tool-isolated reader and judge smoke passed. The full campaign is
+  running from a fresh artifact.
 
 The semantic judge cannot be called calibrated against humans until two blinded
 annotations exist. The annotation pack and agreement report are a separate
 deliverable and must not be replaced by model self-agreement.
+
+An earlier smoke was quarantined after its raw stderr showed a web search. It
+is excluded from every summary and public result. The incident established that
+prompt-only tool restrictions are insufficient.
 
 ## Human review gates
 
@@ -79,3 +85,10 @@ Two Priority 2 claims require real human observations:
 
 Code may prepare randomized review packs and compute agreement, but the
 measurements remain pending until two humans submit independent labels.
+
+The `human_calibration.py` CLI now prepares two independent CSV templates,
+keeps source keys and reference labels in a separate mapping, and computes
+coverage, Cohen's kappa, reference agreement, median review time and
+model-to-human judge error. The current Context Shard fixture has only three
+items and synthetic reference statuses, so it is a workflow smoke rather than
+a publishable human-quality estimate.

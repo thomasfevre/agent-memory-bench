@@ -24,7 +24,11 @@ from benchmark import Bm25, DenseIndex, MiniLm, MODEL_DIR
 from execution_order import interleaved_product
 from graph_benchmark_common import write_result
 from locomo_hybrid_fusion import weighted_rrf
-from longmemeval_codex_generation import run_codex, sha256_file
+from longmemeval_codex_generation import (
+    CODEX_DISABLED_FEATURES,
+    run_codex,
+    sha256_file,
+)
 from memoryagentbench_slice import (
     exact_match,
     normalize_answer,
@@ -687,6 +691,7 @@ def protocol_manifest(
         "dry_run": dry_run,
         "schema_sha256": schema_sha256,
         "reader_prompt_version": reader_prompt_version,
+        "codex_disabled_features": list(CODEX_DISABLED_FEATURES),
         "embedding_model_sha256": embedding_model_sha256,
         "codex_version": codex_version,
         "execution_seed": execution_seed,

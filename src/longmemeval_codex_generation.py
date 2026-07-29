@@ -46,6 +46,19 @@ SUPPORTED_ARCHITECTURES = [
     "hybrid_user_chunks",
 ]
 ABSTENTION_ANSWER = "INSUFFICIENT_EVIDENCE"
+CODEX_DISABLED_FEATURES = (
+    "apps",
+    "browser_use",
+    "browser_use_external",
+    "computer_use",
+    "enable_mcp_apps",
+    "in_app_browser",
+    "multi_agent",
+    "shell_tool",
+    "standalone_web_search",
+    "unified_exec",
+    "workspace_dependencies",
+)
 TOKEN_USE_PATTERN = re.compile(r"tokens used\s+([0-9\u00a0\u202f, ]+)", re.I)
 READER_PROMPT_VERSION = "longmemeval-reader-v1"
 CONTEXT_BUILDER_VERSION = 2
@@ -465,6 +478,11 @@ def run_codex(
             "--ephemeral",
             "--ignore-user-config",
             "--ignore-rules",
+            *[
+                argument
+                for feature in CODEX_DISABLED_FEATURES
+                for argument in ("--disable", feature)
+            ],
             "--skip-git-repo-check",
             "-s",
             "read-only",
@@ -1121,6 +1139,7 @@ def main() -> None:
         "timeout_seconds": args.timeout_seconds,
         "dry_run": args.dry_run,
         "reader_prompt_version": READER_PROMPT_VERSION,
+        "codex_disabled_features": list(CODEX_DISABLED_FEATURES),
         "embedding_model_sha256": embedding_model_sha256,
         "tokenizer_sha256": tokenizer_sha256,
         "execution_seed": args.execution_seed,

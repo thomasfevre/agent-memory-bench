@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "generated_at": "2026-07-29",
-  "artifact_count": 121,
-  "total_bytes": 135180663,
+  "artifact_count": 124,
+  "total_bytes": 135304104,
   "artifacts": [
     {
       "path": "results/COGNEE-COMMON-8DOCS-20260729.json",
@@ -736,6 +736,27 @@
       "path": "results/P2-LONGMEMEVAL-ROLE-ABLATION-29PAIRS-20260729.json",
       "bytes": 834500,
       "sha256": "d53f4bdbbbc203657b2a7c2775d38749eea981575218623ceae4ef1d11b0b0b0",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/P2-MEMGYM-DR-CODEX-30X4-20260729.json",
+      "bytes": 36374,
+      "sha256": "cbddc80a2751a392db0424bee27f5ebe9272e3e0cc5fabc1ac57b8f215bda6e8",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/P2-MEMGYM-DR-CODEX-30X4-CONTAMINATED-WEB-20260729.json",
+      "bytes": 72656,
+      "sha256": "d5b7385f2d0825a215fc6b9bcd459c46ac0ca5e16417c3602e63ff4130f87628",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/P2-MEMGYM-DR-CODEX-30X4-TOOL-DISABLED-UNRECORDED-20260729.json",
+      "bytes": 14411,
+      "sha256": "d3cf6587b54385330487b4eda311898047e67cbd3d9e2032fd1745d4006c4f39",
       "published": false,
       "reason": "raw dataset or provider output requires a separate license and privacy review"
     },

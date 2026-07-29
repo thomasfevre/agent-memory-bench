@@ -24,6 +24,12 @@ mixed in one schedule. Local Ollama models remain grouped by model to avoid
 turning reload and memory-pressure costs into task latency; their task order is
 interleaved inside each model block. Both choices are recorded in the manifest.
 
+Codex subscription readers run in an ephemeral, read-only directory with user
+configuration, project rules, browser, apps, shell, computer-use, multi-agent
+and workspace tools disabled at the command line. A prompt that merely says
+"do not use tools" is not considered an isolation control. Raw stderr is
+audited for tool traces before a campaign is consolidated.
+
 ## Canonical data and rebuildable views
 
 Raw records are append-only and immutable. Chunks, facts, embeddings, graphs,
@@ -89,6 +95,11 @@ Record separately:
 - citation validity and support;
 - task reward;
 - tool calls, messages, tokens and latency.
+
+Semantic model judging remains provisional until two humans label the same
+blinded sample independently. Human packs must not expose reader identity,
+architecture, run key or model-judge score. Agreement, review time and
+model-to-human error are reported separately.
 
 ### Durability
 

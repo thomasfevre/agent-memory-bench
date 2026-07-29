@@ -789,6 +789,42 @@ The paired analysis is in
 `results/MEMGYM-DR-RETRIEVAL-PAIRED-20260729.json`. This slice does not run
 answer generation or an LLM judge.
 
+The Priority 2 reader and judge campaign uses isolated Codex subscription
+sessions with browser, apps, shell and agent tools disabled at the command
+line. A bounded blinded calibration pack can be prepared after the run:
+
+```bash
+PYTHONPATH=src .venv/bin/python src/human_calibration.py prepare-judge \
+  --result results/P2-MEMGYM-DR-CODEX-30X4-20260729.json \
+  --output-dir .cache/human-calibration/memgym-judge \
+  --sample-size 40 \
+  --seed 20260729
+```
+
+Context Shard review uses the same blinded workflow:
+
+```bash
+PYTHONPATH=src .venv/bin/python src/human_calibration.py prepare-shards \
+  --shards data/shards.jsonl \
+  --corpus data/corpus.jsonl \
+  --output-dir .cache/human-calibration/context-shards \
+  --seed 20260729
+```
+
+After two people complete the generated CSV files independently:
+
+```bash
+PYTHONPATH=src .venv/bin/python src/human_calibration.py score \
+  --pack .cache/human-calibration/context-shards/review-pack.jsonl \
+  --mapping .cache/human-calibration/context-shards/private-mapping.jsonl \
+  --annotator-a .cache/human-calibration/context-shards/annotator-a.csv \
+  --annotator-b .cache/human-calibration/context-shards/annotator-b.csv \
+  --output results/P2-CONTEXT-SHARDS-HUMAN-CALIBRATION.json
+```
+
+The repository does not invent these labels. Until both humans submit them,
+the related Priority 2 claims remain open.
+
 ## MemGym MemRM full CPU reproduction
 
 The public 1.7B MemRM checkpoint was also rerun on all 6,209 rows of the

@@ -17,7 +17,11 @@ from rank_bm25 import BM25Okapi
 
 from execution_order import interleaved_product
 from graph_benchmark_common import write_result
-from longmemeval_codex_generation import run_codex, sha256_file
+from longmemeval_codex_generation import (
+    CODEX_DISABLED_FEATURES,
+    run_codex,
+    sha256_file,
+)
 from memoryagentbench_slice import (
     exact_match,
     substring_match,
@@ -407,6 +411,7 @@ def main() -> int:
         "codex_version": codex_version,
         "reader_prompt_version": READER_PROMPT_VERSION,
         "judge_prompt_version": JUDGE_PROMPT_VERSION,
+        "codex_disabled_features": list(CODEX_DISABLED_FEATURES),
         "reader_models": args.reader_models,
         "judge_models": args.judge_models,
         "architectures": args.architectures,

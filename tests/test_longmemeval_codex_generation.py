@@ -22,6 +22,7 @@ from longmemeval_codex_generation import (
     pair_consistency,
     parse_tokens_used,
     rank_chunks,
+    run_codex,
     score_response,
     select_context,
     token_f1,
@@ -217,6 +218,53 @@ class LongMemEvalCodexGenerationTests(unittest.TestCase):
 
     def test_parse_tokens_used_handles_narrow_spaces(self):
         self.assertEqual(16163, parse_tokens_used("tokens used\n16\u202f163"))
+
+    def test_codex_reader_disables_external_and_agent_tools(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            fake_codex = root / "fake-codex"
+            fake_codex.write_text(
+                "#!/bin/sh\n"
+                "printf '%s\\n' \"$@\" >&2\n"
+                "printf '%s\\n' '{\"answer\":\"ok\"}'\n",
+                encoding="utf-8",
+            )
+            fake_codex.chmod(0o755)
+            schema = root / "schema.json"
+            schema.write_text("{}", encoding="utf-8")
+
+            result = run_codex(
+                str(fake_codex),
+                "reader-model",
+                "low",
+                schema,
+                "Use only supplied context.",
+                10,
+                0,
+            )
+
+        self.assertTrue(result["ok"])
+        arguments = result["stderr_tail"].splitlines()
+        disabled = {
+            arguments[index + 1]
+            for index, argument in enumerate(arguments[:-1])
+            if argument == "--disable"
+        }
+        self.assertTrue(
+            {
+                "apps",
+                "browser_use",
+                "browser_use_external",
+                "computer_use",
+                "enable_mcp_apps",
+                "in_app_browser",
+                "multi_agent",
+                "shell_tool",
+                "standalone_web_search",
+                "unified_exec",
+                "workspace_dependencies",
+            }.issubset(disabled)
+        )
 
     def test_exact_mcnemar_is_one_when_no_disagreement(self):
         self.assertEqual(1.0, exact_mcnemar_p(0, 0))
