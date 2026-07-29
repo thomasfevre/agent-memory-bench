@@ -255,3 +255,13 @@ expiration events. The preregistered strict field score remains unchanged and
 primary. A secondary `text_observable_field_accuracy` excludes only those
 three event-field combinations and is explicitly marked post hoc in every
 result. It must not replace the strict score in rankings.
+
+### Active-state set correction
+
+The first-pass audit also showed that a correct selected answer can hide a
+stale record that was never invalidated. The scorer therefore defines
+`final_state_exact` over the complete active record set and reports
+`historical_active_state_accuracy` plus `stale_record_leakage_rate`.
+The earlier winner-only checks remain visible as `selected_final_value_exact`
+and `historical_query_accuracy`. This correction was made before inspecting
+the second and third repetitions.

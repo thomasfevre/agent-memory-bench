@@ -83,11 +83,11 @@ class TemporalMemory:
             invalidations.append(parse_time(candidate["effective_until"]))
         return invalidations
 
-    def query_record(
+    def _active_candidates(
         self,
         entity_key: str,
         query_at: str,
-    ) -> dict[str, Any] | None:
+    ) -> list[tuple[float, datetime, datetime, str, dict[str, Any]]]:
         when = parse_time(query_at)
         candidates = []
         for event_id, event in self.events.items():
@@ -112,6 +112,34 @@ class TemporalMemory:
                     event,
                 )
             )
+        return candidates
+
+    def active_state(
+        self,
+        entity_key: str,
+        query_at: str,
+    ) -> list[dict[str, Any]]:
+        return [
+            {
+                "event_id": event_id,
+                "value": event["value"],
+                "source_id": event["source_id"],
+                "effective_from": event["effective_from"],
+                "effective_until": event["effective_until"],
+                "event_type": event["event_type"],
+            }
+            for _, _, _, event_id, event in sorted(
+                self._active_candidates(entity_key, query_at),
+                key=lambda row: row[3],
+            )
+        ]
+
+    def query_record(
+        self,
+        entity_key: str,
+        query_at: str,
+    ) -> dict[str, Any] | None:
+        candidates = self._active_candidates(entity_key, query_at)
         if not candidates:
             return None
         return max(candidates, key=lambda row: row[:4])[4]
@@ -269,13 +297,21 @@ def evaluate_schedule_matrix(
             expected_memory = build_memory(deliveries, expected_by_id)
             extracted_memory = build_memory(deliveries, extracted_by_id)
             entity_keys = sorted(query_points)
-            final_correct = sum(
+            selected_final_correct = sum(
                 extracted_memory.query(entity, final_at)
                 == expected_memory.query(entity, final_at)
                 for entity in entity_keys
             )
+            final_correct = sum(
+                extracted_memory.active_state(entity, final_at)
+                == expected_memory.active_state(entity, final_at)
+                for entity in entity_keys
+            )
             historical_correct = 0
+            historical_active_correct = 0
             historical_total = 0
+            stale_records = 0
+            extracted_active_records = 0
             for entity, timestamps in query_points.items():
                 for timestamp in timestamps:
                     historical_total += 1
@@ -283,6 +319,25 @@ def evaluate_schedule_matrix(
                         extracted_memory.query(entity, timestamp)
                         == expected_memory.query(entity, timestamp)
                     )
+                    expected_active = expected_memory.active_state(
+                        entity,
+                        timestamp,
+                    )
+                    extracted_active = extracted_memory.active_state(
+                        entity,
+                        timestamp,
+                    )
+                    historical_active_correct += (
+                        extracted_active == expected_active
+                    )
+                    expected_ids = {
+                        record["event_id"] for record in expected_active
+                    }
+                    stale_records += sum(
+                        record["event_id"] not in expected_ids
+                        for record in extracted_active
+                    )
+                    extracted_active_records += len(extracted_active)
 
             abstention_correct = 0
             abstention_total = 0
@@ -303,7 +358,7 @@ def evaluate_schedule_matrix(
                     )
 
             final_values = {
-                entity: extracted_memory.query(entity, final_at)
+                entity: extracted_memory.active_state(entity, final_at)
                 for entity in entity_keys
             }
             final_signature = hashlib.sha256(
@@ -332,8 +387,19 @@ def evaluate_schedule_matrix(
                     "repetition": repetition,
                     "schedule": schedule_name,
                     "final_state_exact": final_correct / len(entity_keys),
+                    "selected_final_value_exact": (
+                        selected_final_correct / len(entity_keys)
+                    ),
                     "historical_query_accuracy": (
                         historical_correct / historical_total
+                    ),
+                    "historical_active_state_accuracy": (
+                        historical_active_correct / historical_total
+                    ),
+                    "stale_record_leakage_rate": (
+                        stale_records / extracted_active_records
+                        if extracted_active_records
+                        else 0.0
                     ),
                     "abstention_after_invalidation": (
                         abstention_correct / abstention_total

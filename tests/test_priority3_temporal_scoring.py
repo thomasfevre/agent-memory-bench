@@ -129,6 +129,39 @@ def test_temporal_memory_is_order_independent_and_deduplicates_retries():
     assert first.duplicate_delivery_count == 1
 
 
+def test_active_state_exposes_stale_record_hidden_by_selected_value():
+    assertion = {
+        **EXPECTED,
+        "entity_key": "entity-x.mode",
+        "value": "v1",
+        "source_id": "source-1",
+    }
+    correct_correction = {
+        **EXPECTED,
+        "entity_key": "entity-x.mode",
+        "value": "v2",
+        "asserted_at": "2026-02-01T00:00:00Z",
+        "effective_from": "2026-01-15T00:00:00Z",
+        "event_type": "correction",
+        "target_event_id": "event-1",
+        "source_id": "source-2",
+    }
+    broken_correction = {**correct_correction, "target_event_id": None}
+    expected_memory = TemporalMemory()
+    expected_memory.ingest("event-1", assertion)
+    expected_memory.ingest("event-2", correct_correction)
+    broken_memory = TemporalMemory()
+    broken_memory.ingest("event-1", assertion)
+    broken_memory.ingest("event-2", broken_correction)
+
+    query_at = "2026-03-01T00:00:00Z"
+    assert expected_memory.query("entity-x.mode", query_at) == "v2"
+    assert broken_memory.query("entity-x.mode", query_at) == "v2"
+    assert expected_memory.active_state("entity-x.mode", query_at) != (
+        broken_memory.active_state("entity-x.mode", query_at)
+    )
+
+
 def test_expiration_retraction_and_low_confidence_do_not_invent_active_state():
     memory = TemporalMemory()
     memory.ingest(
