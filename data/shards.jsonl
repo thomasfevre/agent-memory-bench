@@ -1,0 +1,3 @@
+{"id":"s01","text":"Always use UTC timestamps in incident reports.","source_ids":["d09","d10"],"occurrences":2,"review":"approved","scope":"incident-report"}
+{"id":"s02","text":"Always use dark-mode screenshots in release reports.","source_ids":["d11","d12"],"occurrences":2,"review":"rejected","scope":"release-report"}
+{"id":"s03","text":"Atlas deploys from ember.","source_ids":["d02"],"occurrences":1,"review":"deferred","scope":"atlas-deploy"}

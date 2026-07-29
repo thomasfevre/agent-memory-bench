@@ -1,0 +1,20 @@
+{"id":"q01","query":"Which branch should Atlas deploy from on 2026-07-28?","query_date":"2026-07-28","category":"temporal","gold_source_ids":["d02"],"answer":"ember","should_abstain":false}
+{"id":"q02","query":"Which branch did Atlas deploy from on 2026-07-10?","query_date":"2026-07-10","category":"temporal","gold_source_ids":["d01"],"answer":"canary","should_abstain":false}
+{"id":"q03","query":"Who can approve skipping the dry run for a SEV-1 hotfix on 2026-07-22?","query_date":"2026-07-22","category":"multi_hop_temporal","gold_source_ids":["d04","d06"],"answer":"Mina","should_abstain":false}
+{"id":"q04","query":"How long are normal exports retained?","query_date":"2026-07-28","category":"fact","gold_source_ids":["d07"],"answer":"30 days","should_abstain":false}
+{"id":"q05","query":"How long must a rare blue-seal export be retained?","query_date":"2026-07-28","category":"rare_exception","gold_source_ids":["d08"],"answer":"365 days","should_abstain":false}
+{"id":"q06","query":"How long are purple-seal exports retained?","query_date":"2026-07-28","category":"abstention","gold_source_ids":[],"answer":null,"should_abstain":true}
+{"id":"q07","query":"Who is the incident commander on 2026-07-28?","query_date":"2026-07-28","category":"temporal","gold_source_ids":["d06"],"answer":"Mina","should_abstain":false}
+{"id":"q08","query":"Who was the incident commander on 2026-07-10?","query_date":"2026-07-10","category":"temporal","gold_source_ids":["d05"],"answer":"Dana","should_abstain":false}
+{"id":"q09","query":"Which timestamp convention was promoted to shared team context?","query_date":"2026-07-28","category":"context_shard","gold_source_ids":["d09","d10"],"answer":"UTC","should_abstain":false}
+{"id":"q10","query":"Is dark-mode screenshot usage an approved shared rule?","query_date":"2026-07-28","category":"rejected_shard","gold_source_ids":["d11","d12"],"answer":"no","should_abstain":false}
+{"id":"q11","query":"May files inside raw-sources be edited?","query_date":"2026-07-28","category":"fact","gold_source_ids":["d15"],"answer":"no","should_abstain":false}
+{"id":"q12","query":"Which memory artifacts must be rebuildable from the raw sources?","query_date":"2026-07-28","category":"list","gold_source_ids":["d16"],"answer":"summaries, embeddings, indexes, and graphs","should_abstain":false}
+{"id":"q13","query":"Which team owns Orion and who is on call for that team in July 2026?","query_date":"2026-07-14","category":"multi_hop","gold_source_ids":["d17","d18"],"answer":"Aurora team, Ravi","should_abstain":false}
+{"id":"q14","query":"What is the maximum number of Search API retries?","query_date":"2026-07-28","category":"fact","gold_source_ids":["d13"],"answer":"3","should_abstain":false}
+{"id":"q15","query":"What is the Search API timeout?","query_date":"2026-07-28","category":"fact","gold_source_ids":["d14"],"answer":"5 seconds","should_abstain":false}
+{"id":"q16","query":"What field must a cross-tenant deduplication key contain?","query_date":"2026-07-28","category":"exact","gold_source_ids":["d19"],"answer":"tenant_id","should_abstain":false}
+{"id":"q17","query":"What is the currently authorized line of development used to ship Atlas?","query_date":"2026-07-28","category":"semantic","gold_source_ids":["d02"],"answer":"ember","should_abstain":false}
+{"id":"q18","query":"Is sapphire an approved Atlas deployment branch?","query_date":"2026-07-28","category":"conflict","gold_source_ids":["d02","d20"],"answer":"no","should_abstain":false}
+{"id":"q19","query":"What must accompany every production database migration?","query_date":"2026-07-28","category":"fact","gold_source_ids":["d28"],"answer":"a rollback script","should_abstain":false}
+{"id":"q20","query":"How long are amber-seal exports retained?","query_date":"2026-07-28","category":"rare_exception","gold_source_ids":["d27"],"answer":"180 days","should_abstain":false}

@@ -1,0 +1,807 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-07-29",
+  "campaign": {
+    "title": "Agent Memory Bench",
+    "repository": "https://github.com/thomasfevre/agent-memory-bench",
+    "principle": "Compare every memory boundary under an explicit dataset, context budget, reader, judge and repetition count.",
+    "constraints": [
+      "No paid API budget",
+      "Synthetic or public data only",
+      "Local models through Ollama where possible",
+      "Subscription readers isolated from private files and tools",
+      "Raw dataset and provider outputs remain local pending license and privacy review",
+      "No universal aggregate leaderboard"
+    ],
+    "headline": "No system wins everywhere. Ingestion loss, temporal filtering, retrieval granularity and reader behavior can each reverse the ranking."
+  },
+  "workflow": [
+    {
+      "id": "source",
+      "label": "Sources",
+      "description": "Immutable documents, conversations, events and task trajectories."
+    },
+    {
+      "id": "ingestion",
+      "label": "Ingestion",
+      "description": "Raw storage, LLM extraction, deduplication, temporal metadata and Context Shards."
+    },
+    {
+      "id": "representation",
+      "label": "Representation",
+      "description": "Chunks, atomic facts, graphs, event logs, snapshots and temporal indexes."
+    },
+    {
+      "id": "retrieval",
+      "label": "Retrieval",
+      "description": "Long context, BM25, MiniLM, hybrid fusion, routing and graph expansion."
+    },
+    {
+      "id": "context",
+      "label": "Context",
+      "description": "Evidence recall, precision, temporal correctness, provenance and token budget."
+    },
+    {
+      "id": "reader",
+      "label": "Reader or agent",
+      "description": "Local Qwen readers, isolated Codex readers and tool-using agents."
+    },
+    {
+      "id": "judge",
+      "label": "Verification",
+      "description": "Exact and token metrics, paired tests, bootstrap, crash recovery and evidence audit."
+    }
+  ],
+  "runs": [
+    {
+      "id": "jcode-targeted-tests-20260728",
+      "date": "2026-07-28",
+      "phase": "implementation",
+      "dataset": "jcode repository",
+      "task": "Memory, swarm, session, reload and persistence tests",
+      "method": "Compiled Rust test binaries and full offline workspace suite",
+      "reader": null,
+      "evidence_level": "controlled",
+      "sample": "119 targeted tests plus the full workspace suite",
+      "repetitions": 2,
+      "metrics": {
+        "targeted_passed": 119,
+        "targeted_total": 119,
+        "workspace_exit_code": 101,
+        "workspace_targets_still_failing_after_isolation": 12,
+        "jcode_core_isolated_passed": 39,
+        "jcode_core_isolated_total": 39
+      },
+      "budget": {
+        "network": "offline"
+      },
+      "conclusion": "The memory and swarm components have substantial local implementation evidence, but the repository as a whole is not green.",
+      "limitation": "Implementation tests do not establish end-to-end LLM quality.",
+      "evidence_files": [
+        "results/JCODE-COMMON-SMOKE-20260729.json"
+      ]
+    },
+    {
+      "id": "common-retrieval-20260729",
+      "date": "2026-07-29",
+      "phase": "retrieval",
+      "dataset": "Synthetic common corpus",
+      "task": "Evidence retrieval with temporal updates, rare exceptions, multi-hop and abstention",
+      "method": "Eight aligned retrieval strategies",
+      "reader": null,
+      "evidence_level": "controlled",
+      "sample": "28 documents, 18 reference facts, 20 questions",
+      "repetitions": 3,
+      "metrics": {
+        "series": [
+          {"method": "Long context", "recall": 1.0, "context_precision": 0.043, "temporal_correctness": 0.0, "latency_ms": 0.0},
+          {"method": "BM25", "recall": 0.921, "context_precision": 0.227, "temporal_correctness": 0.0, "latency_ms": 0.05},
+          {"method": "MiniLM dense", "recall": 0.974, "context_precision": 0.23, "temporal_correctness": 0.0, "latency_ms": 2.2},
+          {"method": "Hybrid", "recall": 0.974, "context_precision": 0.23, "temporal_correctness": 0.0, "latency_ms": 2.3},
+          {"method": "Dated facts", "recall": 0.895, "context_precision": 0.19, "temporal_correctness": 0.8, "latency_ms": 3.8},
+          {"method": "Dated graph", "recall": 0.921, "context_precision": 0.225, "temporal_correctness": 1.0, "latency_ms": 2.5},
+          {"method": "Type router", "recall": 0.947, "context_precision": 0.25, "temporal_correctness": 0.8, "latency_ms": 1.4},
+          {"method": "Parallel fusion", "recall": 0.974, "context_precision": 0.4, "temporal_correctness": 0.0, "latency_ms": 8.9}
+        ]
+      },
+      "budget": {
+        "top_k": 5
+      },
+      "conclusion": "Similarity maximizes broad recall, while explicit temporal filtering is required for current-state correctness.",
+      "limitation": "The corpus is small and synthetic; temporal correction is evaluated on five cases.",
+      "evidence_files": [
+        "results/COMMON-RETRIEVAL-COMPARISON-20260729.json"
+      ]
+    },
+    {
+      "id": "common-generation-qwen8-20260729",
+      "date": "2026-07-29",
+      "phase": "generation",
+      "dataset": "Synthetic common corpus",
+      "task": "Answer generation after aligned retrieval",
+      "method": "Long context, hybrid, routed and parallel-fusion contexts",
+      "reader": "qwen3:8b",
+      "evidence_level": "controlled",
+      "sample": "10 questions and 30 answers per architecture",
+      "repetitions": 3,
+      "metrics": {
+        "series": [
+          {"method": "Long context", "accuracy": 0.8, "tokens": 24315, "latency_s": 3.9},
+          {"method": "Hybrid", "accuracy": 0.7, "tokens": 7917, "latency_s": 3.29},
+          {"method": "Type router", "accuracy": 0.6, "tokens": 6654, "latency_s": 3.11},
+          {"method": "Parallel fusion", "accuracy": 0.6, "tokens": 7509, "latency_s": 3.23}
+        ]
+      },
+      "budget": {
+        "answers_per_architecture": 30
+      },
+      "conclusion": "The stronger local reader used the full context best, despite substantially more noise and tokens.",
+      "limitation": "This result reverses on larger and more distractor-heavy public data.",
+      "evidence_files": [
+        "results/PROTOTYPE-latest.json"
+      ]
+    },
+    {
+      "id": "topology-qwen17-20260729",
+      "date": "2026-07-29",
+      "phase": "agentic",
+      "dataset": "Synthetic common corpus",
+      "task": "Compare orchestration topologies under one reader",
+      "method": "Single agent, pipeline, router, verification, retry and supervisor",
+      "reader": "qwen3:1.7b",
+      "evidence_level": "controlled",
+      "sample": "8 questions",
+      "repetitions": 3,
+      "metrics": {
+        "series": [
+          {"method": "Single hybrid agent", "accuracy": 0.625, "calls": 24, "tokens": 6341, "latency_s": 1.07},
+          {"method": "Lexical then dense pipeline", "accuracy": 0.625, "calls": 24, "tokens": 6420, "latency_s": 0.94},
+          {"method": "Conditional router", "accuracy": 0.5, "calls": 24, "tokens": 5364, "latency_s": 0.85},
+          {"method": "Double adversarial verification", "accuracy": 0.125, "calls": 72, "tokens": 23167, "latency_s": 6.24},
+          {"method": "Verify then retry", "accuracy": 0.25, "calls": 72, "tokens": 22039, "latency_s": 4.24},
+          {"method": "Three workers and supervisor", "accuracy": 0.5, "calls": 96, "tokens": 30706, "latency_s": 3.84}
+        ]
+      },
+      "budget": {
+        "questions": 8
+      },
+      "conclusion": "The more complex topologies did not improve quality and verification rejected correct answers too often.",
+      "limitation": "Eight questions and one small reader do not characterize all multi-agent workloads.",
+      "evidence_files": [
+        "results/TOPOLOGY-latest.json"
+      ]
+    },
+    {
+      "id": "fact-extraction-20260729",
+      "date": "2026-07-29",
+      "phase": "ingestion",
+      "dataset": "Synthetic common corpus",
+      "task": "Atomic-fact extraction and temporal-window fidelity",
+      "method": "Two local extractors",
+      "reader": "qwen3:1.7b and qwen3:8b",
+      "evidence_level": "controlled",
+      "sample": "19 sources linked to 18 reference facts",
+      "repetitions": 3,
+      "metrics": {
+        "series": [
+          {"model": "qwen3:1.7b", "fact_text_f1": 0.703, "temporal_window_exact": 0.789, "latency_s_per_source": 0.82},
+          {"model": "qwen3:8b", "fact_text_f1": 0.704, "temporal_window_exact": 0.842, "latency_s_per_source": 2.49}
+        ]
+      },
+      "budget": {
+        "sources": 19
+      },
+      "conclusion": "The larger model mainly improved temporal metadata, not text F1.",
+      "limitation": "Text F1 penalizes useful paraphrases and does not fully measure semantic fidelity.",
+      "evidence_files": [
+        "results/INGESTION-latest.json"
+      ]
+    },
+    {
+      "id": "context-shard-policy-20260729",
+      "date": "2026-07-29",
+      "phase": "ingestion",
+      "dataset": "Synthetic Context Shards",
+      "task": "Separate repeated observation, human decision and active prompt injection",
+      "method": "Three promotion policies",
+      "reader": null,
+      "evidence_level": "controlled",
+      "sample": "Two repeated patterns and one deferred candidate",
+      "repetitions": 1,
+      "metrics": {
+        "series": [
+          {"policy": "Auto-promote after two mentions", "strict_accuracy": 0.5, "active_precision": 0.5, "rejected_shard_activation": 1.0},
+          {"policy": "Approved only", "strict_accuracy": 0.5, "active_precision": 1.0, "rejected_shard_activation": 0.0},
+          {"policy": "Active memory plus decision registry", "strict_accuracy": 1.0, "active_precision": 1.0, "rejected_shard_activation": 0.0}
+        ]
+      },
+      "budget": {
+        "shards": 3
+      },
+      "conclusion": "Frequency must not equal approval; a separate decision registry preserves both active rules and rejected history.",
+      "limitation": "Human review decisions and review dates are synthetic.",
+      "evidence_files": [
+        "results/CONTEXT-SHARD-POLICIES-20260729.json"
+      ]
+    },
+    {
+      "id": "incremental-lifecycle-20260729",
+      "date": "2026-07-29",
+      "phase": "durability",
+      "dataset": "Synthetic incremental event stream",
+      "task": "Current and historical state, provenance, abstention, expiry and retraction",
+      "method": "Snapshot, event-log scan and two temporal-index policies",
+      "reader": null,
+      "evidence_level": "controlled",
+      "sample": "21 events and 25 checkpoints",
+      "repetitions": 1,
+      "metrics": {
+        "series": [
+          {"policy": "Latest-write snapshot", "exact_state": 0.52, "source_ids_exact": 0.625, "correct_abstention": 0.333, "unsafe_answer": 0.667, "records_inspected": 0.88},
+          {"policy": "Raw event-log scan", "exact_state": 1.0, "source_ids_exact": 1.0, "correct_abstention": 1.0, "unsafe_answer": 0.0, "records_inspected": 21.32},
+          {"policy": "Reviewed temporal index", "exact_state": 1.0, "source_ids_exact": 1.0, "correct_abstention": 1.0, "unsafe_answer": 0.0, "records_inspected": 6.0},
+          {"policy": "Temporal auto-promotion", "exact_state": 0.76, "source_ids_exact": 1.0, "correct_abstention": 0.333, "unsafe_answer": 0.667, "records_inspected": 6.0}
+        ]
+      },
+      "budget": {
+        "events": 21,
+        "checkpoints": 25
+      },
+      "conclusion": "The reviewed temporal index matches event-log correctness with less query-time work on this preregistered stream.",
+      "limitation": "The policies were designed for this deterministic workload and do not measure model extraction.",
+      "evidence_files": [
+        "results/INCREMENTAL-MEMORY-LIFECYCLE-20260729.json"
+      ]
+    },
+    {
+      "id": "incremental-crash-recovery-20260729",
+      "date": "2026-07-29",
+      "phase": "durability",
+      "dataset": "Synthetic incremental event stream",
+      "task": "Recover an append-only SQLite event log across process crashes",
+      "method": "WAL, synchronous FULL, crash immediately before and after commit",
+      "reader": null,
+      "evidence_level": "controlled",
+      "sample": "Six crash boundaries and twelve forced process exits",
+      "repetitions": 1,
+      "metrics": {
+        "boundary_pairs_passed": 6,
+        "boundary_pairs_total": 6,
+        "events_recovered": 21,
+        "integrity_checks_passed": 6,
+        "semantic_signatures_equal": 6
+      },
+      "budget": {
+        "crash_points": [0, 5, 10, 15, 19, 20]
+      },
+      "conclusion": "Uncommitted writes roll back, committed writes survive and the same semantic state is rebuilt in a second process.",
+      "limitation": "This does not cover arbitrary kernel failure, WAL-checkpoint failure, secure erasure or distributed durability.",
+      "evidence_files": [
+        "results/INCREMENTAL-MEMORY-PERSISTENCE-20260729.json"
+      ]
+    },
+    {
+      "id": "jcode-common-20260729",
+      "date": "2026-07-29",
+      "phase": "ingestion",
+      "dataset": "Synthetic common corpus",
+      "task": "Separate jcode import consolidation from its hybrid retriever",
+      "method": "Official CLI import versus stable-ID upsert",
+      "reader": null,
+      "evidence_level": "controlled",
+      "sample": "28 documents and 20 questions",
+      "repetitions": 3,
+      "metrics": {
+        "series": [
+          {"mode": "Official CLI import", "memories_after_ingestion": 17, "recall": 0.526, "context_precision": 0.126, "temporal_correctness": 0.4},
+          {"mode": "Stable-ID upsert", "memories_after_ingestion": 28, "recall": 0.895, "context_precision": 0.221, "temporal_correctness": 0.8}
+        ]
+      },
+      "budget": {
+        "top_k": 5
+      },
+      "conclusion": "Most of the observed loss comes from aggressive consolidation during import, not from the hybrid retriever itself.",
+      "limitation": "The fixed top-5 path always returns candidates and cannot abstain.",
+      "evidence_files": [
+        "results/JCODE-COMMON-3X-20260729.json"
+      ]
+    },
+    {
+      "id": "mem0-common-20260729",
+      "date": "2026-07-29",
+      "phase": "ingestion",
+      "dataset": "Synthetic common corpus",
+      "task": "Separate raw storage from LLM memory extraction",
+      "method": "Mem0 OSS with Qdrant and nomic-embed-text",
+      "reader": "qwen3:1.7b for infer=True",
+      "evidence_level": "controlled",
+      "sample": "28 documents and 20 questions",
+      "repetitions": 3,
+      "metrics": {
+        "series": [
+          {"mode": "Raw infer=False", "memories": 28, "identifiable_sources": 28, "recall": 1.0, "context_precision": 0.253, "temporal_correctness": 1.0, "ingestion_s": 0.81},
+          {"mode": "Extraction infer=True", "memories": 41, "identifiable_sources": 26, "recall": 0.921, "context_precision": 0.246, "temporal_correctness": 0.8, "ingestion_s": 326.83}
+        ]
+      },
+      "budget": {
+        "top_k": 5
+      },
+      "conclusion": "In this configuration, extraction adds cost, duplication and false provenance without improving retrieval.",
+      "limitation": "The result is specific to a small local extractor, atomic source documents and dense retrieval without the optional BM25 extra.",
+      "evidence_files": [
+        "results/MEM0-COMMON-3X-20260729.json"
+      ]
+    },
+    {
+      "id": "locomo-retrieval-20260729",
+      "date": "2026-07-29",
+      "phase": "retrieval",
+      "dataset": "LoCoMo",
+      "task": "Retrieve annotated dialogue-turn evidence",
+      "method": "BM25, MiniLM and 50/50 hybrid",
+      "reader": null,
+      "evidence_level": "official-data",
+      "sample": "1,982 questions from 10 conversations",
+      "repetitions": 1,
+      "metrics": {
+        "series": [
+          {"method": "BM25", "top5_recall": 0.468, "mrr": 0.363, "latency_ms": 1.7},
+          {"method": "MiniLM dense", "top5_recall": 0.334, "mrr": 0.241, "latency_ms": 2.9},
+          {"method": "Hybrid", "top5_recall": 0.499, "mrr": 0.359, "latency_ms": 4.6}
+        ],
+        "hybrid_multihop_recall": 0.198,
+        "hybrid_temporal_recall": 0.575,
+        "hybrid_singlehop_recall": 0.593
+      },
+      "budget": {
+        "top_k": 5,
+        "retrieval_unit": "dialogue turn"
+      },
+      "conclusion": "Turn-level evidence retrieval is difficult, especially for multi-hop questions.",
+      "limitation": "This run evaluates retrieval, not final answers.",
+      "evidence_files": [
+        "results/EXTERNAL-LOC0MO.json"
+      ]
+    },
+    {
+      "id": "locomo-granularity-20260729",
+      "date": "2026-07-29",
+      "phase": "retrieval",
+      "dataset": "LoCoMo",
+      "task": "Measure retrieval-unit granularity under equal item and equal word budgets",
+      "method": "Turns, overlapping windows and full sessions",
+      "reader": null,
+      "evidence_level": "official-data",
+      "sample": "1,982 questions from 10 conversations",
+      "repetitions": 1,
+      "metrics": {
+        "same_top5": [
+          {"unit": "turn", "bm25_recall": 0.468, "words": 125, "context_precision": 0.106},
+          {"unit": "four-turn window", "bm25_recall": 0.725, "words": 425, "context_precision": 0.053},
+          {"unit": "session", "bm25_recall": 0.829, "words": 2737, "context_precision": 0.009}
+        ],
+        "same_500_words": [
+          {"unit": "turn", "bm25": 0.595, "dense": 0.512, "hybrid": 0.674},
+          {"unit": "four-turn window", "bm25": 0.738, "dense": 0.597, "hybrid": 0.72},
+          {"unit": "session", "bm25": 0.529, "dense": 0.255, "hybrid": 0.381}
+        ]
+      },
+      "budget": {
+        "word_budget": 500
+      },
+      "conclusion": "Five sessions look best only because they inject almost 22 times more words; local windows win under a common budget.",
+      "limitation": "The best window size depends on the retriever and MiniLM truncation.",
+      "evidence_files": [
+        "results/LOCOMO-GRANULARITY-20260729.json",
+        "results/LOCOMO-WINDOW-GRID-20260729.json",
+        "results/LOCOMO-HYBRID-FUSION-20260729.json"
+      ]
+    },
+    {
+      "id": "longmemeval-retrieval-20260729",
+      "date": "2026-07-29",
+      "phase": "retrieval",
+      "dataset": "LongMemEval-S",
+      "task": "Retrieve annotated evidence sessions",
+      "method": "BM25, MiniLM and hybrid",
+      "reader": null,
+      "evidence_level": "official-data",
+      "sample": "470 answerable questions from 500 histories",
+      "repetitions": 1,
+      "metrics": {
+        "series": [
+          {"method": "BM25", "top5_recall": 0.914, "mrr": 0.907},
+          {"method": "MiniLM dense", "top5_recall": 0.859, "mrr": 0.826},
+          {"method": "Hybrid", "top5_recall": 0.922, "mrr": 0.903}
+        ],
+        "hybrid_knowledge_update_recall": 0.968,
+        "hybrid_temporal_recall": 0.871
+      },
+      "budget": {
+        "top_k": 5,
+        "retrieval_unit": "session"
+      },
+      "conclusion": "Session retrieval is much easier than LoCoMo turn retrieval under the same top-k.",
+      "limitation": "The units and context sizes differ, so the raw percentage is not a product leaderboard.",
+      "evidence_files": [
+        "results/EXTERNAL-OFFICIAL.json"
+      ]
+    },
+    {
+      "id": "longmemeval-generation-20260729",
+      "date": "2026-07-29",
+      "phase": "generation",
+      "dataset": "LongMemEval-S",
+      "task": "Paired answerable and near-miss challenge",
+      "method": "No context, BM25 and hybrid with two isolated Codex readers",
+      "reader": "gpt-5.6-luna and gpt-5.6-sol",
+      "evidence_level": "official-data",
+      "sample": "Eight paired questions, 16 prompts per condition",
+      "repetitions": 3,
+      "metrics": {
+        "series": [
+          {"reader": "Luna", "context": "BM25", "accuracy": 0.792, "answerable_accuracy": 0.667, "trap_detection": 0.917, "tokens_per_call": 10577},
+          {"reader": "Luna", "context": "Hybrid", "accuracy": 0.771, "answerable_accuracy": 0.542, "trap_detection": 1.0, "tokens_per_call": 9198},
+          {"reader": "Sol", "context": "BM25", "accuracy": 0.833, "answerable_accuracy": 0.792, "trap_detection": 0.875, "tokens_per_call": 16985},
+          {"reader": "Sol", "context": "Hybrid", "accuracy": 0.813, "answerable_accuracy": 0.75, "trap_detection": 0.875, "tokens_per_call": 16742}
+        ]
+      },
+      "budget": {
+        "word_budget": 4000,
+        "expected_calls": 288
+      },
+      "conclusion": "BM25 and hybrid were statistically indistinguishable on this diagnostic slice; multi-session reading remained the main failure.",
+      "limitation": "This is not the official LLM-judged LongMemEval score and eight pairs are too few to rank readers.",
+      "evidence_files": [
+        "results/LONGMEMEVAL-CODEX-GENERATION-8PAIRS-20260729.json"
+      ]
+    },
+    {
+      "id": "memoryagentbench-conflict-6k-20260729",
+      "date": "2026-07-29",
+      "phase": "generation",
+      "dataset": "MemoryAgentBench Conflict Resolution",
+      "task": "Answer from a static 456-fact memory with contradictory updates",
+      "method": "Full context, BM25 top-20 and hybrid top-20",
+      "reader": "gpt-5.6-sol",
+      "evidence_level": "official-data",
+      "sample": "100 multi-hop and 100 single-hop questions",
+      "repetitions": 1,
+      "metrics": {
+        "series": [
+          {"task": "multi-hop", "method": "Full context", "substring": 0.01, "exact": 0.0, "context_words": 4431, "tokens": 13266},
+          {"task": "multi-hop", "method": "BM25", "substring": 0.13, "exact": 0.02, "context_words": 200, "tokens": 4437},
+          {"task": "multi-hop", "method": "Hybrid", "substring": 0.13, "exact": 0.01, "context_words": 200, "tokens": 3514},
+          {"task": "single-hop", "method": "Full context", "substring": 0.47, "exact": 0.26, "context_words": 4431, "tokens": 10247},
+          {"task": "single-hop", "method": "BM25", "substring": 0.69, "exact": 0.25, "context_words": 189, "tokens": 3525},
+          {"task": "single-hop", "method": "Hybrid", "substring": 0.65, "exact": 0.25, "context_words": 197, "tokens": 3154}
+        ]
+      },
+      "budget": {
+        "top_k": 20,
+        "expected_calls": 600
+      },
+      "conclusion": "Compressed retrieval significantly beats full context on both 6k tasks, but multi-hop remains very weak.",
+      "limitation": "The official substring metric can reward answers that contain both the correct and a contradictory value.",
+      "evidence_files": [
+        "results/MEMORYAGENTBENCH-CODEX-CONFLICT-6K-200Q-20260729.json"
+      ]
+    },
+    {
+      "id": "memoryagentbench-retrieval-families-20260729",
+      "date": "2026-07-29",
+      "phase": "retrieval",
+      "dataset": "MemoryAgentBench",
+      "task": "Retrieval and coverage across classification, recommendation, QA, event ordering and summarization",
+      "method": "Deterministic BM25 and lexical ablations",
+      "reader": null,
+      "evidence_level": "official-data",
+      "sample": "500 ICL questions, 200 ReDial, 200 RULER, 1,500 EventQA, 71 DetectiveQA and 100 books",
+      "repetitions": 1,
+      "metrics": {
+        "highlights": [
+          {"name": "RULER QA1 hit@5", "value": 0.91},
+          {"name": "RULER QA2 hit@5", "value": 0.67},
+          {"name": "ReDial movie recall@5", "value": 0.31},
+          {"name": "ReDial movie recall@100", "value": 0.715},
+          {"name": "EventQA 65k lexical accuracy", "value": 0.606},
+          {"name": "EventQA full-book lexical accuracy", "value": 0.484},
+          {"name": "Book keypoint lexical recall, BM25 budget", "value": 0.652},
+          {"name": "Book keypoint lexical recall, full context", "value": 0.84}
+        ]
+      },
+      "budget": {
+        "varies_by_subtask": true
+      },
+      "conclusion": "Memory presence and retrieval ability are separate limits; distractors and query construction cause large losses even when the target exists.",
+      "limitation": "These are layer-specific ablations, not the official end-to-end scores.",
+      "evidence_files": [
+        "results/MEMORYAGENTBENCH-TTL-RETRIEVAL-20260729.json",
+        "results/MEMORYAGENTBENCH-REDIAL-RETRIEVAL-20260729.json",
+        "results/MEMORYAGENTBENCH-RULER-RETRIEVAL-20260729.json",
+        "results/MEMORYAGENTBENCH-EVENTQA-QUERY-ABLATION-20260729.json",
+        "results/MEMORYAGENTBENCH-DETECTIVEQA-QUERY-ABLATION-20260729.json",
+        "results/MEMORYAGENTBENCH-SUMMARIZATION-COVERAGE-20260729.json"
+      ]
+    },
+    {
+      "id": "memgym-dr-retrieval-20260729",
+      "date": "2026-07-29",
+      "phase": "retrieval",
+      "dataset": "MemGym-DR",
+      "task": "Retrieve required multi-hop facts",
+      "method": "Official IRBM25Memory and paired MiniLM sample",
+      "reader": null,
+      "evidence_level": "official-data",
+      "sample": "1,194 public cases; 90 paired dense cases",
+      "repetitions": 1,
+      "metrics": {
+        "bm25_proxy_recall": [
+          {"top_k": 1, "value": 0.689},
+          {"top_k": 2, "value": 0.918},
+          {"top_k": 5, "value": 0.997},
+          {"top_k": 10, "value": 1.0}
+        ],
+        "top10_context_words": 3800,
+        "dense_minus_bm25_top2": -0.0502
+      },
+      "budget": {
+        "top_k": [1, 2, 5, 10]
+      },
+      "conclusion": "BM25 is strong on the official lexical proxy and beats MiniLM at top-2 on the paired sample.",
+      "limitation": "The proxy saturates at generous context and does not evaluate final multi-hop answers.",
+      "evidence_files": [
+        "results/MEMGYM-DR-RETRIEVAL-20260729.json",
+        "results/MEMGYM-DR-RETRIEVAL-PAIRED-20260729.json"
+      ]
+    },
+    {
+      "id": "memrm-reproduction-20260729",
+      "date": "2026-07-29",
+      "phase": "implementation",
+      "dataset": "MemGym MemRM scenario-ood-tau2",
+      "task": "Reproduce the released safety classifier",
+      "method": "Official CLI on CPU without NF4",
+      "reader": "MemRM 1.7B checkpoint",
+      "evidence_level": "official-data",
+      "sample": "6,209 events",
+      "repetitions": 1,
+      "metrics": {
+        "local_auroc": 0.507,
+        "released_auroc": 0.52,
+        "class_agreement": 0.699,
+        "probability_correlation": 0.472,
+        "mean_absolute_probability_error": 0.316
+      },
+      "budget": {
+        "bootstrap_samples": 1000
+      },
+      "conclusion": "Aggregate AUROC is close to the released artifact, while per-event probabilities reproduce poorly.",
+      "limitation": "Hardware and quantization differ from the eight-GPU released run.",
+      "evidence_files": [
+        "results/MEMGYM-MEMRM-TAU2-REPRODUCTION-20260729.json"
+      ]
+    },
+    {
+      "id": "cognee-graphiti-common-20260729",
+      "date": "2026-07-29",
+      "phase": "retrieval",
+      "dataset": "Eight-document temporal graph slice",
+      "task": "Compare graph ingestion, source retrieval and temporal correctness",
+      "method": "Cognee and Graphiti with the same Qwen 2.5 14B extractor",
+      "reader": null,
+      "evidence_level": "controlled",
+      "sample": "Eight documents and eight questions",
+      "repetitions": 3,
+      "metrics": {
+        "series": [
+          {"system": "Cognee", "documents_ingested": 8, "ingestion_s_mean": 197.8, "ingestion_s_sd": 11.1, "recall": 0.738, "recall_sd": 0.147, "context_precision": 0.429, "temporal_correctness": 0.6, "retrieval_ms": 3924.4},
+          {"system": "Graphiti", "documents_ingested": 7, "ingestion_s_mean": 299.0, "ingestion_s_sd": 65.1, "recall": 0.5, "recall_sd": 0.0, "context_precision": 0.357, "temporal_correctness": 0.6, "retrieval_ms": 40.1}
+        ]
+      },
+      "budget": {
+        "document_timeout_s": 90
+      },
+      "conclusion": "Cognee covers more sources but is slower and unstable; Graphiti reads quickly but loses more information and repeats an ingestion timeout.",
+      "limitation": "Eight synthetic documents are not a general graph-memory benchmark.",
+      "evidence_files": [
+        "results/GRAPH-REPETITIONS-QWEN25-20260729.json"
+      ]
+    },
+    {
+      "id": "graphrag-bench-chunk-neighborhood-20260729",
+      "date": "2026-07-29",
+      "phase": "retrieval",
+      "dataset": "GraphRAG-Bench Novel",
+      "task": "Retrieve official evidence sentences from fixed chunks",
+      "method": "BM25, MiniLM, hybrid and deterministic chunk-neighborhood expansion",
+      "reader": null,
+      "evidence_level": "official-data",
+      "sample": "20 novels, 2,010 questions, 7,003 chunks and 4,689 evidence sentences",
+      "repetitions": 1,
+      "metrics": {
+        "representable_evidence": 0.209,
+        "fully_representable_questions": 0.141,
+        "series": [
+          {"method": "BM25", "mean_question_recall": 0.163, "conditional_recall": 0.643, "complete_coverage": 0.722, "latency_ms": 1.18},
+          {"method": "MiniLM", "mean_question_recall": 0.149, "conditional_recall": 0.586, "complete_coverage": 0.648, "latency_ms": 2.99},
+          {"method": "Hybrid", "mean_question_recall": 0.171, "conditional_recall": 0.681, "complete_coverage": 0.754, "latency_ms": 4.19},
+          {"method": "BM25 plus neighbors", "mean_question_recall": 0.149, "conditional_recall": 0.589, "complete_coverage": 0.658, "latency_ms": 1.19},
+          {"method": "Hybrid plus neighbors", "mean_question_recall": 0.16, "conditional_recall": 0.635, "complete_coverage": 0.704, "latency_ms": 4.2}
+        ]
+      },
+      "budget": {
+        "top_k": 5,
+        "chunk_words": 160,
+        "lexical_evidence_threshold": 0.85
+      },
+      "conclusion": "Replacing two top-five chunks with graph neighbors significantly reduced evidence recall under this operator.",
+      "limitation": "This is not a real entity-relation GraphRAG engine and the lexical judge covers only 20.9 percent of evidence.",
+      "evidence_files": [
+        "results/GRAPHRAG-BENCH-CHUNK-GRAPH-FULL-20260729.json"
+      ]
+    },
+    {
+      "id": "lightrag-operational-timeout-20260729",
+      "date": "2026-07-29",
+      "phase": "ingestion",
+      "dataset": "GraphRAG-Bench Novel-30752",
+      "task": "Run the official LightRAG path end to end",
+      "method": "LightRAG 1.2.5, Qwen 2.5 14B and nomic-embed-text",
+      "reader": "qwen2.5:14b",
+      "evidence_level": "timeout",
+      "sample": "One 29,099-word novel and one requested question",
+      "repetitions": 1,
+      "metrics": {
+        "operational_budget_minutes": 45,
+        "elapsed_minutes": 46,
+        "documents_completed": 0,
+        "answers_produced": 0
+      },
+      "budget": {
+        "time_minutes": 45
+      },
+      "conclusion": "The official local path remained in document processing beyond the declared budget and exposed no final index or answer.",
+      "limitation": "An operational timeout is not evidence that LightRAG fails in general.",
+      "evidence_files": [
+        "results/LIGHTRAG-GRAPHRAG-BENCH-20260729.json"
+      ]
+    },
+    {
+      "id": "memorydata-smoke-20260729",
+      "date": "2026-07-29",
+      "phase": "generation",
+      "dataset": "MemoryAgentBench EventQA",
+      "task": "Validate MemoryData runner presets and one end-to-end question",
+      "method": "Long context, BM25 top-10 and top-2, dense top-2",
+      "reader": "qwen3:8b and qwen2.5:14b",
+      "evidence_level": "smoke",
+      "sample": "One question over 131 chunks",
+      "repetitions": 1,
+      "metrics": {
+        "runs": 5,
+        "exact_match": 0.0,
+        "eventqa_recall": 0.0,
+        "bm25_top10_tokens": 24727,
+        "bm25_top10_latency_s": 316.3,
+        "bm25_top2_tokens": 8461,
+        "bm25_top2_latency_s": 6.5,
+        "dense_top2_tokens": 8610,
+        "dense_top2_latency_s": 82.5
+      },
+      "budget": {
+        "questions": 1
+      },
+      "conclusion": "The runner and three preset families execute, but query construction dominates relevance on the tested question.",
+      "limitation": "One all-zero question cannot rank MemoryData methods; the repository license was not verified at its root.",
+      "evidence_files": [
+        "results/MEMORYDATA-SMOKE-20260729.json"
+      ]
+    },
+    {
+      "id": "letta-code-smoke-20260729",
+      "date": "2026-07-29",
+      "phase": "agentic",
+      "dataset": "Letta Code official headless scenario",
+      "task": "Persist and retrieve agent memory through MemFS",
+      "method": "Official smoke and complete headless scenario",
+      "reader": "qwen2.5:14b",
+      "evidence_level": "smoke",
+      "sample": "One official scenario",
+      "repetitions": 2,
+      "metrics": {
+        "build_passed": true,
+        "smoke_passed": true,
+        "complete_scenario_passed": true,
+        "memory_file_persisted": true,
+        "memfs_git_clean": true
+      },
+      "budget": {
+        "provider": "local Ollama"
+      },
+      "conclusion": "Letta Code can write, version and recover a memory file in a clean local agent state.",
+      "limitation": "Its agent-driven file exploration is not directly comparable to passive top-k retrieval.",
+      "evidence_files": [
+        "results/SYSTEM-SMOKES-20260729.json"
+      ]
+    }
+  ],
+  "systems": [
+    {
+      "name": "jcode",
+      "status": "executed-with-limitations",
+      "tested": "Rust implementation, memory import and retrieval, session resume and swarm",
+      "headline": "Strong local machinery; aggressive consolidation loses distinct updates and exceptions."
+    },
+    {
+      "name": "Mem0 OSS",
+      "status": "executed-common-protocol",
+      "tested": "Raw and inferred ingestion with embedded Qdrant",
+      "headline": "Raw storage preserved the small corpus; local extraction added latency, duplication and false provenance."
+    },
+    {
+      "name": "Cognee",
+      "status": "executed-common-protocol",
+      "tested": "Local semantic graph and temporal retrieval",
+      "headline": "Higher average coverage than Graphiti, with large run variance and slow retrieval."
+    },
+    {
+      "name": "Graphiti",
+      "status": "executed-common-protocol",
+      "tested": "Local temporal graph with FalkorDB Lite",
+      "headline": "Fast and stable reading, but incomplete ingestion and historical reconstruction."
+    },
+    {
+      "name": "Letta Code",
+      "status": "agentic-smoke",
+      "tested": "Official headless scenario and MemFS persistence",
+      "headline": "Functional file memory that needs an agentic, not passive-retrieval, comparison."
+    },
+    {
+      "name": "MemGym",
+      "status": "multiple-paths-reproduced",
+      "tested": "Tests, τ²-bench tasks, MemGym-DR retrieval and MemRM",
+      "headline": "Useful harness for separating memory and environment, with proxy and hardware caveats."
+    },
+    {
+      "name": "MemoryData",
+      "status": "runner-smoke",
+      "tested": "Official data loading and three preset families on one EventQA question",
+      "headline": "Runner works, but the current query and single sample cannot rank methods."
+    },
+    {
+      "name": "AGORA",
+      "status": "not-reproduced",
+      "tested": "Research only",
+      "headline": "No public dataset and official local runner were located for this campaign."
+    },
+    {
+      "name": "Zep managed",
+      "status": "not-reproduced",
+      "tested": "Managed service excluded; Graphiti tested separately",
+      "headline": "Requires a service account and must not be conflated with the open Graphiti engine."
+    }
+  ],
+  "findings": [
+    "No architecture wins independently of dataset, retrieval unit, context budget and reader.",
+    "A top-k comparison is invalid when units differ materially in size.",
+    "Explicit temporal filtering solves failures that similarity alone does not guarantee.",
+    "Ingestion and consolidation can destroy more information than retrieval loses.",
+    "LLM extraction can preserve useful text while falsifying provenance.",
+    "More agents, verifiers or loops can reduce quality and multiply cost.",
+    "A full context can beat RAG on a tiny corpus and lose badly on a distractor-heavy one.",
+    "A strong retrieval score does not guarantee that the reader resolves multi-hop contradictions.",
+    "Temperature zero does not make structured LLM ingestion deterministic.",
+    "Aggregate reproduction can hide poor agreement on individual events."
+  ],
+  "limitations": [
+    "The synthetic common corpus is small and intentionally adversarial.",
+    "Several public-dataset experiments evaluate retrieval or lexical coverage, not final answers.",
+    "Model-backed comparisons use a mixture of local Ollama readers and isolated subscription readers.",
+    "Not every campaign is repeated; the registry records repetition counts explicitly.",
+    "Raw official-dataset contexts and provider outputs are not published pending license and privacy review.",
+    "AGORA and the managed Zep product were not reproduced locally.",
+    "The GraphRAG-Bench neighbor ablation is not a complete GraphRAG engine.",
+    "There is no aggregate leaderboard because the current protocols are not all commensurable."
+  ]
+}

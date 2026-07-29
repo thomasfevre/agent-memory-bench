@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "contracts": {
+    "raw_record": ["id", "timestamp", "text", "kind", "confidence"],
+    "memory_item": ["id", "text", "source_ids", "valid_from", "valid_to", "confidence"],
+    "retrieval_result": ["query_id", "candidate_ids", "source_ids", "scores", "latency_ms"],
+    "answer": ["answer", "abstain", "evidence_ids"],
+    "trace": ["node_id", "implementation", "model", "input_hash", "output", "latency_ms", "tokens"]
+  },
+  "nodes": {
+    "ingest_raw": {
+      "kind": "deterministic",
+      "input": "source",
+      "output": "raw_record",
+      "rebuildable": true
+    },
+    "extract_facts": {
+      "kind": "model_task",
+      "input": "raw_record",
+      "output": "memory_item[]",
+      "rebuildable": true
+    },
+    "review_shards": {
+      "kind": "human_gate",
+      "input": "memory_item[]",
+      "output": "memory_item[]"
+    },
+    "retrieve": {
+      "kind": "adapter",
+      "input": ["query", "memory_view"],
+      "output": "retrieval_result"
+    },
+    "answer": {
+      "kind": "model_task",
+      "input": ["query", "retrieval_result"],
+      "output": "answer"
+    },
+    "verify": {
+      "kind": "model_or_deterministic_gate",
+      "input": ["query", "answer", "retrieval_result"],
+      "output": "verdict"
+    }
+  },
+  "retrieval_architectures": {
+    "long_context": ["ingest_raw", "retrieve:all", "answer"],
+    "bm25": ["ingest_raw", "retrieve:bm25", "answer"],
+    "dense": ["ingest_raw", "retrieve:dense", "answer"],
+    "hybrid": ["ingest_raw", "retrieve:bm25+dense+rrf", "answer"],
+    "temporal_facts": ["ingest_raw", "extract_facts", "retrieve:validity_filter+hybrid", "answer"],
+    "temporal_graph": ["ingest_raw", "extract_facts", "retrieve:validity_filter+graph_expand", "answer"],
+    "context_shards": ["ingest_raw", "extract_repeated_patterns", "review_shards", "retrieve:hybrid", "answer"]
+  },
+  "orchestration_topologies": {
+    "single": ["retrieve", "answer"],
+    "pipeline": ["retrieve:lexical_shortlist", "retrieve:dense_rerank", "answer"],
+    "conditional_route": ["route:code", "retrieve:selected", "answer"],
+    "adversarial_gate": ["retrieve", "answer", "verify:support", "verify:refute", "gate:unanimous"],
+    "verify_retry_loop": ["retrieve:cheap", "answer", "verify", "route:retry_if_rejected", "retrieve:expanded", "answer"],
+    "supervisor_swarm": ["parallel:bm25+dense+facts", "answer:workers", "answer:supervisor"]
+  },
+  "required_run_metadata": [
+    "repository_commit",
+    "dataset_revision",
+    "model",
+    "tokenizer",
+    "embedding_model",
+    "prompt_hash",
+    "top_k",
+    "context_budget",
+    "seed",
+    "runtime",
+    "network_policy",
+    "telemetry_policy"
+  ]
+}

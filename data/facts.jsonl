@@ -1,0 +1,18 @@
+{"id":"f01","text":"Atlas deployment branch is canary.","source_ids":["d01"],"valid_from":"2026-01-05","valid_to":"2026-07-14","confidence":1.0,"links":[]}
+{"id":"f02","text":"Atlas deployment branch is ember.","source_ids":["d02"],"valid_from":"2026-07-15","valid_to":null,"confidence":1.0,"links":["f01"]}
+{"id":"f03","text":"Every Atlas deployment requires a dry run.","source_ids":["d03"],"valid_from":"2026-01-05","valid_to":null,"confidence":1.0,"links":["f04"]}
+{"id":"f04","text":"A SEV-1 hotfix may skip the dry run only with incident commander approval.","source_ids":["d04"],"valid_from":"2026-02-10","valid_to":null,"confidence":1.0,"links":["f03","f05","f06"]}
+{"id":"f05","text":"Dana is incident commander.","source_ids":["d05"],"valid_from":"2026-01-05","valid_to":"2026-07-20","confidence":1.0,"links":["f04"]}
+{"id":"f06","text":"Mina is incident commander.","source_ids":["d06"],"valid_from":"2026-07-21","valid_to":null,"confidence":1.0,"links":["f04","f05"]}
+{"id":"f07","text":"Normal export retention is 30 days.","source_ids":["d07"],"valid_from":"2026-03-01","valid_to":null,"confidence":1.0,"links":["f08","f17"]}
+{"id":"f08","text":"Blue-seal export retention is 365 days.","source_ids":["d08"],"valid_from":"2026-03-01","valid_to":null,"confidence":1.0,"links":["f07","f17"]}
+{"id":"f09","text":"Incident reports use UTC timestamps.","source_ids":["d09","d10"],"valid_from":"2026-04-18","valid_to":null,"confidence":0.95,"links":[]}
+{"id":"f10","text":"Search API retry limit is three.","source_ids":["d13"],"valid_from":"2026-02-01","valid_to":null,"confidence":1.0,"links":["f11"]}
+{"id":"f11","text":"Search API timeout is five seconds.","source_ids":["d14"],"valid_from":"2026-02-01","valid_to":null,"confidence":1.0,"links":["f10"]}
+{"id":"f12","text":"raw-sources files are immutable.","source_ids":["d15"],"valid_from":"2026-01-10","valid_to":null,"confidence":1.0,"links":["f13"]}
+{"id":"f13","text":"Summaries, embeddings, indexes, and graphs are rebuildable derived artifacts.","source_ids":["d16"],"valid_from":"2026-01-10","valid_to":null,"confidence":1.0,"links":["f12"]}
+{"id":"f14","text":"Orion is owned by the Aurora team.","source_ids":["d17"],"valid_from":"2026-05-05","valid_to":null,"confidence":1.0,"links":["f15"]}
+{"id":"f15","text":"Ravi is Aurora on-call for July 2026.","source_ids":["d18"],"valid_from":"2026-07-01","valid_to":"2026-07-31","confidence":1.0,"links":["f14"]}
+{"id":"f16","text":"Cross-tenant deduplication keys include tenant_id.","source_ids":["d19"],"valid_from":"2026-03-11","valid_to":null,"confidence":1.0,"links":[]}
+{"id":"f17","text":"Amber-seal export retention is 180 days.","source_ids":["d27"],"valid_from":"2026-04-06","valid_to":null,"confidence":1.0,"links":["f07","f08"]}
+{"id":"f18","text":"Production database migrations require a rollback script.","source_ids":["d28"],"valid_from":"2026-01-22","valid_to":null,"confidence":1.0,"links":[]}

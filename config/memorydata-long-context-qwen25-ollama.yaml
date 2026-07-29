@@ -1,0 +1,15 @@
+agent_name: Long_context_agent_qwen25_14b_memorydata_smoke
+model: qwen2.5:14b
+temperature: 0.0
+input_length_limit: 30000
+buffer_length: 4000
+output_dir: ./results/outputs/Qwen25-14B-memorydata-smoke
+
+provider: openai_compatible
+api_key_env: OPENAI_API_KEY
+base_url: http://127.0.0.1:11434/v1
+base_url_env:
+azure_endpoint:
+azure_api_version:
+tokenizer_encoding: cl100k_base
+tokenizer_model:

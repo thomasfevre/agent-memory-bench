@@ -1,0 +1,22 @@
+agent_name: Embedding_rag_qwen3_embedding_4b
+model: qwen2.5:14b
+temperature: 0.0
+input_length_limit: 30000
+buffer_length: 4000
+output_dir: ./results/outputs/Qwen25-14B-memorydata-dense-k2
+retrieve_num: 2
+
+embedding_model: nomic-embed-text
+embedding_provider: openai_compatible
+embedding_api_key_env: OPENAI_API_KEY
+embedding_base_url: http://127.0.0.1:11434/v1
+embedding_base_url_env:
+
+provider: openai_compatible
+api_key_env: OPENAI_API_KEY
+base_url: http://127.0.0.1:11434/v1
+base_url_env:
+azure_endpoint:
+azure_api_version:
+tokenizer_encoding: cl100k_base
+tokenizer_model:

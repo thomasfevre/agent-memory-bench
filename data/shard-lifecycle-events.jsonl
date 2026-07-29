@@ -1,0 +1,10 @@
+{"timestamp":"2026-04-02","shard_id":"s01","event":"observe","source_id":"d09","synthetic":false}
+{"timestamp":"2026-04-18","shard_id":"s01","event":"observe","source_id":"d10","synthetic":false}
+{"timestamp":"2026-04-20","shard_id":"s01","event":"review","decision":"approved","synthetic":true}
+{"timestamp":"2026-05-01","shard_id":"s02","event":"observe","source_id":"d11","synthetic":false}
+{"timestamp":"2026-05-14","shard_id":"s02","event":"observe","source_id":"d12","synthetic":false}
+{"timestamp":"2026-05-15","shard_id":"s02","event":"review","decision":"rejected","synthetic":true}
+{"timestamp":"2026-06-20","shard_id":"s02","event":"observe","source_id":"synthetic-dark-mode-recurrence","synthetic":true}
+{"timestamp":"2026-06-21","shard_id":"s02","event":"review","decision":"rejected","synthetic":true}
+{"timestamp":"2026-07-15","shard_id":"s03","event":"observe","source_id":"d02","synthetic":false}
+{"timestamp":"2026-07-16","shard_id":"s03","event":"review","decision":"deferred","synthetic":true}

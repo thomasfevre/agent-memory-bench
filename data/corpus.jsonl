@@ -1,0 +1,28 @@
+{"id":"d01","timestamp":"2026-01-05","text":"Runbook v1: Project Atlas deploys from the canary branch through 2026-07-14.","kind":"runbook","confidence":1.0}
+{"id":"d02","timestamp":"2026-07-15","text":"Runbook v2: effective 2026-07-15, Project Atlas deploys from the ember branch. This supersedes canary for later deployments.","kind":"runbook","confidence":1.0}
+{"id":"d03","timestamp":"2026-01-05","text":"A dry run is required before every Project Atlas deployment.","kind":"policy","confidence":1.0}
+{"id":"d04","timestamp":"2026-02-10","text":"SEV-1 hotfixes may skip the dry run only with approval from the incident commander.","kind":"policy","confidence":1.0}
+{"id":"d05","timestamp":"2026-01-05","text":"Dana is the incident commander through 2026-07-20.","kind":"roster","confidence":1.0}
+{"id":"d06","timestamp":"2026-07-21","text":"Effective 2026-07-21, Mina is the incident commander and supersedes Dana.","kind":"roster","confidence":1.0}
+{"id":"d07","timestamp":"2026-03-01","text":"Normal exports are retained for 30 days.","kind":"retention","confidence":1.0}
+{"id":"d08","timestamp":"2026-03-01","text":"Rare blue-seal exports are retained for 365 days instead of the normal period.","kind":"retention","confidence":1.0}
+{"id":"d09","timestamp":"2026-04-02","text":"Team feedback: incident reports should use UTC timestamps.","kind":"conversation","confidence":0.9}
+{"id":"d10","timestamp":"2026-04-18","text":"Repeated team feedback: always record incident timestamps in UTC.","kind":"conversation","confidence":0.9}
+{"id":"d11","timestamp":"2026-05-01","text":"A designer suggested using dark-mode screenshots in release reports.","kind":"conversation","confidence":0.7}
+{"id":"d12","timestamp":"2026-05-14","text":"Another designer repeated the dark-mode screenshot suggestion.","kind":"conversation","confidence":0.7}
+{"id":"d13","timestamp":"2026-02-01","text":"The Search API retries failed upstream requests at most three times.","kind":"service","confidence":1.0}
+{"id":"d14","timestamp":"2026-02-01","text":"The Search API request timeout is five seconds.","kind":"service","confidence":1.0}
+{"id":"d15","timestamp":"2026-01-10","text":"Files in raw-sources are immutable and must never be edited.","kind":"vault","confidence":1.0}
+{"id":"d16","timestamp":"2026-01-10","text":"Summaries, embeddings, indexes, and graphs are derived artifacts and must be rebuildable from raw sources.","kind":"vault","confidence":1.0}
+{"id":"d17","timestamp":"2026-05-05","text":"The Orion service is owned by the Aurora team.","kind":"ownership","confidence":1.0}
+{"id":"d18","timestamp":"2026-07-01","text":"Ravi is the Aurora team on-call engineer for July 2026.","kind":"roster","confidence":1.0}
+{"id":"d19","timestamp":"2026-03-11","text":"Cross-tenant deduplication keys must include tenant_id.","kind":"engineering","confidence":1.0}
+{"id":"d20","timestamp":"2026-06-30","text":"Unverified chat rumor: Atlas might move to the sapphire branch someday.","kind":"rumor","confidence":0.2}
+{"id":"d21","timestamp":"2026-06-12","text":"The cafeteria vegetarian menu changes every Wednesday.","kind":"distractor","confidence":1.0}
+{"id":"d22","timestamp":"2026-06-15","text":"Container health checks run on port 9080.","kind":"distractor","confidence":1.0}
+{"id":"d23","timestamp":"2026-04-21","text":"Billing invoices are archived for seven years.","kind":"distractor","confidence":1.0}
+{"id":"d24","timestamp":"2026-05-20","text":"The mobile application uses a cobalt accent for warning banners.","kind":"distractor","confidence":1.0}
+{"id":"d25","timestamp":"2026-06-01","text":"The documentation site is regenerated every night at 02:00 UTC.","kind":"distractor","confidence":1.0}
+{"id":"d26","timestamp":"2026-06-08","text":"The analytics warehouse refreshes customer cohorts every Monday.","kind":"distractor","confidence":1.0}
+{"id":"d27","timestamp":"2026-04-06","text":"Amber-seal exports are retained for 180 days.","kind":"retention","confidence":1.0}
+{"id":"d28","timestamp":"2026-01-22","text":"Production database migrations require a rollback script.","kind":"engineering","confidence":1.0}

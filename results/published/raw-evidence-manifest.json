@@ -1,0 +1,792 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-29",
+  "artifact_count": 112,
+  "total_bytes": 109002604,
+  "artifacts": [
+    {
+      "path": "results/COGNEE-COMMON-8DOCS-20260729.json",
+      "bytes": 47345,
+      "sha256": "3a6b03953d77e07840221b6af7f0d3aa4bd89097366cc52bad963ab1b5a69834",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/COGNEE-QWEN25-14B-8DOCS-REPEAT2-20260729.json",
+      "bytes": 44466,
+      "sha256": "a416a13be54bff73641be606fc4251b24646ed5d4cdfb733ea84557057aee45d",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/COGNEE-QWEN25-14B-8DOCS-REPEAT3-20260729.json",
+      "bytes": 41254,
+      "sha256": "a717ae9491c3bb8e04c63e95d574a48538287614279854422682bcf28bbd4549",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/COGNEE-QWEN3-8B-8DOCS-20260729.json",
+      "bytes": 48857,
+      "sha256": "6d66e1be9c407b3060bb3a2aa0399186b51e23672190102b5fa5a745ebc09a03",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/COMMON-RETRIEVAL-COMPARISON-20260729.json",
+      "bytes": 28746,
+      "sha256": "923ecc4924c163180dc9be421f995034df2317f6c8d8e365eb84e9f3fb1eab6d",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/CONTEXT-SHARD-POLICIES-20260729.json",
+      "bytes": 6016,
+      "sha256": "87c2593e2b8c853d89464e60e175d6f34e1e38364445c737cce277f86fef967c",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/COVERAGE-MANIFEST-20260729.json",
+      "bytes": 15256,
+      "sha256": "f88d1cfd0058ee8078a03312a1e99cd3e3cc99d502db29cee4994f34a5864510",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/EXTERNAL-LOC0MO.json",
+      "bytes": 1573570,
+      "sha256": "cc5a4761840410a036b2dd8ced794faf2c52806d2ca39b478c70b1533a36eb07",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/EXTERNAL-OFFICIAL.json",
+      "bytes": 1958894,
+      "sha256": "806177de8c2e38b954b44216190991a8396e44772e8143472ae8854d5fe17e43",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPH-MODEL-SENSITIVITY-20260729.json",
+      "bytes": 1891,
+      "sha256": "4562562582e367d3607e2dab5653be30d28a1d6dd37f137acf6db84ae69b9c52",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPH-REPETITIONS-QWEN25-20260729.json",
+      "bytes": 5796,
+      "sha256": "28cf47487ba88d4af2008b68bb806b7bf9f738a2c218e736990f8b2c31c8daaa",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPHITI-COMBINED-8DOCS-20260729.json",
+      "bytes": 6769,
+      "sha256": "b2c69b3b36236c8940b87c882b1c2175ffc7a46c440ddfae4c08cc5f411f69a3",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPHITI-COMBINED-8DOCS-20260729.json.checkpoint.json",
+      "bytes": 271,
+      "sha256": "ee923a1dc1826110661b16dbf2454cc0361ee21af38f1023e1f08b37483edcfb",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPHITI-COMMON-8DOCS-20260729.json",
+      "bytes": 6588,
+      "sha256": "34f2a59b7409b940718c2bcd6565c8d792da463649b50603491565fd8e3bfde9",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPHITI-COMMON-8DOCS-20260729.json.checkpoint.json",
+      "bytes": 271,
+      "sha256": "48993e1e191fe74d5efafecd6a58887958a0aacb5f2c24e7978c359e13b2e0ff",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPHITI-QWEN25-14B-8DOCS-REPEAT2-20260729.json",
+      "bytes": 6779,
+      "sha256": "0f9a55ea119a964b2a7045439b07ef1f0f61127fede28109265f5495e0d563dd",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPHITI-QWEN25-14B-8DOCS-REPEAT2-20260729.json.checkpoint.json",
+      "bytes": 271,
+      "sha256": "b52a5ee880de7b414e3e0c793fad359a798a8ddb9571e9b8ba3733d99a2cb03c",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPHITI-QWEN25-14B-8DOCS-REPEAT3-20260729.json",
+      "bytes": 6779,
+      "sha256": "d49fc45bbed14e2099ffb4e4b67021d6061f17c165a58ebf3cc24efef2cf1704",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPHITI-QWEN25-14B-8DOCS-REPEAT3-20260729.json.checkpoint.json",
+      "bytes": 271,
+      "sha256": "1eccfbc263cfd5f038267c8de30a1457539c28e1069e45899628e95c98c32562",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPHITI-QWEN3-8B-8DOCS-20260729.json",
+      "bytes": 4623,
+      "sha256": "341486f02d6c79272784cc76cdf7003b54647ba8566c28a44927a150fd9227ae",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPHITI-QWEN3-8B-8DOCS-20260729.json.checkpoint.json",
+      "bytes": 572,
+      "sha256": "c74c096d3278f65c6112ecb7199884f1832c3e57e4745f19e3b8884db8ab995a",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPHRAG-BENCH-CHUNK-GRAPH-FULL-20260729.json",
+      "bytes": 6880402,
+      "sha256": "9a70b2100db9ffd8d820f207c8a7fff4a8a05ad51312e00de139eb61a290b9a7",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPHRAG-BENCH-CHUNK-GRAPH-PILOT-20260729.json",
+      "bytes": 291189,
+      "sha256": "408ab699a959294dbb940628925c9762919fccf28c0ae8e964ecaab6fb7c6567",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPHRAG-BENCH-CHUNK-NEIGHBOR-PILOT-V3-20260729.json",
+      "bytes": 377490,
+      "sha256": "c20bed8447c17cdea6654f8d4c92ad25153f41ab2f76bb2774e87148d0aeee64",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPHRAG-BENCH-CHUNK-NEIGHBOR-THRESHOLD-080-20260729.json",
+      "bytes": 6882384,
+      "sha256": "296c249c9225cdf674df23dde79a8236c1947b98c72eab5354c7a886f81bed48",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPHRAG-BENCH-CHUNK-NEIGHBOR-THRESHOLD-090-20260729.json",
+      "bytes": 6879122,
+      "sha256": "13d7206bb777e118e459b77db8babf2e14295336099d6a757a1b8f844e32ea6b",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPHRAG-BENCH-EVIDENCE-AUDIT-LABELS-20260729.json",
+      "bytes": 3043,
+      "sha256": "682f6710165d0af7b84754c2cd9111b3998f8c87322191263e787a2cec061841",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/GRAPHRAG-BENCH-EVIDENCE-AUDIT-SAMPLE-20260729.json",
+      "bytes": 61236,
+      "sha256": "a6edd94bdca7d9528a7529b9321562151058ca6b8eb650ca125ce1ff34d4d3cf",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/INCREMENTAL-MEMORY-LIFECYCLE-20260729.json",
+      "bytes": 97054,
+      "sha256": "a591fb6ce35b7389b163031890abb2751800aabc6c8bd192a92d759fb44024fc",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/INCREMENTAL-MEMORY-PERSISTENCE-20260729.json",
+      "bytes": 8562,
+      "sha256": "5bdcd872e39ab01fc51d717adfc1ddb3dd1924d615a8dd3c8e0548b02d3ef959",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/INGESTION-20260728T221412Z.json",
+      "bytes": 74827,
+      "sha256": "2132de716e8217b039367bb7640dc497dff59b1abe42fdd099ce9be773fad41b",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/INGESTION-latest.json",
+      "bytes": 74827,
+      "sha256": "2132de716e8217b039367bb7640dc497dff59b1abe42fdd099ce9be773fad41b",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/JCODE-COMMON-3X-20260729.json",
+      "bytes": 246050,
+      "sha256": "1bd8ea40b952f4919af7b44791c935782981a5800956a48bb4d9ab2ffd851960",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/JCODE-COMMON-3X-20260729.json.checkpoint.json",
+      "bytes": 238234,
+      "sha256": "3a4b530bed1db7eb97acb05cb5a722067dda3addc086c6e44651f9ad0a75b91c",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/JCODE-COMMON-SMOKE-20260729.json",
+      "bytes": 85755,
+      "sha256": "dec13c1d62c528287d649802aac12bc1b32bfb42cfbc1966c2439534dc2a4514",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/JCODE-COMMON-SMOKE-20260729.json.checkpoint.json",
+      "bytes": 79497,
+      "sha256": "8f27020449ef8cdc4c4214ba4ed5436676e0a44736e5aff1cfdccacbbc43739e",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/LIGHTRAG-GRAPHRAG-BENCH-20260729.json",
+      "bytes": 1692,
+      "sha256": "6d1270b2212fc54818ae7ac31ffad7b94e7dfe19c34f3ebd82b25031f47cf0e4",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/LOCOMO-GRANULARITY-20260729.json",
+      "bytes": 12793977,
+      "sha256": "77dc1e86452d5486becd5336168f1c64e560a34f4a83bcbd7c54f18c9928089a",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/LOCOMO-HYBRID-FUSION-20260729.json",
+      "bytes": 6582200,
+      "sha256": "132239dbb269afb4d8ad941e320d0419607c02435c389675273605d36a79e266",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/LOCOMO-PREDICTED-ROUTER-20260729.json",
+      "bytes": 1185455,
+      "sha256": "7bb801b9ba28ebedbac2e9abbb0c9b8ebf0d5381dd94f9f71ad6eb0278c5fc25",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/LOCOMO-WINDOW-GRID-20260729.json",
+      "bytes": 11857311,
+      "sha256": "ce0fa2e1fcb9e568eaac50aaac015789ab43839779de93efbbe4319028ac70c0",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/LONGMEMEVAL-ABSTENTION-20260729.features.json",
+      "bytes": 218610,
+      "sha256": "a13629defdce8d77af1a28cff70a6cec6195b592ae32309068acdc8555134a2c",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/LONGMEMEVAL-ABSTENTION-20260729.json",
+      "bytes": 229451,
+      "sha256": "4c4fc1a8ac5b4bc810688433e73c8f1756c1d3fdc7704e2b38e71899f5f2141c",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/LONGMEMEVAL-CODEX-GENERATION-8PAIRS-20260729.contexts.json",
+      "bytes": 1011556,
+      "sha256": "3c7d7344df70d79a1580b4cfe3fd979438a5ad45e1411701ad62ebded4ff20cd",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/LONGMEMEVAL-CODEX-GENERATION-8PAIRS-20260729.json",
+      "bytes": 1674264,
+      "sha256": "28a46427478c34c2e8ab1b6b8ffddabc2466039b7e4214780836d04b54fa0e01",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/LONGMEMEVAL-CODEX-GENERATION-PILOT-20260729.json",
+      "bytes": 51573,
+      "sha256": "0b8147b0efee21774ddabaa721b5e8e4ba1906ae1753aa1de6858de45f269820",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/LONGMEMEVAL-CODEX-GENERATION-PILOT-V2-20260729.json",
+      "bytes": 79105,
+      "sha256": "f950b55f5f78f2f44becc0409f945259694f752cfd0afbb6160a123f33603e17",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/LONGMEMEVAL-CODEX-ROLE-ABLATION-29PAIRS-20260729.contexts.json",
+      "bytes": 4218160,
+      "sha256": "2055191dc37aef55a2c041624a1cf8fb24c785723342f5bcfc1fd0b1bdf376bc",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/LONGMEMEVAL-CODEX-ROLE-ABLATION-29PAIRS-20260729.json",
+      "bytes": 833535,
+      "sha256": "7efb9878ad46f4750ba51aa4aa52f1f86e03ec67c1dcb2e307487a2afef24286",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/LONGMEMEVAL-CODEX-ROLE-ABLATION-8PAIRS-3X-20260729.contexts.json",
+      "bytes": 2237352,
+      "sha256": "2e4d5a425cdc5fb83461d84fe54ac5af3e5a0058151f80917c536c17ea5a8e19",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/LONGMEMEVAL-CODEX-ROLE-ABLATION-8PAIRS-3X-20260729.json",
+      "bytes": 1355516,
+      "sha256": "3bbdd36291be7ab791e7760bfa5e599c8b3b60b16e1ae488328e94fcc5a7014d",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/LONGMEMEVAL-HYBRID-FUSION-20260729.json",
+      "bytes": 1469899,
+      "sha256": "edd07799f103aa2fd3172bd0d4669552959aa11bdb4b461b8f4fb9925118ab4f",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/LONGMEMEVAL-PREMISE-VERIFIER-20260729.features.json",
+      "bytes": 477458,
+      "sha256": "3c8b5a2c80a58ab483de924c23ca1ad40b7a837579f0e5ab6b4e21aad4ee4a80",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/LONGMEMEVAL-PREMISE-VERIFIER-20260729.json",
+      "bytes": 2273249,
+      "sha256": "5d6e1bfe51339b88237d3a03d5669e37950aef3e34a011c62f244993eb4b9d94",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEM0-COMMON-3X-20260729.json",
+      "bytes": 771301,
+      "sha256": "157bbe977ea47dc83ab35333dadba2f2cf7e64ecdadd32cb04f035552d9df49c",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEM0-COMMON-3X-20260729.json.checkpoint.json",
+      "bytes": 766599,
+      "sha256": "75eb55c13960a4ecdf796f4cec5b42fb8bd3b85bcdf96c2f2ded14bdea21c71b",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEM0-COMMON-SMOKE-20260729.json",
+      "bytes": 238649,
+      "sha256": "c0e2af50b3ede57a65f8f6d5bf3e6a5e344fad5b58a34339da1127101a83d2e8",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEM0-COMMON-SMOKE-20260729.json.checkpoint.json",
+      "bytes": 235039,
+      "sha256": "c3d5f830a8bc960d0f42d305ca25594cf051b66ed5a4384a3e3644ac7b894db4",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMGYM-DR-RETRIEVAL-20260729.json",
+      "bytes": 1870555,
+      "sha256": "35be48a95aff5dd6ea5adedbd2327cb0da5b4ffad9f69c4a2df6d24cca758605",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMGYM-DR-RETRIEVAL-PAIRED-20260729.json",
+      "bytes": 3344,
+      "sha256": "28518ff5f2fb3b2ae19db974b7ff4cf57083fa062e5c2b6de0245b1b01525ec8",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMGYM-MEMRM-TAU2-CPU-FULL-20260729.json",
+      "bytes": 2981435,
+      "sha256": "68a6ef99d25124358285e04fc945d5afe66239d62f43ddc31f47a64e15444343",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMGYM-MEMRM-TAU2-RELEASED-20260729.json",
+      "bytes": 2876212,
+      "sha256": "8a3f5fa0c22636a78f4bb791d82a84e98cd9d752b92148495af1ef2839022505",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMGYM-MEMRM-TAU2-REPRODUCTION-20260729.json",
+      "bytes": 3065,
+      "sha256": "c791e3a3888b25d8138767dec7c8ca1087c38b357b92a79398abbcbda6b18af6",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMGYM-TAU2-20260729.json",
+      "bytes": 4652,
+      "sha256": "318bf0137ef0ad8da634015b2e5d7bc2f84ae9e329dd6001d8005e8874c4ec3c",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CODEX-CONFLICT-15Q-2MODELS-20260729.json",
+      "bytes": 1606105,
+      "sha256": "6e2273873590ddd1b39893860d2dd80abd0d6e917c5824640888a06393a23908",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CODEX-CONFLICT-15Q-3X-20260729.json",
+      "bytes": 2359814,
+      "sha256": "8d6bda6296920762703ca2b0fdf5ee6998ebe06ed1b6b36284c0e188288762c9",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CODEX-CONFLICT-6K-200Q-20260729.json",
+      "bytes": 5218431,
+      "sha256": "85e0ff20829271928748229e9fb19e764c4e48a0d489aaaff3756971516858b3",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CODEX-CONFLICT-6K-PILOT-10Q-20260729.json",
+      "bytes": 526159,
+      "sha256": "909e218166b4fe5a80a4b6246fec75d1d2038c2037600586dae18593f11da83d",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CODEX-CONFLICT-6K-Q000-024-20260729.json",
+      "bytes": 1299731,
+      "sha256": "eefaec7b03527fc6cb49a2d4467807cac4d9a4c060dce25f19b53b57c69a4a73",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CODEX-CONFLICT-6K-Q025-049-20260729.json",
+      "bytes": 1300620,
+      "sha256": "aebf09a91aeeb55367fdb213bfafaf3a611b310cbf44aff33be36b0cabc1c182",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CODEX-CONFLICT-6K-Q050-074-20260729.json",
+      "bytes": 1299864,
+      "sha256": "1a5959c3db45faabf9d18c01cc99843f4fe466f506020e32c9b3584d2db72a3e",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CODEX-CONFLICT-6K-Q075-099-20260729.json",
+      "bytes": 1299282,
+      "sha256": "5c6e02f75ab44550bd75f550d2f23d098ccde3c7152c4922f0e3da172fd169b3",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CODEX-CONFLICT-REPEAT-A-20260729.json",
+      "bytes": 630156,
+      "sha256": "fb6cbc8127ead13674164c673ca48027c55b2fc38597eb6893269d4f22b47005",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CODEX-CONFLICT-REPEAT-B-20260729.json",
+      "bytes": 629892,
+      "sha256": "1ee6c9909e756457e8de1e7aca65a7a0df1ee74f3c9d81afdc37d95d79ef5201",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CODEX-CONFLICT-REPEAT-C-20260729.json",
+      "bytes": 631242,
+      "sha256": "bb40598b0724e5f11bd8ec9601d51ac75794005db3fcf0a910b93919285ac26f",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CODEX-CONFLICT-REPEAT-D-20260729.json",
+      "bytes": 473606,
+      "sha256": "bf7003c07f85990e393acc4b4c74eb47de83cddfe66bbd809c9f8b3d25eda09c",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CODEX-LUNA-A-20260729.json",
+      "bytes": 224868,
+      "sha256": "1efe201a96cc3bed8d1694e34dcab32b842859b66bd12e16ccd6995f4a9f2ce8",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CODEX-LUNA-B-20260729.json",
+      "bytes": 224018,
+      "sha256": "1b684b6f81f2970e1dac3365221a84e5517c4a22d092b2387f1f847e57de4d25",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CODEX-LUNA-C-20260729.json",
+      "bytes": 224751,
+      "sha256": "cc38d22be6ca418e71e2735c26c3a3641e9b28e3cc1cd956baa771af3ed958ed",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CODEX-LUNA-D-20260729.json",
+      "bytes": 172340,
+      "sha256": "5a5c89e8df2b7c7bf5e7ce1635abb5e39a61334f8031b819bdf9fe2f78908f21",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CONFLICT-100Q-ANALYSIS.json",
+      "bytes": 2195,
+      "sha256": "af4e234a5bf4d6bc910b8ff65213f67456c545c1dc99f4da4805bcf77c9f639e",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CONFLICT-100Q.json",
+      "bytes": 93420,
+      "sha256": "444eeab90cb6903150cdefa5907cf477badfb459f5defdf220d30b5265b91180",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CONFLICT-20Q.json",
+      "bytes": 19526,
+      "sha256": "836e7ab4f5040ae49ef624d71b1b570b65b0d057cedea1658efa927f845e6bc7",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CONFLICT-GENERATION-MATRIX-CHECKPOINT.json",
+      "bytes": 3590,
+      "sha256": "7c43f318923ccf146a69ab2fd1adb8f1ac4c1d96bd361735dd45d2696fe2da70",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CONFLICT-Q10-19.json",
+      "bytes": 10055,
+      "sha256": "b700058d41de9a51238f0827f915a3e5809422c72c368de4e866de9136d8d89c",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CONFLICT-Q20-29.json",
+      "bytes": 10254,
+      "sha256": "73752100ac60462db38d888d002a246e71551400122f7670f3ccd11e2f03f5b7",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CONFLICT-Q30-39.json",
+      "bytes": 10326,
+      "sha256": "9ea37573e022dbdaeb1d1c5236c0a08677762959af16fa18f7a1e929e56a98af",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CONFLICT-Q40-49.json",
+      "bytes": 10124,
+      "sha256": "9f61c07cdfd34166867b9ff27ff0b59e6462b40fc686cf36049cf454c1956081",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CONFLICT-Q50-59.json",
+      "bytes": 10193,
+      "sha256": "316dbe38cd9f212f9e8453e41b6d521e94968fbfd30ec843bb1dcc68559e3912",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CONFLICT-Q60-69.json",
+      "bytes": 10064,
+      "sha256": "fe047d9837ed8a58b7702ad820c2bf82791824cc6def0054494836d8519f6b22",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CONFLICT-Q70-79.json",
+      "bytes": 10080,
+      "sha256": "d42d380cf950ed027384f1f74f68043d0e6cba53590db8ae83b2215fcdae8e32",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CONFLICT-Q80-89.json",
+      "bytes": 10426,
+      "sha256": "38c3c7162a57c48d487abef7144164e37f457a2bcd857c86fbc3180cc8c434bc",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CONFLICT-Q90-99.json",
+      "bytes": 10286,
+      "sha256": "4f5c79ac7da5a9688eeeb9c50a0d406cf0e0b2b973b509949753bc057b214026",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CONFLICT-RETRIEVAL-ALL-20260729.json",
+      "bytes": 411811,
+      "sha256": "85c67f6f83db14311bf62b8d56d6fb346e5f05e8a385faf86dc45dd3eb1158cd",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CONFLICT-SH-6K-100Q.json",
+      "bytes": 44819,
+      "sha256": "94aa3c3af69d21d39827c5ee93c4407ba185ad561a1cf8097b137622b5795616",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-CONFLICT.json",
+      "bytes": 10180,
+      "sha256": "a88cf4bfcf3fcbe03590a5c9ec26062a46eef38e1dfa4293deb480be2f5e1e46",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-DETECTIVEQA-QUERY-ABLATION-20260729.json",
+      "bytes": 59557,
+      "sha256": "4a8279340167ac7b6f346679928db66bc8ec5d516df1d7f56a77bb5285f7faca",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-EVENTQA-QUERY-ABLATION-20260729.json",
+      "bytes": 2571800,
+      "sha256": "f350559d5643412b79cba5847470dbb169ee16fb73804575d5cfa3a54bf19740",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-REDIAL-RETRIEVAL-20260729.json",
+      "bytes": 204376,
+      "sha256": "c36233e0df31a7cca3af00bf529f35473496f53cccffd1d223041d91a87468fd",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-RULER-RETRIEVAL-20260729.json",
+      "bytes": 73273,
+      "sha256": "861e092fdbda76387dbb18b05648d136a9840999be45b455bcf6f14bdb0d843c",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-SUMMARIZATION-COVERAGE-20260729.json",
+      "bytes": 157971,
+      "sha256": "cab9317048d95d4a32c965f1113383fddd21764e56035b3a27c1e65314dddaae",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYAGENTBENCH-TTL-RETRIEVAL-20260729.json",
+      "bytes": 232483,
+      "sha256": "f1f309fdcdc4725d4dcc0fc4183ff66e9712db176cd172edfc298702d0e0fc19",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/MEMORYDATA-SMOKE-20260729.json",
+      "bytes": 5207,
+      "sha256": "63493322672510ff6c149f1a4c75be18b2c66b98e9291db1787d2cb5d9ee6ab4",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/PROTOTYPE-20260728T213120Z.json",
+      "bytes": 343301,
+      "sha256": "483c54562f8081d826ff607a3ab3de86021a455af028569db08037348c1248fa",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/PROTOTYPE-20260728T213334Z.json",
+      "bytes": 343310,
+      "sha256": "ceebe6cac2e6246e1f97a984adde6d8da128e07029490730a474f6465eec0b67",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/PROTOTYPE-20260728T213552Z.json",
+      "bytes": 420992,
+      "sha256": "3e5202484120e7e1be93b6d6a49c39ad89581f4516230ca9852235d622af2c83",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/PROTOTYPE-20260728T213912Z.json",
+      "bytes": 420995,
+      "sha256": "03e68007fe0c8126d570ba4bcc065bc96591bff62ff12b1c38061dfd5531edba",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/PROTOTYPE-20260728T221038Z.json",
+      "bytes": 418886,
+      "sha256": "bec5ff910dec496e87e5154f63ae05070d422488c21ad4aeedd067b2e8e55d49",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/PROTOTYPE-latest.json",
+      "bytes": 418886,
+      "sha256": "bec5ff910dec496e87e5154f63ae05070d422488c21ad4aeedd067b2e8e55d49",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/SYSTEM-SMOKES-20260729.json",
+      "bytes": 3894,
+      "sha256": "6d5e960bf556a9bf9d8273c98f3f389ed13702253d9e0e12f4941d3b8750793f",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/TOPOLOGY-20260728T220000Z.json",
+      "bytes": 71637,
+      "sha256": "c89a1d604b3e2920fba65228f36b603842834394afb1c040f2ced92939955564",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/TOPOLOGY-latest.json",
+      "bytes": 71637,
+      "sha256": "c89a1d604b3e2920fba65228f36b603842834394afb1c040f2ced92939955564",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    }
+  ]
+}

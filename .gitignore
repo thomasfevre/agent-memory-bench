@@ -1,0 +1,26 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+.pytest_cache/
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Downloaded public datasets and local provider state
+datasets/
+.cache/
+.ollama/
+.jcode/
+
+# Raw benchmark artifacts stay local until their licenses and privacy bounds
+# have been reviewed. Public summaries and hashes live under published/.
+results/*.json
+!results/published/
+!results/published/**
+
+# Generated dashboard copies. Canonical files live under results/published/.
+site/data/*.json

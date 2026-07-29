@@ -1,0 +1,59 @@
+{
+  "f685340e": {
+    "required_all": [
+      [
+        "every week",
+        "weekly"
+      ],
+      [
+        "every other week",
+        "biweekly"
+      ]
+    ]
+  },
+  "6aeb4375": {
+    "aliases": [
+      "four",
+      "4"
+    ]
+  },
+  "09ba9854": {
+    "aliases": [
+      "$50",
+      "50 dollars",
+      "fifty dollars"
+    ]
+  },
+  "80ec1f4f": {
+    "aliases": [
+      "2",
+      "two"
+    ]
+  },
+  "15745da0": {
+    "aliases": [
+      "three months",
+      "3 months"
+    ]
+  },
+  "29f2956b": {
+    "aliases": [
+      "30 minutes",
+      "thirty minutes",
+      "half an hour"
+    ]
+  },
+  "gpt4_70e84552": {
+    "aliases": [
+      "fixing the fence",
+      "the fence"
+    ]
+  },
+  "gpt4_c27434e8": {
+    "aliases": [
+      "Japanese Zero fighter plane model",
+      "Japanese Zero fighter plane",
+      "Zero fighter plane model"
+    ]
+  }
+}

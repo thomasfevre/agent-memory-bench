@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Evidence-first benchmarks for AI agent memory systems.">
+    <meta name="theme-color" content="#0b0f17">
+    <title>Agent Memory Bench</title>
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="Agent Memory Bench home">
+        <span class="brand-mark" aria-hidden="true">AMB</span>
+        <span>Agent Memory Bench</span>
+      </a>
+      <nav class="top-nav" aria-label="Primary navigation">
+        <button class="nav-button is-active" type="button" data-view="overview">Overview</button>
+        <button class="nav-button" type="button" data-view="results">Results</button>
+        <button class="nav-button" type="button" data-view="systems">Systems</button>
+        <button class="nav-button" type="button" data-view="evidence">Evidence</button>
+        <button class="nav-button" type="button" data-view="method">Method</button>
+      </nav>
+      <a class="github-link" href="https://github.com/thomasfevre/agent-memory-bench">GitHub</a>
+    </header>
+
+    <main id="content">
+      <section class="view is-visible" data-view-panel="overview">
+        <div class="hero">
+          <div>
+            <p class="eyebrow">Provider-neutral · reproducible · evidence first</p>
+            <h1>Memory systems should be compared at every boundary.</h1>
+            <p class="hero-copy" id="headline"></p>
+            <div class="hero-actions">
+              <button class="primary-action" type="button" data-open-view="results">Explore results</button>
+              <a class="secondary-action" href="https://github.com/thomasfevre/agent-memory-bench/blob/main/docs/methodology.md">Read methodology</a>
+            </div>
+          </div>
+          <div class="hero-orbit" aria-label="Benchmark layers">
+            <div class="orbit-ring ring-a"></div>
+            <div class="orbit-ring ring-b"></div>
+            <div class="orbit-core">memory</div>
+            <span class="orbit-label label-a">ingest</span>
+            <span class="orbit-label label-b">retrieve</span>
+            <span class="orbit-label label-c">read</span>
+            <span class="orbit-label label-d">verify</span>
+          </div>
+        </div>
+
+        <div class="metric-strip" id="metric-strip" aria-label="Campaign summary"></div>
+
+        <section class="content-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">The experimental graph</p>
+              <h2>Seven boundaries, measured separately</h2>
+            </div>
+            <p>A final answer can look correct while ingestion has already lost provenance or temporal state.</p>
+          </div>
+          <div class="workflow" id="workflow"></div>
+        </section>
+
+        <section class="content-section split-section">
+          <div>
+            <p class="eyebrow">What survived scrutiny</p>
+            <h2>Findings supported by the current evidence</h2>
+          </div>
+          <ol class="finding-list" id="finding-list"></ol>
+        </section>
+
+        <section class="signal-banner">
+          <div>
+            <p class="eyebrow">Current conclusion</p>
+            <h2>Do not pick a memory product from one headline score.</h2>
+          </div>
+          <p>Fix the dataset, budget, reader and judge. Then inspect what was lost at ingestion, retrieval and reading before deciding whether complexity paid for itself.</p>
+        </section>
+      </section>
+
+      <section class="view" data-view-panel="results" hidden>
+        <div class="page-intro">
+          <p class="eyebrow">Measured trade-offs</p>
+          <h1>Results by layer, not a universal leaderboard.</h1>
+          <p>Every chart names its protocol. Percentages from different datasets are not directly rankable.</p>
+        </div>
+
+        <section class="content-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Common synthetic corpus</p>
+              <h2>Recall, context precision and time</h2>
+            </div>
+            <p>Bubble size represents temporal correctness. Long context retrieves everything but carries almost no precision.</p>
+          </div>
+          <div class="chart-shell">
+            <svg id="retrieval-scatter" class="scatter" viewBox="0 0 860 430" role="img" aria-labelledby="scatter-title scatter-desc">
+              <title id="scatter-title">Common-corpus retrieval trade-offs</title>
+              <desc id="scatter-desc">Evidence recall on the horizontal axis and context precision on the vertical axis.</desc>
+            </svg>
+          </div>
+        </section>
+
+        <section class="content-section chart-pair">
+          <article class="chart-article">
+            <p class="eyebrow">Reader effect</p>
+            <h2>Qwen 8B answer accuracy</h2>
+            <p class="chart-note">Top bar: accuracy. Bottom line: total tokens across 30 answers.</p>
+            <div id="generation-chart" class="bar-chart"></div>
+          </article>
+          <article class="chart-article">
+            <p class="eyebrow">Topology effect</p>
+            <h2>More agents did not mean more quality</h2>
+            <p class="chart-note">Qwen 1.7B, eight questions, three repetitions.</p>
+            <div id="topology-chart" class="bar-chart"></div>
+          </article>
+        </section>
+
+        <section class="content-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Official datasets</p>
+              <h2>The same retriever changes rank with the task</h2>
+            </div>
+            <p>LoCoMo evaluates dialogue-turn evidence. LongMemEval evaluates sessions. MemoryAgentBench adds dense distractors and contradictions.</p>
+          </div>
+          <div id="public-comparisons" class="comparison-grid"></div>
+        </section>
+
+        <section class="content-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Ingestion is part of quality</p>
+              <h2>What reaches the retriever</h2>
+            </div>
+            <p>The same retrieval method behaves very differently when consolidation has already merged distinct facts.</p>
+          </div>
+          <div id="ingestion-table" class="table-wrap"></div>
+        </section>
+      </section>
+
+      <section class="view" data-view-panel="systems" hidden>
+        <div class="page-intro">
+          <p class="eyebrow">Open systems and harnesses</p>
+          <h1>What was actually executed.</h1>
+          <p>A successful install is marked differently from a repeated common-protocol result.</p>
+        </div>
+        <div class="system-layout">
+          <div class="system-list" id="system-list" role="list"></div>
+          <article class="system-detail" id="system-detail" aria-live="polite"></article>
+        </div>
+        <section class="content-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Aligned temporal graph slice</p>
+              <h2>Cognee and Graphiti expose opposite trade-offs</h2>
+            </div>
+            <p>Same eight documents, eight questions, Qwen 2.5 14B and three repetitions.</p>
+          </div>
+          <div id="graph-comparison" class="comparison-grid"></div>
+        </section>
+      </section>
+
+      <section class="view" data-view-panel="evidence" hidden>
+        <div class="page-intro">
+          <p class="eyebrow">Public registry</p>
+          <h1>Every claim points to a bounded run.</h1>
+          <p>The raw files remain local until their licenses and privacy bounds are reviewed. Their names, sizes and SHA-256 hashes are versioned.</p>
+        </div>
+        <div class="filter-row" aria-label="Evidence filters">
+          <label>
+            Phase
+            <select id="phase-filter">
+              <option value="">All phases</option>
+            </select>
+          </label>
+          <label>
+            Evidence level
+            <select id="level-filter">
+              <option value="">All levels</option>
+            </select>
+          </label>
+          <label class="search-label">
+            Search
+            <input id="run-search" type="search" placeholder="Dataset, system or method">
+          </label>
+        </div>
+        <p class="result-count" id="result-count" aria-live="polite"></p>
+        <div class="run-list" id="run-list"></div>
+      </section>
+
+      <section class="view" data-view-panel="method" hidden>
+        <div class="page-intro">
+          <p class="eyebrow">Protocol before product</p>
+          <h1>A sovereign benchmark can rebuild every derived view.</h1>
+          <p>Raw records are canonical. Chunks, embeddings, facts, graphs and indexes are replaceable artifacts.</p>
+        </div>
+        <section class="content-section method-grid">
+          <article>
+            <span class="method-number">01</span>
+            <h2>Common data</h2>
+            <p>Keep immutable source records and version expected facts, dates, conflicts, provenance and abstention cases.</p>
+          </article>
+          <article>
+            <span class="method-number">02</span>
+            <h2>Common budget</h2>
+            <p>Compare words or tokens, not only top-k. Record index, ingestion, retrieval, reader and judge costs separately.</p>
+          </article>
+          <article>
+            <span class="method-number">03</span>
+            <h2>Common contracts</h2>
+            <p>Adapters expose ingest, retrieve, construct-context, answer and trace. Vendor-specific details stay behind the contract.</p>
+          </article>
+          <article>
+            <span class="method-number">04</span>
+            <h2>Common evidence</h2>
+            <p>Repeat runs, group correlated samples, keep raw hashes and distinguish proxy metrics from final task quality.</p>
+          </article>
+        </section>
+        <section class="content-section">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Roadmap</p>
+              <h2>From comparable to realistic</h2>
+            </div>
+          </div>
+          <div class="roadmap-grid">
+            <article>
+              <span class="roadmap-tag">Priority 1</span>
+              <h3>Comparable and publishable</h3>
+              <ul>
+                <li>Versioned corpus and contracts</li>
+                <li>Boundary-level metrics</li>
+                <li>Public registry and dashboard</li>
+                <li>CI and static deployment</li>
+              </ul>
+            </article>
+            <article>
+              <span class="roadmap-tag">Priority 2</span>
+              <h3>Stronger evidence</h3>
+              <ul>
+                <li>Fuller generation protocols</li>
+                <li>Two real GraphRAG engines</li>
+                <li>Calibrated judges</li>
+                <li>Human Context Shard review</li>
+              </ul>
+            </article>
+            <article>
+              <span class="roadmap-tag">Priority 3</span>
+              <h3>Realistic and adversarial</h3>
+              <ul>
+                <li>Long public-repository tasks</li>
+                <li>Aligned coding agents</li>
+                <li>Out-of-order updates and deletion</li>
+                <li>Cost per correct answer</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+        <section class="content-section limitations">
+          <div>
+            <p class="eyebrow">Known limits</p>
+            <h2>What remains unproven</h2>
+          </div>
+          <ul id="limitation-list"></ul>
+        </section>
+      </section>
+    </main>
+
+    <footer>
+      <p>Agent Memory Bench · registry updated <span id="updated-at">loading</span></p>
+      <p><a href="https://github.com/thomasfevre/agent-memory-bench">Source and reproducibility notes</a></p>
+    </footer>
+    <script src="assets/app.js" defer></script>
+  </body>
+</html>
+
