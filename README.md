@@ -821,19 +821,17 @@ PYTHONPATH=src .venv/bin/python src/human_calibration.py prepare-shards \
   --seed 20260729
 ```
 
-After two people complete the generated CSV files independently:
+For the current single-owner calibration, launch the local review interface:
 
 ```bash
-PYTHONPATH=src .venv/bin/python src/human_calibration.py score \
-  --pack .cache/human-calibration/context-shards/review-pack.jsonl \
-  --mapping .cache/human-calibration/context-shards/private-mapping.jsonl \
-  --annotator-a .cache/human-calibration/context-shards/annotator-a.csv \
-  --annotator-b .cache/human-calibration/context-shards/annotator-b.csv \
-  --output results/P2-CONTEXT-SHARDS-HUMAN-CALIBRATION.json
+.venv/bin/python tools/human_review_server.py
 ```
 
-The repository does not invent these labels. Until both humans submit them,
-the related Priority 2 claims remain open.
+It serves a French UI on `127.0.0.1`, autosaves scorer-compatible CSV files and
+never exposes the private mappings. Once both campaigns are complete, use
+`human_calibration.py score-single` as documented in the runbook. The resulting
+measurement is alignment with one owner-reviewer, not human consensus. Until
+the owner submits the labels, the related Priority 2 claims remain open.
 
 The exact reviewer instructions, frozen scales, local pack hashes and scoring
 commands are in

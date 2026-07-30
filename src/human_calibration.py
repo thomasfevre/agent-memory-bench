@@ -57,6 +57,12 @@ def parse_args() -> argparse.Namespace:
     score.add_argument("--annotator-a", type=Path, required=True)
     score.add_argument("--annotator-b", type=Path, required=True)
     score.add_argument("--output", type=Path, required=True)
+
+    score_single = commands.add_parser("score-single")
+    score_single.add_argument("--pack", type=Path, required=True)
+    score_single.add_argument("--mapping", type=Path, required=True)
+    score_single.add_argument("--annotator", type=Path, required=True)
+    score_single.add_argument("--output", type=Path, required=True)
     return parser.parse_args()
 
 
@@ -600,6 +606,157 @@ def score(args: argparse.Namespace) -> None:
     )
 
 
+def score_single(args: argparse.Namespace) -> None:
+    pack_rows = read_jsonl(args.pack)
+    mapping = {
+        row["item_id"]: row for row in read_jsonl(args.mapping)
+    }
+    annotation = read_annotations(args.annotator)
+    pack_ids = [row["item_id"] for row in pack_rows]
+    annotated = [
+        item_id
+        for item_id in pack_ids
+        if item_id in annotation
+        and (
+            annotation[item_id].get("decision", "").strip()
+            or annotation[item_id].get("score", "").strip()
+        )
+    ]
+    if not annotated:
+        raise ValueError("no completed single-review item")
+    task_types = {row["task_type"] for row in pack_rows}
+    if len(task_types) != 1:
+        raise ValueError("review pack must contain exactly one task type")
+    task_type = next(iter(task_types))
+    review_times = numeric_values(
+        annotation,
+        annotated,
+        "time_seconds",
+    )
+    if task_type == "semantic_answer_judge":
+        invalid_scores = [
+            (item_id, annotation[item_id]["score"])
+            for item_id in annotated
+            if float(annotation[item_id]["score"]) not in JUDGE_SCORES
+        ]
+        if invalid_scores:
+            raise ValueError(
+                "annotation is outside the frozen semantic score scale "
+                f"{JUDGE_SCORES}: {invalid_scores}"
+            )
+        model_rows = [
+            (
+                item_id,
+                statistics.fmean(mapping[item_id]["model_judge_scores"]),
+            )
+            for item_id in annotated
+            if mapping.get(item_id, {}).get("model_judge_scores")
+        ]
+        model_scores = [value for _, value in model_rows]
+        human_scores = [
+            float(annotation[item_id]["score"]) for item_id, _ in model_rows
+        ]
+        metrics = {
+            "claim_boundary": (
+                "Alignment with one owner-reviewer, not human consensus."
+            ),
+            "model_judge": {
+                "items": len(model_scores),
+                "mean_absolute_error_to_human": rounded(
+                    statistics.fmean(
+                        abs(model - human)
+                        for model, human in zip(
+                            model_scores,
+                            human_scores,
+                            strict=True,
+                        )
+                    )
+                )
+                if model_scores
+                else None,
+                "pearson_to_human": rounded(
+                    pearson(model_scores, human_scores)
+                ),
+            },
+        }
+    elif task_type == "context_shard":
+        invalid_labels = [
+            (item_id, annotation[item_id]["decision"])
+            for item_id in annotated
+            if annotation[item_id]["decision"] not in SHARD_LABELS
+        ]
+        if invalid_labels:
+            raise ValueError(
+                "annotation is outside the frozen Context Shard decision "
+                f"labels {SHARD_LABELS}: {invalid_labels}"
+            )
+        reference_ids = [
+            item_id
+            for item_id in annotated
+            if mapping.get(item_id, {}).get("reference_label")
+            in SHARD_LABELS
+        ]
+        metrics = {
+            "claim_boundary": (
+                "One owner's promotion policy, not team or population "
+                "consensus."
+            ),
+            "decisions": {
+                label: sum(
+                    annotation[item_id]["decision"] == label
+                    for item_id in annotated
+                )
+                for label in SHARD_LABELS
+            },
+            "reference": {
+                "status": sorted(
+                    {
+                        mapping[item_id].get("reference_status")
+                        for item_id in reference_ids
+                        if mapping[item_id].get("reference_status")
+                    }
+                ),
+                "items": len(reference_ids),
+                "owner_accuracy": rounded(
+                    statistics.fmean(
+                        annotation[item_id]["decision"]
+                        == mapping[item_id]["reference_label"]
+                        for item_id in reference_ids
+                    )
+                )
+                if reference_ids
+                else None,
+            },
+        }
+    else:
+        raise ValueError(f"unsupported task type: {task_type}")
+    write_json(
+        args.output,
+        {
+            "protocol": "human-calibration-single-v1",
+            "task_type": task_type,
+            "coverage": {
+                "pack_items": len(pack_ids),
+                "annotated_items": len(annotated),
+                "annotated_fraction": rounded(
+                    len(annotated) / len(pack_ids)
+                ),
+            },
+            "review_time_seconds": {
+                "median": rounded(statistics.median(review_times))
+                if review_times
+                else None,
+            },
+            "inputs": {
+                "pack_sha256": sha256_file(args.pack),
+                "mapping_sha256": sha256_file(args.mapping),
+                "annotator_sha256": sha256_file(args.annotator),
+            },
+            **metrics,
+        },
+    )
+
+
 def main() -> None:
     args = parse_args()
     if args.command == "prepare-shards":
@@ -608,6 +765,8 @@ def main() -> None:
         prepare_judge(args)
     elif args.command == "score":
         score(args)
+    elif args.command == "score-single":
+        score_single(args)
 
 
 if __name__ == "__main__":

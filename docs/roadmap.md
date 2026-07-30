@@ -25,8 +25,10 @@
   Human calibration remains a separate open gate below.
 - [x] Run two real GraphRAG engines under one aligned budget, retaining partial
   indexes and ingestion timeouts instead of dropping failed systems.
-- [ ] Add real human review measurements for Context Shards.
-- [ ] Calibrate semantic judging with blinded double annotation.
+- [ ] Measure one owner's Context Shard promotion policy with blinded review.
+- [ ] Measure semantic-judge alignment with the blinded owner review.
+- [ ] Optionally add a second independent reviewer for inter-annotator
+  agreement and stronger generalization.
 
 ## Priority 3: realistic and adversarial
 

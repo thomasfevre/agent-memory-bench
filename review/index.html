@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <title>Revue humaine locale</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#review-main">Aller à l’évaluation</a>
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">AM</span>
+        <div>
+          <strong>Calibration personnelle</strong>
+          <span>Agent Memory Bench</span>
+        </div>
+      </div>
+      <div class="header-status">
+        <span class="local-status"><span aria-hidden="true"></span> Local uniquement</span>
+        <span id="save-status" role="status" aria-live="polite">Chargement…</span>
+      </div>
+    </header>
+
+    <div id="app" class="app-shell">
+      <div class="loading" role="status">Préparation des campagnes…</div>
+    </div>
+
+    <template id="app-template">
+      <aside class="review-sidebar" aria-label="Progression">
+        <div class="sidebar-heading">
+          <h1>Ta calibration</h1>
+          <p>Deux campagnes, une seule lecture attentive de chaque élément.</p>
+        </div>
+        <div id="overall-progress"></div>
+        <nav id="campaign-nav" aria-label="Campagnes"></nav>
+        <div class="privacy-note">
+          <strong>Rien ne quitte ce Mac.</strong>
+          <p>Chaque réponse est enregistrée dans un CSV local compatible avec le scorer.</p>
+        </div>
+      </aside>
+
+      <main id="review-main" class="review-main" tabindex="-1">
+        <div id="review-content"></div>
+      </main>
+    </template>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>

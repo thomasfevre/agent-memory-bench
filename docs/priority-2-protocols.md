@@ -78,9 +78,11 @@ The provisional semantic-judge macro scores were 0.635 for visible documents,
 visible-only by 0.078, but had 13 wins and 12 losses. These results support a
 bounded-context trade-off, not a universal top-k optimum.
 
-The semantic judge cannot be called calibrated against humans until two blinded
-annotations exist. The annotation pack and agreement report are a separate
-deliverable and must not be replaced by model self-agreement.
+The semantic judge cannot be called broadly calibrated against humans from
+model self-agreement. The current first gate is a blinded single-owner review.
+It can measure alignment with the intended owner but not inter-annotator
+agreement or population-level preference. A future independent second reviewer
+would be a separate extension.
 
 Two earlier artifacts were quarantined after raw stderr showed web search. They
 are excluded from every summary and public result. The first established that
@@ -115,23 +117,23 @@ and Cognee did not reach retrieval at all.
 
 ## Human review gates
 
-Two Priority 2 claims require real human observations:
+Two Priority 2 questions require real owner observations:
 
 1. time and decision quality for Context Shard approval;
-2. semantic-judge agreement against two blinded annotators.
+2. semantic-judge agreement against one blinded owner-reviewer.
 
 Code may prepare randomized review packs and compute agreement, but the
-measurements remain pending until two humans submit independent labels.
+measurements remain pending until the owner submits the labels.
 
-The `human_calibration.py` CLI now prepares two independent CSV templates,
-keeps source keys and reference labels in a separate mapping, and computes
-coverage, Cohen's kappa, reference agreement, median review time and
-model-to-human judge error. The current Context Shard fixture has only three
-items, while the dedicated review pack has 24 balanced candidates with
-synthetic reference statuses. The latter is large enough to exercise the
-workflow, but no human-quality estimate exists until two independent reviewers
-complete it.
+The local review interface reads randomized public packs, keeps source keys and
+reference labels in a separate mapping, autosaves scorer-compatible CSV files
+and resumes interrupted work. The `score-single` command computes coverage,
+reference agreement, median review time and model-to-owner judge error. The
+current Context Shard fixture has only three items, while the dedicated review
+pack has 24 balanced candidates with synthetic reference statuses. The latter
+is large enough to exercise the workflow, but no owner-quality estimate exists
+until the review is complete.
 
-The frozen reviewer rubrics, local pack hashes, independence rules and scoring
-commands are documented in
+The frozen rubrics, local pack hashes, blindness rules, interface command,
+claim boundaries and scoring commands are documented in
 [`human-review-runbook.md`](human-review-runbook.md).

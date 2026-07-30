@@ -435,3 +435,183 @@ def test_score_rejects_context_shard_decisions_outside_the_frozen_labels(tmp_pat
     assert completed.returncode != 0
     assert "frozen Context Shard decision labels" in completed.stderr
     assert not output.exists()
+
+
+def test_score_single_semantic_review_reports_model_alignment_without_consensus(
+    tmp_path,
+):
+    pack = tmp_path / "pack.jsonl"
+    mapping = tmp_path / "mapping.jsonl"
+    annotator = tmp_path / "annotator.csv"
+    output = tmp_path / "single.json"
+    write_jsonl(
+        pack,
+        [
+            {"item_id": "i1", "task_type": "semantic_answer_judge"},
+            {"item_id": "i2", "task_type": "semantic_answer_judge"},
+        ],
+    )
+    write_jsonl(
+        mapping,
+        [
+            {"item_id": "i1", "source_key": "s1", "model_judge_scores": [0.7]},
+            {"item_id": "i2", "source_key": "s2", "model_judge_scores": [0.5]},
+        ],
+    )
+    with annotator.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=[
+                "item_id",
+                "score",
+                "confidence",
+                "time_seconds",
+                "notes",
+            ],
+        )
+        writer.writeheader()
+        writer.writerow(
+            {
+                "item_id": "i1",
+                "score": "1.0",
+                "confidence": "0.9",
+                "time_seconds": "10",
+            }
+        )
+        writer.writerow(
+            {
+                "item_id": "i2",
+                "score": "0.3",
+                "confidence": "0.8",
+                "time_seconds": "20",
+            }
+        )
+
+    run_cli(
+        "score-single",
+        "--pack",
+        str(pack),
+        "--mapping",
+        str(mapping),
+        "--annotator",
+        str(annotator),
+        "--output",
+        str(output),
+    )
+
+    report = json.loads(output.read_text())
+    assert report["protocol"] == "human-calibration-single-v1"
+    assert report["coverage"] == {
+        "pack_items": 2,
+        "annotated_items": 2,
+        "annotated_fraction": 1.0,
+    }
+    assert report["model_judge"]["mean_absolute_error_to_human"] == 0.25
+    assert report["model_judge"]["pearson_to_human"] == 1.0
+    assert report["review_time_seconds"]["median"] == 15.0
+    assert report["claim_boundary"] == (
+        "Alignment with one owner-reviewer, not human consensus."
+    )
+
+
+def test_score_single_context_shards_reports_owner_decisions_and_time(tmp_path):
+    pack = tmp_path / "pack.jsonl"
+    mapping = tmp_path / "mapping.jsonl"
+    annotator = tmp_path / "annotator.csv"
+    output = tmp_path / "single.json"
+    item_ids = ["i1", "i2", "i3"]
+    write_jsonl(
+        pack,
+        [
+            {"item_id": item_id, "task_type": "context_shard"}
+            for item_id in item_ids
+        ],
+    )
+    write_jsonl(
+        mapping,
+        [
+            {
+                "item_id": item_id,
+                "source_key": f"s{index}",
+                "reference_label": decision,
+                "reference_status": "synthetic",
+            }
+            for index, (item_id, decision) in enumerate(
+                zip(
+                    item_ids,
+                    ["approved", "rejected", "deferred"],
+                    strict=True,
+                )
+            )
+        ],
+    )
+    with annotator.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=[
+                "item_id",
+                "decision",
+                "scope",
+                "injection",
+                "confidence",
+                "time_seconds",
+                "notes",
+            ],
+        )
+        writer.writeheader()
+        writer.writerow(
+            {
+                "item_id": "i1",
+                "decision": "approved",
+                "scope": "personal",
+                "injection": "task_specific",
+                "confidence": "0.9",
+                "time_seconds": "8",
+            }
+        )
+        writer.writerow(
+            {
+                "item_id": "i2",
+                "decision": "rejected",
+                "scope": "task",
+                "injection": "never",
+                "confidence": "0.8",
+                "time_seconds": "12",
+            }
+        )
+        writer.writerow(
+            {
+                "item_id": "i3",
+                "decision": "approved",
+                "scope": "team",
+                "injection": "always_on",
+                "confidence": "0.7",
+                "time_seconds": "20",
+            }
+        )
+
+    run_cli(
+        "score-single",
+        "--pack",
+        str(pack),
+        "--mapping",
+        str(mapping),
+        "--annotator",
+        str(annotator),
+        "--output",
+        str(output),
+    )
+
+    report = json.loads(output.read_text())
+    assert report["task_type"] == "context_shard"
+    assert report["decisions"] == {
+        "approved": 2,
+        "deferred": 0,
+        "rejected": 1,
+    }
+    assert report["reference"]["status"] == ["synthetic"]
+    assert report["reference"]["owner_accuracy"] == 0.666667
+    assert report["review_time_seconds"]["median"] == 12.0
+    assert report["claim_boundary"] == (
+        "One owner's promotion policy, not team or population consensus."
+    )
