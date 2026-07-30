@@ -56,6 +56,15 @@ def test_dashboard_registry_matches_canonical_registry() -> None:
     )
 
 
+def test_dashboard_exposes_harness_compatibility_summary() -> None:
+    html = (ROOT / "site" / "index.html").read_text(encoding="utf-8")
+    script = (ROOT / "site" / "assets" / "app.js").read_text(encoding="utf-8")
+
+    assert 'id="harness-comparison"' in html
+    assert "priority3-coding-harness-qwen25-14b-20260730" in script
+    assert "not a quality ranking" in script
+
+
 def test_public_registry_validator_passes() -> None:
     tool = load_tool("validate_public_registry")
     assert tool.main() == 0
@@ -321,3 +330,38 @@ def test_deletion_record_keeps_backup_and_ssd_limits_visible() -> None:
     assert record["metrics"]["secure_flash_erasure_claimed"] is False
     assert "backup" in record["limitation"].lower()
     assert "SSD" in record["limitation"]
+
+
+def test_harness_record_reports_compatibility_failure_not_quality_ranking() -> None:
+    tool = load_tool("update_p3_registry")
+    record = tool.harness_record(
+        {
+            "harnesses": [
+                {
+                    "harness": "jcode",
+                    "classification": "tool_protocol_incompatible",
+                    "attempts": 2,
+                    "distinct_tasks": 2,
+                    "tasks_completed": 0,
+                    "hidden_tests_passed": 1,
+                    "hidden_tests_total": 5,
+                    "production_files_changed": 0,
+                    "known_total_tokens": 63969,
+                    "known_wall_time_seconds": 340.415,
+                }
+            ],
+            "fixed_budget": {
+                "rows": [],
+                "time_rows": [],
+                "tool_call_ceilings": [20, 40, 80],
+                "pareto_efficient_configurations": [],
+            },
+        }
+    )
+
+    assert record["metrics"]["harnesses"][0]["tasks_completed"] == 0
+    assert (
+        record["metrics"]["harnesses"][0]["classification"]
+        == "tool_protocol_incompatible"
+    )
+    assert "not a quality ranking" in record["limitation"]

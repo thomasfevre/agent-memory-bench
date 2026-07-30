@@ -279,3 +279,26 @@ stale record that was never invalidated. The scorer therefore defines
 The earlier winner-only checks remain visible as `selected_final_value_exact`
 and `historical_query_accuracy`. This correction was made before inspecting
 the second and third repetitions.
+
+### Coding-harness compatibility stop
+
+The first two independent tasks produced no production-file change with
+jcode, Letta Code or Codex CLI. All three harnesses reached the local
+`qwen2.5:14b` model, but the model did not use each harness tool protocol
+successfully. Claude Code was attempted twice and failed before task execution
+because its local provider adapter sent an unsupported `thinking` parameter.
+
+The campaign therefore retained:
+
+- `tool_protocol_incompatible` for jcode, Letta Code and Codex CLI;
+- `provider_incompatible` for Claude Code;
+- zero completed tasks for every harness.
+
+The remaining two tasks and third repetitions were not executed because the
+completion gate explicitly allows a retained, evidenced incompatibility. More
+attempts with the same pinned model and protocol would measure repeated
+handshake failure, not task quality. This result is not a quality ranking of
+the harnesses with their recommended models.
+
+The frozen hidden evaluators were published only after these results were
+sealed. Their committed SHA-256 values match the preregistered hashes above.

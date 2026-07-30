@@ -835,6 +835,39 @@ PYTHONPATH=src .venv/bin/python src/human_calibration.py score \
 The repository does not invent these labels. Until both humans submit them,
 the related Priority 2 claims remain open.
 
+## Priority 3 durability and coding-harness campaign
+
+Priority 3 now has public, rebuildable evidence for four adversarial
+boundaries:
+
+- 180 of 180 Qwen 2.5 14B temporal extractions completed across three
+  repetitions;
+- all five arrival schedules selected the correct final value, while complete
+  active-state exactness exposed a lower 85% score and 3.9% stale-record
+  leakage;
+- all eight injected derived-index crash boundaries recovered the same
+  semantic state as the uninterrupted build, with no orphan generation;
+- all seven active deletion surfaces were clean after compaction, while the
+  old backup remained explicitly listed as retaining the deleted payload.
+
+The common coding-harness campaign pinned jcode 0.61.1, Letta Code 0.29.11,
+Codex 0.144.3 and Claude Code 2.1.220 to the same local `qwen2.5:14b` model,
+fixture commit and per-attempt budget. jcode, Letta Code and Codex each
+reproduced no-change tool-protocol failures on two independent tasks. Claude
+Code failed two local-provider handshakes before task execution because its
+adapter requested unsupported thinking behavior.
+
+The retained outcome is therefore a compatibility result, not a quality
+ranking of the harnesses with their recommended models. No task completed, so
+correct tasks per 100,000 tokens and per hour are both zero. The compact result
+is published as:
+
+- `results/published/raw/P3-HARNESS-QWEN25-14B-20260730.json`
+
+The preregistration, stop rule, deviations and released hidden-evaluator hashes
+are documented in
+[`docs/priority-3-protocols.md`](docs/priority-3-protocols.md).
+
 ## MemGym MemRM full CPU reproduction
 
 The public 1.7B MemRM checkpoint was also rerun on all 6,209 rows of the

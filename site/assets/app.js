@@ -384,6 +384,29 @@ function renderSystems() {
         </article>`,
     )
     .join("");
+
+  const harnessRun = run("priority3-coding-harness-qwen25-14b-20260730");
+  const harnessLabel = (value) =>
+    value === "tool_protocol_incompatible"
+      ? "Tool protocol incompatible"
+      : value === "provider_incompatible"
+        ? "Provider incompatible"
+        : value;
+  byId("harness-comparison").innerHTML = harnessRun.metrics.harnesses
+    .map(
+      (item) => `
+        <article class="comparison-card">
+          <strong>${item.harness}</strong>
+          <span class="large-value">${item.tasks_completed}/${item.distinct_tasks}</span>
+          <p>Tasks completed · ${harnessLabel(item.classification)}</p>
+          <p>${item.known_total_tokens === null ? "Tokens unavailable" : `${number(item.known_total_tokens)} known tokens`} · ${number(Math.round(item.known_wall_time_seconds))} s retained wall time</p>
+        </article>`,
+    )
+    .join("");
+  byId("harness-comparison").insertAdjacentHTML(
+    "afterend",
+    '<p class="chart-note">This is a pinned-model compatibility result and not a quality ranking of the harnesses with their recommended models.</p>',
+  );
 }
 
 function renderEvidence() {

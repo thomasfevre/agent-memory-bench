@@ -15,6 +15,7 @@ REGISTRY = RESULTS / "published" / "registry.json"
 TEMPORAL = RESULTS / "P3-TEMPORAL-SCORING-QWEN25-14B-20260729.json"
 CRASH = RESULTS / "P3-DERIVED-INDEX-CRASH-MATRIX-20260729.json"
 DELETION = RESULTS / "P3-DELETION-COMPACTION-20260729.json"
+HARNESS = RESULTS / "P3-HARNESS-QWEN25-14B-20260730.json"
 
 
 def rounded(value: float, digits: int = 3) -> float:
@@ -246,8 +247,78 @@ def deletion_record(payload: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def harness_record(payload: dict[str, Any]) -> dict[str, Any]:
+    harnesses = payload["harnesses"]
+    tasks_attempted = sum(
+        int(row.get("distinct_tasks", 0)) for row in harnesses
+    )
+    tasks_completed = sum(
+        int(row.get("tasks_completed", 0)) for row in harnesses
+    )
+    classifications = sorted(
+        {
+            str(row["classification"])
+            for row in harnesses
+            if row.get("classification")
+        }
+    )
+    return {
+        "id": "priority3-coding-harness-qwen25-14b-20260730",
+        "date": "2026-07-30",
+        "phase": "agentic",
+        "dataset": "Priority 3 public coding fixture",
+        "task": (
+            "Compare coding-agent harness compatibility on realistic "
+            "multi-file tasks under the same local model"
+        ),
+        "method": (
+            "jcode, Letta Code, Codex CLI and Claude Code with local "
+            "Qwen 2.5 14B"
+        ),
+        "reader": "qwen2.5:14b",
+        "evidence_level": "controlled",
+        "sample": (
+            "Two independent tasks retained after reproducible no-change "
+            "failures; two Claude Code provider attempts"
+        ),
+        "repetitions": 2,
+        "metrics": {
+            "harnesses": harnesses,
+            "fixed_budget": payload["fixed_budget"],
+            "tasks_attempted": tasks_attempted,
+            "tasks_completed": tasks_completed,
+            "classifications": classifications,
+        },
+        "budget": {
+            "wall_clock_seconds_per_task": 1200,
+            "token_ceiling_per_task": 100000,
+            "tool_call_ceiling_per_task": 80,
+            "network": "localhost-only",
+            "fixture_commit": payload.get(
+                "fixture_commit",
+                "cf0dfa68b028f8dab5b39d0a5dddd9e14f2298ea",
+            ),
+        },
+        "conclusion": (
+            "No harness completed either retained task with the pinned local "
+            "model. jcode, Letta Code and Codex CLI reproduced tool-protocol "
+            "incompatibilities; Claude Code could not start a task because "
+            "its provider request was incompatible."
+        ),
+        "limitation": (
+            "This is a compatibility result for one pinned local model and is "
+            "not a quality ranking of the harnesses with their recommended "
+            "models. Codex token accounting is incomplete, and baseline test "
+            "passes do not count as agent task completion."
+        ),
+        "evidence_files": [
+            "results/P3-HARNESS-QWEN25-14B-20260730.json"
+        ],
+    }
+
+
 def main() -> int:
-    required = [REGISTRY, TEMPORAL, CRASH, DELETION]
+    required = [REGISTRY, TEMPORAL, CRASH, DELETION, HARNESS]
     missing = [str(path) for path in required if not path.is_file()]
     if missing:
         raise FileNotFoundError(f"missing inputs: {', '.join(missing)}")
@@ -255,20 +326,24 @@ def main() -> int:
     temporal = json.loads(TEMPORAL.read_text(encoding="utf-8"))
     crash = json.loads(CRASH.read_text(encoding="utf-8"))
     deletion = json.loads(DELETION.read_text(encoding="utf-8"))
+    harness = json.loads(HARNESS.read_text(encoding="utf-8"))
     upsert(registry, temporal_record(temporal))
     upsert(registry, crash_record(crash))
     upsert(registry, deletion_record(deletion))
+    upsert(registry, harness_record(harness))
     registry["updated_at"] = "2026-07-30"
     for finding in (
         "Answer-only temporal scoring hid stale active records: selected values were 100% correct while complete active-state exactness was 85%.",
         "A deterministic four-view derived index recovered the uninterrupted semantic state at all eight injected crash boundaries.",
         "Deletion and compaction removed payloads from all seven active surfaces, but old backups still require an explicit retention policy.",
+        "With the same pinned local Qwen model, jcode, Letta Code and Codex CLI reproduced tool-protocol incompatibilities on two independent tasks; Claude Code was provider-incompatible before task execution.",
     ):
         if finding not in registry["findings"]:
             registry["findings"].append(finding)
     for limitation in (
         "Priority 3 temporal, crash and deletion results use controlled local fixtures and do not establish distributed-system guarantees.",
         "SQLite VACUUM verifies the rebuilt database file but does not prove physical SSD flash erasure; old backups retain data until separately expired.",
+        "The coding-harness campaign is a local-model compatibility result, not a quality ranking of harnesses with their recommended models.",
     ):
         if limitation not in registry["limitations"]:
             registry["limitations"].append(limitation)

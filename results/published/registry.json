@@ -1987,6 +1987,146 @@
       "evidence_files": [
         "results/P3-DELETION-COMPACTION-20260729.json"
       ]
+    },
+    {
+      "id": "priority3-coding-harness-qwen25-14b-20260730",
+      "date": "2026-07-30",
+      "phase": "agentic",
+      "dataset": "Priority 3 public coding fixture",
+      "task": "Compare coding-agent harness compatibility on realistic multi-file tasks under the same local model",
+      "method": "jcode, Letta Code, Codex CLI and Claude Code with local Qwen 2.5 14B",
+      "reader": "qwen2.5:14b",
+      "evidence_level": "controlled",
+      "sample": "Two independent tasks retained after reproducible no-change failures; two Claude Code provider attempts",
+      "repetitions": 2,
+      "metrics": {
+        "harnesses": [
+          {
+            "attempts": 2,
+            "classification": "provider_incompatible",
+            "distinct_tasks": 0,
+            "harness": "Claude Code",
+            "hidden_tests_passed": 0,
+            "hidden_tests_total": 0,
+            "known_total_tokens": null,
+            "known_wall_time_seconds": 295.119,
+            "production_files_changed": 0,
+            "public_tests_passed": 0,
+            "public_tests_total": 0,
+            "tasks_completed": 0
+          },
+          {
+            "attempts": 2,
+            "classification": "tool_protocol_incompatible",
+            "distinct_tasks": 2,
+            "harness": "Codex CLI",
+            "hidden_tests_passed": 1,
+            "hidden_tests_total": 5,
+            "known_total_tokens": null,
+            "known_wall_time_seconds": 327.0,
+            "production_files_changed": 0,
+            "public_tests_passed": 2,
+            "public_tests_total": 2,
+            "tasks_completed": 0
+          },
+          {
+            "attempts": 2,
+            "classification": "tool_protocol_incompatible",
+            "distinct_tasks": 2,
+            "harness": "Letta Code",
+            "hidden_tests_passed": 1,
+            "hidden_tests_total": 5,
+            "known_total_tokens": 134823,
+            "known_wall_time_seconds": 829.966,
+            "production_files_changed": 0,
+            "public_tests_passed": 2,
+            "public_tests_total": 2,
+            "tasks_completed": 0
+          },
+          {
+            "attempts": 2,
+            "classification": "tool_protocol_incompatible",
+            "distinct_tasks": 2,
+            "harness": "jcode",
+            "hidden_tests_passed": 1,
+            "hidden_tests_total": 5,
+            "known_total_tokens": 63969,
+            "known_wall_time_seconds": 340.415,
+            "production_files_changed": 0,
+            "public_tests_passed": 2,
+            "public_tests_total": 2,
+            "tasks_completed": 0
+          }
+        ],
+        "fixed_budget": {
+          "note": "No attempt completed a task, so quality-per-cost is zero. Codex token totals and reliable tool-call phase attribution were unavailable after interrupted unsupported-call loops.",
+          "pareto_efficient_configurations": [],
+          "rows": [
+            {
+              "correct_tasks_per_100k_tokens": 0.0,
+              "eligible_attempts": 1,
+              "tasks_completed": 0,
+              "token_ceiling": 25000
+            },
+            {
+              "correct_tasks_per_100k_tokens": 0.0,
+              "eligible_attempts": 2,
+              "tasks_completed": 0,
+              "token_ceiling": 50000
+            },
+            {
+              "correct_tasks_per_100k_tokens": 0.0,
+              "eligible_attempts": 3,
+              "tasks_completed": 0,
+              "token_ceiling": 100000
+            }
+          ],
+          "time_rows": [
+            {
+              "correct_tasks_per_hour": 0.0,
+              "eligible_attempts": 4,
+              "tasks_completed": 0,
+              "wall_time_ceiling_seconds": 300
+            },
+            {
+              "correct_tasks_per_hour": 0.0,
+              "eligible_attempts": 5,
+              "tasks_completed": 0,
+              "wall_time_ceiling_seconds": 600
+            },
+            {
+              "correct_tasks_per_hour": 0.0,
+              "eligible_attempts": 6,
+              "tasks_completed": 0,
+              "wall_time_ceiling_seconds": 1200
+            }
+          ],
+          "tool_call_ceilings": [
+            20,
+            40,
+            80
+          ],
+          "tool_phase_proportions": null
+        },
+        "tasks_attempted": 6,
+        "tasks_completed": 0,
+        "classifications": [
+          "provider_incompatible",
+          "tool_protocol_incompatible"
+        ]
+      },
+      "budget": {
+        "wall_clock_seconds_per_task": 1200,
+        "token_ceiling_per_task": 100000,
+        "tool_call_ceiling_per_task": 80,
+        "network": "localhost-only",
+        "fixture_commit": "cf0dfa68b028f8dab5b39d0a5dddd9e14f2298ea"
+      },
+      "conclusion": "No harness completed either retained task with the pinned local model. jcode, Letta Code and Codex CLI reproduced tool-protocol incompatibilities; Claude Code could not start a task because its provider request was incompatible.",
+      "limitation": "This is a compatibility result for one pinned local model and is not a quality ranking of the harnesses with their recommended models. Codex token accounting is incomplete, and baseline test passes do not count as agent task completion.",
+      "evidence_files": [
+        "results/P3-HARNESS-QWEN25-14B-20260730.json"
+      ]
     }
   ],
   "systems": [
@@ -2063,7 +2203,8 @@
     "Under the aligned 30-minute local GraphRAG budget, Graphiti indexed 13 of 20 documents while Cognee completed neither its default nor serial ingestion path.",
     "Answer-only temporal scoring hid stale active records: selected values were 100% correct while complete active-state exactness was 85%.",
     "A deterministic four-view derived index recovered the uninterrupted semantic state at all eight injected crash boundaries.",
-    "Deletion and compaction removed payloads from all seven active surfaces, but old backups still require an explicit retention policy."
+    "Deletion and compaction removed payloads from all seven active surfaces, but old backups still require an explicit retention policy.",
+    "With the same pinned local Qwen model, jcode, Letta Code and Codex CLI reproduced tool-protocol incompatibilities on two independent tasks; Claude Code was provider-incompatible before task execution."
   ],
   "limitations": [
     "The synthetic common corpus is small and intentionally adversarial.",
@@ -2077,6 +2218,7 @@
     "MemGym semantic scores remain provisional until two blinded humans complete the fixed 40-item calibration pack.",
     "The aligned GraphRAG comparison is one 20-document slice, one local model and one repetition; ingestion failures are capacity observations, not universal engine rankings.",
     "Priority 3 temporal, crash and deletion results use controlled local fixtures and do not establish distributed-system guarantees.",
-    "SQLite VACUUM verifies the rebuilt database file but does not prove physical SSD flash erasure; old backups retain data until separately expired."
+    "SQLite VACUUM verifies the rebuilt database file but does not prove physical SSD flash erasure; old backups retain data until separately expired.",
+    "The coding-harness campaign is a local-model compatibility result, not a quality ranking of harnesses with their recommended models."
   ]
 }

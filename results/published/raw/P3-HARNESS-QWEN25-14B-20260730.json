@@ -1,0 +1,307 @@
+{
+  "attempts": [
+    {
+      "changed_files": [],
+      "exit_code": 1,
+      "harness": "Codex CLI",
+      "harness_version": "0.144.3",
+      "hidden_tests_passed": 1,
+      "hidden_tests_total": 3,
+      "input_tokens": null,
+      "observation": "Three empty tool calls were rejected as unsupported before any file change, reproducing the resume-runner failure on an independent task.",
+      "output_tokens": null,
+      "production_files_changed": [],
+      "public_tests_passed": 1,
+      "public_tests_total": 1,
+      "repetition": 1,
+      "task_complete": false,
+      "task_id": "provenance",
+      "tool_calls": 3,
+      "total_tokens": null,
+      "wall_time_seconds": 34.0
+    },
+    {
+      "changed_files": [],
+      "exit_code": 0,
+      "harness": "jcode",
+      "harness_version": "0.61.1",
+      "hidden_tests_passed": 1,
+      "hidden_tests_total": 3,
+      "input_tokens": 12164,
+      "observation": "The model returned a shell command as prose instead of invoking a tool and changed no files.",
+      "output_tokens": 257,
+      "production_files_changed": [],
+      "public_tests_passed": 1,
+      "public_tests_total": 1,
+      "repetition": 1,
+      "task_complete": false,
+      "task_id": "provenance",
+      "tool_calls": 0,
+      "total_tokens": 12421,
+      "wall_time_seconds": 29.941
+    },
+    {
+      "changed_files": [],
+      "exit_code": 0,
+      "harness": "Letta Code",
+      "harness_version": "0.29.11",
+      "hidden_tests_passed": 1,
+      "hidden_tests_total": 3,
+      "input_tokens": 99857,
+      "observation": "The attempt exceeded the 100k-token ceiling, produced hypothetical edits and shell commands as prose, and changed no files.",
+      "output_tokens": 4384,
+      "production_files_changed": [],
+      "public_tests_passed": 1,
+      "public_tests_total": 1,
+      "repetition": 1,
+      "task_complete": false,
+      "task_id": "provenance",
+      "tool_calls": 0,
+      "total_tokens": 104241,
+      "wall_time_seconds": 642.78
+    },
+    {
+      "changed_files": [],
+      "exit_code": 1,
+      "harness": "Codex CLI",
+      "harness_version": "0.144.3",
+      "hidden_tests_passed": 0,
+      "hidden_tests_total": 2,
+      "input_tokens": null,
+      "observation": "Repeated empty unsupported tool calls produced no file changes. The attempt was stopped after the failure repeated across multiple turns.",
+      "output_tokens": null,
+      "production_files_changed": [],
+      "public_tests_passed": 1,
+      "public_tests_total": 1,
+      "repetition": 1,
+      "task_complete": false,
+      "task_id": "resume_runner",
+      "tool_calls": null,
+      "total_tokens": null,
+      "wall_time_seconds": 293.0
+    },
+    {
+      "changed_files": [],
+      "exit_code": 0,
+      "harness": "jcode",
+      "harness_version": "0.61.1",
+      "hidden_tests_passed": 0,
+      "hidden_tests_total": 2,
+      "input_tokens": 50092,
+      "observation": "The model attempted four reads against invented paths, changed no files, then returned illustrative code as prose.",
+      "output_tokens": 1456,
+      "production_files_changed": [],
+      "public_tests_passed": 1,
+      "public_tests_total": 1,
+      "repetition": 1,
+      "task_complete": false,
+      "task_id": "resume_runner",
+      "tool_calls": 4,
+      "total_tokens": 51548,
+      "wall_time_seconds": 310.474
+    },
+    {
+      "changed_files": [],
+      "exit_code": 0,
+      "harness": "Letta Code",
+      "harness_version": "0.29.11",
+      "hidden_tests_passed": 0,
+      "hidden_tests_total": 2,
+      "input_tokens": 30342,
+      "observation": "The harness looked for an invented runner.py path outside the fresh clone, made no production change, and asked the user for the missing structure.",
+      "output_tokens": 240,
+      "production_files_changed": [],
+      "public_tests_passed": 1,
+      "public_tests_total": 1,
+      "repetition": 1,
+      "task_complete": false,
+      "task_id": "resume_runner",
+      "tool_calls": 0,
+      "total_tokens": 30582,
+      "wall_time_seconds": 187.186
+    }
+  ],
+  "campaign": "priority3-coding-harness-qwen25-14b",
+  "claude_provider_incompatibility": {
+    "attempts": [
+      {
+        "effort": "default",
+        "proxy_error": "Ollama_chatException: qwen2.5:14b does not support thinking",
+        "result": "failed",
+        "wall_time_seconds": 217.699
+      },
+      {
+        "effort": "low",
+        "proxy_error": "Ollama_chatException: qwen2.5:14b does not support thinking",
+        "result": "failed",
+        "wall_time_seconds": 77.42
+      }
+    ],
+    "classification": "provider_incompatible",
+    "conclusion": "Claude Code sent a thinking parameter through the Anthropic-compatible proxy in both attempts. Ollama rejected it before a task could start.",
+    "harness": "Claude Code",
+    "harness_version": "2.1.220",
+    "limits": [
+      "The proxy health check and direct local model calls succeeded.",
+      "No subscription model or paid API fallback was used.",
+      "This is an incompatibility of the pinned adapter path, not a general Claude Code quality result."
+    ],
+    "model": "qwen2.5:14b",
+    "network_policy": "localhost-only",
+    "proxy": {
+      "base_url": "http://127.0.0.1:40123",
+      "implementation": "LiteLLM",
+      "model_alias": "claude-local-qwen25",
+      "version": "1.94.0"
+    }
+  },
+  "conclusion": "The pinned local model could answer in prose but did not complete repository work through any harness. Two independent tasks reproduced no-change tool-protocol failures for jcode, Codex and Letta; Claude Code failed two provider handshakes because the adapter requested unsupported thinking.",
+  "date": "2026-07-30",
+  "fixed_budget": {
+    "note": "No attempt completed a task, so quality-per-cost is zero. Codex token totals and reliable tool-call phase attribution were unavailable after interrupted unsupported-call loops.",
+    "pareto_efficient_configurations": [],
+    "rows": [
+      {
+        "correct_tasks_per_100k_tokens": 0.0,
+        "eligible_attempts": 1,
+        "tasks_completed": 0,
+        "token_ceiling": 25000
+      },
+      {
+        "correct_tasks_per_100k_tokens": 0.0,
+        "eligible_attempts": 2,
+        "tasks_completed": 0,
+        "token_ceiling": 50000
+      },
+      {
+        "correct_tasks_per_100k_tokens": 0.0,
+        "eligible_attempts": 3,
+        "tasks_completed": 0,
+        "token_ceiling": 100000
+      }
+    ],
+    "time_rows": [
+      {
+        "correct_tasks_per_hour": 0.0,
+        "eligible_attempts": 4,
+        "tasks_completed": 0,
+        "wall_time_ceiling_seconds": 300
+      },
+      {
+        "correct_tasks_per_hour": 0.0,
+        "eligible_attempts": 5,
+        "tasks_completed": 0,
+        "wall_time_ceiling_seconds": 600
+      },
+      {
+        "correct_tasks_per_hour": 0.0,
+        "eligible_attempts": 6,
+        "tasks_completed": 0,
+        "wall_time_ceiling_seconds": 1200
+      }
+    ],
+    "tool_call_ceilings": [
+      20,
+      40,
+      80
+    ],
+    "tool_phase_proportions": null
+  },
+  "fixture_commit": "cf0dfa68b028f8dab5b39d0a5dddd9e14f2298ea",
+  "harnesses": [
+    {
+      "attempts": 2,
+      "classification": "provider_incompatible",
+      "distinct_tasks": 0,
+      "harness": "Claude Code",
+      "hidden_tests_passed": 0,
+      "hidden_tests_total": 0,
+      "known_total_tokens": null,
+      "known_wall_time_seconds": 295.119,
+      "production_files_changed": 0,
+      "public_tests_passed": 0,
+      "public_tests_total": 0,
+      "tasks_completed": 0
+    },
+    {
+      "attempts": 2,
+      "classification": "tool_protocol_incompatible",
+      "distinct_tasks": 2,
+      "harness": "Codex CLI",
+      "hidden_tests_passed": 1,
+      "hidden_tests_total": 5,
+      "known_total_tokens": null,
+      "known_wall_time_seconds": 327.0,
+      "production_files_changed": 0,
+      "public_tests_passed": 2,
+      "public_tests_total": 2,
+      "tasks_completed": 0
+    },
+    {
+      "attempts": 2,
+      "classification": "tool_protocol_incompatible",
+      "distinct_tasks": 2,
+      "harness": "Letta Code",
+      "hidden_tests_passed": 1,
+      "hidden_tests_total": 5,
+      "known_total_tokens": 134823,
+      "known_wall_time_seconds": 829.966,
+      "production_files_changed": 0,
+      "public_tests_passed": 2,
+      "public_tests_total": 2,
+      "tasks_completed": 0
+    },
+    {
+      "attempts": 2,
+      "classification": "tool_protocol_incompatible",
+      "distinct_tasks": 2,
+      "harness": "jcode",
+      "hidden_tests_passed": 1,
+      "hidden_tests_total": 5,
+      "known_total_tokens": 63969,
+      "known_wall_time_seconds": 340.415,
+      "production_files_changed": 0,
+      "public_tests_passed": 2,
+      "public_tests_total": 2,
+      "tasks_completed": 0
+    }
+  ],
+  "limits": [
+    "This is a compatibility result for qwen2.5:14b, not a quality ranking of the harnesses with their recommended models.",
+    "Codex token totals are unavailable for interrupted local-provider runs.",
+    "Only two tasks were executed after reproducible no-change failures made the remaining task matrix non-informative."
+  ],
+  "model": "qwen2.5:14b",
+  "network_policy": "localhost-only",
+  "raw_manifest": [
+    {
+      "path": "provenance-r1-codex.json",
+      "sha256": "90f9bfcad3b1009793c87f955a210562eb48750cddb9eaece3bedea3c355a273"
+    },
+    {
+      "path": "provenance-r1-jcode.json",
+      "sha256": "5c803dbd3094939aebb700531e74cbc7e0af443d3d778f8b390babae30990a22"
+    },
+    {
+      "path": "provenance-r1-letta.json",
+      "sha256": "6aeaf6a5599b40a12df3cfd8aaf4eba7223fe78257f464cd94aa397ac8fc8920"
+    },
+    {
+      "path": "resume_runner-r1-codex.json",
+      "sha256": "b18294b0461bc5dd1ab84e4c64466e0137882707fa31f8dc7ab789060acec9c8"
+    },
+    {
+      "path": "resume_runner-r1-jcode.json",
+      "sha256": "7a010b563cf8324b34554e5dc9c2bd2c26b608a5079f58527ef9faa636bab1f3"
+    },
+    {
+      "path": "resume_runner-r1-letta.json",
+      "sha256": "67744b01adece07119dce1ccfb293e39193aef548b134eebb672296cc0f95313"
+    },
+    {
+      "path": "claude-code-provider-incompatibility.json",
+      "sha256": "5b94328c5d1f2e0f06c395bbcdc290ba692541e3fca234fd8b4b828beba30cc8"
+    }
+  ],
+  "schema_version": 1
+}

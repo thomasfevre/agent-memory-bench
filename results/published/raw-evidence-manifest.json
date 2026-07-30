@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "generated_at": "2026-07-30",
-  "artifact_count": 134,
-  "total_bytes": 137623291,
+  "artifact_count": 135,
+  "total_bytes": 137633471,
   "artifacts": [
     {
       "path": "results/COGNEE-COMMON-8DOCS-20260729.json",
@@ -864,6 +864,13 @@
       "sha256": "7a13b4a829e54c32ca4b0da100a75ecb562a86c59af851e889d236717202cfa3",
       "published": true,
       "published_path": "results/published/raw/P3-DERIVED-INDEX-CRASH-MATRIX-20260729.json"
+    },
+    {
+      "path": "results/P3-HARNESS-QWEN25-14B-20260730.json",
+      "bytes": 10180,
+      "sha256": "5ad96c8901e5a1d0811af97684f7134142fbbc942d85f6e0a820bcdc89147a81",
+      "published": true,
+      "published_path": "results/published/raw/P3-HARNESS-QWEN25-14B-20260730.json"
     },
     {
       "path": "results/P3-TEMPORAL-EXTRACTION-QWEN25-14B-20260729.json",

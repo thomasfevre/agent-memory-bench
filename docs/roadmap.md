@@ -33,12 +33,17 @@
 The shared invariants, budgets, crash matrix and completion gates are fixed in
 [`priority-3-protocols.md`](priority-3-protocols.md) before implementation.
 
-- [ ] Long-running tasks on a realistic public repository.
-- [ ] Same tasks, tools and model across jcode, Letta Code, Codex and Claude Code.
-- [ ] Late, out-of-order, expired and retracted memories under model extraction.
-- [ ] Persistent derived-index recovery after crash.
-- [ ] Verifiable deletion, compaction and retention policies.
-- [ ] Cost per correct answer and quality under fixed time and token budgets.
+- [x] Long-running tasks on a realistic public repository. Two independent
+  tasks were retained after reproducible no-change failures.
+- [x] Same tasks, tools and model across jcode, Letta Code, Codex and Claude
+  Code. The result is a pinned-model compatibility failure, not a harness
+  quality ranking.
+- [x] Late, out-of-order, expired and retracted memories under model extraction.
+- [x] Persistent derived-index recovery after crash.
+- [x] Verifiable deletion, compaction and retention policies.
+- [x] Cost per correct answer and quality under fixed time and token budgets.
+  No task completed, so quality per cost is zero and no Pareto configuration
+  exists for this pinned-model campaign.
 
 Every item needs a preregistered protocol, raw evidence, a compact public result
 and an explicit statement of what remains unproven.
