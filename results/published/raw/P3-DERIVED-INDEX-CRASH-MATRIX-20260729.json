@@ -1,0 +1,123 @@
+{
+  "all_scenarios_pass": true,
+  "baseline_semantic_signature": "d5949e756a05fb5e0e2ce7418eed2b61d89a4c3fb46ce69cf4b9b2724d0b7db5",
+  "baseline_source_ids": [
+    "d02",
+    "d06",
+    "d07",
+    "d08",
+    "d09",
+    "d10",
+    "synthetic-public-e16"
+  ],
+  "boundaries": [
+    "before_transaction_begin",
+    "after_temporal_update",
+    "after_full_text_update",
+    "after_vector_update",
+    "after_graph_update",
+    "before_manifest_commit",
+    "immediately_after_commit",
+    "during_full_rebuild"
+  ],
+  "protocol": "priority3-derived-recovery-v1",
+  "scenarios": [
+    {
+      "boundary": "before_transaction_begin",
+      "child_exit_code": 80,
+      "crash_observed": true,
+      "expected_exit_code": 80,
+      "orphan_generations": [],
+      "recovered_generation": 2,
+      "recovered_generation_valid": true,
+      "recovery_action": "rebuilt",
+      "semantic_signature_matches_uninterrupted": true,
+      "source_ids_match_uninterrupted": true
+    },
+    {
+      "boundary": "after_temporal_update",
+      "child_exit_code": 81,
+      "crash_observed": true,
+      "expected_exit_code": 81,
+      "orphan_generations": [],
+      "recovered_generation": 2,
+      "recovered_generation_valid": true,
+      "recovery_action": "rebuilt",
+      "semantic_signature_matches_uninterrupted": true,
+      "source_ids_match_uninterrupted": true
+    },
+    {
+      "boundary": "after_full_text_update",
+      "child_exit_code": 82,
+      "crash_observed": true,
+      "expected_exit_code": 82,
+      "orphan_generations": [],
+      "recovered_generation": 2,
+      "recovered_generation_valid": true,
+      "recovery_action": "rebuilt",
+      "semantic_signature_matches_uninterrupted": true,
+      "source_ids_match_uninterrupted": true
+    },
+    {
+      "boundary": "after_vector_update",
+      "child_exit_code": 83,
+      "crash_observed": true,
+      "expected_exit_code": 83,
+      "orphan_generations": [],
+      "recovered_generation": 2,
+      "recovered_generation_valid": true,
+      "recovery_action": "rebuilt",
+      "semantic_signature_matches_uninterrupted": true,
+      "source_ids_match_uninterrupted": true
+    },
+    {
+      "boundary": "after_graph_update",
+      "child_exit_code": 84,
+      "crash_observed": true,
+      "expected_exit_code": 84,
+      "orphan_generations": [],
+      "recovered_generation": 2,
+      "recovered_generation_valid": true,
+      "recovery_action": "rebuilt",
+      "semantic_signature_matches_uninterrupted": true,
+      "source_ids_match_uninterrupted": true
+    },
+    {
+      "boundary": "before_manifest_commit",
+      "child_exit_code": 85,
+      "crash_observed": true,
+      "expected_exit_code": 85,
+      "orphan_generations": [],
+      "recovered_generation": 2,
+      "recovered_generation_valid": true,
+      "recovery_action": "rebuilt",
+      "semantic_signature_matches_uninterrupted": true,
+      "source_ids_match_uninterrupted": true
+    },
+    {
+      "boundary": "immediately_after_commit",
+      "child_exit_code": 86,
+      "crash_observed": true,
+      "expected_exit_code": 86,
+      "orphan_generations": [],
+      "recovered_generation": 2,
+      "recovered_generation_valid": true,
+      "recovery_action": "accepted_committed",
+      "semantic_signature_matches_uninterrupted": true,
+      "source_ids_match_uninterrupted": true
+    },
+    {
+      "boundary": "during_full_rebuild",
+      "child_exit_code": 87,
+      "crash_observed": true,
+      "expected_exit_code": 87,
+      "orphan_generations": [],
+      "recovered_generation": 2,
+      "recovered_generation_valid": true,
+      "recovery_action": "rebuilt",
+      "semantic_signature_matches_uninterrupted": true,
+      "source_ids_match_uninterrupted": true
+    }
+  ],
+  "wall_time_seconds": 0.353453999850899
+}

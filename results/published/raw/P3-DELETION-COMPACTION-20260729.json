@@ -1,0 +1,31 @@
+{
+  "all_active_surfaces_clean": true,
+  "audit_events_use_hashed_targets": true,
+  "immutable_audit_events_retained": 4,
+  "limits": [
+    "Old backups intentionally retain the pre-deletion payloads.",
+    "Immutable audit events retain only hashes, operation kind and date.",
+    "VACUUM proves absence from the rebuilt SQLite file, not SSD flash erasure."
+  ],
+  "old_backup_contains_deleted_payloads": true,
+  "operations": {
+    "fact_retractions": 1,
+    "retention_days": 30,
+    "retention_deletions": 1,
+    "shard_expirations": 1,
+    "source_tombstones": 1
+  },
+  "protocol": "priority3-deletion-compaction-v1",
+  "secure_flash_erasure_claimed": false,
+  "signed_generation_valid": true,
+  "verification": {
+    "active_export_clean": true,
+    "dense_neighbors_clean": true,
+    "direct_current_state_clean": true,
+    "full_text_bm25_clean": true,
+    "graph_traversal_clean": true,
+    "new_backup_clean": true,
+    "vacuumed_database_pages_clean": true
+  },
+  "wall_time_seconds": 0.010918040992692113
+}

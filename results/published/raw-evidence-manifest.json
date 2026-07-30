@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "generated_at": "2026-07-30",
-  "artifact_count": 130,
-  "total_bytes": 137475529,
+  "artifact_count": 134,
+  "total_bytes": 137623291,
   "artifacts": [
     {
       "path": "results/COGNEE-COMMON-8DOCS-20260729.json",
@@ -850,6 +850,34 @@
       "sha256": "7edb8b89ca0f5d2d62452196c773d037002c02da93793c6df86c04bc81298364",
       "published": false,
       "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/P3-DELETION-COMPACTION-20260729.json",
+      "bytes": 1019,
+      "sha256": "838e5243d2c0af9c376a1c0909cca1091cba64281d9849444d979d27ba268c81",
+      "published": true,
+      "published_path": "results/published/raw/P3-DELETION-COMPACTION-20260729.json"
+    },
+    {
+      "path": "results/P3-DERIVED-INDEX-CRASH-MATRIX-20260729.json",
+      "bytes": 3764,
+      "sha256": "7a13b4a829e54c32ca4b0da100a75ecb562a86c59af851e889d236717202cfa3",
+      "published": true,
+      "published_path": "results/published/raw/P3-DERIVED-INDEX-CRASH-MATRIX-20260729.json"
+    },
+    {
+      "path": "results/P3-TEMPORAL-EXTRACTION-QWEN25-14B-20260729.json",
+      "bytes": 132527,
+      "sha256": "8596132179aeeeab51e6ae2bb2083a1d4847ca2f174b5b5bbfea36f204ac741e",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/P3-TEMPORAL-SCORING-QWEN25-14B-20260729.json",
+      "bytes": 10452,
+      "sha256": "0ecd177ffe1277dbaf90aa76bb0afbe4a511d27744b6f6f73aabbb929adc7b89",
+      "published": true,
+      "published_path": "results/published/raw/P3-TEMPORAL-SCORING-QWEN25-14B-20260729.json"
     },
     {
       "path": "results/PROTOTYPE-20260728T213120Z.json",

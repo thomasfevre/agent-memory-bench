@@ -214,3 +214,110 @@ def test_memgym_record_keeps_semantic_judge_provisional() -> None:
         == 0.2
     )
     assert "not human-calibrated" in record["limitation"]
+
+
+def test_temporal_record_exposes_stale_state_hidden_by_selected_answer() -> None:
+    tool = load_tool("update_p3_registry")
+    record = tool.temporal_record(
+        {
+            "extraction_metrics": {
+                "attempts": 180,
+                "successful_attempts": 180,
+                "event_type_accuracy": 1.0,
+                "field_accuracy": 0.935185,
+                "provenance_exact": 1.0,
+                "temporal_window_exact": 0.933333,
+                "text_observable_field_accuracy": 0.961759,
+                "text_observable_score_is_posthoc": True,
+                "stable_event_fraction": 1.0,
+            },
+            "schedule_metrics": {
+                "query_count_per_repetition_schedule": 152,
+                "schedule_stability_by_repetition": {
+                    "1": True,
+                    "2": True,
+                    "3": True,
+                },
+                "rows": [
+                    {
+                        "schedule": "chronological",
+                        "repetition": 1,
+                        "selected_final_value_exact": 1.0,
+                        "final_state_exact": 0.85,
+                        "historical_active_state_accuracy": 0.960526,
+                        "stale_record_leakage_rate": 0.038961,
+                        "abstention_after_invalidation": 1.0,
+                        "duplicate_amplification": 0.0,
+                    }
+                ],
+            },
+            "source_extraction_sha256": "abc123",
+        }
+    )
+
+    metrics = record["metrics"]
+    assert metrics["extraction"]["strict_field_accuracy"] == 0.935
+    assert metrics["extraction"]["posthoc_observable_field_accuracy"] == 0.962
+    assert metrics["extraction"]["posthoc_metric"] is True
+    assert metrics["schedule"]["selected_final_value_exact"] == 1.0
+    assert metrics["schedule"]["complete_active_state_exact"] == 0.85
+    assert metrics["schedule"]["stale_record_leakage_rate"] == 0.039
+    assert "hidden" in record["conclusion"]
+
+
+def test_crash_record_requires_every_declared_boundary_to_recover() -> None:
+    tool = load_tool("update_p3_registry")
+    record = tool.crash_record(
+        {
+            "protocol": "priority3-derived-recovery-v1",
+            "all_scenarios_pass": True,
+            "wall_time_seconds": 0.353454,
+            "scenarios": [
+                {
+                    "boundary": f"boundary-{index}",
+                    "crash_observed": True,
+                    "recovery_action": "rebuilt",
+                    "semantic_signature_matches_uninterrupted": True,
+                    "source_ids_match_uninterrupted": True,
+                    "orphan_generations": [],
+                }
+                for index in range(8)
+            ],
+        }
+    )
+
+    assert record["metrics"]["passed_boundaries"] == 8
+    assert record["metrics"]["declared_boundaries"] == 8
+    assert record["metrics"]["orphan_generations"] == 0
+    assert record["metrics"]["all_scenarios_pass"] is True
+
+
+def test_deletion_record_keeps_backup_and_ssd_limits_visible() -> None:
+    tool = load_tool("update_p3_registry")
+    record = tool.deletion_record(
+        {
+            "protocol": "priority3-deletion-compaction-v1",
+            "all_active_surfaces_clean": True,
+            "audit_events_use_hashed_targets": True,
+            "immutable_audit_events_retained": 4,
+            "old_backup_contains_deleted_payloads": True,
+            "secure_flash_erasure_claimed": False,
+            "signed_generation_valid": True,
+            "verification": {
+                "active_export_clean": True,
+                "dense_neighbors_clean": True,
+                "direct_current_state_clean": True,
+                "full_text_bm25_clean": True,
+                "graph_traversal_clean": True,
+                "new_backup_clean": True,
+                "vacuumed_database_pages_clean": True,
+            },
+            "wall_time_seconds": 0.010918,
+        }
+    )
+
+    assert record["metrics"]["clean_surfaces"] == 7
+    assert record["metrics"]["old_backup_contains_deleted_payloads"] is True
+    assert record["metrics"]["secure_flash_erasure_claimed"] is False
+    assert "backup" in record["limitation"].lower()
+    assert "SSD" in record["limitation"]

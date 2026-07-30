@@ -1874,6 +1874,119 @@
       "evidence_files": [
         "results/P2-GRAPHITI-GRAPHRAG-BENCH-SLICE-20260729.json"
       ]
+    },
+    {
+      "id": "priority3-temporal-qwen25-14b-20260729",
+      "date": "2026-07-30",
+      "phase": "durability",
+      "dataset": "Priority 3 public temporal observations",
+      "task": "Extract and replay corrections, expirations, retractions and duplicates",
+      "method": "Qwen 2.5 14B extraction followed by deterministic event replay",
+      "reader": "qwen2.5:14b",
+      "evidence_level": "controlled",
+      "sample": "60 observations, 3 repetitions and 5 delivery schedules",
+      "repetitions": 3,
+      "metrics": {
+        "extraction": {
+          "attempts": 180,
+          "successful_attempts": 180,
+          "event_type_accuracy": 1.0,
+          "strict_field_accuracy": 0.935,
+          "temporal_window_exact": 0.933,
+          "provenance_exact": 1.0,
+          "posthoc_observable_field_accuracy": 0.962,
+          "posthoc_metric": true,
+          "stable_event_fraction": 1.0
+        },
+        "schedule": {
+          "schedule_count": 5,
+          "repetition_schedule_rows": 15,
+          "queries_per_repetition_schedule": 152,
+          "selected_final_value_exact": 1.0,
+          "complete_active_state_exact": 0.85,
+          "historical_active_state_accuracy": 0.961,
+          "stale_record_leakage_rate": 0.039,
+          "abstention_after_invalidation": 1.0,
+          "duplicate_amplification": 0.0,
+          "stable_across_schedules": true
+        }
+      },
+      "budget": {
+        "model": "qwen2.5:14b",
+        "observations": 60,
+        "repetitions": 3,
+        "delivery_schedules": 5
+      },
+      "conclusion": "The selected final answer was always correct, but complete active state exactness was only 85%; the broader state metric exposed stale records hidden by answer-only scoring.",
+      "limitation": "This controlled corpus is synthetic and bounded. The observable-field score is explicitly posthoc; strict field accuracy remains the primary extraction metric.",
+      "evidence_files": [
+        "results/P3-TEMPORAL-SCORING-QWEN25-14B-20260729.json"
+      ]
+    },
+    {
+      "id": "priority3-derived-index-crash-matrix-20260729",
+      "date": "2026-07-30",
+      "phase": "durability",
+      "dataset": "Priority 3 deterministic derived-index fixture",
+      "task": "Recover temporal, full-text, vector and graph views after injected crashes",
+      "method": "Crash injection around one transactional generation manifest",
+      "reader": null,
+      "evidence_level": "controlled",
+      "sample": "Eight declared crash boundaries",
+      "repetitions": 1,
+      "metrics": {
+        "declared_boundaries": 8,
+        "passed_boundaries": 8,
+        "all_scenarios_pass": true,
+        "orphan_generations": 0,
+        "recovery_actions": {
+          "accepted_committed": 1,
+          "rebuilt": 7
+        },
+        "wall_time_seconds": 0.353454
+      },
+      "budget": {
+        "crash_boundaries": 8,
+        "derived_views": 4,
+        "execution": "local deterministic fixture"
+      },
+      "conclusion": "All eight injected boundaries recovered the same semantic state and source IDs as the uninterrupted build, with no orphan generation.",
+      "limitation": "This validates one local SQLite-backed design. It does not prove distributed durability, arbitrary kernel failure behavior or hardware flush guarantees.",
+      "evidence_files": [
+        "results/P3-DERIVED-INDEX-CRASH-MATRIX-20260729.json"
+      ]
+    },
+    {
+      "id": "priority3-deletion-compaction-20260729",
+      "date": "2026-07-30",
+      "phase": "durability",
+      "dataset": "Priority 3 deterministic deletion fixture",
+      "task": "Remove retracted, expired and tombstoned data from every active surface",
+      "method": "Logical deletion, index rebuild, SQLite VACUUM and backup verification",
+      "reader": null,
+      "evidence_level": "controlled",
+      "sample": "Seven active storage and retrieval surfaces",
+      "repetitions": 1,
+      "metrics": {
+        "clean_surfaces": 7,
+        "declared_surfaces": 7,
+        "all_active_surfaces_clean": true,
+        "signed_generation_valid": true,
+        "audit_events_use_hashed_targets": true,
+        "immutable_audit_events_retained": 4,
+        "old_backup_contains_deleted_payloads": true,
+        "secure_flash_erasure_claimed": false,
+        "wall_time_seconds": 0.010918
+      },
+      "budget": {
+        "active_surfaces": 7,
+        "execution": "local deterministic fixture"
+      },
+      "conclusion": "All seven active surfaces and the new backup were clean after compaction while hashed audit events remained verifiable.",
+      "limitation": "The old backup intentionally retains deleted payloads and needs its own retention policy. SQLite VACUUM does not prove physical SSD flash erasure.",
+      "evidence_files": [
+        "results/P3-DELETION-COMPACTION-20260729.json"
+      ]
     }
   ],
   "systems": [
@@ -1947,7 +2060,10 @@
     "Multi-hop evidence retrieval degrades with memory scale even when single-hop retrieval remains saturated.",
     "At 262k scale, compressed retrieval remained executable while raw full contexts exceeded the reader input ceiling.",
     "On the fixed MemGym-DR slice, BM25 top-2 improved the provisional paired semantic-judge score by 0.108 over visible documents alone; top-5 was not consistently better.",
-    "Under the aligned 30-minute local GraphRAG budget, Graphiti indexed 13 of 20 documents while Cognee completed neither its default nor serial ingestion path."
+    "Under the aligned 30-minute local GraphRAG budget, Graphiti indexed 13 of 20 documents while Cognee completed neither its default nor serial ingestion path.",
+    "Answer-only temporal scoring hid stale active records: selected values were 100% correct while complete active-state exactness was 85%.",
+    "A deterministic four-view derived index recovered the uninterrupted semantic state at all eight injected crash boundaries.",
+    "Deletion and compaction removed payloads from all seven active surfaces, but old backups still require an explicit retention policy."
   ],
   "limitations": [
     "The synthetic common corpus is small and intentionally adversarial.",
@@ -1959,6 +2075,8 @@
     "The GraphRAG-Bench neighbor ablation is not a complete GraphRAG engine.",
     "There is no aggregate leaderboard because the current protocols are not all commensurable.",
     "MemGym semantic scores remain provisional until two blinded humans complete the fixed 40-item calibration pack.",
-    "The aligned GraphRAG comparison is one 20-document slice, one local model and one repetition; ingestion failures are capacity observations, not universal engine rankings."
+    "The aligned GraphRAG comparison is one 20-document slice, one local model and one repetition; ingestion failures are capacity observations, not universal engine rankings.",
+    "Priority 3 temporal, crash and deletion results use controlled local fixtures and do not establish distributed-system guarantees.",
+    "SQLite VACUUM verifies the rebuilt database file but does not prove physical SSD flash erasure; old backups retain data until separately expired."
   ]
 }
