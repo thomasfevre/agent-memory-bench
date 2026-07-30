@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import csv
 import hashlib
+import itertools
 import json
 import math
 import statistics
@@ -50,6 +51,13 @@ def parse_args() -> argparse.Namespace:
     judge.add_argument("--output-dir", type=Path, required=True)
     judge.add_argument("--sample-size", type=int, default=40)
     judge.add_argument("--seed", type=int, default=20260729)
+
+    owner_mini = commands.add_parser("prepare-owner-mini")
+    owner_mini.add_argument("--memgym-pack", type=Path, required=True)
+    owner_mini.add_argument("--memgym-mapping", type=Path, required=True)
+    owner_mini.add_argument("--shards-pack", type=Path, required=True)
+    owner_mini.add_argument("--shards-mapping", type=Path, required=True)
+    owner_mini.add_argument("--output-dir", type=Path, required=True)
 
     score = commands.add_parser("score")
     score.add_argument("--pack", type=Path, required=True)
@@ -121,6 +129,213 @@ def write_annotation_templates(
             writer.writeheader()
             for row in rows:
                 writer.writerow({"item_id": row["item_id"]})
+
+
+def write_owner_template(
+    output_dir: Path,
+    rows: list[dict[str, Any]],
+    fields: list[str],
+) -> None:
+    path = output_dir / "annotator-owner.csv"
+    selected_ids = [row["item_id"] for row in rows]
+    if path.exists():
+        existing = read_annotations(path)
+        if list(existing) != selected_ids:
+            raise ValueError(
+                f"existing owner annotations do not match selected items: {path}"
+            )
+        return
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer.writeheader()
+        for item_id in selected_ids:
+            writer.writerow({"item_id": item_id})
+
+
+def model_score_band(score: float) -> int:
+    if score <= 0.2:
+        return 0
+    if score <= 0.4:
+        return 1
+    if score <= 0.6:
+        return 2
+    if score <= 0.8:
+        return 3
+    return 4
+
+
+def select_diverse_memgym(
+    pack_rows: list[dict[str, Any]],
+    mapping_rows: list[dict[str, Any]],
+) -> list[str]:
+    pack = {row["item_id"]: row for row in pack_rows}
+    architectures = {str(row.get("architecture")) for row in mapping_rows}
+    strata = {str(row.get("stratum")) for row in mapping_rows}
+    required_architectures = min(4, len(architectures))
+    required_strata = min(3, len(strata))
+    maximum_per_stratum = math.ceil(5 / max(required_strata, 1))
+    candidates: list[tuple[int, tuple[str, ...]]] = []
+    for combination in itertools.combinations(mapping_rows, 5):
+        scores = [
+            float(row["model_judge_scores"][0])
+            for row in combination
+            if row.get("model_judge_scores")
+        ]
+        if len(scores) != 5 or len({model_score_band(score) for score in scores}) < 5:
+            continue
+        if (
+            len({str(row.get("architecture")) for row in combination})
+            < required_architectures
+        ):
+            continue
+        stratum_counts = Counter(str(row.get("stratum")) for row in combination)
+        if len(stratum_counts) < required_strata:
+            continue
+        if max(stratum_counts.values()) > maximum_per_stratum:
+            continue
+        item_ids = tuple(row["item_id"] for row in combination)
+        reading_cost = sum(
+            len(str(pack[item_id].get(field, "")))
+            for item_id in item_ids
+            for field in ("question", "gold_answer", "predicted_answer")
+        )
+        candidates.append((reading_cost, tuple(sorted(item_ids))))
+    if not candidates:
+        raise ValueError("cannot build a diverse five-item MemGym sample")
+    selected = set(min(candidates)[1])
+    return [row["item_id"] for row in pack_rows if row["item_id"] in selected]
+
+
+def select_diverse_shards(
+    pack_rows: list[dict[str, Any]],
+    mapping_rows: list[dict[str, Any]],
+) -> list[str]:
+    pack = {row["item_id"]: row for row in pack_rows}
+    scopes = {str(row.get("original_scope")) for row in mapping_rows}
+    required_scopes = min(5, len(scopes))
+    available_evidence_counts = {
+        len(pack[row["item_id"]].get("evidence", [])) for row in mapping_rows
+    }
+    required_evidence_counts = available_evidence_counts & {1, 2, 3}
+    candidates: list[tuple[int, tuple[str, ...]]] = []
+    for combination in itertools.combinations(mapping_rows, 5):
+        label_counts = Counter(
+            str(row.get("reference_label")) for row in combination
+        )
+        if set(label_counts) != set(SHARD_LABELS):
+            continue
+        if max(label_counts.values()) > 2:
+            continue
+        if (
+            len({str(row.get("original_scope")) for row in combination})
+            < required_scopes
+        ):
+            continue
+        evidence_counts = {
+            len(pack[row["item_id"]].get("evidence", []))
+            for row in combination
+        }
+        if not required_evidence_counts.issubset(evidence_counts):
+            continue
+        item_ids = tuple(row["item_id"] for row in combination)
+        reading_cost = sum(
+            len(str(pack[item_id].get("candidate_text", "")))
+            + sum(
+                len(str(evidence.get("text", "")))
+                for evidence in pack[item_id].get("evidence", [])
+            )
+            for item_id in item_ids
+        )
+        candidates.append((reading_cost, tuple(sorted(item_ids))))
+    if not candidates:
+        raise ValueError("cannot build a diverse five-item Context Shard sample")
+    selected = set(min(candidates)[1])
+    return [row["item_id"] for row in pack_rows if row["item_id"] in selected]
+
+
+def write_mini_campaign(
+    output_dir: Path,
+    pack_rows: list[dict[str, Any]],
+    mapping_rows: list[dict[str, Any]],
+    selected_ids: list[str],
+    fields: list[str],
+) -> dict[str, Any]:
+    selected = set(selected_ids)
+    public_subset = [
+        row for row in pack_rows if row["item_id"] in selected
+    ]
+    mapping_subset = [
+        row for row in mapping_rows if row["item_id"] in selected
+    ]
+    if len(public_subset) != 5 or len(mapping_subset) != 5:
+        raise ValueError("mini campaign must contain five aligned items")
+    output_dir.mkdir(parents=True, exist_ok=True)
+    pack_path = output_dir / "review-pack.jsonl"
+    mapping_path = output_dir / "private-mapping.jsonl"
+    write_jsonl(pack_path, public_subset)
+    write_jsonl(mapping_path, mapping_subset)
+    write_owner_template(output_dir, public_subset, fields)
+    return {
+        "items": len(public_subset),
+        "pack_sha256": sha256_file(pack_path),
+        "mapping_sha256": sha256_file(mapping_path),
+    }
+
+
+def prepare_owner_mini(args: argparse.Namespace) -> None:
+    memgym_pack = read_jsonl(args.memgym_pack)
+    memgym_mapping = read_jsonl(args.memgym_mapping)
+    shards_pack = read_jsonl(args.shards_pack)
+    shards_mapping = read_jsonl(args.shards_mapping)
+    memgym_ids = select_diverse_memgym(memgym_pack, memgym_mapping)
+    shard_ids = select_diverse_shards(shards_pack, shards_mapping)
+    memgym_manifest = write_mini_campaign(
+        args.output_dir / "memgym",
+        memgym_pack,
+        memgym_mapping,
+        memgym_ids,
+        JUDGE_FIELDS,
+    )
+    shards_manifest = write_mini_campaign(
+        args.output_dir / "context-shards",
+        shards_pack,
+        shards_mapping,
+        shard_ids,
+        SHARD_FIELDS,
+    )
+    write_json(
+        args.output_dir / "manifest.json",
+        {
+            "protocol": "owner-mini-calibration-v1",
+            "items": 10,
+            "claim_boundary": (
+                "Diverse exploratory owner sample, not statistically "
+                "representative."
+            ),
+            "selection": {
+                "memgym": (
+                    "Five model-score bands, four architectures, three "
+                    "reasoning-depth strata, then minimum reading length."
+                ),
+                "context_shards": (
+                    "All three reference decisions, one-to-three evidence "
+                    "items, five scopes, then minimum reading length."
+                ),
+            },
+            "sources": {
+                "memgym_pack_sha256": sha256_file(args.memgym_pack),
+                "memgym_mapping_sha256": sha256_file(args.memgym_mapping),
+                "shards_pack_sha256": sha256_file(args.shards_pack),
+                "shards_mapping_sha256": sha256_file(args.shards_mapping),
+            },
+            "campaigns": {
+                "memgym": memgym_manifest,
+                "context_shards": shards_manifest,
+            },
+            "blinded": True,
+            "required_annotators": 1,
+        },
+    )
 
 
 def prepare_shards(args: argparse.Namespace) -> None:
@@ -763,6 +978,8 @@ def main() -> None:
         prepare_shards(args)
     elif args.command == "prepare-judge":
         prepare_judge(args)
+    elif args.command == "prepare-owner-mini":
+        prepare_owner_mini(args)
     elif args.command == "score":
         score(args)
     elif args.command == "score-single":

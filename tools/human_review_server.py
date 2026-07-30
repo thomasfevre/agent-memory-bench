@@ -22,7 +22,7 @@ from human_review_app import load_review_state, save_annotations  # noqa: E402
 
 
 ASSETS = ROOT / "review"
-CAMPAIGNS = {
+FULL_CAMPAIGNS = {
     "memgym": {
         "label": "Réponses MemGym",
         "pack": ROOT
@@ -50,6 +50,20 @@ CAMPAIGNS = {
         / "annotator-owner.csv",
     },
 }
+MINI_ROOT = ROOT / ".cache" / "human-calibration" / "owner-mini-10"
+MINI_CAMPAIGNS = {
+    "memgym": {
+        "label": "Réponses MemGym · sélection courte",
+        "pack": MINI_ROOT / "memgym" / "review-pack.jsonl",
+        "output": MINI_ROOT / "memgym" / "annotator-owner.csv",
+    },
+    "context-shards": {
+        "label": "Context Shards · sélection courte",
+        "pack": MINI_ROOT / "context-shards" / "review-pack.jsonl",
+        "output": MINI_ROOT / "context-shards" / "annotator-owner.csv",
+    },
+}
+CAMPAIGNS = MINI_CAMPAIGNS
 
 
 def campaign_state(campaign_id: str) -> dict[str, Any]:
@@ -160,6 +174,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--port", type=int, default=8766)
     parser.add_argument("--no-browser", action="store_true")
     parser.add_argument("--check", action="store_true")
+    parser.add_argument(
+        "--full",
+        action="store_true",
+        help="review the original 64-item campaign instead of the mini sample",
+    )
     return parser.parse_args()
 
 
@@ -182,7 +201,9 @@ def check_inputs() -> None:
 
 
 def main() -> int:
+    global CAMPAIGNS
     args = parse_args()
+    CAMPAIGNS = FULL_CAMPAIGNS if args.full else MINI_CAMPAIGNS
     check_inputs()
     if args.check:
         print("human review UI inputs are ready")

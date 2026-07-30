@@ -224,6 +224,177 @@ def test_prepare_judge_resolves_hashed_question_from_local_dataset(tmp_path):
     assert public_row["question"] == question
 
 
+def test_prepare_owner_mini_selects_ten_diverse_blinded_items(tmp_path):
+    memgym_pack = tmp_path / "memgym-pack.jsonl"
+    memgym_mapping = tmp_path / "memgym-mapping.jsonl"
+    shards_pack = tmp_path / "shards-pack.jsonl"
+    shards_mapping = tmp_path / "shards-mapping.jsonl"
+    output = tmp_path / "owner-mini"
+
+    judge_rows = [
+        ("j1", "S1", "A", 0.0, 20),
+        ("j2", "S2", "B", 0.3, 20),
+        ("j3", "S3", "C", 0.5, 20),
+        ("j4", "S1", "D", 0.7, 20),
+        ("j5", "S2", "A", 1.0, 20),
+        ("j6", "S2", "A", 1.0, 2_000),
+    ]
+    write_jsonl(
+        memgym_pack,
+        [
+            {
+                "item_id": item_id,
+                "task_type": "semantic_answer_judge",
+                "question": f"Question {item_id}?",
+                "gold_answer": "Gold",
+                "predicted_answer": "x" * answer_length,
+                "score_options": [0.0, 0.3, 0.5, 0.7, 1.0],
+            }
+            for item_id, _, _, _, answer_length in judge_rows
+        ],
+    )
+    write_jsonl(
+        memgym_mapping,
+        [
+            {
+                "item_id": item_id,
+                "source_key": f"source-{item_id}",
+                "stratum": stratum,
+                "architecture": architecture,
+                "model_judge_scores": [score],
+            }
+            for item_id, stratum, architecture, score, _ in judge_rows
+        ],
+    )
+
+    shard_rows = [
+        ("s1", "approved", "scope-1", 1, 20),
+        ("s2", "approved", "scope-2", 2, 20),
+        ("s3", "rejected", "scope-3", 3, 20),
+        ("s4", "rejected", "scope-4", 1, 20),
+        ("s5", "deferred", "scope-5", 1, 20),
+        ("s6", "deferred", "scope-5", 1, 2_000),
+    ]
+    write_jsonl(
+        shards_pack,
+        [
+            {
+                "item_id": item_id,
+                "task_type": "context_shard",
+                "candidate_text": "x" * text_length,
+                "evidence": [
+                    {
+                        "source_label": f"Source {index + 1}",
+                        "text": "Evidence",
+                    }
+                    for index in range(evidence_count)
+                ],
+                "decision_options": ["approved", "rejected", "deferred"],
+                "scope_options": ["personal", "team", "task"],
+                "injection_options": [
+                    "always_on",
+                    "task_specific",
+                    "never",
+                ],
+            }
+            for (
+                item_id,
+                _,
+                _,
+                evidence_count,
+                text_length,
+            ) in shard_rows
+        ],
+    )
+    write_jsonl(
+        shards_mapping,
+        [
+            {
+                "item_id": item_id,
+                "source_key": f"source-{item_id}",
+                "reference_label": reference_label,
+                "reference_status": "synthetic",
+                "original_scope": scope,
+            }
+            for item_id, reference_label, scope, _, _ in shard_rows
+        ],
+    )
+
+    run_cli(
+        "prepare-owner-mini",
+        "--memgym-pack",
+        str(memgym_pack),
+        "--memgym-mapping",
+        str(memgym_mapping),
+        "--shards-pack",
+        str(shards_pack),
+        "--shards-mapping",
+        str(shards_mapping),
+        "--output-dir",
+        str(output),
+    )
+
+    mini_judges = [
+        json.loads(line)
+        for line in (output / "memgym" / "review-pack.jsonl")
+        .read_text()
+        .splitlines()
+    ]
+    mini_shards = [
+        json.loads(line)
+        for line in (output / "context-shards" / "review-pack.jsonl")
+        .read_text()
+        .splitlines()
+    ]
+    mini_judge_mapping = [
+        json.loads(line)
+        for line in (output / "memgym" / "private-mapping.jsonl")
+        .read_text()
+        .splitlines()
+    ]
+    mini_shard_mapping = [
+        json.loads(line)
+        for line in (output / "context-shards" / "private-mapping.jsonl")
+        .read_text()
+        .splitlines()
+    ]
+    assert [row["item_id"] for row in mini_judges] == [
+        "j1",
+        "j2",
+        "j3",
+        "j4",
+        "j5",
+    ]
+    assert [row["item_id"] for row in mini_shards] == [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+    ]
+    assert {
+        row["architecture"] for row in mini_judge_mapping
+    } == {"A", "B", "C", "D"}
+    assert {
+        row["stratum"] for row in mini_judge_mapping
+    } == {"S1", "S2", "S3"}
+    assert {
+        row["reference_label"] for row in mini_shard_mapping
+    } == {"approved", "rejected", "deferred"}
+    assert "model_judge_scores" not in json.dumps(mini_judges)
+    assert "reference_label" not in json.dumps(mini_shards)
+    manifest = json.loads((output / "manifest.json").read_text())
+    assert manifest["items"] == 10
+    assert manifest["claim_boundary"] == (
+        "Diverse exploratory owner sample, not statistically representative."
+    )
+    for campaign in ("memgym", "context-shards"):
+        with (
+            output / campaign / "annotator-owner.csv"
+        ).open(newline="", encoding="utf-8") as handle:
+            assert len(list(csv.DictReader(handle))) == 5
+
+
 def test_score_shard_review_reports_agreement_accuracy_and_time(tmp_path):
     pack = tmp_path / "pack.jsonl"
     mapping = tmp_path / "mapping.jsonl"

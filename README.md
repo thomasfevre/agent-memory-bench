@@ -821,17 +821,29 @@ PYTHONPATH=src .venv/bin/python src/human_calibration.py prepare-shards \
   --seed 20260729
 ```
 
-For the current single-owner calibration, launch the local review interface:
+For the current single-owner calibration, derive the ten-item exploratory
+sample from the frozen packs:
 
 ```bash
+.venv/bin/python src/human_calibration.py prepare-owner-mini \
+  --memgym-pack .cache/human-calibration/memgym-judge/review-pack.jsonl \
+  --memgym-mapping .cache/human-calibration/memgym-judge/private-mapping.jsonl \
+  --shards-pack .cache/human-calibration/context-shards-24/review-pack.jsonl \
+  --shards-mapping .cache/human-calibration/context-shards-24/private-mapping.jsonl \
+  --output-dir .cache/human-calibration/owner-mini-10
+
 .venv/bin/python tools/human_review_server.py
 ```
 
 It serves a French UI on `127.0.0.1`, autosaves scorer-compatible CSV files and
-never exposes the private mappings. Once both campaigns are complete, use
-`human_calibration.py score-single` as documented in the runbook. The resulting
-measurement is alignment with one owner-reviewer, not human consensus. Until
-the owner submits the labels, the related Priority 2 claims remain open.
+never exposes the private mappings. The default UI contains five diverse
+MemGym answers and five diverse Context Shards. `--full` restores the original
+64-item interface. Once both short campaigns are complete, use
+`human_calibration.py score-single` as documented in the runbook.
+
+The resulting measurement is exploratory alignment with one owner-reviewer,
+not human consensus or a statistically representative calibration. Until the
+owner submits the labels, the related Priority 2 claims remain open.
 
 The exact reviewer instructions, frozen scales, local pack hashes and scoring
 commands are in

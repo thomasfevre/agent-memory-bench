@@ -134,6 +134,14 @@ pack has 24 balanced candidates with synthetic reference statuses. The latter
 is large enough to exercise the workflow, but no owner-quality estimate exists
 until the review is complete.
 
+To keep the manual burden practical, the current owner campaign derives a
+frozen ten-item exploratory subset: five MemGym answers and five Context
+Shards. Selection maximizes qualitative coverage across model-score bands,
+architectures, reasoning depths, hidden shard decisions, scopes and evidence
+counts, then minimizes reading length. This improves diversity per reviewed
+item but is not statistically representative. The original 40 plus 24-item
+packs remain unchanged and available for a future larger study.
+
 The frozen rubrics, local pack hashes, blindness rules, interface command,
 claim boundaries and scoring commands are documented in
 [`human-review-runbook.md`](human-review-runbook.md).

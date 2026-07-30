@@ -22,6 +22,34 @@ The packs and annotation CSV files remain local and are excluded from Git.
 Do not regenerate a pack after annotation starts. A changed hash defines a
 different calibration campaign.
 
+## Prepare the short campaign
+
+The default owner campaign contains ten items:
+
+- five MemGym answers spanning five model-score bands, four retrieval
+  architectures and all three reasoning-depth strata;
+- five Context Shards spanning all three hidden reference decisions, five
+  scopes and evidence sets containing one, two and three sources.
+
+Within those constraints, the selector minimizes reading length. This gives
+good qualitative diversity for a short review, but ten items are not
+statistically representative and cannot support a stable population estimate.
+
+Derive the short campaign from the unchanged full packs:
+
+```bash
+.venv/bin/python src/human_calibration.py prepare-owner-mini \
+  --memgym-pack .cache/human-calibration/memgym-judge/review-pack.jsonl \
+  --memgym-mapping .cache/human-calibration/memgym-judge/private-mapping.jsonl \
+  --shards-pack .cache/human-calibration/context-shards-24/review-pack.jsonl \
+  --shards-mapping .cache/human-calibration/context-shards-24/private-mapping.jsonl \
+  --output-dir .cache/human-calibration/owner-mini-10
+```
+
+The selector writes a manifest containing the source and derived hashes. It
+preserves an existing compatible owner CSV, so rerunning the command does not
+erase progress.
+
 ## Start the local interface
 
 From the repository root:
@@ -41,12 +69,12 @@ The command opens `http://127.0.0.1:8766`. The interface:
 The two output files are:
 
 ```text
-.cache/human-calibration/memgym-judge/annotator-owner.csv
-.cache/human-calibration/context-shards-24/annotator-owner.csv
+.cache/human-calibration/owner-mini-10/memgym/annotator-owner.csv
+.cache/human-calibration/owner-mini-10/context-shards/annotator-owner.csv
 ```
 
 The server binds only to `127.0.0.1`. No external service, account or API is
-used.
+used. Add `--full` only if the original 40 plus 24-item campaign is desired.
 
 ## Blindness
 
@@ -112,20 +140,20 @@ MemGym:
 
 ```bash
 .venv/bin/python src/human_calibration.py score-single \
-  --pack .cache/human-calibration/memgym-judge/review-pack.jsonl \
-  --mapping .cache/human-calibration/memgym-judge/private-mapping.jsonl \
-  --annotator .cache/human-calibration/memgym-judge/annotator-owner.csv \
-  --output results/P2-MEMGYM-OWNER-CALIBRATION.json
+  --pack .cache/human-calibration/owner-mini-10/memgym/review-pack.jsonl \
+  --mapping .cache/human-calibration/owner-mini-10/memgym/private-mapping.jsonl \
+  --annotator .cache/human-calibration/owner-mini-10/memgym/annotator-owner.csv \
+  --output results/P2-MEMGYM-OWNER-MINI-CALIBRATION.json
 ```
 
 Context Shards:
 
 ```bash
 .venv/bin/python src/human_calibration.py score-single \
-  --pack .cache/human-calibration/context-shards-24/review-pack.jsonl \
-  --mapping .cache/human-calibration/context-shards-24/private-mapping.jsonl \
-  --annotator .cache/human-calibration/context-shards-24/annotator-owner.csv \
-  --output results/P2-CONTEXT-SHARDS-OWNER-CALIBRATION.json
+  --pack .cache/human-calibration/owner-mini-10/context-shards/review-pack.jsonl \
+  --mapping .cache/human-calibration/owner-mini-10/context-shards/private-mapping.jsonl \
+  --annotator .cache/human-calibration/owner-mini-10/context-shards/annotator-owner.csv \
+  --output results/P2-CONTEXT-SHARDS-OWNER-MINI-CALIBRATION.json
 ```
 
 The MemGym report includes coverage, model-judge mean absolute error relative
@@ -139,6 +167,8 @@ Do not publish an output automatically. First verify:
 
 - coverage is reported and no missing rows are hidden;
 - the pack hashes still match;
+- the result is described as a diverse exploratory sample of five items per
+  campaign, not statistically representative;
 - Context Shard references are described as synthetic;
 - MemGym error is described as alignment with one owner, not a universal judge
   score;
