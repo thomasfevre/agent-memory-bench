@@ -835,6 +835,10 @@ PYTHONPATH=src .venv/bin/python src/human_calibration.py score \
 The repository does not invent these labels. Until both humans submit them,
 the related Priority 2 claims remain open.
 
+The exact reviewer instructions, frozen scales, local pack hashes and scoring
+commands are in
+[`docs/human-review-runbook.md`](docs/human-review-runbook.md).
+
 ## Priority 3 durability and coding-harness campaign
 
 Priority 3 now has public, rebuildable evidence for four adversarial

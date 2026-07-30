@@ -552,8 +552,30 @@ def score(args: argparse.Namespace) -> None:
         raise ValueError("review pack must contain exactly one task type")
     task_type = next(iter(task_types))
     if task_type == "context_shard":
+        invalid_labels = [
+            (item_id, annotator, row[item_id]["decision"])
+            for item_id in paired
+            for annotator, row in (("a", first), ("b", second))
+            if row[item_id]["decision"] not in SHARD_LABELS
+        ]
+        if invalid_labels:
+            raise ValueError(
+                "annotation is outside the frozen Context Shard decision "
+                f"labels {SHARD_LABELS}: {invalid_labels}"
+            )
         metrics = score_shards(paired, first, second, mapping)
     elif task_type == "semantic_answer_judge":
+        invalid_scores = [
+            (item_id, annotator, row[item_id]["score"])
+            for item_id in paired
+            for annotator, row in (("a", first), ("b", second))
+            if float(row[item_id]["score"]) not in JUDGE_SCORES
+        ]
+        if invalid_scores:
+            raise ValueError(
+                "annotation is outside the frozen semantic score scale "
+                f"{JUDGE_SCORES}: {invalid_scores}"
+            )
         metrics = score_judges(paired, first, second, mapping)
     else:
         raise ValueError(f"unsupported task type: {task_type}")

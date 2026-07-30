@@ -131,3 +131,7 @@ items, while the dedicated review pack has 24 balanced candidates with
 synthetic reference statuses. The latter is large enough to exercise the
 workflow, but no human-quality estimate exists until two independent reviewers
 complete it.
+
+The frozen reviewer rubrics, local pack hashes, independence rules and scoring
+commands are documented in
+[`human-review-runbook.md`](human-review-runbook.md).

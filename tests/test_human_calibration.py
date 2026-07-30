@@ -313,3 +313,125 @@ def test_score_shard_review_reports_agreement_accuracy_and_time(tmp_path):
     assert report["reference"]["annotator_b_accuracy"] == 0.75
     assert report["review_time_seconds"]["annotator_a_median"] == 25.0
     assert report["review_time_seconds"]["annotator_b_median"] == 27.0
+
+
+def test_score_rejects_semantic_scores_outside_the_frozen_scale(tmp_path):
+    pack = tmp_path / "pack.jsonl"
+    mapping = tmp_path / "mapping.jsonl"
+    annotator_a = tmp_path / "a.csv"
+    annotator_b = tmp_path / "b.csv"
+    output = tmp_path / "agreement.json"
+    write_jsonl(
+        pack,
+        [{"item_id": "i1", "task_type": "semantic_answer_judge"}],
+    )
+    write_jsonl(
+        mapping,
+        [{"item_id": "i1", "source_key": "s1", "model_judge_scores": [0.7]}],
+    )
+    for path, score in ((annotator_a, "0.8"), (annotator_b, "0.7")):
+        with path.open("w", newline="", encoding="utf-8") as handle:
+            writer = csv.DictWriter(
+                handle,
+                fieldnames=[
+                    "item_id",
+                    "score",
+                    "confidence",
+                    "time_seconds",
+                    "notes",
+                ],
+            )
+            writer.writeheader()
+            writer.writerow({"item_id": "i1", "score": score})
+
+    completed = subprocess.run(
+        [
+            sys.executable,
+            str(SCRIPT),
+            "score",
+            "--pack",
+            str(pack),
+            "--mapping",
+            str(mapping),
+            "--annotator-a",
+            str(annotator_a),
+            "--annotator-b",
+            str(annotator_b),
+            "--output",
+            str(output),
+        ],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+
+    assert completed.returncode != 0
+    assert "frozen semantic score scale" in completed.stderr
+    assert not output.exists()
+
+
+def test_score_rejects_context_shard_decisions_outside_the_frozen_labels(tmp_path):
+    pack = tmp_path / "pack.jsonl"
+    mapping = tmp_path / "mapping.jsonl"
+    annotator_a = tmp_path / "a.csv"
+    annotator_b = tmp_path / "b.csv"
+    output = tmp_path / "agreement.json"
+    write_jsonl(
+        pack,
+        [{"item_id": "i1", "task_type": "context_shard"}],
+    )
+    write_jsonl(
+        mapping,
+        [
+            {
+                "item_id": "i1",
+                "source_key": "s1",
+                "reference_label": "approved",
+                "reference_status": "synthetic",
+            }
+        ],
+    )
+    for path, decision in (
+        (annotator_a, "accept"),
+        (annotator_b, "approved"),
+    ):
+        with path.open("w", newline="", encoding="utf-8") as handle:
+            writer = csv.DictWriter(
+                handle,
+                fieldnames=[
+                    "item_id",
+                    "decision",
+                    "scope",
+                    "injection",
+                    "confidence",
+                    "time_seconds",
+                    "notes",
+                ],
+            )
+            writer.writeheader()
+            writer.writerow({"item_id": "i1", "decision": decision})
+
+    completed = subprocess.run(
+        [
+            sys.executable,
+            str(SCRIPT),
+            "score",
+            "--pack",
+            str(pack),
+            "--mapping",
+            str(mapping),
+            "--annotator-a",
+            str(annotator_a),
+            "--annotator-b",
+            str(annotator_b),
+            "--output",
+            str(output),
+        ],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+    )
+
+    assert completed.returncode != 0
+    assert "frozen Context Shard decision labels" in completed.stderr
+    assert not output.exists()
