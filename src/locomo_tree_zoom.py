@@ -366,7 +366,7 @@ class Claude:
                     capture_output=True,
                     text=True,
                     cwd=self.workdir,
-                    timeout=600,
+                    timeout=180,
                 )
                 payload = json.loads(completed.stdout)
                 if payload.get("is_error") or completed.returncode != 0:
@@ -394,19 +394,16 @@ class Claude:
 
 
 def parse_json(text: str) -> dict[str, Any]:
-    text = text.strip()
-    fenced = re.search(r"```(?:json)?\s*(\{.*\})\s*```", text, re.S)
-    if fenced:
-        text = fenced.group(1)
-    start = text.find("{")
-    end = text.rfind("}")
-    if start == -1 or end == -1:
-        return {}
-    try:
-        value = json.loads(text[start : end + 1])
-    except json.JSONDecodeError:
-        return {}
-    return value if isinstance(value, dict) else {}
+    """Return the first JSON object embedded in a model response."""
+    decoder = json.JSONDecoder()
+    for match in re.finditer(r"\{", text):
+        try:
+            value, _ = decoder.raw_decode(text, match.start())
+        except json.JSONDecodeError:
+            continue
+        if isinstance(value, dict):
+            return value
+    return {}
 
 
 # --------------------------------------------------------------------------
@@ -561,11 +558,14 @@ def agent_answer(
         action = parse_json(response["text"])
         kind = action.get("action")
         trace.append({"step": step, "action": action or response["text"][:300]})
-        if kind == "answer" or final or kind not in ("zoom", "search"):
-            answer = action.get("answer") if kind == "answer" else None
-            if answer is None:
-                answer = action.get("answer") or response["text"].strip()
+        if kind == "answer" or final:
+            answer = action.get("answer") or response["text"].strip()
             break
+        if kind not in ("zoom", "search") or (kind == "search" and strategy != "E"):
+            history.append(
+                "format error: return exactly one JSON object with one of the listed actions."
+            )
+            continue
         if kind == "search" and strategy == "E" and searcher is not None:
             query = str(action.get("query", ""))
             hits = [row["id"] for row in searcher.search(query, SEARCH_TOP_K)]

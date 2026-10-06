@@ -150,6 +150,17 @@ class TreeZoomTests(unittest.TestCase):
     def test_parse_json_and_mcnemar(self) -> None:
         self.assertEqual(parse_json('noise {"a": 1} tail'), {"a": 1})
         self.assertEqual(parse_json("no json"), {})
+        self.assertEqual(
+            parse_json('<invoke>["n1"]</invoke>\n{"action": "zoom"}\n{"action": "answer"}'),
+            {"action": "zoom"},
+        )
+
+    def test_agent_recovers_from_format_error(self) -> None:
+        claude = FakeClaude(["I think I should zoom.", '{"action": "answer", "answer": "ok"}'])
+        result = agent_answer(claude, self.tree, build_view(self.tree, 120), "Q", "C", None)
+        self.assertEqual(result["answer"], "ok")
+        self.assertEqual(result["operations"], 0)
+        self.assertIn("format error", claude.prompts[1])
         self.assertEqual(mcnemar_exact(0, 0), 1.0)
         self.assertAlmostEqual(mcnemar_exact(0, 6), 0.03125)
 
