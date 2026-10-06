@@ -90,3 +90,14 @@ If H3 is rejected this is reported as evidence for the tree + zoom design.
   10 points are not conclusive.
 - LoCoMo conversations are short; the 10:1 ratio emulates, but does not
   reproduce, a multi-million-token memory.
+
+## Amendments (after the first full run, before looking at final results)
+
+1. Agent actions are also accepted in the reader's native tool-call markup
+   (`<invoke name="zoom|search|answer">`). In the first full run the reader
+   used that markup in 125 agent steps, which the JSON-only parser rejected
+   as format errors, costing C and E steps on about 45 questions each.
+   Prompts, caps, sample and scoring are unchanged; the first run is kept as
+   `results/locomo-tree-zoom-20261006-v1.json` and both are reported.
+2. CLI calls time out after 180 s and are retried (one call stalled for
+   387 s in the smoke test). Latency is reported as medians.

@@ -406,6 +406,41 @@ def parse_json(text: str) -> dict[str, Any]:
     return {}
 
 
+INVOKE_PATTERN = re.compile(r'<invoke name="(zoom|search|answer)">(.*?)</invoke>', re.S)
+PARAMETER_PATTERN = re.compile(r'<parameter name="(\w+)">(.*?)</parameter>', re.S)
+
+
+def parse_action(text: str) -> dict[str, Any]:
+    """Read one agent action, written either as the requested JSON object or
+    in the native tool-call markup the reader sometimes falls back to
+    (amendment 1 in docs/tree-zoom-protocol.md)."""
+    decoder = json.JSONDecoder()
+    json_action: tuple[int, dict[str, Any]] | None = None
+    for match in re.finditer(r"\{", text):
+        try:
+            value, _ = decoder.raw_decode(text, match.start())
+        except json.JSONDecodeError:
+            continue
+        if isinstance(value, dict) and ("action" in value or "answer" in value):
+            json_action = (match.start(), value)
+            break
+    invoke = INVOKE_PATTERN.search(text)
+    if invoke and (json_action is None or invoke.start() < json_action[0]):
+        action: dict[str, Any] = {"action": invoke.group(1)}
+        for name, raw in PARAMETER_PATTERN.findall(invoke.group(2)):
+            raw = raw.strip()
+            if name == "nodes":
+                try:
+                    value = json.loads(raw)
+                except json.JSONDecodeError:
+                    value = re.findall(r"[\w:]+", raw)
+                action[name] = value if isinstance(value, list) else [value]
+            else:
+                action[name] = raw
+        return action
+    return json_action[1] if json_action else {}
+
+
 # --------------------------------------------------------------------------
 # Tree summaries
 
@@ -555,7 +590,7 @@ def agent_answer(
         response = claude(agent_system(strategy), prompt)
         for key in totals:
             totals[key] += response[key] or 0
-        action = parse_json(response["text"])
+        action = parse_action(response["text"])
         kind = action.get("action")
         trace.append({"step": step, "action": action or response["text"][:300]})
         if kind == "answer" or final:

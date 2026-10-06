@@ -17,6 +17,7 @@ from locomo_tree_zoom import (
     is_long_range,
     load_turns,
     mcnemar_exact,
+    parse_action,
     parse_json,
     render,
     sample_questions,
@@ -154,6 +155,18 @@ class TreeZoomTests(unittest.TestCase):
             parse_json('<invoke>["n1"]</invoke>\n{"action": "zoom"}\n{"action": "answer"}'),
             {"action": "zoom"},
         )
+
+    def test_parse_action_accepts_native_markup(self) -> None:
+        self.assertEqual(
+            parse_action('<invoke name="zoom">\n<parameter name="nodes">["n1","n2"]</parameter>\n</invoke>'),
+            {"action": "zoom", "nodes": ["n1", "n2"]},
+        )
+        self.assertEqual(
+            parse_action('Because X.\n<invoke name="answer">\n<parameter name="answer">Paris</parameter>\n</invoke>'),
+            {"action": "answer", "answer": "Paris"},
+        )
+        self.assertEqual(parse_action('{"action": "search", "query": "q"} <invoke name="zoom"></invoke>'), {"action": "search", "query": "q"})
+        self.assertEqual(parse_action('<invoke name="bash"><parameter name="command">true</parameter></invoke>'), {})
 
     def test_agent_recovers_from_format_error(self) -> None:
         claude = FakeClaude(["I think I should zoom.", '{"action": "answer", "answer": "ok"}'])
