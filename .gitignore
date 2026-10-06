@@ -19,6 +19,8 @@ datasets/
 # Raw benchmark artifacts stay local until their licenses and privacy bounds
 # have been reviewed. Public summaries and hashes live under published/.
 results/*.json
+results/optchat-v2-trees/
+results/*.jsonl
 !results/published/
 !results/published/**
 
