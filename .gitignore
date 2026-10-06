@@ -24,3 +24,6 @@ results/*.json
 
 # Generated dashboard copies. Canonical files live under results/published/.
 site/data/*.json
+
+# Local run logs
+logs/
