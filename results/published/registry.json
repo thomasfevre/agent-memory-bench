@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-07-30",
+  "updated_at": "2026-10-06",
   "campaign": {
     "title": "Agent Memory Bench",
     "repository": "https://github.com/thomasfevre/agent-memory-bench",
@@ -2127,6 +2127,176 @@
       "evidence_files": [
         "results/P3-HARNESS-QWEN25-14B-20260730.json"
       ]
+    },
+    {
+      "id": "locomo-tree-zoom-20261006",
+      "date": "2026-10-06",
+      "phase": "agentic",
+      "dataset": "LoCoMo",
+      "task": "Answer long-range questions from a recency-weighted summary tree with and without a zoom tool",
+      "method": "OptChat-style binary summary tree (10:1 view) vs full context, BM25 at equal budget and tree + zoom + search",
+      "reader": "claude-sonnet-5-5 (summarizer, reader and blinded judge)",
+      "evidence_level": "official-data",
+      "sample": "120 long-range answerable questions (40 single-hop, 40 multi-hop, 40 temporal; evidence in the first half of sessions) and 20 adversarial questions from 10 conversations",
+      "repetitions": 1,
+      "metrics": {
+        "series": [
+          {
+            "strategy": "A",
+            "method": "Full conversation",
+            "answerable_accuracy": 0.892,
+            "by_category": {
+              "single-hop": 0.95,
+              "multi-hop": 0.8,
+              "temporal": 0.925
+            },
+            "adversarial_abstention": 0.4,
+            "evidence_reach": 1.0,
+            "median_context_tokens": 27050.5,
+            "median_input_tokens": 43100.5,
+            "median_operations": 0.0,
+            "median_steps": 1.0,
+            "median_wall_seconds": 3.91,
+            "total_list_cost_usd": 27.27
+          },
+          {
+            "strategy": "B",
+            "method": "Summary tree view only",
+            "answerable_accuracy": 0.333,
+            "by_category": {
+              "single-hop": 0.375,
+              "multi-hop": 0.475,
+              "temporal": 0.15
+            },
+            "adversarial_abstention": 0.75,
+            "evidence_reach": 0.0,
+            "median_context_tokens": 2680.5,
+            "median_input_tokens": 5665.5,
+            "median_operations": 0.0,
+            "median_steps": 1.0,
+            "median_wall_seconds": 4.05,
+            "total_list_cost_usd": 3.73
+          },
+          {
+            "strategy": "C",
+            "method": "Tree view + zoom",
+            "answerable_accuracy": 0.717,
+            "by_category": {
+              "single-hop": 0.85,
+              "multi-hop": 0.6,
+              "temporal": 0.7
+            },
+            "adversarial_abstention": 0.5,
+            "evidence_reach": 0.133,
+            "median_context_tokens": 3418.0,
+            "median_input_tokens": 12909.0,
+            "median_operations": 1.0,
+            "median_steps": 2.0,
+            "median_wall_seconds": 8.722,
+            "total_list_cost_usd": 10.4
+          },
+          {
+            "strategy": "D",
+            "method": "BM25 four-turn windows at C median budget",
+            "answerable_accuracy": 0.725,
+            "by_category": {
+              "single-hop": 0.9,
+              "multi-hop": 0.5,
+              "temporal": 0.775
+            },
+            "adversarial_abstention": 0.6,
+            "evidence_reach": 0.883,
+            "median_context_tokens": 3378.5,
+            "median_input_tokens": 6617.5,
+            "median_operations": 0.0,
+            "median_steps": 1.0,
+            "median_wall_seconds": 3.92,
+            "total_list_cost_usd": 4.48
+          },
+          {
+            "strategy": "E",
+            "method": "Tree view + zoom + BM25 search",
+            "answerable_accuracy": 0.725,
+            "by_category": {
+              "single-hop": 0.825,
+              "multi-hop": 0.625,
+              "temporal": 0.725
+            },
+            "adversarial_abstention": 0.5,
+            "evidence_reach": 0.525,
+            "median_context_tokens": 2987.5,
+            "median_input_tokens": 12456.0,
+            "median_operations": 1.0,
+            "median_steps": 2.0,
+            "median_wall_seconds": 7.918,
+            "total_list_cost_usd": 9.85
+          }
+        ],
+        "paired_answerable_mcnemar": [
+          {
+            "left": "A",
+            "right": "B",
+            "left_only": 70,
+            "right_only": 3,
+            "p_value": 0.0
+          },
+          {
+            "left": "C",
+            "right": "B",
+            "left_only": 47,
+            "right_only": 1,
+            "p_value": 0.0
+          },
+          {
+            "left": "A",
+            "right": "C",
+            "left_only": 25,
+            "right_only": 4,
+            "p_value": 0.0001
+          },
+          {
+            "left": "C",
+            "right": "D",
+            "left_only": 16,
+            "right_only": 17,
+            "p_value": 1.0
+          },
+          {
+            "left": "E",
+            "right": "C",
+            "left_only": 13,
+            "right_only": 12,
+            "p_value": 1.0
+          },
+          {
+            "left": "E",
+            "right": "D",
+            "left_only": 15,
+            "right_only": 15,
+            "p_value": 1.0
+          }
+        ],
+        "first_run_before_parser_amendment": {
+          "C": 0.7,
+          "D": 0.7,
+          "E": 0.717
+        }
+      },
+      "budget": {
+        "view_ratio": 0.1,
+        "median_view_tokens": 2680,
+        "d_budget_tokens": 3418,
+        "zoom_fanout": 16,
+        "max_agent_steps": 8,
+        "max_operations": 12,
+        "search_top_k": 5
+      },
+      "conclusion": "The tree view alone loses most long-range facts (33% vs 89% full context, temporal 15%). Zoom recovers about 70% of that gap but mostly by opening finer summaries (verbatim evidence reached on 13% of questions), and it ties BM25 at the same context budget (72% vs 73%) for about twice the input tokens and latency.",
+      "limitation": "Single run, one model family, 140 questions; differences under about 10 points are not significant. LoCoMo conversations are 15k-30k tokens, so the 10:1 ratio emulates but does not reproduce a multi-million-token memory. Summaries were written by a strong model; tree construction cost is not included in per-question cost.",
+      "evidence_files": [
+        "results/locomo-tree-zoom-20261006.json",
+        "results/locomo-tree-zoom-20261006-v1.json"
+      ]
     }
   ],
   "systems": [
@@ -2163,7 +2333,7 @@
     {
       "name": "MemGym",
       "status": "multiple-paths-reproduced",
-      "tested": "Tests, \u03c4\u00b2-bench tasks, MemGym-DR retrieval and MemRM",
+      "tested": "Tests, τ²-bench tasks, MemGym-DR retrieval and MemRM",
       "headline": "Useful harness for separating memory and environment, with proxy and hardware caveats."
     },
     {

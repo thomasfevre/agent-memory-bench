@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "generated_at": "2026-07-30",
-  "artifact_count": 135,
-  "total_bytes": 137633471,
+  "artifact_count": 137,
+  "total_bytes": 144906750,
   "artifacts": [
     {
       "path": "results/COGNEE-COMMON-8DOCS-20260729.json",
@@ -948,6 +948,20 @@
       "sha256": "c89a1d604b3e2920fba65228f36b603842834394afb1c040f2ced92939955564",
       "published": true,
       "published_path": "results/published/raw/TOPOLOGY-latest.json"
+    },
+    {
+      "path": "results/locomo-tree-zoom-20261006.json",
+      "bytes": 3623189,
+      "sha256": "9c63f3284cfdddef40fd5c9721457a63e6832cac38c0187144e1a7ff7b265a07",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/locomo-tree-zoom-20261006-v1.json",
+      "bytes": 3650090,
+      "sha256": "421222095503f208960bbe99851302e4d1f3d3cacb877ebd251c9318d1c4be18",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
     }
   ]
 }
