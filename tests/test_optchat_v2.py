@@ -122,6 +122,8 @@ class OptChatV2Test(unittest.TestCase):
         self.assertEqual(parse_action(native)["lines"], [(16, 4)])
         self.assertEqual(parse_action('{"action": "date", "ids": [3, "5"]}')["ids"], [3, 5])
         self.assertEqual(parse_action('{"answer": "x"}')["action"], "answer")
+        mixed = '<invoke name="zoom">\n</invoke>\n\n{"action": "zoom", "lines": ["272+1"]}'
+        self.assertEqual(parse_action(mixed)["lines"], [(272, 1)])
 
     def test_check_quote(self) -> None:
         read = {3: "user: I graduated in Business Administration."}

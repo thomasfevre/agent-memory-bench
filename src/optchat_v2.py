@@ -815,32 +815,7 @@ PARAMETER = re.compile(r'<parameter name="(\w+)">(.*?)</parameter>', re.S)
 LINE_ID = re.compile(r"(\d+)\s*\+\s*(\d+)")
 
 
-def parse_action(text: str) -> dict[str, Any]:
-    """One agent action, as JSON or as native <invoke> markup."""
-    json_action = None
-    decoder = json.JSONDecoder()
-    for match in re.finditer(r"\{", text):
-        try:
-            value, _ = decoder.raw_decode(text, match.start())
-        except json.JSONDecodeError:
-            continue
-        if isinstance(value, dict) and ("action" in value or "answer" in value):
-            json_action = (match.start(), value)
-            break
-    invoke = INVOKE.search(text)
-    if invoke and (json_action is None or invoke.start() < json_action[0]):
-        action: dict[str, Any] = {"action": invoke.group(1)}
-        for name, raw in PARAMETER.findall(invoke.group(2)):
-            raw = raw.strip()
-            try:
-                action[name] = json.loads(raw)
-            except json.JSONDecodeError:
-                action[name] = raw
-    elif json_action:
-        action = dict(json_action[1])
-        action.setdefault("action", "answer")
-    else:
-        return {}
+def _normalize_action(action: dict[str, Any]) -> dict[str, Any]:
     if action["action"] == "zoom":
         lines = action.get("lines", [])
         if isinstance(lines, str):
@@ -862,6 +837,49 @@ def parse_action(text: str) -> dict[str, Any]:
             ids = [ids]
         action["ids"] = [int(i) for i in re.findall(r"\d+", json.dumps(ids))]
     return action
+
+
+def _usable(action: dict[str, Any]) -> bool:
+    kind = action.get("action")
+    if kind == "zoom":
+        return bool(action["lines"])
+    if kind == "date":
+        return bool(action["ids"])
+    if kind == "search":
+        return bool(str(action.get("query", "")).strip())
+    return kind == "answer" and bool(str(action.get("answer", "")).strip())
+
+
+def parse_action(text: str) -> dict[str, Any]:
+    """One agent action, as JSON or as native <invoke> markup. The first
+    usable action wins; an empty one (e.g. a bare <invoke name="zoom">
+    followed by the JSON action) is skipped (amendment 1)."""
+    candidates: list[tuple[int, dict[str, Any]]] = []
+    decoder = json.JSONDecoder()
+    for match in re.finditer(r"\{", text):
+        try:
+            value, _ = decoder.raw_decode(text, match.start())
+        except json.JSONDecodeError:
+            continue
+        if isinstance(value, dict) and ("action" in value or "answer" in value):
+            action = dict(value)
+            action.setdefault("action", "answer")
+            if action["action"] in ("zoom", "date", "search", "answer"):
+                candidates.append((match.start(), action))
+    for invoke in INVOKE.finditer(text):
+        action = {"action": invoke.group(1)}
+        for name, raw in PARAMETER.findall(invoke.group(2)):
+            raw = raw.strip()
+            try:
+                action[name] = json.loads(raw)
+            except json.JSONDecodeError:
+                action[name] = raw
+        candidates.append((invoke.start(), action))
+    candidates = [(position, _normalize_action(a)) for position, a in sorted(candidates, key=lambda c: c[0])]
+    for _, action in candidates:
+        if _usable(action):
+            return action
+    return candidates[0][1] if candidates else {}
 
 
 def normalize(text: str) -> str:

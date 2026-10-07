@@ -157,4 +157,17 @@ Any rejected hypothesis is reported as such.
 
 ## Amendments
 
-(none yet)
+1. (After the smoke test, before the main run.) The action parser takes the
+   first *usable* action: a bare `<invoke name="zoom">` with no parameters
+   followed by the JSON action no longer counts as an empty zoom. Prompts,
+   caps and scoring are unchanged.
+
+## Status (2026-10-07)
+
+Paused by the owner before the main run. Smoke test (1 LongMemEval-S
+question, all strategies) ran end to end: tree 473 messages, 44 compactor
+calls (19 size retries), 1.24M input tokens, about 7 USD at list API prices;
+about 1.6M input tokens per LongMemEval question with the readers. Projected
+full targeted run: about 195M input tokens (about 950 USD at list prices),
+twice the handoff estimate. Options left open: run as is, LongMemEval 60
+questions, or TRIES = 2.
