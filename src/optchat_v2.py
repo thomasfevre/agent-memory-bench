@@ -18,6 +18,7 @@ import argparse
 import hashlib
 import json
 import math
+import os
 import random
 import re
 import statistics
@@ -359,6 +360,28 @@ def zoom(tree: Tree, start: int, count: int) -> str:
 # Model calls
 
 
+QUOTA_STOP = 0.985
+STOP_FILE = Path("logs/STOPPED")
+
+
+def stop_run(reason: str) -> None:
+    """Never run on extra usage or credits: stop the whole process at once."""
+    STOP_FILE.parent.mkdir(parents=True, exist_ok=True)
+    STOP_FILE.write_text(f"{datetime.now(timezone.utc).isoformat()} {reason}\n")
+    print(f"STOP: {reason}", file=sys.stderr, flush=True)
+    os._exit(3)
+
+
+def check_quota(info: dict[str, Any]) -> None:
+    if info.get("isUsingOverage"):
+        stop_run("overage in use")
+    if info.get("status") not in (None, "allowed", "allowed_warning"):
+        stop_run(f"rate limit status {info.get('status')}")
+    for name, window in (info.get("unifiedWindows") or {}).items():
+        if (window.get("utilization") or 0) >= QUOTA_STOP:
+            stop_run(f"{name} utilization {window.get('utilization')}")
+
+
 class Cli:
     """Claude Code CLI calls with an on-disk cache keyed by content hash.
 
@@ -402,7 +425,8 @@ class Cli:
                         "--tools", "",
                         "--strict-mcp-config",
                         "--setting-sources", "",
-                        "--output-format", "json",
+                        "--output-format", "stream-json",
+                        "--verbose",
                     ],
                     input=prompt,
                     capture_output=True,
@@ -410,18 +434,26 @@ class Cli:
                     cwd=self.workdir,
                     timeout=timeout,
                 )
-                try:
-                    payload = json.loads(completed.stdout)
-                except json.JSONDecodeError:
+                payload = None
+                for raw_line in completed.stdout.splitlines():
+                    try:
+                        event = json.loads(raw_line)
+                    except json.JSONDecodeError:
+                        continue
+                    if event.get("type") == "rate_limit_event":
+                        check_quota(event.get("rate_limit_info", {}))
+                    elif event.get("type") == "result":
+                        payload = event
+                if payload is None:
                     raise RuntimeError((completed.stdout + completed.stderr)[-400:])
+                if payload.get("usage", {}).get("fallback_credit"):
+                    stop_run("call billed to fallback credit")
                 if payload.get("is_error") or completed.returncode != 0:
                     raise RuntimeError(str(payload.get("result"))[:400])
             except (subprocess.TimeoutExpired, RuntimeError) as error:
                 message = str(error)
-                if re.search(r"usage limit|limit reached|rate limit|resets? at|quota", message, re.I):
-                    print(f"usage limit, waiting 10 min: {message[:200]}", file=sys.stderr)
-                    time.sleep(600)
-                    continue
+                if re.search(r"usage limit|limit reached|rate limit|resets? at|quota|overage|credit", message, re.I):
+                    stop_run(f"usage limit: {message[:200]}")
                 failures += 1
                 print(f"claude call failed ({failures}): {message[:300]}", file=sys.stderr)
                 if failures >= 40:

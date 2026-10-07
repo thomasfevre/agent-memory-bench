@@ -161,6 +161,10 @@ Any rejected hypothesis is reported as such.
    first *usable* action: a bare `<invoke name="zoom">` with no parameters
    followed by the JSON action no longer counts as an empty zoom. Prompts,
    caps and scoring are unchanged.
+2. (Operational, 2026-10-07.) The run stops at once, instead of waiting,
+   on any usage-limit error, on overage or fallback credit, or when any
+   rate-limit window reaches 98.5% utilization. LoCoMo runs first (cheap
+   trees), then the full run. Methodology unchanged.
 
 ## Status (2026-10-07)
 
