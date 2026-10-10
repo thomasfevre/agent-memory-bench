@@ -1247,6 +1247,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--limit", type=int, help="smoke test: first N questions per dataset")
     parser.add_argument("--strategies", nargs="*", default=list(STRATEGIES))
     parser.add_argument("--trees-only", action="store_true")
+    parser.add_argument("--model", default=MODEL, help="compactor, reader and first judge")
     return parser.parse_args()
 
 
@@ -1284,12 +1285,12 @@ def main() -> None:
             if memory.key in needed:
                 memories[memory.key] = memory
 
-    cli = Cli(args.cache_dir)
+    cli = Cli(args.cache_dir, model=args.model)
     pool = ThreadPoolExecutor(max_workers=args.workers)
     started = time.perf_counter()
     trees = {key: Tree(memory) for key, memory in memories.items()}
     budgets = {key: int(memory.total_bytes() * VIEW_RATIO) for key, memory in memories.items()}
-    tree_dir = args.output.parent / "optchat-v2-trees"
+    tree_dir = args.output.parent / "optchat-v2-trees" / args.model
     tree_dir.mkdir(parents=True, exist_ok=True)
     build_stats: dict[str, Any] = {}
     done = {"trees": 0}
@@ -1381,7 +1382,7 @@ def main() -> None:
         "protocol": "docs/optchat-v2-protocol.md",
         "datasets": hashes,
         "config": {
-            "model": MODEL, "node_bytes": NODE, "tries": TRIES, "view_ratio": VIEW_RATIO,
+            "model": args.model, "node_bytes": NODE, "tries": TRIES, "view_ratio": VIEW_RATIO,
             "window": WINDOW, "batch": BATCH, "max_steps": MAX_STEPS,
             "max_ops_per_step": MAX_OPS_PER_STEP, "max_ops": MAX_OPS,
             "search_top_k": SEARCH_TOP_K, "d_budget_bytes": d_budgets, "seed": SEED,

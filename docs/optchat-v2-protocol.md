@@ -165,6 +165,14 @@ Any rejected hypothesis is reported as such.
    on any usage-limit error, on overage or fallback credit, or when any
    rate-limit window reaches 98.5% utilization. LoCoMo runs first (cheap
    trees), then the full run. Methodology unchanged.
+3. (2026-10-10, owner's request, before any answer was scored.) The
+   compactor, the reader and the first judge run on `claude-haiku-5-5`
+   instead of `claude-sonnet-5-5`, to fit the subscription quota. The
+   second judge stays `claude-opus-5-5` on 200 answers, which checks the
+   Haiku judge. Trees are rebuilt with Haiku (one model for the whole
+   memory). The partial Sonnet run of 2026-10-07 (LoCoMo trees and about
+   60 answers, stopped by the quota guard) is not reported. Everything
+   else is unchanged.
 
 ## Status (2026-10-07)
 
