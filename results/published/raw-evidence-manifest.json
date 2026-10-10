@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "generated_at": "2026-07-30",
-  "artifact_count": 137,
-  "total_bytes": 144906750,
+  "artifact_count": 138,
+  "total_bytes": 150595736,
   "artifacts": [
     {
       "path": "results/COGNEE-COMMON-8DOCS-20260729.json",
@@ -960,6 +960,13 @@
       "path": "results/locomo-tree-zoom-20261006-v1.json",
       "bytes": 3650090,
       "sha256": "421222095503f208960bbe99851302e4d1f3d3cacb877ebd251c9318d1c4be18",
+      "published": false,
+      "reason": "raw dataset or provider output requires a separate license and privacy review"
+    },
+    {
+      "path": "results/optchat-v2-haiku-locomo.json",
+      "bytes": 5688986,
+      "sha256": "fccd1b9b6bdc339c1ba7bd4cbc9f57f682153fbef271ebe6430a6ec30b6b8e14",
       "published": false,
       "reason": "raw dataset or provider output requires a separate license and privacy review"
     }

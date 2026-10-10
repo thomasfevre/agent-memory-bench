@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-06",
+  "updated_at": "2026-10-10",
   "campaign": {
     "title": "Agent Memory Bench",
     "repository": "https://github.com/thomasfevre/agent-memory-bench",
@@ -2296,6 +2296,298 @@
       "evidence_files": [
         "results/locomo-tree-zoom-20261006.json",
         "results/locomo-tree-zoom-20261006-v1.json"
+      ]
+    },
+    {
+      "id": "optchat-v2-haiku-locomo-20261010",
+      "date": "2026-10-10",
+      "phase": "agentic",
+      "dataset": "LoCoMo",
+      "task": "Answer long-range questions from a faithful OptChat memory (spec gist) with and without zoom, forced verification and search",
+      "method": "OptChat spec: binary tree of <=512-byte lines built by a context-aware compactor (batched), byte-budgeted incremental view, binary zoom(id, n) and date(id); vs full context, BM25 at equal budget and a search-only agent",
+      "reader": "claude-haiku-5-5 (compactor, reader and first judge); second judge claude-opus-5-5 on 200 answers",
+      "evidence_level": "official-data",
+      "sample": "276 long-range answerable questions (84 multi-hop, 96 temporal, 96 single-hop; evidence in the first half of sessions) and 24 adversarial questions from 10 conversations",
+      "repetitions": 1,
+      "budget": {
+        "view_ratio": 0.1,
+        "node_bytes": 512,
+        "d_budget_bytes": 11334,
+        "max_agent_steps": 10,
+        "max_ops_per_step": 4,
+        "max_operations": 30,
+        "search_top_k": 5
+      },
+      "metrics": {
+        "series": [
+          {
+            "strategy": "A",
+            "method": "Full conversation",
+            "answerable_accuracy": 0.7246,
+            "ci95": [
+              0.6703,
+              0.779
+            ],
+            "by_category": {
+              "multi-hop": 0.631,
+              "single-hop": 0.8542,
+              "temporal": 0.6771
+            },
+            "adversarial_abstention": 0.7917,
+            "evidence_read_in_full": 1.0,
+            "verified_rate": null,
+            "median_context_bytes": 108571.0,
+            "median_input_tokens": 41957.0,
+            "median_operations": 0.0,
+            "median_steps": 1.0,
+            "median_wall_seconds": 6.02,
+            "total_list_cost_usd": 3.59
+          },
+          {
+            "strategy": "B",
+            "method": "OptChat view only",
+            "answerable_accuracy": 0.1087,
+            "ci95": [
+              0.0725,
+              0.1486
+            ],
+            "by_category": {
+              "multi-hop": 0.2024,
+              "single-hop": 0.1354,
+              "temporal": 0.0
+            },
+            "adversarial_abstention": 0.9167,
+            "evidence_read_in_full": 0.0,
+            "verified_rate": null,
+            "median_context_bytes": 9473.0,
+            "median_input_tokens": 5426.0,
+            "median_operations": 0.0,
+            "median_steps": 1.0,
+            "median_wall_seconds": 6.02,
+            "total_list_cost_usd": 0.45
+          },
+          {
+            "strategy": "C",
+            "method": "OptChat view + zoom",
+            "answerable_accuracy": 0.3406,
+            "ci95": [
+              0.2862,
+              0.3986
+            ],
+            "by_category": {
+              "multi-hop": 0.2857,
+              "single-hop": 0.375,
+              "temporal": 0.3542
+            },
+            "adversarial_abstention": 1.0,
+            "evidence_read_in_full": 0.0072,
+            "verified_rate": null,
+            "median_context_bytes": 11334.5,
+            "median_input_tokens": 16699.5,
+            "median_operations": 3.0,
+            "median_steps": 3.0,
+            "median_wall_seconds": 19.56,
+            "total_list_cost_usd": 1.91
+          },
+          {
+            "strategy": "CV",
+            "method": "View + zoom, forced verbatim quote",
+            "answerable_accuracy": 0.3841,
+            "ci95": [
+              0.3261,
+              0.442
+            ],
+            "by_category": {
+              "multi-hop": 0.2738,
+              "single-hop": 0.4583,
+              "temporal": 0.4062
+            },
+            "adversarial_abstention": 0.7917,
+            "evidence_read_in_full": 0.4493,
+            "verified_rate": 0.9667,
+            "median_context_bytes": 15071.5,
+            "median_input_tokens": 41748.0,
+            "median_operations": 8.0,
+            "median_steps": 6.0,
+            "median_wall_seconds": 45.56,
+            "total_list_cost_usd": 4.03
+          },
+          {
+            "strategy": "D",
+            "method": "BM25 4-message windows at C median budget",
+            "answerable_accuracy": 0.587,
+            "ci95": [
+              0.529,
+              0.6449
+            ],
+            "by_category": {
+              "multi-hop": 0.369,
+              "single-hop": 0.8229,
+              "temporal": 0.5417
+            },
+            "adversarial_abstention": 0.8333,
+            "evidence_read_in_full": 0.8406,
+            "verified_rate": null,
+            "median_context_bytes": 11285.0,
+            "median_input_tokens": 5595.0,
+            "median_operations": 0.0,
+            "median_steps": 1.0,
+            "median_wall_seconds": 9.26,
+            "total_list_cost_usd": 0.53
+          },
+          {
+            "strategy": "E",
+            "method": "View + zoom + BM25 search",
+            "answerable_accuracy": 0.5399,
+            "ci95": [
+              0.4819,
+              0.5978
+            ],
+            "by_category": {
+              "multi-hop": 0.3214,
+              "single-hop": 0.6875,
+              "temporal": 0.5833
+            },
+            "adversarial_abstention": 0.875,
+            "evidence_read_in_full": 0.6014,
+            "verified_rate": null,
+            "median_context_bytes": 10595.0,
+            "median_input_tokens": 12002.0,
+            "median_operations": 1.0,
+            "median_steps": 2.0,
+            "median_wall_seconds": 13.17,
+            "total_list_cost_usd": 1.24
+          },
+          {
+            "strategy": "F",
+            "method": "BM25 search agent, no tree",
+            "answerable_accuracy": 0.5072,
+            "ci95": [
+              0.4493,
+              0.5652
+            ],
+            "by_category": {
+              "multi-hop": 0.2976,
+              "single-hop": 0.6354,
+              "temporal": 0.5625
+            },
+            "adversarial_abstention": 0.625,
+            "evidence_read_in_full": 0.7391,
+            "verified_rate": null,
+            "median_context_bytes": 1388.5,
+            "median_input_tokens": 3754.5,
+            "median_operations": 1.0,
+            "median_steps": 2.0,
+            "median_wall_seconds": 13.66,
+            "total_list_cost_usd": 0.67
+          }
+        ],
+        "primary_mcnemar_holm_within_locomo": [
+          {
+            "left": "CV",
+            "right": "C",
+            "difference": 0.0435,
+            "ci95": [
+              -0.0072,
+              0.0942
+            ],
+            "left_only": 31,
+            "right_only": 19,
+            "p_value": 0.11892,
+            "p_holm": 0.23784
+          },
+          {
+            "left": "E",
+            "right": "F",
+            "difference": 0.0326,
+            "ci95": [
+              -0.0217,
+              0.087
+            ],
+            "left_only": 33,
+            "right_only": 24,
+            "p_value": 0.28924,
+            "p_holm": 0.28924
+          },
+          {
+            "left": "C",
+            "right": "D",
+            "difference": -0.2464,
+            "ci95": [
+              -0.3152,
+              -0.1775
+            ],
+            "left_only": 21,
+            "right_only": 89,
+            "p_value": 0.0,
+            "p_holm": 0.0
+          },
+          {
+            "left": "C",
+            "right": "A",
+            "difference": -0.3841,
+            "ci95": [
+              -0.4493,
+              -0.3188
+            ],
+            "left_only": 11,
+            "right_only": 117,
+            "p_value": 0.0,
+            "p_holm": 0.0
+          }
+        ],
+        "secondary_mcnemar": [
+          {
+            "left": "B",
+            "right": "A",
+            "difference": -0.6159,
+            "ci95": [
+              -0.6775,
+              -0.5543
+            ],
+            "left_only": 4,
+            "right_only": 174,
+            "p_value": 0.0
+          },
+          {
+            "left": "E",
+            "right": "C",
+            "difference": 0.1993,
+            "ci95": [
+              0.1341,
+              0.2645
+            ],
+            "left_only": 75,
+            "right_only": 20,
+            "p_value": 0.0
+          },
+          {
+            "left": "F",
+            "right": "D",
+            "difference": -0.0797,
+            "ci95": [
+              -0.1377,
+              -0.0181
+            ],
+            "left_only": 26,
+            "right_only": 48,
+            "p_value": 0.01408
+          }
+        ],
+        "second_judge": {
+          "model": "claude-opus-5-5",
+          "answers": 200,
+          "agreement": 0.905,
+          "cohen_kappa": 0.811
+        },
+        "model_calls": 7557,
+        "input_tokens": 48903278,
+        "list_cost_usd": 18.64
+      },
+      "conclusion": "With a small model, a spec-faithful OptChat memory loses clearly to BM25 at the same budget (34% vs 59%, p<0.0001) and to full context (72%). The agent rarely zooms down to messages (evidence read in full on 0.7% of questions; a message is 5-7 zooms from the view) and abstains on 85 answerable questions. Forcing a verbatim quote raises full reads to 45% but accuracy only +4 points (n.s.); adding search to the tree (54%) does not beat a search-only agent (51%, n.s.).",
+      "limitation": "LoCoMo only (LongMemEval-S run stopped by the owner during tree construction, no answers); one small model for compactor, reader and judge, so the result does not transfer to Sonnet or Opus (v1 with Sonnet: tree + zoom tied BM25); single run; batched compactor calls deviate from the spec; Holm correction computed over the 4 LoCoMo tests only, not the 8 pre-registered.",
+      "evidence_files": [
+        "results/optchat-v2-haiku-locomo.json"
       ]
     }
   ],
