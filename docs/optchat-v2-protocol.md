@@ -173,6 +173,9 @@ Any rejected hypothesis is reported as such.
    memory). The partial Sonnet run of 2026-10-07 (LoCoMo trees and about
    60 answers, stopped by the quota guard) is not reported. Everything
    else is unchanged.
+4. (Operational, 2026-10-10.) Reaching 98.5% of the five-hour window now
+   pauses the run until that window resets instead of stopping it; the
+   seven-day window, overage or credit still stop it.
 
 ## Status (2026-10-07)
 

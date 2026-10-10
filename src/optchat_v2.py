@@ -362,6 +362,7 @@ def zoom(tree: Tree, start: int, count: int) -> str:
 
 QUOTA_STOP = 0.985
 STOP_FILE = Path("logs/STOPPED")
+QUOTA_PAUSE = threading.Lock()
 
 
 def stop_run(reason: str) -> None:
@@ -378,8 +379,17 @@ def check_quota(info: dict[str, Any]) -> None:
     if info.get("status") not in (None, "allowed", "allowed_warning"):
         stop_run(f"rate limit status {info.get('status')}")
     for name, window in (info.get("unifiedWindows") or {}).items():
-        if (window.get("utilization") or 0) >= QUOTA_STOP:
+        if (window.get("utilization") or 0) < QUOTA_STOP:
+            continue
+        if name != "five_hour":
             stop_run(f"{name} utilization {window.get('utilization')}")
+        # The five-hour window resets soon: pause every thread until then
+        # instead of stopping (no call is made past the limit).
+        with QUOTA_PAUSE:
+            wait = (window.get("resetsAt") or 0) + 60 - time.time()
+            if wait > 0:
+                print(f"five_hour utilization {window.get('utilization')}, pausing {wait:.0f}s", file=sys.stderr, flush=True)
+                time.sleep(wait)
 
 
 class Cli:
@@ -415,6 +425,8 @@ class Cli:
         delay = 15.0
         failures = 0
         while True:
+            with QUOTA_PAUSE:
+                pass
             started = time.perf_counter()
             try:
                 completed = subprocess.run(
