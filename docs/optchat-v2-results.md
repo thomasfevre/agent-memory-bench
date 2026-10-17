@@ -93,6 +93,34 @@ The whole LoCoMo run used 7,557 CLI calls and 48.9M input tokens, about
   spec).
 - The Holm correction covers 4 tests instead of the 8 pre-registered.
 
+## Follow-up: Sonnet reader on the same Haiku trees (2026-10-17)
+
+Exploratory cost step, not a powered result (amendment 5). The compactor
+and the first judge stay `claude-haiku-5-5`, and the trees are the same
+files. Only the reader changes, to `claude-sonnet-5-5`. The sample is 40
+questions drawn round-robin across categories with `--stratified-limit`:
+30 answerable and 10 adversarial. There is no second judge. Raw file:
+`results/optchat-v2-reader-swap.json` (local). The run used 460 calls,
+3.0M input tokens and about 10 USD at list prices.
+
+Same 30 answerable questions, paired:
+
+| Strategy | Haiku reader | Sonnet reader | Sonnet only / Haiku only | Exact McNemar p |
+|---|---|---|---|---|
+| C View + zoom | 9/30 | 14/30 | 8 / 3 | 0.23 |
+| C-verify | 8/30 | 16/30 | 8 / 0 | 0.008 |
+| Reference: D BM25 (Haiku reader) | 17/30 | | | |
+| Reference: A full context (Haiku reader) | 20/30 | | | |
+
+- With Sonnet, C-verify read an evidence message in full on 60% of
+  questions (C: 0%). 95% of its answers carried a valid quote.
+- Sonnet abstained on 1 answerable question, against 9 for Haiku C on the
+  same 30 questions.
+- Sonnet C-verify vs Sonnet C: 4 vs 2 discordant questions, p = 0.69.
+- Reading: on identical trees, the reader drives most of the gap. A strong
+  reader that is made to verify brings tree + zoom close to BM25 (16 vs
+  17), as in v1. Only the C-verify reader effect is significant on n = 30.
+
 ## Implication
 
 With a small model, a spec-faithful OptChat memory is clearly worse than

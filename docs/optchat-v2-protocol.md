@@ -176,6 +176,13 @@ Any rejected hypothesis is reported as such.
 4. (Operational, 2026-10-10.) Reaching 98.5% of the five-hour window now
    pauses the run until that window resets instead of stopping it; the
    seven-day window, overage or credit still stop it.
+5. (2026-10-17, exploratory, after the Haiku LoCoMo results.) Reader swap:
+   the per-role models patch sets compactor `claude-haiku-5-5`, reader
+   `claude-sonnet-5-5` and first judge `claude-haiku-5-5`. The run reuses
+   the Haiku LoCoMo trees and covers strategies C and C-verify on 40
+   questions drawn round-robin across categories (`--stratified-limit`),
+   with no second judge. It is a cost step, reported separately and not
+   part of the pre-registered comparisons. The quota stop is lowered to 97%.
 
 ## Status (2026-10-07)
 
