@@ -360,7 +360,7 @@ def zoom(tree: Tree, start: int, count: int) -> str:
 # Model calls
 
 
-QUOTA_STOP = 0.985
+QUOTA_STOP = 0.97
 STOP_FILE = Path("logs/STOPPED")
 QUOTA_PAUSE = threading.Lock()
 
@@ -1260,7 +1260,16 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--strategies", nargs="*", default=list(STRATEGIES))
     parser.add_argument("--trees-only", action="store_true")
     parser.add_argument("--model", default=MODEL, help="compactor, reader and first judge")
-    return parser.parse_args()
+    parser.add_argument("--second-judge-sample", type=int, default=SECOND_JUDGE_SAMPLE)
+    parser.add_argument("--stratified-limit", action="store_true", help="--limit takes questions round-robin across categories")
+    parser.add_argument("--compactor-model", default=None, help="defaults to --model")
+    parser.add_argument("--reader-model", default=None, help="defaults to --model")
+    parser.add_argument("--judge-model", default=None, help="first judge; defaults to --model")
+    args = parser.parse_args()
+    args.compactor_model = args.compactor_model or args.model
+    args.reader_model = args.reader_model or args.model
+    args.judge_model = args.judge_model or args.model
+    return args
 
 
 def sha256(path: Path) -> str:
@@ -1287,7 +1296,13 @@ def main() -> None:
     if "locomo" in args.datasets:
         locomo = json.loads(args.locomo.read_bytes())
         sampled = sample_locomo(locomo)
-        if args.limit:
+        if args.limit and args.stratified_limit:
+            groups: dict[str, list[dict[str, Any]]] = {}
+            for item in sampled:
+                groups.setdefault(item["category"], []).append(item)
+            mixed = [g[i] for i in range(max(map(len, groups.values()))) for g in groups.values() if i < len(g)]
+            sampled = mixed[: args.limit]
+        elif args.limit:
             sampled = sampled[: args.limit]
         hashes["locomo"] = sha256(args.locomo)
         rows.extend(sampled)
@@ -1297,7 +1312,11 @@ def main() -> None:
             if memory.key in needed:
                 memories[memory.key] = memory
 
-    cli = Cli(args.cache_dir, model=args.model)
+    compactor_cli = Cli(args.cache_dir, model=args.compactor_model)
+    reader_cli = Cli(args.cache_dir, model=args.reader_model)
+    cli = reader_cli  # counters and progress lines report reader calls
+    def total_calls() -> int:
+        return compactor_cli.calls + reader_cli.calls
     pool = ThreadPoolExecutor(max_workers=args.workers)
     started = time.perf_counter()
     trees = {key: Tree(memory) for key, memory in memories.items()}
@@ -1314,11 +1333,11 @@ def main() -> None:
             trees[key].load_json(saved["nodes"])
             build_stats[key] = saved["stats"]
         else:
-            build_stats[key] = build_tree(cli, trees[key], budgets[key])
+            build_stats[key] = build_tree(compactor_cli, trees[key], budgets[key])
             path.write_text(json.dumps({"nodes": trees[key].to_json(), "stats": build_stats[key]}))
         done["trees"] += 1
         print(
-            f"tree {done['trees']}/{len(trees)} {key} ({cli.calls} calls, "
+            f"tree {done['trees']}/{len(trees)} {key} ({total_calls()} calls, "
             f"{time.perf_counter() - started:.0f}s)",
             file=sys.stderr,
             flush=True,
@@ -1351,14 +1370,14 @@ def main() -> None:
             result = direct_answer(cli, row, "D", context)
             result["read_in_full"] = ids
             result["budget_bytes"] = row["d_budget"]
-        result["correct"] = judge(cli, row, result["answer"])
+        result["correct"] = judge(cli, row, result["answer"], model=args.judge_model)
         row["results"][strategy] = result
 
     first = [s for s in strategies if s != "D"]
     jobs = [(row, s) for row in rows for s in first]
     for count, _ in enumerate(pool.map(lambda job: run(*job), jobs), 1):
         if count % 50 == 0:
-            print(f"{count}/{len(jobs)} answers ({cli.calls} calls, {time.perf_counter() - started:.0f}s)", file=sys.stderr, flush=True)
+            print(f"{count}/{len(jobs)} answers ({total_calls()} calls, {time.perf_counter() - started:.0f}s)", file=sys.stderr, flush=True)
     d_budgets = {}
     if "D" in strategies:
         for dataset in {r["dataset"] for r in rows}:
@@ -1372,7 +1391,7 @@ def main() -> None:
     # Second judge on a fixed random sample of answers.
     rng = random.Random(SEED)
     pairs = [(i, s) for i in range(len(rows)) for s in strategies]
-    sample = rng.sample(pairs, min(SECOND_JUDGE_SAMPLE, len(pairs)))
+    sample = rng.sample(pairs, min(args.second_judge_sample, len(pairs)))
     second = list(pool.map(
         lambda pair: judge(cli, rows[pair[0]], rows[pair[0]]["results"][pair[1]]["answer"], model=SECOND_JUDGE_MODEL),
         sample,
@@ -1394,7 +1413,9 @@ def main() -> None:
         "protocol": "docs/optchat-v2-protocol.md",
         "datasets": hashes,
         "config": {
-            "model": args.model, "node_bytes": NODE, "tries": TRIES, "view_ratio": VIEW_RATIO,
+            "model": args.model, "compactor_model": args.compactor_model,
+            "reader_model": args.reader_model, "judge_model": args.judge_model,
+            "node_bytes": NODE, "tries": TRIES, "view_ratio": VIEW_RATIO,
             "window": WINDOW, "batch": BATCH, "max_steps": MAX_STEPS,
             "max_ops_per_step": MAX_OPS_PER_STEP, "max_ops": MAX_OPS,
             "search_top_k": SEARCH_TOP_K, "d_budget_bytes": d_budgets, "seed": SEED,
@@ -1414,11 +1435,15 @@ def main() -> None:
         },
         "summary": summarize(rows, strategies),
         "second_judge": agreement,
-        "model_calls": cli.calls,
-        "cached_calls": cli.cached,
-        "input_tokens": cli.input_tokens,
-        "output_tokens": cli.output_tokens,
-        "list_cost_usd": round(cli.list_cost_usd, 2),
+        "model_calls": total_calls(),
+        "cached_calls": compactor_cli.cached + reader_cli.cached,
+        "input_tokens": compactor_cli.input_tokens + reader_cli.input_tokens,
+        "output_tokens": compactor_cli.output_tokens + reader_cli.output_tokens,
+        "list_cost_usd": round(compactor_cli.list_cost_usd + reader_cli.list_cost_usd, 2),
+        "list_cost_usd_by_role": {
+            "compactor": round(compactor_cli.list_cost_usd, 2),
+            "reader": round(reader_cli.list_cost_usd, 2),
+        },
         "wall_seconds": round(time.perf_counter() - started, 1),
         "rows": rows,
     }
