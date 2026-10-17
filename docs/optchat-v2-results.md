@@ -114,7 +114,7 @@ Same 30 answerable questions, paired:
 
 - With Sonnet, C-verify read an evidence message in full on 60% of
   questions (C: 0%). 95% of its answers carried a valid quote.
-- Sonnet abstained on 1 answerable question, against 9 for Haiku C on the
+- Sonnet abstained on 1 answerable question, against 12 for Haiku C on the
   same 30 questions.
 - Sonnet C-verify vs Sonnet C: 4 vs 2 discordant questions, p = 0.69.
 - Reading: on identical trees, the reader drives most of the gap. A strong
